@@ -21,7 +21,9 @@
         "@typescript-eslint/object-curly-spacing": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
-        "unicorn/no-empty-file": "off"
+        "unicorn/no-empty-file": "off",
+        "unicorn/switch-case-braces": "off",
+        "unicorn/prefer-dom-node-remove": "off"
       }
     }
   ],

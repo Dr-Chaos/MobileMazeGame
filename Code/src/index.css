@@ -1,0 +1,83 @@
+import {
+    AnimatedSprite, Application, Assets, BaseTexture, SCALE_MODES, type Texture,
+  } from 'pixi.js';
+  
+  
+  // Global variables
+  const CAMX = ...; // À définir
+  const CAMY = ...; // À définir
+  const GMAX = ...; // À définir
+  const Grid: number[] = []; // À définir
+  
+  class Tiles {
+      GIDX: number;
+      static BIG = ...; // À définir
+      
+      Paint() {
+          this.eraseAll();
+          this.GIDX = 1;
+          this.switchCostumeTo(Tiles.BIG);
+          this.setY(16 - CAMY);
+          
+          for (let i = 0; i < GMAX; i++) {
+              this.setX(16 - CAMX);
+              for (let j = 0; j < GMAX; j++) {
+                  this.switchCostumeTo(Grid[this.GIDX]);
+                  this.stamp();
+                  this.switchCostumeTo(Tiles.BIG);
+                  this.changeXBy(32);
+                  this.GIDX += 1;
+              }
+              this.changeYBy(32);
+          }
+      }
+  
+      // ... autres méthodes pour Tiles
+  }
+  
+  class Background {
+      whenClicked() {
+          this.setSize(200);
+      }
+  
+      whenReceivePaintBackground() {
+          this.goToX((0 - CAMX) % 32);
+          this.goToY((0 - CAMY) % 32);
+      }
+  
+      // ... autres méthodes pour Background
+  }
+  
+  class Background2 {
+      whenReceiveStoreLoadScene() {
+          this.NewMap();
+      }
+  
+      NewMap() {
+          Grid.splice(0, Grid.length); // équivalent à "delete all of Grid"
+          GMAX = 9;
+          this.AddToGrid(GMAX, 79);
+          
+          for (let i = 0; i < GMAX - 2; i++) {
+              Grid.push(79);
+          }
+          
+          this.AddToGrid(GMAX - 2, 44);
+          Grid.push(79);
+          this.AddToGrid(GMAX, 79);
+      }
+  
+      AddToGrid(count: number, tiles: number) {
+          for (let i = 0; i < count; i++) {
+              Grid.push(tiles);
+          }
+      }
+  
+      // ... autres méthodes pour Background2
+  }
+  
+  // Notez que ce code est une traduction directe des blocs Scratch en TypeScript. 
+  // Cependant, pour une implémentation fonctionnelle, des ajustements supplémentaires 
+  // seraient nécessaires en fonction de l'environnement d'exécution final.
+  
+  
