@@ -1,7 +1,7 @@
 import { Point } from 'pixi.js';
 import '@pixi/math-extras';
 import app from '../pixi/initialize';
-import witchAnimation from './idle';
+import { player, playerContainer } from './player';
 
 // pressed movement key history (by default no movement)
 type KeyHistory = { x: number[]; y: number[] };
@@ -60,6 +60,6 @@ app.ticker.add((delta: number) => {
   }
 
   const speed = 10;
-  witchAnimation.x += direction.x * speed * delta;
-  witchAnimation.y += direction.y * speed * delta;
+  playerContainer.x += direction.x * speed * delta;
+  playerContainer.y += direction.y * speed * delta;
 });

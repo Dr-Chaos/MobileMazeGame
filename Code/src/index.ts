@@ -3,8 +3,7 @@ import app from './pixi/initialize';
 import witchAnimation from './player/idle';
 import './player/move';
 import { isColliding } from './math/collisions';
-
-app.stage.addChild(witchAnimation);
+import { player, playerContainer } from './player/player';
 
 // left wall
 const borderLeft = new Graphics();
@@ -15,21 +14,21 @@ app.stage.addChild(borderLeft);
 // nameA est en colision
 
 // bottom wall
-const borderBottom = new Graphics();
-borderBottom.beginFill('white', 0.5);
-const borderBottomRect = {
+const borderBottom = {
   x: 0,
   y: app.screen.height - 10,
   width: app.screen.width,
   height: 10,
 };
-borderBottom.drawRect(
-  borderBottomRect.x,
-  borderBottomRect.y,
-  borderBottomRect.width,
-  borderBottomRect.height,
+const borderBottomDraw = new Graphics();
+borderBottomDraw.beginFill('white', 0.5);
+borderBottomDraw.drawRect(
+  borderBottom.x,
+  borderBottom.y,
+  borderBottom.width,
+  borderBottom.height,
 );
-app.stage.addChild(borderBottom);
+app.stage.addChild(borderBottomDraw);
 
 const keyCount = new Text('Keys: 0', {
   fill: 'white',
@@ -39,41 +38,41 @@ const keyCount = new Text('Keys: 0', {
 app.stage.addChild(keyCount);
 
 // key
-const key = new Graphics();
-key.beginFill('#c8f542', 0.7);
-const keyPosition = {
+const key = {
   x: app.screen.width / 2,
   y: app.screen.height / 2,
   width: 10,
   height: 10,
   hasBeenTaken: false,
 };
-key.drawRect(
-  keyPosition.x,
-  keyPosition.y,
-  keyPosition.width,
-  keyPosition.height,
+const keyDraw = new Graphics();
+keyDraw.beginFill('#c8f542', 0.7);
+keyDraw.drawRect(
+  key.x,
+  key.y,
+  key.width,
+  key.height,
 );
-app.stage.addChild(key);
+app.stage.addChild(keyDraw);
 
 // chaque frame
 app.ticker.add((delta: number) => {
   // si il y a une collision
   // isIntersect
-  if (isColliding(borderLeft, witchAnimation)) {
+  if (isColliding(borderLeft, player)) {
     console.log('Collision borderLeft');
-    witchAnimation.x += 10 * delta;
+    playerContainer.x += 10 * delta;
   }
 
-  if (isColliding(borderBottomRect, witchAnimation)) {
+  if (isColliding(borderBottom, player)) {
     console.log('Collision borderBottom');
-    witchAnimation.y -= 10 * delta;
+    playerContainer.y -= 10 * delta;
   }
 
-  if (!keyPosition.hasBeenTaken && isColliding(keyPosition, witchAnimation)) {
-    keyPosition.hasBeenTaken = true;
+  if (!key.hasBeenTaken && isColliding(key, player)) {
+    key.hasBeenTaken = true;
     console.log('Collision key');
     keyCount.text = 'Keys: 1';
-    app.stage.removeChild(key);
+    app.stage.removeChild(keyDraw);
   }
 });
