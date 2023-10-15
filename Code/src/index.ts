@@ -5,6 +5,8 @@ import './player/move';
 import { isColliding } from './math/collisions';
 import { player, playerContainer } from './player/player';
 import inventory from './inventory';
+import { keyHud } from './hud';
+import './traps';
 
 // left wall
 const borderLeft = new Graphics();
@@ -31,31 +33,6 @@ borderBottomDraw.drawRect(
 );
 app.stage.addChild(borderBottomDraw);
 
-// life
-const lifeHud = new Text(`Life: ${player.life}`, {
-  fill: 'white',
-  // fontWeight: '700',
-  // strokeThickness: 2,
-});
-app.stage.addChild(lifeHud);
-
-// trap
-const trap = {
-  x: app.screen.width / 2 + 120,
-  y: app.screen.height / 2 - 50,
-  width: 100,
-  height: 100,
-};
-const trapDraw = new Graphics();
-trapDraw.beginFill('#ff8c8c', 0.7);
-trapDraw.drawRect(
-  trap.x,
-  trap.y,
-  trap.width,
-  trap.height,
-);
-app.stage.addChild(trapDraw);
-
 // key
 const key = {
   x: app.screen.width / 2,
@@ -73,16 +50,6 @@ keyDraw.drawRect(
   key.height,
 );
 app.stage.addChild(keyDraw);
-
-const keyHud = new Text(`Keys: ${inventory.keys}`, {
-  fill: 'white',
-  // fontWeight: '700',
-  // strokeThickness: 2,
-});
-keyHud.y = lifeHud.height + 5;
-app.stage.addChild(keyHud);
-
-console.log(keyHud.height);
 
 // chaque frame
 app.ticker.add((delta: number) => {
@@ -104,10 +71,5 @@ app.ticker.add((delta: number) => {
     inventory.keys += 1;
     keyHud.text = `Keys: ${inventory.keys}`;
     app.stage.removeChild(keyDraw);
-  }
-
-  if (isColliding(trap, player)) {
-    player.life -= 1;
-    lifeHud.text = `Life: ${player.life}`;
   }
 });
