@@ -1,54 +1,16 @@
 {
-  "columns": 8,
-  "image": "./torch.png",
-  "imageheight": 16,
-  "imagewidth": 128,
-  "margin": 0,
-  "name": "Torch",
-  "spacing": 0,
-  "tilecount": 8,
-  "tiledversion": "1.10.2",
-  "tileheight": 16,
-  "tiles": [
-    {
-      "animation": [
-        {
-          "duration": 100,
-          "tileid": 0
-        },
-        {
-          "duration": 100,
-          "tileid": 1
-        },
-        {
-          "duration": 100,
-          "tileid": 2
-        },
-        {
-          "duration": 100,
-          "tileid": 3
-        },
-        {
-          "duration": 100,
-          "tileid": 4
-        },
-        {
-          "duration": 100,
-          "tileid": 5
-        },
-        {
-          "duration": 100,
-          "tileid": 6
-        },
-        {
-          "duration": 100,
-          "tileid": 7
-        }
-      ],
-      "id": 0
-    }
-  ],
-  "tilewidth": 16,
-  "type": "tileset",
-  "version": "1.10"
+  "meta": { "image": "torch.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "frames": {
+    "torch1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "torch2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "torch3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+    "torch4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
+    "torch5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
+    "torch6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
+    "torch7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
+    "torch8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
+  },
+  "animations": {
+    "idle": ["torch1.png", "torch2.png", "torch3.png", "torch4.png", "torch5.png", "torch6.png", "torch7.png", "torch8.png"]
+  }
 }

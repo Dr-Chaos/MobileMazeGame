@@ -1,6 +1,6 @@
 import './maps/map1';
-import './atlas-generator';
-import { Graphics, Text } from 'pixi.js';
+// import './atlas-generator';
+import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
 import './player/move';
 import { isColliding } from './math/collisions';
@@ -9,14 +9,13 @@ import inventory from './inventory';
 import { keyHud } from './hud';
 import './traps';
 import keyAnimation from './key';
+import torchAnimation from './torch';
 
 // left wall
 const borderLeft = new Graphics();
 borderLeft.beginFill('white', 0.5);
 borderLeft.drawRect(0, 0, 10, app.screen.height);
 app.stage.addChild(borderLeft);
-// nameA = "borderleft"
-// nameA est en colision
 
 // bottom wall
 const borderBottom = {
@@ -35,11 +34,11 @@ borderBottomDraw.drawRect(
 );
 app.stage.addChild(borderBottomDraw);
 
-console.log(keyAnimation.width);
-
-keyAnimation.x = app.screen.width / 2;
-keyAnimation.y = app.screen.height / 2;
+// key
 app.stage.addChild(keyAnimation);
+
+// torch
+app.stage.addChild(torchAnimation);
 
 // chaque frame
 app.ticker.add((delta: number) => {
