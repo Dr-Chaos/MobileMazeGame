@@ -1,28 +1,112 @@
 {
-    "activeFile": "Dungeon_Tileset.tsx",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "MAP_1.tmx",
     "expandedProjectPaths": [
+        ".",
+        "examples"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
-        "Dungeon_Tileset.tsx": {
+        "Dungeon_Character.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
-        "MAP_5_BOSS.tmx": {
-            "scale": 1.9445312499999998,
+        "Dungeon_Character_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Dungeon_Tileset.tsx": {
+            "scaleInDock": 1.5,
+            "scaleInEditor": 1
+        },
+        "MAP 1.tmx": {
+            "scale": 5.34375,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 96.42426677380476,
-                "y": 96.16713539574127
+                "x": 80,
+                "y": 70.36257309941521
+            }
+        },
+        "MAP 2 ENIGME.tmx": {
+            "scale": 5.34375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 80,
+                "y": 79.90643274853801
+            }
+        },
+        "MAP 3 Combat.tmx": {
+            "scale": 5.34375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 80,
+                "y": 80.09356725146198
+            }
+        },
+        "MAP 4 Esquive.tmx": {
+            "scale": 2.671875,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 80.28070175438597,
+                "y": 159.81286549707602
+            }
+        },
+        "MAP 5 BOSS.tmx": {
+            "scale": 4.453125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 96,
+                "y": 96.1122807017544
+            }
+        },
+        "MAP_1.tmx": {
+            "scale": 2.410625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 79.64739434793881,
+                "y": 79.64739434793883
+            }
+        },
+        "characters.tmx": {
+            "scale": 6.1928125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 80.01211081394763,
+                "y": 40.04642478679921
             }
         }
     },
+    "last.externalTilesetPath": "C:/Program Files/Tiled",
+    "last.imagePath": "C:/Users/Florian/Desktop/2D Pixel Dungeon Asset Pack/character and tileset",
+    "map.height": 12,
+    "map.lastUsedFormat": "tmx",
+    "map.renderOrder": null,
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 12,
     "openFiles": [
-        "Dungeon_Tileset.tsx"
+        "MAP_1.tmx"
     ],
     "project": "Projet_NicoLeonFlo.tiled-project",
     "recentFiles": [
+        "MAP_1.tmx",
         "Dungeon_Tileset.tsx",
-        "MAP_5_BOSS.tmx"
-    ]
+        "MAP 1.tmx",
+        "MAP 2 ENIGME.tmx",
+        "MAP 5 BOSS.tmx",
+        "MAP 4 Esquive.tmx",
+        "MAP 3 Combat.tmx",
+        "Dungeon_Character_2.tsx",
+        "Dungeon_Character.tsx",
+        "characters.tmx"
+    ],
+    "tileset.lastUsedFilter": "Fichiers de jeu de tuiles Tiled (*.tsx *.xml)",
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

@@ -23,12 +23,13 @@ const base = {
   x: 32 * 4,
   y: 48 * 4,
 };
-const scale = 3;
+const scale = 1;
 const player = {
-  x: 100 + 50,
-  y: 100 + 50,
+  x: playerContainer.x,
+  y: playerContainer.y,
   width: base.x / scale,
   height: base.y / scale,
+  life: 5,
 };
 
 export {
@@ -36,16 +37,17 @@ export {
   playerContainer,
 };
 
-// player
+// hitbox
+const playerHitbox = new Graphics();
+playerHitbox.beginFill('#8c9fff', 0.4);
+playerHitbox.drawRect(0, 0, player.width, player.height);
+playerContainer.addChild(playerHitbox);
+
+// animated sprite
 app.stage.addChild(playerContainer);
 playerContainer.addChild(witchAnimation);
 
-const playerHitbox = new Graphics();
-playerHitbox.beginFill('#c8f542', 0.7);
-playerHitbox.drawRect(50, 50, player.width, player.height);
-playerContainer.addChild(playerHitbox);
-
 app.ticker.add((delta: number) => {
-  player.x = playerContainer.x + 50;
-  player.y = playerContainer.y + 50;
+  player.x = playerContainer.x;
+  player.y = playerContainer.y;
 });
