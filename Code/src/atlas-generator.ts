@@ -5,8 +5,8 @@ import { type ISpritesheetData } from 'pixi.js';
 // generate tileset atlas
 const settings = {
   tileset: {
-    width: 31,
-    height: 288,
+    width: 32,
+    height: 384,
   },
   tile: {
     width: 32,
@@ -48,7 +48,7 @@ for (let yi = 0; yi < tilesetVector.y; yi++) {
 
 const tilesetAtlas: ISpritesheetData = {
   meta: {
-    image: 'idle.png',
+    image: 'walk.png',
     size: { w: settings.tileset.width, h: settings.tileset.height },
     scale: '1',
   },

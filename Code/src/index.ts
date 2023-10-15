@@ -1,12 +1,14 @@
+import './maps/map1';
+import './atlas-generator';
 import { Graphics, Text } from 'pixi.js';
 import app from './pixi/initialize';
-import witchAnimation from './player/idle';
 import './player/move';
 import { isColliding } from './math/collisions';
 import { player, playerContainer } from './player/player';
 import inventory from './inventory';
 import { keyHud } from './hud';
 import './traps';
+import keyAnimation from './key';
 
 // left wall
 const borderLeft = new Graphics();
@@ -33,23 +35,11 @@ borderBottomDraw.drawRect(
 );
 app.stage.addChild(borderBottomDraw);
 
-// key
-const key = {
-  x: app.screen.width / 2,
-  y: app.screen.height / 2,
-  width: 10,
-  height: 10,
-  hasBeenTaken: false,
-};
-const keyDraw = new Graphics();
-keyDraw.beginFill('#c8f542', 0.7);
-keyDraw.drawRect(
-  key.x,
-  key.y,
-  key.width,
-  key.height,
-);
-app.stage.addChild(keyDraw);
+console.log(keyAnimation.width);
+
+keyAnimation.x = app.screen.width / 2;
+keyAnimation.y = app.screen.height / 2;
+app.stage.addChild(keyAnimation);
 
 // chaque frame
 app.ticker.add((delta: number) => {
@@ -65,11 +55,11 @@ app.ticker.add((delta: number) => {
     playerContainer.y -= 10 * delta;
   }
 
-  if (!key.hasBeenTaken && isColliding(key, player)) {
-    key.hasBeenTaken = true;
+  if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, player)) {
+    keyAnimation.hasBeenTaken = true;
     console.log('Collision key');
     inventory.keys += 1;
     keyHud.text = `Keys: ${inventory.keys}`;
-    app.stage.removeChild(keyDraw);
+    app.stage.removeChild(keyAnimation);
   }
 });

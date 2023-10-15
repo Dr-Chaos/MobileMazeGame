@@ -1,7 +1,9 @@
 import { Point } from 'pixi.js';
 import '@pixi/math-extras';
 import app from '../pixi/initialize';
-import { player, playerContainer } from './player';
+import {
+  Movements, movement, player, playerContainer,
+} from './player';
 
 // pressed movement key history (by default no movement)
 type KeyHistory = { x: number[]; y: number[] };
@@ -57,9 +59,13 @@ app.ticker.add((delta: number) => {
   // because Pixi will return NaN if you use normalize() on a Point(0, 0) (no movement)
   if (direction.x !== 0 || direction.y !== 0) {
     direction = direction.normalize();
+    movement.current = Movements.Walk;
+    playerContainer.scale.x = direction.x < 0 ? -1 : 1;
+  } else {
+    movement.current = Movements.Idle;
   }
 
-  const speed = 10;
+  const speed = 2;
   playerContainer.x += direction.x * speed * delta;
   playerContainer.y += direction.y * speed * delta;
 });

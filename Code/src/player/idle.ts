@@ -1,12 +1,15 @@
 import {
-  AnimatedSprite, type Texture, Assets, BaseTexture, SCALE_MODES,
+  AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
+import { player, playerContainer } from './player';
 
 type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
-const witchAtlas: AnimationSpriteAtlas = await Assets.load('/witch/idle.json');
-const witchAnimation = new AnimatedSprite(witchAtlas.animations.idle);
-witchAnimation.scale.set(4);
-witchAnimation.animationSpeed = 0.17;
-witchAnimation.play();
+const witchIdleAtlas: AnimationSpriteAtlas = await Assets.load('/witch/idle/idle.json');
+const witchIdleAnimation = new AnimatedSprite(witchIdleAtlas.animations.idle);
+witchIdleAnimation.scale.set(2);
+witchIdleAnimation.anchor.x = 0.5;
 
-export default witchAnimation;
+witchIdleAnimation.animationSpeed = 0.17;
+witchIdleAnimation.play();
+
+export default witchIdleAnimation;

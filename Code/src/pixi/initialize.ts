@@ -12,5 +12,6 @@ const app = new Application<HTMLCanvasElement>({
 // draw the canvas
 const canvas = app.view;
 document.body.append(canvas);
+app.stage.sortableChildren = true;
 
 export default app;
