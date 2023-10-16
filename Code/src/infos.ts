@@ -422,3 +422,53 @@ function updateCharacterAnimation() {
           } else {
             characterState = CharacterState.Idle;
           }
+
+
+/////////////////////////////////////////////////////
+//(je cherche pour la colision)
+//La logique de collision en 2D est un sujet vaste, 
+//mais je vais essayer de vous donner une idée générale pour les collisions verticales. Supposons que vous ayez un personnage qui se déplace dans un environnement 2D
+// et que vous vouliez détecter les collisions avec le sol ou les obstacles verticaux.
+
+//Voici une approche simple pour gérer cela :
+
+//Définissez une structure pour vos objets dans le jeu. 
+//Vous devez avoir une représentation de votre personnage et des obstacles. Habituellement, ils sont représentés par des rectangles (ou des hitboxes) avec une position (x, y), une largeur et une hauteur.
+
+//Avant de déplacer votre personnage, //vérifiez une collision potentielle. Cela signifie que si vous voulez déplacer votre personnage de, disons, 5 unités vers le haut, vous devez d'abord vérifier s'il y a un obstacle 5 unités au-dessus de sa position actuelle.
+
+//Détection des collisions. //Vous pouvez utiliser une simple vérification de chevauchement de rectangles pour cela. Si deux rectangles se chevauchent, il y a collision. Voici une fonction simple pour cela en TypeScript :
+function isColliding(rect1, rect2) {
+  return rect1.x < rect2.x + rect2.width &&
+         rect1.x + rect1.width > rect2.x &&
+         rect1.y < rect2.y + rect2.height &&
+         rect1.y + rect1.height > rect2.y;
+}
+//Gérez la collision. Si une collision est détectée, ajustez la position de votre personnage pour qu'il ne se chevauche pas avec l'obstacle. Par exemple, si votre personnage se déplace vers le haut et qu'il y a un obstacle, ajustez la position y du personnage pour qu'elle soit juste en dessous de l'obstacle.
+////Concernant le code que vous avez partagé//
+//il semble que vous ajustiez la position du joueur en fonction de la direction dans laquelle il se déplace. L'utilisation de conditions ternaires et de contrôles sur la direction est une bonne idée, 
+//mais vous devez également prendre en compte les collisions possibles avant d'appliquer les changements de position.
+//J'espère que cela vous donne une idée de base sur la façon de gérer les collisions verticales. Si vous avez d'autres questions ou si vous voulez partager plus de détails sur votre jeu, 
+//je serais ravi de vous aider davantage.
+
+/////////////////////////////////////////////////////////////////////
+
+// Déterminer le déplacement proposé
+let proposedX = direction.x < 0 ? -10 * delta : 10 * delta;
+let proposedY = direction.y < 0 ? -10 * delta : 10 * delta;
+
+// Vérifier les collisions pour X
+if (!isColliding(playerContainer.x + proposedX, playerContainer.y)) {
+    playerContainer.x += proposedX;
+}
+
+// Vérifier les collisions pour Y
+if (!isColliding(playerContainer.x, playerContainer.y + proposedY)) {
+    playerContainer.y += proposedY;
+}
+
+// Fonction pour vérifier les collisions (à compléter avec votre logique de collision)
+function isColliding(x: number, y: number): boolean {
+    // Vérifiez si les coordonnées (x, y) entrent en collision avec un mur ou un autre objet solide.
+    // Si oui, retournez true. Sinon, retournez false.
+}
