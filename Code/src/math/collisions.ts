@@ -1,6 +1,7 @@
 import { type Sprite, type Graphics } from 'pixi.js';
 
-export function isColliding(object1: Sprite | Graphics, object2: Sprite | Graphics) {
+export type Collider = {x: number; y: number; width: number; height: number};
+export function isColliding(object1: Sprite | Graphics | Collider, object2: Sprite | Graphics | Collider) {
   return (
     object1.x < object2.x + object2.width
       && object1.x + object1.width > object2.x

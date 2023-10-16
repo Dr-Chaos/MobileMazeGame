@@ -12,8 +12,8 @@ import witchWalkAnimation from './walk';
 // 128
 // 105
 const playerContainer = new Container();
-playerContainer.x = 100; // +ou-la valeurs de decalage ?
-playerContainer.y = 100; // +ou-la valeurs de decalage ?
+playerContainer.x = 130; // +ou-la valeurs de decalage ?
+playerContainer.y = 130; // +ou-la valeurs de decalage ?
 // playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
 // playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
 // const x = {

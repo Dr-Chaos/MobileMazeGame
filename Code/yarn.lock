@@ -688,6 +688,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/tilemap@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@pixi/tilemap@npm:4.0.0"
+  checksum: d74c461498061321cbf77783d6dfd16cd6d878a03502dcd084d5550ff1d5ed1629c8f3d57735cd7d5d3e0009b19256f3b3a37253596f8dba420b27c58bdbf7d1
+  languageName: node
+  linkType: hard
+
 "@pixi/utils@npm:7.3.1":
   version: 7.3.1
   resolution: "@pixi/utils@npm:7.3.1"
@@ -4054,6 +4061,7 @@ __metadata:
   resolution: "vite-project@workspace:."
   dependencies:
     "@pixi/math-extras": "npm:^7.3.1"
+    "@pixi/tilemap": "npm:^4.0.0"
     "@types/eslint": "npm:^8"
     "@typescript-eslint/eslint-plugin": "npm:^6.7.5"
     "@typescript-eslint/parser": "npm:^6.7.5"

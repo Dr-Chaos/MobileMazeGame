@@ -53,8 +53,9 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
+let direction: Point;
 app.ticker.add((delta: number) => {
-  let direction = new Point(keyHistory.x.at(-1), keyHistory.y.at(-1));
+  direction = new Point(keyHistory.x.at(-1), keyHistory.y.at(-1));
   // normalize direction only if the player move (x !== 0 or y ! == 0)
   // because Pixi will return NaN if you use normalize() on a Point(0, 0) (no movement)
   if (direction.x !== 0 || direction.y !== 0) {
@@ -69,3 +70,5 @@ app.ticker.add((delta: number) => {
   playerContainer.x += direction.x * speed * delta;
   playerContainer.y += direction.y * speed * delta;
 });
+
+export { direction };

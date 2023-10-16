@@ -1,5 +1,7 @@
-import './maps/map1';
+// import './maps/map1';
 // import './atlas-generator';
+import './maps/map';
+import './maps/mapCollisions';
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
 import './player/move';
