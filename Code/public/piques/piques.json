@@ -1,0 +1,13 @@
+
+{
+	"meta": { "image": "piques.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+	"frames": {
+	  "piques1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+	  "piques2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+	  "piques3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } }
+	},
+	"animations": {
+	  "idle": ["piques1.png", "piques2.png", "piques3.png"]
+	}
+  }
+  
