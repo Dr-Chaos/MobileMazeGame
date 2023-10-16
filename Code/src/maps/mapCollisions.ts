@@ -1,17 +1,12 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
-
-import { Assets, Container, Graphics } from 'pixi.js';
-import { CompositeTilemap } from '@pixi/tilemap';
+import { Container, Graphics } from 'pixi.js';
 import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { player, playerContainer } from '../player/player';
 import { type Collider, isColliding } from '../math/collisions';
 import { direction } from '../player/move';
 
-Assets.add({ alias: 'tileset', src: '/map/map.json' });
-await Assets.load(['tileset']);
-const tilemap = new CompositeTilemap();
 // draw map
 const mapData = map.layers[1].data;
 const mapWidth = map.layers[1].width;
@@ -62,8 +57,8 @@ console.log(colliderTiles[0]);
 app.ticker.add((delta) => {
   for (const col of colliderTiles) {
     if (isColliding(col, player)) {
-      if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 10 : -10;
-      if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 10 : -10;
+      if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 10 * delta : -10 * delta;
+      if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 10 * delta : -10 * delta;
     }
   }
 });
