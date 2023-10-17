@@ -1,5 +1,9 @@
 {
-  "meta": { "image": "map-tileset.png", "size": { "w": 160, "h": 160 }, "scale": "1" },
+  "meta": {
+    "image": "map-tileset.png",
+    "size": { "w": 160, "h": 160 },
+    "scale": "1"
+  },
   "frames": {
     "map-tileset-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
     "map-tileset-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },

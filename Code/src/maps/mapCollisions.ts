@@ -1,7 +1,7 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
 import { Container, Graphics } from 'pixi.js';
-import map from '../../../Ressources/tiled/map.json';
+import map from '../../../Ressources/tiled/MapCollisionV2.json';
 import app from '../pixi/initialize';
 import { player, playerContainer } from '../player/player';
 import { type Collider, isColliding } from '../math/collisions';
@@ -18,7 +18,7 @@ mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 app.stage.addChild(mapCollidersDraw);
-// scaling = 500 / 16 * 100
+// scaling = 500 / 16 * 500
 const mapScaling = {
   width: app.screen.width / map.tilewidth / map.width,
   height: app.screen.height / map.tileheight / map.width,
@@ -26,7 +26,7 @@ const mapScaling = {
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
     const tileId = mapData[totalIterations];
-    // if it's an empty cell (Tiled use id 0 to represent empty cell)
+    // Si c'est une cellule vide, passez à la tuile suivante.
     if (tileId === 0) {
       totalIterations++;
       continue;
@@ -39,21 +39,17 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       height: map.tileheight * mapScaling.height,
     };
 
-    // draw borders
-    const borderLeft = new Graphics();
-    borderLeft.beginFill('white', 0.5);
-    borderLeft.drawRect(tile.x, tile.y, tile.width, tile.height);
-    mapCollidersDraw.addChild(borderLeft);
+    colliderTiles.push(tile); // Ajouter la tuile à la liste des collisions
+
+    const borderTile = new Graphics();
+    borderTile.beginFill('white', 0.5);
+    borderTile.drawRect(tile.x, tile.y, tile.width, tile.height);
+    mapCollidersDraw.addChild(borderTile);
+
     totalIterations++;
-    colliderTiles.push(tile);
   }
 }
 
-console.log(mapScaling);
-
-console.log(colliderTiles[0]);
-
-// console.table(tile);
 app.ticker.add((delta) => {
   for (const col of colliderTiles) {
     if (isColliding(col, player)) {
@@ -62,11 +58,3 @@ app.ticker.add((delta) => {
     }
   }
 });
-
-// tilemap settings
-// tilemap.zIndex = -1;
-// tilemap.width = app.screen.width;
-// tilemap.height = app.screen.height;
-
-// draw the tilemap
-// app.stage.addChild(tilemap);

@@ -66,7 +66,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 
 // tilemap settings
 tilemap.zIndex = -1;
-tilemap.width = app.screen.width * 1.2;
-tilemap.height = app.screen.height * 1.5;
+tilemap.width = app.screen.width * 1;
+tilemap.height = app.screen.height * 1;
 
 app.stage.addChild(tilemap);
