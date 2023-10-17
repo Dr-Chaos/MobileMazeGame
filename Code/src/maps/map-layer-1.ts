@@ -1,6 +1,3 @@
-/* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
-
 import {
   Assets, type BaseTexture, Graphics, type Texture,
 } from 'pixi.js';
@@ -25,7 +22,7 @@ function searchTileset(needle: number) {
 }
 
 function getTilePrefix(tileId: number) {
-  if (tileId >= 1 && tileId < 101) return { file: 'map', firstgrid: 1 };
+  if (tileId >= 1 && tileId < 101) return { file: 'map-tileset', firstgrid: 1 };
   if (tileId >= 101 && tileId < 104) return { file: 'levier', firstgrid: 101 };
   if (tileId >= 104 && tileId < 110) return { file: 'spike', firstgrid: 104 };
   if (tileId >= 110 && tileId < 118) return { file: 'key', firstgrid: 110 };
@@ -52,12 +49,12 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       continue;
     }
 
-    const prefix = getTilePrefix(tileId);
-    const tileName = `${prefix?.file}-${tileId - prefix?.firstgrid}.png`; // resulat torxh-N.png , nom
+    // const prefix = getTilePrefix(tileId);
+    // const tileName = `${prefix?.file}-${tileId - prefix?.firstgrid + 1}.png`; // resulat torxh-N.png , nom
 
-    // const file = searchTileset(tileId);
-    // const prefix = file?.source.replace('.json', '');
-    // const tileName = `${prefix}-${tileId - file?.firstgid}.png`;
+    const file = searchTileset(tileId);
+    const prefix = file?.source.replace('.json', '');
+    const tileName = `${prefix}-${tileId - file?.firstgid + 1}.png`;
 
     const xPosition = xIteration * map.tilewidth;
     const yPosition = yIteration * map.tileheight;
