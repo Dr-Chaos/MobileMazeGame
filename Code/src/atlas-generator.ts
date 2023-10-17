@@ -31,7 +31,7 @@ const frames: Record<string, {
 let totalIterations = 0;
 for (let yi = 0; yi < tilesetVector.y; yi++) {
   for (let xi = 0; xi < tilesetVector.x; xi++) {
-    const fileName = `${totalIterations + 1}.png`;
+    const fileName = `map-${totalIterations + 1}.png`;
     const filePath = `${fileName}`;
     frames[filePath] = {
       frame: {

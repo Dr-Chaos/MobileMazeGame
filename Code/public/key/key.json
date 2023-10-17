@@ -1,16 +1,16 @@
 {
   "meta": { "image": "key.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
   "frames": {
-    "1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
-    "2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
-    "3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
-    "4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
-    "5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
-    "6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
-    "7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
-    "8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
+    "key-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "key-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "key-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+    "key-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
+    "key-5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
+    "key-6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
+    "key-7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
+    "key-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
   },
   "animations": {
-    "idle": ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png", "7.png", "8.png"]
+    "idle": ["key-1.png", "key-2.png", "key-3.png", "key-4.png", "key-5.png", "key-6.png", "key-7.png", "key-8.png"]
   }
 }
