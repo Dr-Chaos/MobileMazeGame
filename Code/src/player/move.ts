@@ -2,7 +2,7 @@ import { Point } from 'pixi.js';
 import '@pixi/math-extras';
 import app from '../pixi/initialize';
 import {
-  Movements, movement, player, playerContainer,
+  Movements, movement, playerContainer, playerHitbox,
 } from './player';
 import { camera } from './camera';
 
@@ -63,13 +63,18 @@ app.ticker.add((delta: number) => {
     direction = direction.normalize();
     movement.current = Movements.Walk;
     playerContainer.scale.x = direction.x < 0 ? -1 : 1;
+    const speed = 2;
+    playerContainer.x += direction.x * speed * delta;
+    playerContainer.y += direction.y * speed * delta;
+    playerHitbox.x += direction.x * speed * delta;
+    playerHitbox.y += direction.y * speed * delta;
+
+    camera.pivot.copyFrom(playerContainer);
+    // camera.x = app.screen.width / 2 - playerContainer.x - playerContainer.width / 2;
+    // camera.y = app.screen.height / 2 - playerContainer.y - playerContainer.height / 2;
   } else {
     movement.current = Movements.Idle;
   }
-
-  const speed = 2;
-  playerContainer.x += direction.x * speed * delta;
-  playerContainer.y += direction.y * speed * delta;
 });
 
 export { direction };

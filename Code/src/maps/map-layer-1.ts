@@ -28,9 +28,10 @@ function getTilesetFromTileId(tileId: number) {
 const tilemap = new CompositeTilemap(mapTexture);
 
 // draw map
-const mapData = map.layers[2].data;
-const mapWidth = map.layers[2].width;
-const mapHeight = map.layers[2].height;
+const layer = 0;
+const mapData = map.layers[layer].data;
+const mapWidth = map.layers[layer].width;
+const mapHeight = map.layers[layer].height;
 
 let totalIterations = 0;
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
@@ -44,7 +45,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 
     const tileset = getTilesetFromTileId(tileId);
     const tilesetName = tileset?.source.replace('.json', '');
-    const tileName = `${tilesetName}-${tileId - tileset?.firstgid}.png`;
+    const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
 
     // const tileName = `map-${tileId}.png`;
     const xPosition = xIteration * map.tilewidth;

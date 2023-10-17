@@ -1,5 +1,9 @@
 {
-    "activeFile": "map.json",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -8,6 +12,18 @@
         "boss.json": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "collisions-tileset.json": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "collisions.json": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 1213.375,
+                "y": -18
+            }
         },
         "key.json": {
             "scaleInDock": 1,
@@ -22,11 +38,11 @@
             "scaleInDock": 1
         },
         "map.json": {
-            "scale": 1.5,
+            "scale": 4,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 239,
-                "y": 240.33333333333337
+                "x": 307.125,
+                "y": 240.25
             }
         },
         "piques.json": {
@@ -55,20 +71,29 @@
     },
     "frame.defaultDuration": 100,
     "last.externalTilesetPath": "D:/Windows/Documents/Dev/JavaScript/CanvasAndWebGL/MobileMazeGame/Ressources/tiled",
-    "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets/Character_animation/monsters_idle/skeleton2/v2",
+    "last.imagePath": "D:/Windows/Documents/Dev/JavaScript/CanvasAndWebGL/MobileMazeGame/Ressources/tiled",
+    "map.fixedSize": false,
+    "map.lastUsedFormat": "json",
+    "map.tileHeight": 8,
+    "map.tileWidth": 8,
     "openFiles": [
-        "spike.json",
-        "map.json"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "spike.json",
         "map.json",
+        "collisions-tileset.json",
+        "collisions.json",
+        "spike.json",
         "tileset.json",
         "torch.json",
         "boss.json",
         "key.json",
         "levier.json",
         "skull.json"
-    ]
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

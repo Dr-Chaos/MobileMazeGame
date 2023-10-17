@@ -11,7 +11,7 @@ keyAnimation.scale.set(2.5);
 keyAnimation.animationSpeed = 0.17;
 keyAnimation.play();
 keyAnimation.hasBeenTaken = false;
-keyAnimation.x = app.screen.width / 2;
-keyAnimation.y = app.screen.height / 2;
+keyAnimation.x = 40;
+keyAnimation.y = 40;
 
 export default keyAnimation;

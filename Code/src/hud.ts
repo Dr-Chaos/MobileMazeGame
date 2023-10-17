@@ -1,9 +1,9 @@
 import { Text } from 'pixi.js';
 import inventory from './inventory';
 import app from './pixi/initialize';
-import { player } from './player/player';
+import { playerStats } from './player/player';
 
-const lifeHud = new Text(`Life: ${player.life}`, {
+const lifeHud = new Text(`Life: ${playerStats.life}`, {
   fill: 'white',
 });
 app.stage.addChild(lifeHud);

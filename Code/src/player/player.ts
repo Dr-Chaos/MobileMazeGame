@@ -4,61 +4,73 @@ import witchIdleAnimation from './idle';
 import witchWalkAnimation from './walk';
 import { camera } from './camera';
 
-// ANIMATION
-
-// dans ce container on mettra les sprites/animations
-// axe x
-// et y
-
-// 128
-// 105
 const playerContainer = new Container();
-playerContainer.x = 130; // +ou-la valeurs de decalage ?
-playerContainer.y = 130; // +ou-la valeurs de decalage ?
-// playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
-// playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
-// const x = {
-//   position: player,
-//   container: playerContainer,
+playerContainer.x = 0;
+camera.addChild(playerContainer);
+
+// const playerHitbox = {
+//   x: 5,
+//   y: 12,
+//   width: 20,
+//   height: 30,
 // };
 
-const base = {
-  x: 32 * 2,
-  y: 48 * 2,
+const playerHitbox = {
+  x: 0,
+  y: 0,
+  width: 30,
+  height: 50,
+  scale: {
+    x: 1,
+    y: 1,
+  },
 };
-const scaleX = 1.5;
-const scaleY = 1.5;
-const offsetX = 23;
-const offsetY = 20;
-const player = {
-  x: playerContainer.x - offsetX,
-  y: playerContainer.y + offsetY,
-  width: base.x / scaleX,
-  height: base.y / scaleY,
+
+export function getPlayerHitboxWorldPosition() {
+  return {
+    x: app.screen.width / 2 + camera.pivot.x - playerHitbox.width / 2,
+    y: app.screen.height / 2 + camera.pivot.y - playerHitbox.height / 2,
+    width: 30,
+    height: 50,
+  };
+}
+
+const playerStats = {
   life: 5,
 };
 
+// set anchore at the center of the hitbox
+playerContainer.pivot.x = (playerHitbox.width / playerHitbox.scale.x) * 0.5;
+playerContainer.pivot.y = (playerHitbox.height / playerHitbox.scale.y) * 0.5;
+
+// adjust the camera
+// camera.pivot.copyFrom(playerContainer);
+
 // hitbox
-const playerHitbox = new Graphics();
-playerHitbox.beginFill('#8c9fff', 0.4);
-playerHitbox.x = player.x;
-playerHitbox.y = player.y;
-playerHitbox.drawRect(0, 0, player.width, player.height);
-app.stage.addChild(playerHitbox);
+const playerHitboxDraw = new Graphics();
+playerHitboxDraw.beginFill('#8c9fff', 0.4);
+playerHitboxDraw.drawRect(playerHitbox.x, playerHitbox.y, playerHitbox.width, playerHitbox.height);
+playerContainer.addChild(playerHitboxDraw);
 
 // animated sprite
-app.stage.addChild(playerContainer);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
 
-app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition, ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
-  player.x = playerContainer.x - offsetX;
-  player.y = playerContainer.y + offsetY;
-  playerHitbox.x = playerContainer.x - offsetX;
-  playerHitbox.y = playerContainer.y + offsetY;
+console.log(witchIdleAnimation.scale.x);
+
+app.ticker.add(() => {
+  // playerHitboxWorldPosition.x = camera.pivot.x;
+
+  // playerHitbox.x = camera.pivot.x;
+  // playerHitbox.y = camera.pivot.y;
+  // app.screen.width / 2 + camera.pivot.x
+  // console.log(app.screen.height / 2 + camera.pivot.y);
+
+  // playerHitboxDraw.x = playerContainer.x;
+  // playerHitboxDraw.y = playerContainer.y;
 });
 
-enum Movements { // app.ticker.add((delta: number) => {...}); Le paramètre delta n'est pas utilisé dans le bloc de code. Même s'il n'agit pas directement comme une erreur de syntaxe, c'est une mauvaise pratique de laisser des paramètres inutilisés dans vos fonctions.
+enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
 }
@@ -91,8 +103,10 @@ app.ticker.add(() => {
 });
 
 export {
-  player,
+  playerHitbox,
+  playerStats,
   playerContainer,
   movement,
   Movements,
+
 };
