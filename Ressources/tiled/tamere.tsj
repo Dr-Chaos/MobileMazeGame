@@ -1,0 +1,14 @@
+{ "columns":60,
+ "image":"..\/..\/..\/..\/Downloads\/map (1).json",
+ "imageheight":480,
+ "imagewidth":480,
+ "margin":0,
+ "name":"map (1)",
+ "spacing":0,
+ "tilecount":3600,
+ "tiledversion":"1.10.2",
+ "tileheight":8,
+ "tilewidth":8,
+ "type":"tileset",
+ "version":"1.10"
+}
