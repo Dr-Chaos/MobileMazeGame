@@ -25,6 +25,14 @@
                 "y": 239.6893874029336
             }
         },
+        "skull.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "skull.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "spike.json": {
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -36,6 +44,8 @@
             "scaleInDock": 1
         }
     },
+    "frame.defaultDuration": 100,
+    "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets/Character_animation/monsters_idle/skeleton2/v2",
     "openFiles": [
         "map.json",
         "spike.json",
@@ -43,10 +53,17 @@
     ],
     "project": "map.tiled-project",
     "recentFiles": [
+        "skull.json",
+        "boss.json",
+        "skull.tsj",
         "levier.json",
         "key.json",
-        "boss.json",
         "spike.json",
         "map.json"
-    ]
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }
