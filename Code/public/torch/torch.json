@@ -1,16 +1,16 @@
 {
   "meta": { "image": "torch.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
   "frames": {
-    "torch1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
-    "torch2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
-    "torch3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
-    "torch4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
-    "torch5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
-    "torch6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
-    "torch7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
-    "torch8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
+    "torch-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "torch-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "torch-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+    "torch-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
+    "torch-5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
+    "torch-6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
+    "torch-7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
+    "torch-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
   },
   "animations": {
-    "idle": ["torch1.png", "torch2.png", "torch3.png", "torch4.png", "torch5.png", "torch6.png", "torch7.png", "torch8.png"]
+    "idle": ["torch-1.png", "torch-2.png", "torch-3.png", "torch-4.png", "torch-5.png", "torch-6.png", "torch-7.png", "torch-8.png"]
   }
 }

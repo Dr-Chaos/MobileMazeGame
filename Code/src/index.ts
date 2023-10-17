@@ -1,7 +1,7 @@
 // import './maps/map1';
 // import './atlas-generator';
 import './maps/map-layer-1';
-import './maps/map-layer-2';
+// import './maps/map-layer-2';
 
 // import './maps/mapCollisions';
 import { Graphics } from 'pixi.js';
