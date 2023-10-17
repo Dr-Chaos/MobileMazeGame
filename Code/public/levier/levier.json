@@ -1,0 +1,13 @@
+
+{
+	"meta": { "image": "levier.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+	"frames": {
+	  "levier1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+	  "levier2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+	  "levier3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } }
+	},
+	"animations": {
+	  "idle": ["levier1.png", "levier2.png", "levier3.png"]
+	}
+  }
+  

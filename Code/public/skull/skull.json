@@ -1,0 +1,14 @@
+{
+	"meta": { "image": "skull.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+	"frames": {
+	  "skull1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+	  "skull2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+	  "skull3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+	  "skull4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } }
+
+	},
+	"animations": {
+	  "idle": ["skull1.png", "skull2.png", "skull3.png", "skull4.png"]
+	}
+  }
+  

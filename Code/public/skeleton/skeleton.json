@@ -1,0 +1,13 @@
+{
+"meta": { "image": "skeleton.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+"frames": {
+  "skeleton1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+  "skeleton2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+  "skeleton3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+  "skeleton4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } }
+},
+"animations": {
+  "idle": ["skeleton1.png", "skeleton2.png", "skeleton3.png", "skeleton4.png"]
+}
+  }
+  
