@@ -5,8 +5,8 @@ import { type ISpritesheetData } from 'pixi.js';
 // generate tileset atlas
 const settings = {
   tileset: {
-    width: 160,
-    height: 160,
+    width: 48,
+    height: 32,
   },
   tile: {
     width: 16,
@@ -31,7 +31,7 @@ const frames: Record<string, {
 let totalIterations = 0;
 for (let yi = 0; yi < tilesetVector.y; yi++) {
   for (let xi = 0; xi < tilesetVector.x; xi++) {
-    const fileName = `map-${totalIterations + 1}.png`;
+    const fileName = `spike-${totalIterations + 1}.png`;
     const filePath = `${fileName}`;
     frames[filePath] = {
       frame: {
@@ -48,7 +48,7 @@ for (let yi = 0; yi < tilesetVector.y; yi++) {
 
 const tilesetAtlas: ISpritesheetData = {
   meta: {
-    image: 'map.png',
+    image: 'spike.png',
     size: { w: settings.tileset.width, h: settings.tileset.height },
     scale: '1',
   },

@@ -1,8 +1,5 @@
-// import './maps/map1';
 // import './atlas-generator';
 import './maps/map-layer-1';
-// import './maps/map-layer-2';
-
 // import './maps/mapCollisions';
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
@@ -14,6 +11,9 @@ import { keyHud } from './hud';
 import './traps';
 import keyAnimation from './key';
 import torchAnimation from './torch';
+import { camera } from './player/camera';
+
+app.stage.addChild(camera);
 
 // left wall
 const borderLeft = new Graphics();
@@ -36,13 +36,13 @@ borderBottomDraw.drawRect(
   borderBottom.width,
   borderBottom.height,
 );
-app.stage.addChild(borderBottomDraw);
+camera.addChild(borderBottomDraw);
 
 // key
-app.stage.addChild(keyAnimation);
+camera.addChild(keyAnimation);
 
 // torch
-app.stage.addChild(torchAnimation);
+camera.addChild(torchAnimation);
 
 // chaque frame
 app.ticker.add((delta: number) => {

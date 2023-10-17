@@ -4,6 +4,7 @@ import app from '../pixi/initialize';
 import {
   Movements, movement, player, playerContainer,
 } from './player';
+import { camera } from './camera';
 
 // pressed movement key history (by default no movement)
 type KeyHistory = { x: number[]; y: number[] };

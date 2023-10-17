@@ -2,6 +2,7 @@ import { Container, Graphics } from 'pixi.js';
 import app from '../pixi/initialize';
 import witchIdleAnimation from './idle';
 import witchWalkAnimation from './walk';
+import { camera } from './camera';
 
 // ANIMATION
 
