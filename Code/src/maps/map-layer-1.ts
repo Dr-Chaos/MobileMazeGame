@@ -1,5 +1,6 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
+
 import {
   Assets, type BaseTexture, Graphics, type Texture,
 } from 'pixi.js';
@@ -8,29 +9,38 @@ import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
 
-// the tilesets are already sorted
-// const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
-function getTilesetFromTileId(tileId: number) {
+const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+function searchTileset(needle: number) {
   let closestTileset;
 
-  // cherche le tileset qui contiens le tileId
-  for (const tileset of map.tilesets) {
-    if (tileset.firstgid <= tileId) {
+  for (const tileset of sorted) {
+    if (tileset.firstgid <= needle) {
       closestTileset = tileset;
     } else {
-      break; // stop when you find the first number greater than needthe tileId.
+      break; // Stop when you find the first number greater than needle.
     }
   }
 
   return closestTileset;
 }
 
-const tilemap = new CompositeTilemap(mapTexture);
+function getTilePrefix(tileId: number) {
+  if (tileId >= 1 && tileId < 101) return { file: 'map', firstgrid: 1 };
+  if (tileId >= 101 && tileId < 104) return { file: 'levier', firstgrid: 101 };
+  if (tileId >= 104 && tileId < 110) return { file: 'spike', firstgrid: 104 };
+  if (tileId >= 110 && tileId < 118) return { file: 'key', firstgrid: 110 };
+  if (tileId >= 118 && tileId < 126) return { file: 'torch', firstgrid: 118 };
+  if (tileId >= 126 && tileId < 130) return { file: 'boss', firstgrid: 126 };
+  if (tileId >= 130 && tileId < 134) return { file: 'skull', firstgrid: 130 };
+  if (tileId >= 134) return { file: 'skeleton', firstgrid: 134 };
+}
 
+const tilemap = new CompositeTilemap(mapTexture);
 // draw map
-const mapData = map.layers[2].data;
-const mapWidth = map.layers[2].width;
-const mapHeight = map.layers[2].height;
+const layer = 0;
+const mapData = map.layers[layer].data;
+const mapWidth = map.layers[layer].width;
+const mapHeight = map.layers[layer].height;
 
 let totalIterations = 0;
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
@@ -42,11 +52,13 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       continue;
     }
 
-    const tileset = getTilesetFromTileId(tileId);
-    const tilesetName = tileset?.source.replace('.json', '');
-    const tileName = `${tilesetName}-${tileId - tileset?.firstgid}.png`;
+    const prefix = getTilePrefix(tileId);
+    const tileName = `${prefix?.file}-${tileId - prefix?.firstgrid}.png`; // resulat torxh-N.png , nom
 
-    // const tileName = `map-${tileId}.png`;
+    // const file = searchTileset(tileId);
+    // const prefix = file?.source.replace('.json', '');
+    // const tileName = `${prefix}-${tileId - file?.firstgid}.png`;
+
     const xPosition = xIteration * map.tilewidth;
     const yPosition = yIteration * map.tileheight;
     tilemap.tile(tileName, xPosition, yPosition);
@@ -55,17 +67,9 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   }
 }
 
-// const s = map.tilesets.find((x) => x.firstgid >= r && x.firstgid <= 4);
-// console.log(map.tilesets.map((v) => v.firstgid));
-
-// for (const x of map.tilesets) {
-//   console.log(x);
-// }
-
 // tilemap settings
 tilemap.zIndex = -1;
-tilemap.width = app.screen.width;
-tilemap.height = app.screen.height;
+tilemap.width = app.screen.width * 1.2;
+tilemap.height = app.screen.height * 1.5;
 
-// draw the tilemap
 app.stage.addChild(tilemap);
