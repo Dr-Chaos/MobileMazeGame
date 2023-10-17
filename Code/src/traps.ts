@@ -45,7 +45,7 @@ trapDraw.drawRect(
   trap.height,
 );
 trapDraw.visible = trap.isVisible;
-app.stage.addChild(trapDraw);
+// app.stage.addChild(trapDraw);
 
 setInterval(() => {
   trap.isVisible = !trap.isVisible;

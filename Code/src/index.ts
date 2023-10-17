@@ -1,6 +1,6 @@
 // import './atlas-generator';
 import './maps/map-layer-1';
-// import './maps/mapCollisions';
+import './maps/mapCollisionsV2';
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
 import './player/move';
@@ -36,13 +36,13 @@ borderBottomDraw.drawRect(
   borderBottom.width,
   borderBottom.height,
 );
-camera.addChild(borderBottomDraw);
+// camera.addChild(borderBottomDraw);
 
 // key
-camera.addChild(keyAnimation);
+// camera.addChild(keyAnimation);
 
 // torch
-camera.addChild(torchAnimation);
+// camera.addChild(torchAnimation);
 
 // chaque frame
 app.ticker.add((delta: number) => {

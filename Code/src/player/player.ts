@@ -13,8 +13,8 @@ import { camera } from './camera';
 // 128
 // 105
 const playerContainer = new Container();
-playerContainer.x = 130; // +ou-la valeurs de decalage ?
-playerContainer.y = 130; // +ou-la valeurs de decalage ?
+playerContainer.x = 90; // +ou-la valeurs de decalage ?
+playerContainer.y = 180; // +ou-la valeurs de decalage ?
 // playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
 // playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
 // const x = {
@@ -23,12 +23,12 @@ playerContainer.y = 130; // +ou-la valeurs de decalage ?
 // };
 
 const base = {
-  x: 32 * 2,
-  y: 48 * 2,
+  x: 10,
+  y: 10,
 };
 const scaleX = 1.5;
 const scaleY = 1.5;
-const offsetX = 23;
+const offsetX = 8;
 const offsetY = 20;
 const player = {
   x: playerContainer.x - offsetX,

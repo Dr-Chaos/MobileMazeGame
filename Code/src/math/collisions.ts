@@ -11,53 +11,50 @@ export function isColliding(object1: Collider, object2: Collider): boolean {
   );
 }
 
-const app = new Application({ width: 480, height: 480 });
-document.body.append(app.view);
+// const gameMapWidth = 480;
+// const gameMapHeight = 480;
+// const gameTileWidth = 16;
+// const gameTileHeight = 16;
+// const collisionTileWidth = 8;
+// const collisionTileHeight = 8;
 
-const gameMapWidth = 480;
-const gameMapHeight = 480;
-const gameTileWidth = 16;
-const gameTileHeight = 16;
-const collisionTileWidth = 8;
-const collisionTileHeight = 8;
+// const colliderTiles: Collider[] = [];
 
-const colliderTiles: Collider[] = [];
+// const collisionMapData = 'C:\Users\Nicolas\Desktop\MobileMazeGame\code\public\map\MapCollisionV2.json';
 
-const collisionMapData = 'C:\Users\Nicolas\Desktop\MobileMazeGame\code\public\map\MapCollisionV2.json';
+// for (let yIteration = 0; yIteration < gameMapHeight / collisionTileHeight; yIteration++) {
+//   for (let xIteration = 0; xIteration < gameMapWidth / collisionTileWidth; xIteration++) {
+//     const tileId = collisionMapData[yIteration][xIteration];
 
-for (let yIteration = 0; yIteration < gameMapHeight / collisionTileHeight; yIteration++) {
-  for (let xIteration = 0; xIteration < gameMapWidth / collisionTileWidth; xIteration++) {
-    const tileId = collisionMapData[yIteration][xIteration];
+//     if (tileId === 0) {
+//       continue;
+//     }
 
-    if (tileId === 0) {
-      continue;
-    }
+//     const tile: Collider = {
+//       x: xIteration * collisionTileWidth,
+//       y: yIteration * collisionTileHeight,
+//       width: collisionTileWidth,
+//       height: collisionTileHeight,
+//     };
 
-    const tile: Collider = {
-      x: xIteration * collisionTileWidth,
-      y: yIteration * collisionTileHeight,
-      width: collisionTileWidth,
-      height: collisionTileHeight,
-    };
+//     colliderTiles.push(tile);
+//   }
+// }
 
-    colliderTiles.push(tile);
-  }
-}
+// app.ticker.add((delta) => {
+//   for (const col of colliderTiles) {
+//     if (isColliding(player, col)) {
+//       if (deltaX > 0) {
+//         player.x = col.x - player.width;
+//       } else if (deltaX < 0) {
+//         player.x = col.x + col.width;
+//       }
 
-app.ticker.add((delta) => {
-  for (const col of colliderTiles) {
-    if (isColliding(player, col)) {
-      if (deltaX > 0) {
-        player.x = col.x - player.width;
-      } else if (deltaX < 0) {
-        player.x = col.x + col.width;
-      }
-
-      if (deltaY > 0) {
-        player.y = col.y - player.height;
-      } else if (deltaY < 0) {
-        player.y = col.y + col.height;
-      }
-    }
-  }
-});
+//       if (deltaY > 0) {
+//         player.y = col.y - player.height;
+//       } else if (deltaY < 0) {
+//         player.y = col.y + col.height;
+//       }
+//     }
+//   }
+// });

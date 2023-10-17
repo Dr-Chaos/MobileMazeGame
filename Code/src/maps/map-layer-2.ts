@@ -42,5 +42,8 @@ tilemap2.zIndex = -1;
 tilemap2.width = app.screen.width;
 tilemap2.height = app.screen.height;
 
+tilemap2.zIndex = -1;
+tilemap2.width = app.screen.width * 1;
+tilemap2.height = app.screen.height * 1;
 // draw the tilemap
 app.stage.addChild(tilemap2);
