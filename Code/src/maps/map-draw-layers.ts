@@ -33,6 +33,8 @@ function drawLayer(layer: number) {
   let totalIterations = 0;
   for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
+      console.log(totalIterations);
+
       const tileId = mapData[totalIterations];
       // if it's an empty cell (Tiled use id 0 to represent empty cell)
       if (tileId === 0) {
@@ -41,7 +43,7 @@ function drawLayer(layer: number) {
       }
 
       const tileset = getTilesetFromTileId(tileId);
-      if (!tileset) throw new Error('missing tileset');
+      if (!tileset) continue;
       const tilesetName = tileset?.source.replace('.json', '');
       const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
 

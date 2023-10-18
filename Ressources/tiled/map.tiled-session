@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "map-collisions.json",
+    "activeFile": "joueur.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -84,27 +84,25 @@
     "last.externalTilesetPath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled",
     "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets",
     "openFiles": [
-        "map.json",
         "skull.json",
         "skeleton.json",
         "torch.json",
         "spike.json",
         "fireball.json",
-        "tileset.json",
         "map-tileset.json",
         "joueur.json"
     ],
     "project": "map.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "joueur.json",
-        "map-tileset.json",
-        "tileset.json",
-        "fireball.json",
-        "spike.json",
-        "torch.json",
-        "skeleton.json",
         "skull.json",
+        "skeleton.json",
+        "torch.json",
+        "spike.json",
+        "fireball.json",
+        "map-tileset.json",
+        "joueur.json",
+        "tileset.json",
         "map.json",
         "mapFDP.tsx",
         "testnumerotation.json",
