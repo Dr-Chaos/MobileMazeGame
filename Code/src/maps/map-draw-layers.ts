@@ -75,7 +75,6 @@ function drawLayer(layer: number) {
   // tilemap.pivot.y = (mapHeight) * 0.5;
   tilemap.x = -camera.x - mapWidth * 7.5;
   tilemap.y = -camera.y - mapHeight * 7.5;
-  console.log();
 
   // draw the tilemap
   camera.addChild(tilemap);
