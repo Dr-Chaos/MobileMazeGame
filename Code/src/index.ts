@@ -1,7 +1,8 @@
 // import './atlas-generator';
-import './maps/map-layer-1';
-import './maps/mapCollisionsV2';
+// import './maps/map-layer-1';
+// import './maps/mapCollisionsV2';
 import { Graphics } from 'pixi.js';
+import './maps/map-draw-layers';
 import app from './pixi/initialize';
 import './player/move';
 import { isColliding } from './math/collisions';
@@ -48,15 +49,15 @@ borderBottomDraw.drawRect(
 app.ticker.add((delta: number) => {
   // si il y a une collision
   // isIntersect
-  if (isColliding(borderLeft, player)) {
-    console.log('Collision borderLeft');
-    playerContainer.x += 10 * delta;
-  }
+  // if (isColliding(borderLeft, player)) {
+  //   console.log('Collision borderLeft');
+  //   playerContainer.x += 10 * delta;
+  // }
 
-  if (isColliding(borderBottom, player)) {
-    console.log('Collision borderBottom');
-    playerContainer.y -= 10 * delta;
-  }
+  // if (isColliding(borderBottom, player)) {
+  //   console.log('Collision borderBottom');
+  //   playerContainer.y -= 10 * delta;
+  // }
 
   if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, player)) {
     keyAnimation.hasBeenTaken = true;

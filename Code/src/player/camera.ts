@@ -4,7 +4,7 @@ import app from '../pixi/initialize';
 const camera = new Container();
 camera.x = app.screen.width / 2;
 camera.y = app.screen.height / 2;
-camera.zIndex = 10;
+camera.sortableChildren = true;
 
 const test = new Graphics();
 test.beginFill('red');

@@ -13,8 +13,9 @@ import { camera } from './camera';
 // 128
 // 105
 const playerContainer = new Container();
-playerContainer.x = 90; // +ou-la valeurs de decalage ?
-playerContainer.y = 180; // +ou-la valeurs de decalage ?
+playerContainer.zIndex = 1;
+playerContainer.x = 0; // +ou-la valeurs de decalage ?
+playerContainer.y = 0; // +ou-la valeurs de decalage ?
 // playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
 // playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
 // const x = {
@@ -46,17 +47,20 @@ playerHitbox.y = player.y;
 playerHitbox.drawRect(0, 0, player.width, player.height);
 app.stage.addChild(playerHitbox);
 
+playerContainer.pivot.x = (playerHitbox.width / playerHitbox.scale.x) * 0.5;
+playerContainer.pivot.y = (playerHitbox.height / playerHitbox.scale.y) * 0.5;
+
 // animated sprite
-app.stage.addChild(playerContainer);
+camera.addChild(playerContainer);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
 
-app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition, ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
-  player.x = playerContainer.x - offsetX;
-  player.y = playerContainer.y + offsetY;
-  playerHitbox.x = playerContainer.x - offsetX;
-  playerHitbox.y = playerContainer.y + offsetY;
-});
+// app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition, ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
+//   player.x = playerContainer.x - offsetX;
+//   player.y = playerContainer.y + offsetY;
+//   playerHitbox.x = playerContainer.x - offsetX;
+//   playerHitbox.y = playerContainer.y + offsetY;
+// });
 
 enum Movements { // app.ticker.add((delta: number) => {...}); Le paramètre delta n'est pas utilisé dans le bloc de code. Même s'il n'agit pas directement comme une erreur de syntaxe, c'est une mauvaise pratique de laisser des paramètres inutilisés dans vos fonctions.
   Idle = 'Idle',
@@ -70,7 +74,6 @@ const movement = {
 const animations = [
   { state: Movements.Idle, animation: witchIdleAnimation },
   { state: Movements.Walk, animation: witchWalkAnimation },
-
 ];
 
 app.ticker.add(() => {
@@ -95,4 +98,5 @@ export {
   playerContainer,
   movement,
   Movements,
+  playerHitbox,
 };
