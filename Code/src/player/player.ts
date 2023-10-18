@@ -50,19 +50,11 @@ app.stage.addChild(playerHitbox);
 playerContainer.pivot.x = (playerHitbox.width / playerHitbox.scale.x) * 0.5;
 playerContainer.pivot.y = (playerHitbox.height / playerHitbox.scale.y) * 0.5;
 
-// animated sprite
 camera.addChild(playerContainer);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
 
-// app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition, ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
-//   player.x = playerContainer.x - offsetX;
-//   player.y = playerContainer.y + offsetY;
-//   playerHitbox.x = playerContainer.x - offsetX;
-//   playerHitbox.y = playerContainer.y + offsetY;
-// });
-
-enum Movements { // app.ticker.add((delta: number) => {...}); Le paramètre delta n'est pas utilisé dans le bloc de code. Même s'il n'agit pas directement comme une erreur de syntaxe, c'est une mauvaise pratique de laisser des paramètres inutilisés dans vos fonctions.
+enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
 }
