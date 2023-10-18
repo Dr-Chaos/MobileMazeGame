@@ -1,13 +1,13 @@
 import {
-  Assets, Graphics, Sprite, type Texture,
+  Assets, Sprite, type Texture,
 } from 'pixi.js';
 import app from '../pixi/initialize';
 
 // this way you can directly get the width and height of the image
 const mapTexture: Texture = await Assets.load('/map1.png');
 const map = {
-  x: 0,
-  y: 0,
+  // x: 0,
+  // y: 0,
   width: 160,
   height: 160,
 };

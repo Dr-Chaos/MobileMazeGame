@@ -48,8 +48,8 @@ document.addEventListener('keydown', (event) => {
   // No default
 });
 
-document.addEventListener('keyup', (event) => {
-  pressedKey = 'event.code';
+document.addEventListener('keyup', () => {
+  pressedKey = '';
   // No default
 });
 

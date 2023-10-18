@@ -35,7 +35,7 @@ borderBottomDraw.drawRect(0, 0, app.screen.width, 10);
 // camera.addChild(torchAnimation);
 
 // chaque frame
-app.ticker.add((delta: number) => {
+app.ticker.add(() => {
   // si il y a une collision
   // isIntersect
   // if (isColliding(borderLeft, getPlayerHitboxWorldPosition())) {

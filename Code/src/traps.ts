@@ -3,10 +3,8 @@
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
 import { isColliding } from './math/collisions';
-import { getPlayerHitboxWorldPosition, playerHitbox, playerStats } from './player/player';
+import { playerHitbox, playerStats } from './player/player';
 import { lifeHud } from './hud';
-import { camera } from './player/camera';
-import { getCoordinates } from './utils';
 
 // trap desactived xtime , return
 // let trapActive = true;

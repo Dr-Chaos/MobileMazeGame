@@ -30,7 +30,7 @@ const layer = 0;
 const mapData = map.layers[layer].data;
 const mapWidth = map.layers[layer].width;
 const mapHeight = map.layers[layer].height;
-
+if (!mapData || !mapWidth || !mapHeight) throw new Error('Missing mapData, mapWidth or mapHeight');
 let totalIterations = 0;
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
@@ -42,8 +42,9 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     }
 
     const tileset = getTilesetFromTileId(tileId);
+    if (!tileset) continue;
     const tilesetName = tileset?.source.replace('.json', '');
-    const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
+    const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
 
     // const tileName = `map-${tileId}.png`;
     const xPosition = xIteration * map.tilewidth;

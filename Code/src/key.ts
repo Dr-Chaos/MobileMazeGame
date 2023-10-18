@@ -1,7 +1,6 @@
 import {
   AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
-import app from './pixi/initialize';
 
 type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
 const keyAtlas: AnimationSpriteAtlas = await Assets.load('/key/key.json');

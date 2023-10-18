@@ -5,9 +5,8 @@ import map from '../../../Ressources/tiled/map.json';
 
 import mapCollisions from '../../../Ressources/tiled/map-collisions.json';
 import app from '../pixi/initialize';
-import { playerContainer, playerHitbox } from '../player/player';
+import { playerHitbox } from '../player/player';
 import { type Collider, isColliding } from '../math/collisions';
-import { direction } from '../player/move';
 import { camera } from '../player/camera';
 
 // draw map
@@ -22,10 +21,10 @@ mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 camera.addChild(mapCollidersDraw);
 // scaling = 500 / 16 * 100
-const mapScaling = {
-  width: app.screen.width / mapCollisions.tilewidth / mapCollisions.width,
-  height: app.screen.height / mapCollisions.tileheight / mapCollisions.width,
-};
+// const mapScaling = {
+//   width: app.screen.width / mapCollisions.tilewidth / mapCollisions.width,
+//   height: app.screen.height / mapCollisions.tileheight / mapCollisions.width,
+// };
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
     const tileId = mapData[totalIterations];
@@ -57,7 +56,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-app.ticker.add((delta) => {
+app.ticker.add(() => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
       console.log('Collising with wall');

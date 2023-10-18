@@ -4,7 +4,6 @@ import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
 import { mapTexture } from './load-map-tileset';
 import { camera } from '../player/camera';
-import app from '../pixi/initialize';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -30,7 +29,7 @@ function drawLayer(layer: number) {
   const mapData = map.layers[layer].data;
   const mapWidth = map.layers[layer].width;
   const mapHeight = map.layers[layer].height;
-
+  if (!mapWidth || !mapHeight || !mapData) return;
   let totalIterations = 0;
   for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
@@ -42,8 +41,9 @@ function drawLayer(layer: number) {
       }
 
       const tileset = getTilesetFromTileId(tileId);
+      if (!tileset) throw new Error('missing tileset');
       const tilesetName = tileset?.source.replace('.json', '');
-      const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
+      const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
 
       // const tileName = `map-${tileId}.png`;
       const xPosition = xIteration * map.tilewidth;
@@ -56,7 +56,7 @@ function drawLayer(layer: number) {
 
   // tilemap settings
   tilemap.zIndex = -1;
-  const scale = 1; // 2.5
+  // const scale = 1; // 2.5
   // tilemap.width *= mapWidth / 22.6;
   // tilemap.height *= mapHeight / 24.3;
 
