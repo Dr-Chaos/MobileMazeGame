@@ -1,5 +1,6 @@
 {
     "activeFile": "map.json",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -117,6 +118,7 @@
         "map-collisions-tileset.json",
         "map.json"
     ],
+    "project": "map.tiled-project",
     "project": "map.tiled-project",
     "recentFiles": [
         "map-collisions-tileset.json",

@@ -11,6 +11,7 @@ import { keyHud } from './hud';
 import './traps';
 import keyAnimation from './key';
 import { camera } from './player/camera';
+import './fireball'
 
 app.stage.addChild(camera);
 
