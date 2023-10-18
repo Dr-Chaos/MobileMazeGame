@@ -2,7 +2,6 @@
 import './maps/map-draw-layers';
 import './maps/map-collisions';
 import { Graphics } from 'pixi.js';
-import './maps/map-draw-layers';
 import app from './pixi/initialize';
 import './player/move';
 import { isColliding } from './math/collisions';
