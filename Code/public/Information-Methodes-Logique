@@ -1,0 +1,101 @@
+//////////////////////////
+    //Lorsque le personnage lance l'attaque, démarrez l'animation du projectile.
+    //Vous pouvez utiliser une bibliothèque comme PixiJS pour gérer les animations.
+
+    //Calculez la trajectoire du projectile (vitesse, direction, etc.) en fonction de la position du personnage et de la cible. 
+    //Vous devrez également tenir compte de la durée de l'animation.
+
+    //Mettez à jour la position du projectile à chaque trame d'animation en fonction de la trajectoire calculée. 
+    //Cela peut être fait en déplaçant les tuiles sur la couche du projectile dans Tiled.
+
+    //Vérifiez si le projectile entre en collision avec un obstacle ou atteint sa cible. 
+    //Si c'est le cas, arrêtez l'animation du projectile.
+
+    //Supprimez le projectile de la carte ou masquez-le, car il n'est plus nécessaire.
+//
+// /////////////////////////////////////////////////////////////////////////////////////////////////   
+//      class Character {
+  // ...
+//        launchAttack(targetX: number, targetY: number) {
+//          // Lorsque le personnage lance l'attaque, démarrez l'animation du projectile.
+//          const projectile = createProjectileAnimation();
+//      
+//          // Calculez la trajectoire du projectile (vitesse, direction, etc.)
+//          const startX = this.x; // Position de départ du personnage
+//          const startY = this.y;
+//          const speed = 5; // Vitesse du projectile (ajustez selon vos besoins)
+//          const deltaX = targetX - startX;
+//          const deltaY = targetY - startY;
+//          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//          const directionX = deltaX / distance;
+//          const directionY = deltaY / distance;
+//      
+//          // Mettez à jour la position du projectile à chaque trame d'animation en fonction de la trajectoire calculée.
+//          let projectileX = startX;
+//          let projectileY = startY;
+//      
+//          const updateProjectilePosition = () => {
+//            projectileX += directionX * speed;
+//            projectileY += directionY * speed;
+//            // Mettez à jour la position du projectile dans votre animation.
+//            updateProjectileAnimationPosition(projectileX, projectileY);
+//          };
+//      
+//          const animationFrame = requestAnimationFrame(function animateProjectile() {
+//            // Vérifiez si le projectile entre en collision avec un obstacle ou atteint sa cible.
+//            if (checkCollision(projectileX, projectileY) || distanceToTarget(projectileX, projectileY, targetX, targetY) < 5) {
+//              // Si c'est le cas, arrêtez l'animation du projectile après un certain nombre de frames.
+//              cancelAnimationFrame(animationFrame);
+//              destroyProjectileAnimation(projectile);
+//            } else {
+//              // Sinon, continuez à mettre à jour la position et l'animation.
+//              updateProjectilePosition();
+//              requestAnimationFrame(animateProjectile);
+//            }
+//          });
+//        }
+//      }
+//      
+//      function createProjectileAnimation() {
+//        // Code pour créer et démarrer l'animation du projectile.
+//      }
+//      
+//      function updateProjectileAnimationPosition(x: number, y: number) {
+//        // Code pour mettre à jour la position de l'animation du projectile.
+//      }
+//      
+//      function checkCollision(x: number, y: number): boolean {
+//        // Code pour vérifier la collision avec un obstacle.
+//        return false; // Modifiez cette fonction pour la détection de collision.
+//      }
+//      
+//      function distanceToTarget(x1: number, y1: number, x2: number, y2: number): number {
+//        const deltaX = x2 - x1;
+//        const deltaY = y2 - y1;
+//        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//      }
+//      
+//      function destroyProjectileAnimation(projectile: any) {
+//        // Code pour arrêter et détruire l'animation du projectile.
+//      }
+//      
+//      // Exemple d'utilisation :
+//      const character = new Character();
+//      character.launchAttack(targetX, targetY);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+//
+//
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
