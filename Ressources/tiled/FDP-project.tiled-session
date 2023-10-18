@@ -17,7 +17,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 240.3333333333333,
-                "y": 239.33333333333334
+                "y": 239.99999999999997
             }
         },
         "C:/Users/Nicolas/Downloads/boss.json": {
@@ -68,14 +68,15 @@
             "scaleInDock": 1
         },
         "map-tileset.json": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "map.json": {
             "scale": 0.9935416666666667,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 240.05032501572651,
-                "y": 240.55357517299223
+                "x": 66.93227091633469,
+                "y": 236.52757391486685
             }
         },
         "mapFDP.tsx": {
@@ -97,6 +98,7 @@
             "scaleInEditor": 1
         },
         "torch.json": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         }
     },
@@ -114,8 +116,8 @@
     ],
     "project": "FDP-project.tiled-project",
     "recentFiles": [
-        "C:/Users/Nicolas/Downloads/MapCollisionV2.json",
         "88.json",
+        "C:/Users/Nicolas/Downloads/MapCollisionV2.json",
         "C:/Users/Nicolas/Downloads/map.tsj",
         "map.json",
         "C:/Users/Nicolas/Downloads/map (1).json",

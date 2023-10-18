@@ -51,7 +51,8 @@ app.stage.addChild(playerContainer);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
 
-app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition, ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
+app.ticker.add((delta: number) => { // Ligne 48 : Vous ajoutez witchAnimation et witchWalkAnimation comme enfants au même conteneur sans condition,
+  // ce qui pourrait poser problème selon la logique de votre jeu car les deux animations pourraient s'afficher en même temps.
   player.x = playerContainer.x - offsetX;
   player.y = playerContainer.y + offsetY;
   playerHitbox.x = playerContainer.x - offsetX;

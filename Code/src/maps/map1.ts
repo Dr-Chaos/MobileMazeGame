@@ -2,6 +2,7 @@ import {
   Assets, Graphics, Sprite, type Texture,
 } from 'pixi.js';
 import app from '../pixi/initialize';
+import map from '../../../Ressources/tiled/map.json';
 
 // this way you can directly get the width and height of the image
 const mapTexture: Texture = await Assets.load('/map1.png');

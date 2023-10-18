@@ -6,6 +6,8 @@ import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
 
+const mapTexture: Texture = await Assets.load('/map.png');
+
 const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
 function searchTileset(needle: number) {
   let closestTileset;
