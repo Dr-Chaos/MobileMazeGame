@@ -2,9 +2,9 @@
 /* eslint-disable no-plusplus */
 import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
-import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
 import { camera } from '../player/camera';
+import app from '../pixi/initialize';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -44,6 +44,7 @@ function drawLayer(layer: number) {
       const tileset = getTilesetFromTileId(tileId);
       const tilesetName = tileset?.source.replace('.json', '');
       const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
+      console.log(tileName);
 
       // const tileName = `map-${tileId}.png`;
       const xPosition = xIteration * map.tilewidth;
@@ -56,17 +57,31 @@ function drawLayer(layer: number) {
 
   // tilemap settings
   tilemap.zIndex = -1;
-  const scale = 2.5;
-  tilemap.width = app.screen.width * scale;
-  tilemap.height = app.screen.height * scale;
-  tilemap.pivot.x = (tilemap.width / scale) * 0.5;
-  tilemap.pivot.y = (tilemap.height / scale) * 0.5;// tilemap.scale.x = 2;
-  // tilemap.scale.y = 2;
+  const scale = 1; // 2.5
+  // tilemap.width *= mapWidth / 22.6;
+  // tilemap.height *= mapHeight / 24.3;
+
+  tilemap.width *= 2;
+  tilemap.height *= 2;
+
+  // tilemap.height = app.screen.height * scale;
+  // tilemap.pivot.x = (tilemap.width / scale) * 0.5;
+  // tilemap.pivot.y = (tilemap.height / scale) * 0.5;
+
+  // tilemap.width = 2;
+  // tilemap.height = 2;
+  // tilemap.height = app.screen.height;
+  // tilemap.pivot.x = (mapWidth) * 0.5;
+  // tilemap.pivot.y = (mapHeight) * 0.5;
+  tilemap.x = -camera.x - mapWidth * 7.5;
+  tilemap.y = -camera.y - mapHeight * 7.5;
+  console.log();
 
   // draw the tilemap
   camera.addChild(tilemap);
 }
 
-for (let index = 0; index < map.layers.length; index++) {
+const layers = map.layers.length;
+for (let index = 0; index < layers; index++) {
   drawLayer(index);
 }

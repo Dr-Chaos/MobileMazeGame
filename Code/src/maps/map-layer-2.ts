@@ -56,7 +56,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 
 // tilemap settings
 tilemap.zIndex = -1;
-const scale = 3.5;
+const scale = 1;
 tilemap.width = app.screen.width * scale;
 tilemap.height = app.screen.height * scale;
 tilemap.pivot.x = (tilemap.width / scale) * 0.5;
