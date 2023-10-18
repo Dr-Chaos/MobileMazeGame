@@ -207,7 +207,8 @@
 // Démarrer la boucle de jeu
 //gameLoop();
 /////////////////////////////////////////////////////
-        //    // Comprendre la Valeur de delta : Le code utilise la valeur delta pour lisser le déplacement en fonction du temps. Assurez-vous que la valeur de delta est correctement calculée et qu'elle correspond à la durée écoulée entre deux trames de jeu.
+// POUR COLLISION
+        // Comprendre la Valeur de delta : Le code utilise la valeur delta pour lisser le déplacement en fonction du temps. Assurez-vous que la valeur de delta est correctement calculée et qu'elle correspond à la durée écoulée entre deux trames de jeu.
         //
         //Vérifier la Direction du Mouvement : Assurez-vous que la valeur de direction est correctement calculée. 
         //La direction devrait être un vecteur unitaire (de longueur 1) pour déterminer la direction du mouvement.
@@ -225,4 +226,6 @@
         //
         //Gérer la Collision Correctement : Assurez-vous que la fonction isColliding détecte les collisions de manière appropriée et renvoie les résultats attendus. Vous devrez peut-être déboguer cette fonction pour vérifier son comportement.
         //
-        //Déboguer les Valeurs : Utilisez des outils de débogage ou des logs pour afficher les valeurs de delta, de la direction du mouvement et des coordonnées du joueur pendant le jeu. Cela vous aidera à identifier où le problème se produit.     //
+        //Déboguer les Valeurs : Utilisez des outils de débogage ou des logs pour afficher les valeurs de delta, 
+        // de la direction du mouvement et des coordonnées du joueur pendant le jeu.
+        // Cela vous aidera à identifier où le problème se produit.     //
