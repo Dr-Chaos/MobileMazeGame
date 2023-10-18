@@ -1,0 +1,14 @@
+{ "columns":2,
+ "image":"B_witch_death.png",
+ "imageheight":480,
+ "imagewidth":32,
+ "margin":0,
+ "name":"B_witch_death",
+ "spacing":0,
+ "tilecount":60,
+ "tiledversion":"1.10.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.10"
+}

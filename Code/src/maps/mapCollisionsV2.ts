@@ -39,7 +39,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       height: map.tileheight * mapScaling.height,
     };
 
-    colliderTiles.push(tile); // Ajouter la tuile à la liste des collisions
+    colliderTiles.push(tile);
 
     const borderTile = new Graphics();
     borderTile.beginFill('white', 0.5);
@@ -53,8 +53,8 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 app.ticker.add((delta) => {
   for (const col of colliderTiles) {
     if (isColliding(col, player)) {
-      if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 10 * delta : -10 * delta;
-      if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 10 * delta : -10 * delta;
+      if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 1 * delta : -1 * delta;
+      if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 1 * delta : -1 * delta;
     }
   }
 });
