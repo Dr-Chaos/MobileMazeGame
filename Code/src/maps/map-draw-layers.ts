@@ -41,6 +41,7 @@ function drawLayer(layer: number) {
       }
 
       const tileset = getTilesetFromTileId(tileId);
+      if(!tileset) return;
       const tilesetName = tileset?.source.replace('.json', '');
       const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
 
