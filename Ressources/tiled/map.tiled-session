@@ -5,72 +5,81 @@
     },
     "activeFile": "spike.json",
     "expandedProjectPaths": [
-        ".",
-        "test",
-        "assets"
+        "."
     ],
     "exportAsImage.drawTileGrid": true,
     "exportAsImage.includeBackgroundColor": true,
     "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
-        "#torch": {
+        "": {
             "scaleInDock": 1
         },
-        "Map-collisionV1.json": {
-            "scale": 1.2349999999999999,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 271.6599190283401,
-                "y": 240.4858299595142
-            }
-        },
         "boss.json": {
-            "scaleInDock": 1,
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "fireball.json": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "joueur.json": {
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "key.json": {
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "levier.json": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "map-tileset.json": {
-            "scaleInDock": 1
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "map.json": {
-            "scale": 1,
-            "selectedLayer": 0,
+            "scale": 2,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 180.5,
-                "y": 222
+                "x": 215.75,
+                "y": 212.5
             }
         },
+        "mapFDP.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "piques.json": {
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "skeleton.json": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "skull.json": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "skull.tsj": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "spike.json": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 16
+            "scaleInDock": 3,
+            "scaleInEditor": 1
+        },
+        "testnumerotation.json": {
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "tileset.json": {
             "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "torch.json": {
-            "dynamicWrapping": true,
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         }
     },
@@ -82,17 +91,29 @@
     "map.tileWidth": 8,
     "map.width": 60,
     "openFiles": [
-        "spike.json"
+        "map.json",
+        "skull.json",
+        "skeleton.json",
+        "torch.json",
+        "spike.json",
+        "fireball.json",
+        "tileset.json",
+        "map-tileset.json",
+        "joueur.json"
     ],
     "project": "map.tiled-project",
     "recentFiles": [
-        "spike.json",
         "map.json",
-        "torch.json",
+        "joueur.json",
+        "map-tileset.json",
         "tileset.json",
-        "boss.json",
-        "key.json",
-        "levier.json",
-        "skull.json"
+        "fireball.json",
+        "spike.json",
+        "torch.json",
+        "skeleton.json",
+        "skull.json",
+        "mapFDP.tsx",
+        "testnumerotation.json",
+        "piques.json"
     ]
 }
