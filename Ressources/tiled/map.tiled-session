@@ -76,9 +76,6 @@
             "scaleInEditor": 2
         }
     },
-    "frame.defaultDuration": 250,
-    "last.externalTilesetPath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled",
-    "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets",
     "openFiles": [
         "map.json",
         "skull.json",
@@ -89,8 +86,6 @@
         "map-tileset.json",
         "joueur.json"
     ],
-    "project": "map.tiled-project",
-    "property.type": "bool",
     "recentFiles": [
         "joueur.json",
         "map-tileset.json",
@@ -104,10 +99,5 @@
         "mapFDP.tsx",
         "testnumerotation.json",
         "piques.json"
-    ],
-    "tileset.lastUsedFormat": "json",
-    "tileset.tileSize": {
-        "height": 48,
-        "width": 32
-    }
+    ]
 }
