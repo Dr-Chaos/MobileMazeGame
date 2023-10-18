@@ -56,8 +56,6 @@ playerContainer.addChild(playerHitboxDraw);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
 
-console.log(witchIdleAnimation.scale.x);
-
 app.ticker.add(() => {
   // playerHitboxWorldPosition.x = camera.pivot.x;
 
