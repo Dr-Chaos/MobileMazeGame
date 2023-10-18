@@ -1,5 +1,9 @@
 {
-    "activeFile": "map.json",
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map-collisions.json",
     "expandedProjectPaths": [
         "."
     ],
