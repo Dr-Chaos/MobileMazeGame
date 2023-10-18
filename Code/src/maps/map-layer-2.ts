@@ -1,22 +1,35 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
-
-import {
-  Assets, type BaseTexture, Graphics, type Texture,
-} from 'pixi.js';
 import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
+import { camera } from '../player/camera';
 
-const x = await Assets.load('/map/map.json');
-const tilemap2 = new CompositeTilemap(x);
+// the tilesets are already sorted
+// const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+function getTilesetFromTileId(tileId: number) {
+  let closestTileset;
+
+  // cherche le tileset qui contiens le tileId
+  for (const tileset of map.tilesets) {
+    if (tileset.firstgid <= tileId) {
+      closestTileset = tileset;
+    } else {
+      break; // stop when you find the first number greater than needthe tileId.
+    }
+  }
+
+  return closestTileset;
+}
+
+const tilemap = new CompositeTilemap(mapTexture);
 
 // draw map
-const mapData = map.layers[1].data;
-const mapWidth = map.layers[1].width;
-const mapHeight = map.layers[1].height;
-console.log(map.layers[1].name);
+const layer = 1;
+const mapData = map.layers[layer].data;
+const mapWidth = map.layers[layer].width;
+const mapHeight = map.layers[layer].height;
 
 let totalIterations = 0;
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
@@ -28,19 +41,27 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       continue;
     }
 
-    const tileName = `/map/map-${tileId}.png`;
+    const tileset = getTilesetFromTileId(tileId);
+    const tilesetName = tileset?.source.replace('.json', '');
+    const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
+
+    // const tileName = `map-${tileId}.png`;
     const xPosition = xIteration * map.tilewidth;
     const yPosition = yIteration * map.tileheight;
-    tilemap2.tile(tileName, xPosition, yPosition);
+    tilemap.tile(tileName, xPosition, yPosition);
 
     totalIterations++;
   }
 }
 
 // tilemap settings
-tilemap2.zIndex = -1;
-tilemap2.width = app.screen.width;
-tilemap2.height = app.screen.height;
+tilemap.zIndex = -1;
+const scale = 3.5;
+tilemap.width = app.screen.width * scale;
+tilemap.height = app.screen.height * scale;
+tilemap.pivot.x = (tilemap.width / scale) * 0.5;
+tilemap.pivot.y = (tilemap.height / scale) * 0.5;// tilemap.scale.x = 2;
+// tilemap.scale.y = 2;
 
 // draw the tilemap
-app.stage.addChild(tilemap2);
+camera.addChild(tilemap);

@@ -49,7 +49,7 @@ trapDraw.drawRect(
   trap.height,
 );
 trapDraw.visible = trap.isVisible;
-camera.addChild(trapDraw);
+// camera.addChild(trapDraw);
 
 setInterval(() => {
   trap.isVisible = !trap.isVisible;

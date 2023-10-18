@@ -1,12 +1,10 @@
 /* eslint-disable no-continue */
 /* eslint-disable no-plusplus */
-import {
-  Assets, type BaseTexture, Graphics, type Texture,
-} from 'pixi.js';
 import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
+import { camera } from '../player/camera';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -56,17 +54,14 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   }
 }
 
-// const s = map.tilesets.find((x) => x.firstgid >= r && x.firstgid <= 4);
-// console.log(map.tilesets.map((v) => v.firstgid));
-
-// for (const x of map.tilesets) {
-//   console.log(x);
-// }
-
 // tilemap settings
 tilemap.zIndex = -1;
-tilemap.width = app.screen.width;
-tilemap.height = app.screen.height;
+const scale = 3.5;
+tilemap.width = app.screen.width * scale;
+tilemap.height = app.screen.height * scale;
+tilemap.pivot.x = (tilemap.width / scale) * 0.5;
+tilemap.pivot.y = (tilemap.height / scale) * 0.5;// tilemap.scale.x = 2;
+// tilemap.scale.y = 2;
 
 // draw the tilemap
-app.stage.addChild(tilemap);
+camera.addChild(tilemap);
