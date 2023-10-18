@@ -2,6 +2,8 @@
 /* eslint-disable no-plusplus */
 import { Container, Graphics } from 'pixi.js';
 import map from '../../../Ressources/tiled/map.json';
+
+import mapCollisions from '../../../Ressources/tiled/map-collisions.json';
 import app from '../pixi/initialize';
 import { playerContainer, playerHitbox } from '../player/player';
 import { type Collider, isColliding } from '../math/collisions';
@@ -9,9 +11,9 @@ import { direction } from '../player/move';
 import { camera } from '../player/camera';
 
 // draw map
-const mapData = map.layers[1].data;
-const mapWidth = map.layers[1].width;
-const mapHeight = map.layers[1].height;
+const mapData = mapCollisions.layers[0].data;
+const mapWidth = mapCollisions.layers[0].width;
+const mapHeight = mapCollisions.layers[0].height;
 let totalIterations = 0;
 const colliderTiles: Collider[] = [];
 const mapCollidersDraw = new Container();
@@ -21,8 +23,8 @@ mapCollidersDraw.height = app.screen.height;
 camera.addChild(mapCollidersDraw);
 // scaling = 500 / 16 * 100
 const mapScaling = {
-  width: app.screen.width / map.tilewidth / map.width,
-  height: app.screen.height / map.tileheight / map.width,
+  width: app.screen.width / mapCollisions.tilewidth / mapCollisions.width,
+  height: app.screen.height / mapCollisions.tileheight / mapCollisions.width,
 };
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
@@ -33,23 +35,21 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       continue;
     }
 
-    // const tile = {
-    //   x: xIteration * map.tilewidth * mapScaling.width,
-    //   y: yIteration * map.tileheight * mapScaling.height,
-    //   width: map.tilewidth * mapScaling.width,
-    //   height: map.tileheight * mapScaling.height,
-    // };
-
     const tile = {
-      x: -100,
-      y: -100,
-      width: 100,
-      height: 100,
+      x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.7,
+      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.8,
+      width: map.tilewidth,
+      height: map.tileheight,
     };
+
     // draw borders
     const borderLeft = new Graphics();
     borderLeft.beginFill('white', 0.5);
-    borderLeft.drawRect(xIteration * map.tilewidth - camera.x, yIteration * map.tileheight - camera.y, 16, 16);
+    // set x and y, then set 0,0 to drawRect
+    // borderLeft.x = tile.x;
+    // borderLeft.y = tile.y;
+    // or directly set x and y in drawRect
+    borderLeft.drawRect(tile.x, tile.y, tile.width, tile.height);
     mapCollidersDraw.addChild(borderLeft);
     totalIterations++;
     colliderTiles.push(tile);
@@ -60,8 +60,10 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 app.ticker.add((delta) => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
-      if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 10 * delta : -10 * delta;
-      if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 10 * delta : -10 * delta;
+      console.log('Collising with wall');
+
+      // if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 2 * delta : -2 * delta;
+      // if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 2 * delta : -2 * delta;
     }
   }
 });
