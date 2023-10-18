@@ -1,5 +1,5 @@
 {
-    "activeFile": "map.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -77,14 +77,6 @@
         }
     },
     "openFiles": [
-        "map.json",
-        "skull.json",
-        "skeleton.json",
-        "torch.json",
-        "spike.json",
-        "fireball.json",
-        "map-tileset.json",
-        "joueur.json"
     ],
     "recentFiles": [
         "joueur.json",

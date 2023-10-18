@@ -35,8 +35,8 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     }
 
     const tile = {
-      x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.7,
-      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.8,
+      x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.4,
+      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.9,
       width: map.tilewidth,
       height: map.tileheight,
     };
