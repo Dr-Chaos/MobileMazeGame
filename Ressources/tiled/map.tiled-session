@@ -1,15 +1,8 @@
 {
-    "Map/SizeTest": {
-        "height": 4300,
-        "width": 2
-    },
-    "activeFile": "spike.json",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
         "."
     ],
-    "exportAsImage.drawTileGrid": true,
-    "exportAsImage.includeBackgroundColor": true,
-    "file.lastUsedOpenFilter": "Tous les Fichiers (*)",
     "fileStates": {
         "": {
             "scaleInDock": 1
@@ -39,11 +32,11 @@
             "scaleInEditor": 1
         },
         "map.json": {
-            "scale": 2,
+            "scale": 1.8,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 215.75,
-                "y": 212.5
+                "x": 228.6111111111111,
+                "y": 246.66666666666669
             }
         },
         "mapFDP.tsx": {
@@ -83,13 +76,8 @@
             "scaleInEditor": 1
         }
     },
-    "frame.defaultDuration": 100,
-    "last.externalTilesetPath": "D:/Windows/Documents/Dev/JavaScript/CanvasAndWebGL/MobileMazeGame/Ressources/tiled",
-    "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets/Character_animation/monsters_idle/skeleton2/v2",
-    "map.height": 60,
-    "map.tileHeight": 8,
-    "map.tileWidth": 8,
-    "map.width": 60,
+    "frame.defaultDuration": 250,
+    "last.imagePath": "C:/Users/Florian/Desktop/MobileMazeGame/Ressources/tiled/assets",
     "openFiles": [
         "map.json",
         "skull.json",
@@ -102,8 +90,8 @@
         "joueur.json"
     ],
     "project": "map.tiled-project",
+    "property.type": "bool",
     "recentFiles": [
-        "map.json",
         "joueur.json",
         "map-tileset.json",
         "tileset.json",
@@ -112,8 +100,14 @@
         "torch.json",
         "skeleton.json",
         "skull.json",
+        "map.json",
         "mapFDP.tsx",
         "testnumerotation.json",
         "piques.json"
-    ]
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 48,
+        "width": 32
+    }
 }

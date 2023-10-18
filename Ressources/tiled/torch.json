@@ -1,5 +1,5 @@
 { "columns":8,
- "image":"./assets/Mini_Dungeon_v1.0\/Objects\/Torch.png",
+ "image":"assets\/Mini_Dungeon_v1.0\/Objects\/Torch.png",
  "imageheight":16,
  "imagewidth":128,
  "margin":0,
