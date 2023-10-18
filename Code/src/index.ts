@@ -1,21 +1,16 @@
 // import './atlas-generator';
-// import './maps/map-layer-1';
-// import './maps/map-layer-2';
 import './maps/map-draw-layers';
-
-// import './maps/mapCollisions';
+import './maps/map-collisions';
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
 import './player/move';
 import { isColliding } from './math/collisions';
-import { playerHitbox, playerContainer, getPlayerHitboxWorldPosition } from './player/player';
+import { playerHitbox } from './player/player';
 import inventory from './inventory';
 import { keyHud } from './hud';
 import './traps';
 import keyAnimation from './key';
-import torchAnimation from './torch';
 import { camera } from './player/camera';
-import { getCoordinates } from './utils';
 
 app.stage.addChild(camera);
 

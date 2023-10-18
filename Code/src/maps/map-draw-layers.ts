@@ -44,7 +44,6 @@ function drawLayer(layer: number) {
       const tileset = getTilesetFromTileId(tileId);
       const tilesetName = tileset?.source.replace('.json', '');
       const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
-      console.log(tileName);
 
       // const tileName = `map-${tileId}.png`;
       const xPosition = xIteration * map.tilewidth;
