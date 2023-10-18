@@ -1790,10 +1790,6 @@
         }, 
         {
          "firstgid":203,
-         "source":"tileset.json"
-        }, 
-        {
-         "firstgid":203,
          "source":"joueur.json"
         }],
  "tilewidth":16,
