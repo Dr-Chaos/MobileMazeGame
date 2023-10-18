@@ -8,16 +8,16 @@
             "scaleInDock": 1
         },
         "boss.json": {
-            "scaleInDock": 3,
+            "scaleInDock": 1.5,
             "scaleInEditor": 1
         },
         "fireball.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "joueur.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "key.json": {
             "scaleInDock": 3,
@@ -28,15 +28,15 @@
             "scaleInEditor": 1
         },
         "map-tileset.json": {
-            "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInDock": 1.5,
+            "scaleInEditor": 2
         },
         "map.json": {
-            "scale": 1.8,
+            "scale": 3,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 228.6111111111111,
-                "y": 246.66666666666669
+                "x": 143.5,
+                "y": 289.3333333333333
             }
         },
         "mapFDP.tsx": {
@@ -49,11 +49,11 @@
         },
         "skeleton.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "skull.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "skull.tsj": {
             "scaleInDock": 1,
@@ -61,7 +61,7 @@
         },
         "spike.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         },
         "testnumerotation.json": {
             "scaleInDock": 3,
@@ -73,7 +73,7 @@
         },
         "torch.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 2
         }
     },
     "frame.defaultDuration": 250,
@@ -86,7 +86,6 @@
         "torch.json",
         "spike.json",
         "fireball.json",
-        "tileset.json",
         "map-tileset.json",
         "joueur.json"
     ],
@@ -95,13 +94,13 @@
     "recentFiles": [
         "joueur.json",
         "map-tileset.json",
-        "tileset.json",
         "fireball.json",
         "spike.json",
         "torch.json",
         "skeleton.json",
         "skull.json",
         "map.json",
+        "tileset.json",
         "mapFDP.tsx",
         "testnumerotation.json",
         "piques.json"
