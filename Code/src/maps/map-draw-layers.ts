@@ -22,7 +22,7 @@ function getTilesetFromTileId(tileId: number) {
   return closestTileset;
 }
 
-function drawLayer(layer: number) {
+function drawLayer(layer: number, zIndex: number) {
   const tilemap = new CompositeTilemap(mapTexture);
 
   // draw map
@@ -55,8 +55,8 @@ function drawLayer(layer: number) {
   }
 
   // tilemap settings
-  tilemap.zIndex = -1;
-  // const scale = 1; // 2.5
+  tilemap.zIndex = zIndex;
+  // const scale = 1; // 2.5s
   // tilemap.width *= mapWidth / 22.6;
   // tilemap.height *= mapHeight / 24.3;
 
@@ -80,6 +80,15 @@ function drawLayer(layer: number) {
 }
 
 const layers = map.layers.length;
+let mursDuBasLayerIndex = 0;
 for (let index = 0; index < layers; index++) {
-  drawLayer(index);
+  // skip mursdubas for perspective
+  if (map.layers[index].name === 'mursdubas') {
+    mursDuBasLayerIndex = index;
+    continue;
+  }
+
+  drawLayer(index, -1);
 }
+
+drawLayer(mursDuBasLayerIndex, 1);

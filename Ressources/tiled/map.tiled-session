@@ -1,5 +1,5 @@
 {
-    "activeFile": "",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -7,17 +7,31 @@
         "": {
             "scaleInDock": 1
         },
+        "D:/Windows/Documents/Dev/JavaScript/CanvasAndWebGL/MobileMazeGame/Ressources/Desktop/MobileMazeGame/Ressources/tiled/88.json": {
+            "scaleInDock": 1
+        },
+        "D:/Windows/Documents/Dev/JavaScript/CanvasAndWebGL/MobileMazeGame/Ressources/Desktop/MobileMazeGame/Ressources/tiled/mapFDP.tsx": {
+            "scaleInDock": 1
+        },
+        "MapCollisionV2.json": {
+            "scale": 1.6169791666666666,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 222.01893963795663,
+                "y": 200.06442053726732
+            }
+        },
         "boss.json": {
-            "scaleInDock": 1.5,
+            "scaleInDock": 3,
             "scaleInEditor": 1
         },
         "fireball.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         },
         "joueur.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         },
         "key.json": {
             "scaleInDock": 3,
@@ -27,17 +41,40 @@
             "scaleInDock": 3,
             "scaleInEditor": 1
         },
+        "map-collision.json": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 208,
+                "y": 217
+            }
+        },
+        "map-collisions-tileset.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "map-collisions.json": {
+            "scale": 1.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 216.33333333333337,
+                "y": 223.66666666666666
+            }
+        },
         "map-tileset.json": {
-            "scaleInDock": 1.5,
-            "scaleInEditor": 2
+            "scaleInDock": 3,
+            "scaleInEditor": 1
         },
         "map.json": {
-            "scale": 3,
+            "scale": 2,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 143.5,
-                "y": 289.3333333333333
+                "x": 209.5,
+                "y": 263.5
             }
+        },
+        "map.tsj": {
+            "scaleInDock": 1
         },
         "mapFDP.tsx": {
             "scaleInDock": 1,
@@ -49,11 +86,11 @@
         },
         "skeleton.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         },
         "skull.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         },
         "skull.tsj": {
             "scaleInDock": 1,
@@ -61,7 +98,7 @@
         },
         "spike.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         },
         "testnumerotation.json": {
             "scaleInDock": 3,
@@ -73,23 +110,26 @@
         },
         "torch.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 2
+            "scaleInEditor": 1
         }
     },
     "openFiles": [
+        "map-collisions-tileset.json",
+        "map.json"
     ],
+    "project": "map.tiled-project",
     "recentFiles": [
-        "joueur.json",
-        "map-tileset.json",
-        "fireball.json",
-        "spike.json",
-        "torch.json",
-        "skeleton.json",
-        "skull.json",
+        "map-collisions-tileset.json",
         "map.json",
-        "tileset.json",
-        "mapFDP.tsx",
-        "testnumerotation.json",
-        "piques.json"
+        "map-collisions.json",
+        "MapCollisionV2.json",
+        "skull.json",
+        "skeleton.json",
+        "torch.json",
+        "spike.json",
+        "fireball.json",
+        "map-tileset.json",
+        "joueur.json",
+        "tileset.json"
     ]
 }

@@ -3,11 +3,12 @@
 import { Container, Graphics } from 'pixi.js';
 import map from '../../../Ressources/tiled/map.json';
 
-import mapCollisions from '../../../Ressources/tiled/map-collisions.json';
+import mapCollisions from '../../../Ressources/tiled/map-collision.json';
 import app from '../pixi/initialize';
-import { playerHitbox } from '../player/player';
+import { playerContainer, playerHitbox } from '../player/player';
 import { type Collider, isColliding } from '../math/collisions';
 import { camera } from '../player/camera';
+import { direction } from '../player/move';
 
 // draw map
 const mapData = mapCollisions.layers[0].data;
@@ -19,6 +20,7 @@ const mapCollidersDraw = new Container();
 mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
+mapCollidersDraw.zIndex = 2;
 camera.addChild(mapCollidersDraw);
 // scaling = 500 / 16 * 100
 // const mapScaling = {
@@ -35,28 +37,28 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     }
 
     const tile = {
-      x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.4,
-      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.9,
+      x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.735,
+      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.7,
       width: map.tilewidth,
       height: map.tileheight,
     };
 
     // draw borders
-    const borderLeft = new Graphics();
-    borderLeft.beginFill('white', 0.5);
+    const mapColliderDraw = new Graphics();
+    mapColliderDraw.beginFill('white', 0.5);
     // set x and y, then set 0,0 to drawRect
     // borderLeft.x = tile.x;
     // borderLeft.y = tile.y;
     // or directly set x and y in drawRect
-    borderLeft.drawRect(tile.x, tile.y, tile.width, tile.height);
-    mapCollidersDraw.addChild(borderLeft);
+    mapColliderDraw.drawRect(tile.x, tile.y, tile.width, tile.height);
+    mapCollidersDraw.addChild(mapColliderDraw);
     totalIterations++;
     colliderTiles.push(tile);
   }
 }
 
 // console.table(tile);
-app.ticker.add(() => {
+app.ticker.add((delta) => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
       console.log('Collising with wall');
