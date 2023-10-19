@@ -6,6 +6,7 @@ import { isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 import { lifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
+import { camera } from '../camera';
 
 // trap desactived xtime , return
 // let trapActive = true;
@@ -48,7 +49,7 @@ trapDraw.drawRect(
   trap.height,
 );
 trapDraw.visible = trap.isVisible;
-// camera.addChild(trapDraw);
+camera.addChild(trapDraw);
 
 setInterval(() => {
   trap.isVisible = !trap.isVisible;

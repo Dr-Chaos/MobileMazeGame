@@ -1,13 +1,9 @@
 /* eslint-disable no-continue */
-
 import { Container, Graphics } from 'pixi.js';
 import map from '../../../Ressources/tiled/map.json';
-
 import mapCollisions from '../../../Ressources/tiled/map-collision.json';
 import app from '../pixi/initialize';
-import {
-  playerHitbox,
-} from '../player/player';
+import { playerHitbox } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { camera } from '../camera';
 import { movePlayer } from '../player/move';
@@ -63,6 +59,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 app.ticker.add(() => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
+      console.log('Collision');
       movePlayer(collisionResponseDirection(playerHitbox, col));
     }
   }
