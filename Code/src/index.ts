@@ -7,6 +7,11 @@ import app from './pixi/initialize';
 import { camera } from './camera';
 // import { playerHitbox } from './player/player';
 import './player/move'; // handle move inputs
+import './fireball';
+// import './skull';
+// import './skullpath';
+// import './skeleton';
+// import './skeletonpath';
 
 app.stage.addChild(camera); // create the world / camera
 
