@@ -1,46 +1,80 @@
+import { Point } from 'pixi.js';
+import '@pixi/math-extras';
 import app from '../pixi/initialize';
-import { Movements, movement, playerAnimationsContainer } from './animations';
-import { camera } from '../camera';
-import { inputMovementDirection } from './input-movement';
 import {
-  playerContainer, playerHitbox,
+  Movements, movement, playerContainer, playerHitbox,
 } from './player';
-import { playerStats } from './stats';
+import { camera } from './camera';
 
-export function movePlayer(direction: {x: number; y: number}) {
-  // move the player container (sprites, hitbox draw, etc)
-  playerContainer.x += direction.x;
-  playerContainer.y += direction.y;
+// pressed movement key history (by default no movement)
+type KeyHistory = { x: number[]; y: number[] };
+const keyHistory: KeyHistory = { x: [0], y: [0] };
 
-  // adjust the hitbox values
-  // positionHistory.old = { x: playerHitbox.x, y: playerHitbox.y };
-  playerHitbox.x += direction.x;
-  playerHitbox.y += direction.y;
-  // positionHistory.new = { x: playerHitbox.x, y: playerHitbox.y };
-
-  // adjust the camera
-  camera.pivot.copyFrom(playerContainer);
-}
-
-// move the player when direction change
-app.ticker.add((delta) => {
-  const direction = inputMovementDirection();
-  // if don't move, set Idle state
-  if (!direction.x && !direction.y) {
-    movement.current = Movements.Idle;
-    return;
+// push the pressed key in the keyHistory, if not already present
+document.addEventListener('keydown', (event) => {
+  switch (event.code) {
+    case 'KeyW':
+      if (keyHistory.y.includes(-1)) return;
+      keyHistory.y.push(-1);
+      break;
+    case 'KeyA':
+      if (keyHistory.x.includes(-1)) return;
+      keyHistory.x.push(-1);
+      break;
+    case 'KeyS':
+      if (keyHistory.y.includes(1)) return;
+      keyHistory.y.push(1);
+      break;
+    case 'KeyD':
+      if (keyHistory.x.includes(1)) return;
+      keyHistory.x.push(1);
+      break;
+    default:
+      break;
   }
-
-  // else set Walk state
-  movement.current = Movements.Walk;
-
-  // if move on the x axis, flip the sprite
-  playerAnimationsContainer.scale.x = direction.x < 0 ? -1 : 1;
-
-  const movePosition = {
-    x: direction.x * playerStats.speed * delta,
-    y: direction.y * playerStats.speed * delta,
-  };
-
-  movePlayer(movePosition);
 });
+
+// remove key from keyHistory
+document.addEventListener('keyup', (event) => {
+  switch (event.code) {
+    case 'KeyW':
+      keyHistory.y = keyHistory.y.filter((element) => element !== -1);
+      break;
+    case 'KeyA':
+      keyHistory.x = keyHistory.x.filter((element) => element !== -1);
+      break;
+    case 'KeyS':
+      keyHistory.y = keyHistory.y.filter((element) => element !== 1);
+      break;
+    case 'KeyD':
+      keyHistory.x = keyHistory.x.filter((element) => element !== 1);
+      break;
+    default:
+      break;
+  }
+});
+
+let direction: Point;
+app.ticker.add((delta: number) => {
+  direction = new Point(keyHistory.x.at(-1), keyHistory.y.at(-1));
+  // normalize direction only if the player move (x !== 0 or y ! == 0)
+  // because Pixi will return NaN if you use normalize() on a Point(0, 0) (no movement)
+  if (direction.x !== 0 || direction.y !== 0) {
+    direction = direction.normalize();
+    movement.current = Movements.Walk;
+    playerContainer.scale.x = direction.x < 0 ? -1 : 1;
+    const speed = 2;
+    playerContainer.x += direction.x * speed * delta;
+    playerContainer.y += direction.y * speed * delta;
+    playerHitbox.x += direction.x * speed * delta;
+    playerHitbox.y += direction.y * speed * delta;
+
+    camera.pivot.copyFrom(playerContainer);
+    // camera.x = app.screen.width / 2 - playerContainer.x - playerContainer.width / 2;
+    // camera.y = app.screen.height / 2 - playerContainer.y - playerContainer.height / 2;
+  } else {
+    movement.current = Movements.Idle;
+  }
+});
+
+export { direction };

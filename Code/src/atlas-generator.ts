@@ -5,12 +5,12 @@ import { type ISpritesheetData } from 'pixi.js';
 // generate tileset atlas
 const settings = {
   tileset: {
-    width: 31,
-    height: 288,
+    width: 48,
+    height: 32,
   },
   tile: {
-    width: 32,
-    height: 48,
+    width: 16,
+    height: 16,
   },
 };
 
@@ -31,7 +31,7 @@ const frames: Record<string, {
 let totalIterations = 0;
 for (let yi = 0; yi < tilesetVector.y; yi++) {
   for (let xi = 0; xi < tilesetVector.x; xi++) {
-    const fileName = `${totalIterations + 1}.png`;
+    const fileName = 'map.png';
     const filePath = `${fileName}`;
     frames[filePath] = {
       frame: {
@@ -48,7 +48,7 @@ for (let yi = 0; yi < tilesetVector.y; yi++) {
 
 const tilesetAtlas: ISpritesheetData = {
   meta: {
-    image: 'idle.png',
+    image: 'map.png',
     size: { w: settings.tileset.width, h: settings.tileset.height },
     scale: '1',
   },

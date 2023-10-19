@@ -1,7 +1,7 @@
 import {
   AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
-import app from '../pixi/initialize';
+import app from './pixi/initialize';
 
 type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
 const torchAtlas: AnimationSpriteAtlas = await Assets.load('/torch/torch.json');

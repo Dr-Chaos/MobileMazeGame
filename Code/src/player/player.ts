@@ -1,6 +1,8 @@
 import { Container, Graphics } from 'pixi.js';
 import app from '../pixi/initialize';
-import { camera } from '../camera';
+import witchIdleAnimation from './idle';
+import witchWalkAnimation from './walk';
+import { camera } from './camera';
 
 // ANIMATION
 
@@ -11,48 +13,82 @@ import { camera } from '../camera';
 // 128
 // 105
 const playerContainer = new Container();
-playerContainer.y = -50;
-camera.addChild(playerContainer);
-// initialize the camera
-camera.pivot.copyFrom(playerContainer);
-
-// if you keep default playerContainer.x and playerContainer.y values (0 by default)
-// const playerHitbox = {
-//   x: 5,
-//   y: playerContainer.y + 12,
-//   width: 20,
-//   height: 30,
+playerContainer.zIndex = 1;
+playerContainer.x = 0; // +ou-la valeurs de decalage ?
+playerContainer.y = 0; // +ou-la valeurs de decalage ?
+// playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
+// playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
+// const x = {
+//   position: player,
+//   container: playerContainer,
 // };
-// else we need to increment the initial playerContainer.x and playerContainer.y positions
-const playerHitbox = {
-  x: playerContainer.x + 5, // + offset.x
-  y: playerContainer.y + 12, // + offset.y
-  width: 20,
-  height: 30,
-  offset: {
-    x: 5,
-    y: 13,
-  },
+
+const base = {
+  x: 10,
+  y: 10,
+};
+const scaleX = 1.5;
+const scaleY = 1.5;
+const offsetX = 8;
+const offsetY = 20;
+const player = {
+  x: playerContainer.x - offsetX,
+  y: playerContainer.y + offsetY,
+  width: base.x / scaleX,
+  height: base.y / scaleY,
+  life: 5,
 };
 
-export function getPlayerHitboxWorldPosition() {
-  return {
-    x: app.screen.width / 2 + camera.pivot.x - playerHitbox.width / 2,
-    y: app.screen.height / 2 + camera.pivot.y - playerHitbox.height / 2,
-    width: 30,
-    height: 50,
-  };
+// hitbox
+const playerHitbox = new Graphics();
+playerHitbox.beginFill('#8c9fff', 0.4);
+playerHitbox.x = player.x;
+playerHitbox.y = player.y;
+playerHitbox.drawRect(0, 0, player.width, player.height);
+app.stage.addChild(playerHitbox);
+
+playerContainer.pivot.x = (playerHitbox.width / playerHitbox.scale.x) * 0.5;
+playerContainer.pivot.y = (playerHitbox.height / playerHitbox.scale.y) * 0.5;
+
+camera.addChild(playerContainer);
+playerContainer.addChild(witchIdleAnimation);
+playerContainer.addChild(witchWalkAnimation);
+
+enum Movements {
+  Idle = 'Idle',
+  Walk = 'Walk',
 }
 
-// draw the hitbox
-const playerHitboxDraw = new Graphics();
-playerHitboxDraw.beginFill('#8c9fff', 0.4);
-playerHitboxDraw.x = playerHitbox.offset.x; // if you keep de default playerContainer.x value (0), simple use playerHitbox.x
-playerHitboxDraw.y = playerHitbox.offset.y; // if you keep de default playerContainer.y value (0), simple use playerHitbox.y
-playerHitboxDraw.drawRect(0, 0, playerHitbox.width, playerHitbox.height);
-playerContainer.addChild(playerHitboxDraw);
+const movement = {
+  current: 'Idle',
+};
+
+const animations = [
+  { state: Movements.Idle, animation: witchIdleAnimation },
+  { state: Movements.Walk, animation: witchWalkAnimation },
+];
+
+app.ticker.add(() => {
+  for (const animation of animations) {
+    switch (movement.current) {
+      case Movements.Idle:
+        animation.animation.visible = animation.state === Movements.Idle;
+        break;
+      case Movements.Walk:
+        animation.animation.visible = animation.state === Movements.Walk;
+
+        break;
+      default:
+        animation.animation.visible = animation.state === Movements.Idle;
+        break;
+    }
+  }
+});
 
 export {
-  playerHitbox,
+  player,
   playerContainer,
+  movement,
+  Movements,
+  playerHitbox,
 };
