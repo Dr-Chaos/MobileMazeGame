@@ -1,5 +1,5 @@
 // import './atlas-generator';
-import './maps/map-draw-layers';
+import './map/map-draw-layers';
 // import './maps/map-collisions';
 // import './map-objects/traps';
 // import './player/fireball';
