@@ -2,7 +2,7 @@ import {
   Application, BaseTexture, Container, Graphics, SCALE_MODES,
 } from 'pixi.js';
 import { isColliding } from './math/collisions';
-import { getCoordinates } from './utils';
+import { getCoordinates } from './utils/utils';
 
 // for pixel art
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;

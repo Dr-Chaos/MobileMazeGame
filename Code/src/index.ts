@@ -1,19 +1,27 @@
 // import './atlas-generator';
-import './maps/map-draw-layers';
-import './maps/map-collisions';
+import './map/map-draw-layers';
+import './map/map-collisions';
 import { Graphics } from 'pixi.js';
 import app from './pixi/initialize';
-import './player/move';
-import { isColliding } from './math/collisions';
-import { playerHitbox } from './player/player';
-import inventory from './inventory';
-import { keyHud } from './hud';
-import './traps';
-import keyAnimation from './key';
-import { camera } from './player/camera';
-import './fireball'
+import './map-objects/traps';
+import { camera } from './camera';
+import './player/fireball';
 
 app.stage.addChild(camera);
+
+// const collider = {
+//   x: 30,
+//   y: 0,
+//   width: 20,
+//   height: 20,
+// };
+// const colliderDraw = new Graphics();
+// colliderDraw.beginFill('white');
+// colliderDraw.x = collider.x;
+// colliderDraw.y = collider.y;
+// colliderDraw.drawRect(0, 0, collider.width, collider.height);
+// camera.addChild(colliderDraw);
+// console.log(getCoordinates(collider));
 
 // left wall
 const borderLeft = new Graphics();
@@ -49,11 +57,25 @@ app.ticker.add(() => {
   //   playerContainer.y -= 10 * delta;
   // }
 
-  if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, playerHitbox)) {
-    keyAnimation.hasBeenTaken = true;
-    console.log('Collision key');
-    inventory.keys += 1;
-    keyHud.text = `Keys: ${inventory.keys}`;
-    camera.removeChild(keyAnimation);
-  }
+  // if (isColliding(playerHitbox, collider)) {
+  //   // movePlayer(collisionResponseDirection);
+  //   movePlayer(collisionResponseDirection(playerHitbox, collider));
+  // }
+
+  // if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, playerHitbox)) {
+  //   keyAnimation.hasBeenTaken = true;
+  //   console.log('Collision key');
+  //   inventory.keys += 1;
+  //   keyHud.text = `Keys: ${inventory.keys}`;
+  //   camera.removeChild(keyAnimation);
+  // }
+});
+
+// Press D key to display debug logs
+document.addEventListener('keydown', (event) => {
+  if (event.code !== 'Digit1') return;
+  // const allPixiObjects = app.stage.children;
+  // console.log(playerHitbox);
+  // console.log(collider);
+  // console.table(positionHistory);
 });

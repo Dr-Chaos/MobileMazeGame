@@ -1,9 +1,9 @@
 /* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
+
 import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
 import { mapTexture } from './load-map-tileset';
-import { camera } from '../player/camera';
+import { camera } from '../camera';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);

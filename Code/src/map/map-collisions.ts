@@ -1,14 +1,16 @@
 /* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
+
 import { Container, Graphics } from 'pixi.js';
 import map from '../../../Ressources/tiled/map.json';
 
 import mapCollisions from '../../../Ressources/tiled/map-collision.json';
 import app from '../pixi/initialize';
-import { playerContainer, playerHitbox } from '../player/player';
-import { type Collider, isColliding } from '../math/collisions';
-import { camera } from '../player/camera';
-import { direction } from '../player/move';
+import {
+  playerHitbox,
+} from '../player/player';
+import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
+import { camera } from '../camera';
+import { movePlayer } from '../player/move';
 
 // draw map
 const mapData = mapCollisions.layers[0].data;
@@ -38,7 +40,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 
     const tile = {
       x: xIteration * map.tilewidth - camera.x - mapCollisions.width * 3.735,
-      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.7,
+      y: yIteration * map.tileheight - camera.y - mapCollisions.height * 3.83,
       width: map.tilewidth,
       height: map.tileheight,
     };
@@ -58,13 +60,10 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-app.ticker.add((delta) => {
+app.ticker.add(() => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
-      console.log('Collising with wall');
-
-      // if (direction.x !== 0) playerContainer.x += direction.x < 0 ? 2 * delta : -2 * delta;
-      // if (direction.y !== 0) playerContainer.y += direction.y < 0 ? 2 * delta : -2 * delta;
+      movePlayer(collisionResponseDirection(playerHitbox, col));
     }
   }
 });

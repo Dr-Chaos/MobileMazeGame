@@ -1,7 +1,7 @@
 import { Text } from 'pixi.js';
 import inventory from './inventory';
-import app from './pixi/initialize';
-import { playerStats } from './player/player';
+import app from '../pixi/initialize';
+import { playerStats } from './stats';
 
 const lifeHud = new Text(`Life: ${playerStats.life}`, {
   fill: 'white',
