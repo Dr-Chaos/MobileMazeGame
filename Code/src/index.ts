@@ -1,10 +1,10 @@
 // import './atlas-generator';
-import './map/map-draw-layers';
-import './map/map-collisions';
+import './maps/map-draw-layers';
+// import './maps/map-collisions';
 // import './map-objects/traps';
 // import './player/fireball';
 import app from './pixi/initialize';
-import { camera } from './camera';
+import { camera } from './player/camera';
 // import { playerHitbox } from './player/player';
 import './player/move'; // handle move inputs
 
