@@ -23,8 +23,8 @@ import { camera } from './player/camera';
 import './fireball';
 import './skull';
 import './skullpath';
-
-3;
+import './skeleton';
+import './skeletonpath';
 
 app.stage.addChild(camera);
 
