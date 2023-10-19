@@ -1,4 +1,4 @@
-import {
+/* import {
   AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
 import app from './pixi/initialize';
@@ -13,4 +13,18 @@ skullAnimation.play();
 skullAnimation.hasBeenTaken = false;
 skullAnimation.x = app.screen.width / 2 - 160;
 skullAnimation.y = app.screen.height / 2 - 60;
-export default skullAnimation;
+export default skullAnimation; */
+
+import { Container, Graphics } from 'pixi.js';
+import { camera } from './player/camera';
+
+const skullContainer = new Container();
+skullContainer.x = 1;
+skullContainer.y = -50;
+const skullHitbox = new Graphics();
+skullContainer.addChild(skullHitbox);
+skullHitbox.beginFill('blue', 0.7);
+skullHitbox.drawRect(0, 0, 10, 20);
+camera.addChild(skullContainer);
+
+export { skullContainer };

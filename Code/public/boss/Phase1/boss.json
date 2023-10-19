@@ -1,0 +1,12 @@
+{
+  "meta": { "image": "Boss.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "frames": {
+    "Boss-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "Boss-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "Boss-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+    "Boss-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } }
+  },
+  "animations": {
+    "idle": ["Boss-1.png", "Boss-2.png", "Boss-3.png", "Boss-4.png"]
+  }
+}

@@ -1,5 +1,7 @@
 // import './atlas-generator';
 // import './maps/map-layer-1';
+import './boss';
+import './bossattack';
 import './maps/map-collisions';
 import { Graphics } from 'pixi.js';
 import './maps/map-draw-layers';
@@ -14,6 +16,10 @@ import keyAnimation from './key';
 import torchAnimation from './torch';
 import { camera } from './player/camera';
 import './fireball';
+import './skull';
+import './skullpath';
+
+3;
 
 app.stage.addChild(camera);
 
