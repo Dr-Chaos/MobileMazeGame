@@ -1,6 +1,6 @@
 // import './atlas-generator';
 // import './maps/map-layer-1';
-// import './maps/mapCollisionsV2';
+import './maps/map-collisions';
 import { Graphics } from 'pixi.js';
 import './maps/map-draw-layers';
 import app from './pixi/initialize';
