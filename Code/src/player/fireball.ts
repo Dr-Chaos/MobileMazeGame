@@ -1,18 +1,21 @@
-import {
-    AnimatedSprite, type Texture, Assets,
-  } from 'pixi.js';
-  import { player, playerContainer } from './player';
+import { Graphics } from 'pixi.js';
+import { playerContainer } from './player';
+import app from '../pixi/initialize';
 
-let isEPressed = false;
+const fireball = new Graphics();
+playerContainer.addChild(fireball);
 
-document.addEventListener("keydown", (event) => {
-    if (event.key === "e") {
-        isEPressed = true;
-    }
-});
+fireball.beginFill('orange');
+fireball.drawRect(0, 0, 30, 30);
 
-document.addEventListener("keyup", (event) => {
-    if (event.key === "e") {
-        isEPressed = false;
-    }
-});
+const radius = 50;
+let angle = 0;
+
+function moveFireball() {
+  const x = radius * Math.cos(angle);
+  const y = radius * Math.sin(angle);
+  fireball.position.set(x, y);
+  angle += 0.05;
+}
+
+app.ticker.add(moveFireball);
