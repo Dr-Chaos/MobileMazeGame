@@ -13,6 +13,7 @@ import './traps';
 import keyAnimation from './key';
 import torchAnimation from './torch';
 import { camera } from './player/camera';
+import './fireball';
 
 app.stage.addChild(camera);
 
