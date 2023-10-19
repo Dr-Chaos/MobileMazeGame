@@ -1,3 +1,4 @@
+import '@pixi/tilemap';
 import { Application, BaseTexture, SCALE_MODES } from 'pixi.js';
 
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
