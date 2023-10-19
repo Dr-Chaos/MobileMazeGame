@@ -22,14 +22,14 @@ function getTilesetFromTileId(tileId: number) {
   return closestTileset;
 }
 
-function drawLayer(layer: number, zIndex: number) {
+function drawLayer(layer: number) {
   const tilemap = new CompositeTilemap(mapTexture);
 
   // draw map
   const mapData = map.layers[layer].data;
   const mapWidth = map.layers[layer].width;
   const mapHeight = map.layers[layer].height;
-  if (!mapWidth || !mapHeight || !mapData) return;
+
   let totalIterations = 0;
   for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
     for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
@@ -41,9 +41,9 @@ function drawLayer(layer: number, zIndex: number) {
       }
 
       const tileset = getTilesetFromTileId(tileId);
-      if (!tileset) continue;
+      if(!tileset) return;
       const tilesetName = tileset?.source.replace('.json', '');
-      const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
+      const tileName = `${tilesetName}-${tileId - tileset?.firstgid + 1}.png`;
 
       // const tileName = `map-${tileId}.png`;
       const xPosition = xIteration * map.tilewidth;
@@ -55,8 +55,8 @@ function drawLayer(layer: number, zIndex: number) {
   }
 
   // tilemap settings
-  tilemap.zIndex = zIndex;
-  // const scale = 1; // 2.5s
+  tilemap.zIndex = -1;
+  const scale = 1; // 2.5
   // tilemap.width *= mapWidth / 22.6;
   // tilemap.height *= mapHeight / 24.3;
 
@@ -80,15 +80,6 @@ function drawLayer(layer: number, zIndex: number) {
 }
 
 const layers = map.layers.length;
-let mursDuBasLayerIndex = 0;
 for (let index = 0; index < layers; index++) {
-  // skip mursdubas for perspective
-  if (map.layers[index].name === 'mursdubas') {
-    mursDuBasLayerIndex = index;
-    continue;
-  }
-
-  drawLayer(index, -1);
+  drawLayer(index);
 }
-
-drawLayer(mursDuBasLayerIndex, 1);

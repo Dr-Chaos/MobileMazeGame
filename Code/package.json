@@ -7,8 +7,7 @@
     "dev": "vite --host",
     "check": "tsc --watch --noEmit",
     "build": "tsc && vite build",
-    "preview": "vite preview",
-    "backup": "rclone sync ../  ../../TemporaryBackup -P --exclude node_modules/**/*"
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@types/eslint": "^8",

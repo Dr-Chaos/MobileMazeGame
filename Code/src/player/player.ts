@@ -4,69 +4,55 @@ import witchIdleAnimation from './idle';
 import witchWalkAnimation from './walk';
 import { camera } from './camera';
 
-const playerContainer = new Container();
-playerContainer.x = 0;
-camera.addChild(playerContainer);
+// ANIMATION
 
-// const playerHitbox = {
-//   x: 5,
-//   y: 12,
-//   width: 20,
-//   height: 30,
+// dans ce container on mettra les sprites/animations
+// axe x
+// et y
+
+// 128
+// 105
+const playerContainer = new Container();
+playerContainer.zIndex = 1;
+playerContainer.x = 0; // +ou-la valeurs de decalage ?
+playerContainer.y = 0; // +ou-la valeurs de decalage ?
+// playerContainer.pivot.x = (playerContainer.width / playerContainer.scale.x) * 0.5;
+// playerContainer.pivot.y = (playerContainer.height / playerContainer.scale.y) * 0.5;
+// const x = {
+//   position: player,
+//   container: playerContainer,
 // };
 
-const playerHitbox = {
-  x: 0,
-  y: 0,
-  width: 30,
-  height: 50,
-  scale: {
-    x: 1,
-    y: 1,
-  },
+const base = {
+  x: 10,
+  y: 10,
 };
-
-export function getPlayerHitboxWorldPosition() {
-  return {
-    x: app.screen.width / 2 + camera.pivot.x - playerHitbox.width / 2,
-    y: app.screen.height / 2 + camera.pivot.y - playerHitbox.height / 2,
-    width: 30,
-    height: 50,
-  };
-}
-
-const playerStats = {
+const scaleX = 1.5;
+const scaleY = 1.5;
+const offsetX = 8;
+const offsetY = 20;
+const player = {
+  x: playerContainer.x - offsetX,
+  y: playerContainer.y + offsetY,
+  width: base.x / scaleX,
+  height: base.y / scaleY,
   life: 5,
 };
 
-// set anchore at the center of the hitbox
+// hitbox
+const playerHitbox = new Graphics();
+playerHitbox.beginFill('#8c9fff', 0.4);
+playerHitbox.x = player.x;
+playerHitbox.y = player.y;
+playerHitbox.drawRect(0, 0, player.width, player.height);
+app.stage.addChild(playerHitbox);
+
 playerContainer.pivot.x = (playerHitbox.width / playerHitbox.scale.x) * 0.5;
 playerContainer.pivot.y = (playerHitbox.height / playerHitbox.scale.y) * 0.5;
 
-// adjust the camera
-// camera.pivot.copyFrom(playerContainer);
-
-// hitbox
-const playerHitboxDraw = new Graphics();
-playerHitboxDraw.beginFill('#8c9fff', 0.4);
-playerHitboxDraw.drawRect(playerHitbox.x, playerHitbox.y, playerHitbox.width, playerHitbox.height);
-playerContainer.addChild(playerHitboxDraw);
-
-// animated sprite
+camera.addChild(playerContainer);
 playerContainer.addChild(witchIdleAnimation);
 playerContainer.addChild(witchWalkAnimation);
-
-app.ticker.add(() => {
-  // playerHitboxWorldPosition.x = camera.pivot.x;
-
-  // playerHitbox.x = camera.pivot.x;
-  // playerHitbox.y = camera.pivot.y;
-  // app.screen.width / 2 + camera.pivot.x
-  // console.log(app.screen.height / 2 + camera.pivot.y);
-
-  // playerHitboxDraw.x = playerContainer.x;
-  // playerHitboxDraw.y = playerContainer.y;
-});
 
 enum Movements {
   Idle = 'Idle',
@@ -100,10 +86,9 @@ app.ticker.add(() => {
 });
 
 export {
-  playerHitbox,
-  playerStats,
+  player,
   playerContainer,
   movement,
   Movements,
-
+  playerHitbox,
 };

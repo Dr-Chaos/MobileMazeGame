@@ -1,0 +1,39 @@
+{"frames": {
+
+"piques1.png":
+{
+	"frame": {"x":0,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"piques2.png":
+{
+	"frame": {"x":16,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"piques3.png":
+{
+	"frame": {"x":32,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+}},
+"animations": {
+	"piques": ["piques1.png","piques2.png","piques3.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "2D Pixel Dungeon Asset Pack.png",
+	"format": "RGBA8888",
+	"size": {"w":48,"h":16},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:79ec85eefb140589a2893e9791894498:5f9a30d750059eb3a6779f073c848fd2:7305f9071deb31f17e8a594abb0aaf46$"
+}
+}

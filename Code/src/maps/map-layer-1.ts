@@ -1,14 +1,15 @@
-/* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
+import {
+  Assets, type BaseTexture, Graphics, type Texture,
+} from 'pixi.js';
 import { CompositeTilemap } from '@pixi/tilemap';
 import map from '../../../Ressources/tiled/map.json';
 import app from '../pixi/initialize';
 import { mapTexture } from './load-map-tileset';
-import { camera } from '../player/camera';
 
-// the tilesets are already sorted
-// const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
-function getTilesetFromTileId(tileId: number) {
+const mapTexture: Texture = await Assets.load('/map.png');
+
+const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
+function searchTileset(needle: number) {
   let closestTileset;
 
   for (const tileset of sorted) {
@@ -39,7 +40,7 @@ const layer = 0;
 const mapData = map.layers[layer].data;
 const mapWidth = map.layers[layer].width;
 const mapHeight = map.layers[layer].height;
-if (!mapData || !mapWidth || !mapHeight) throw new Error('Missing mapData, mapWidth or mapHeight');
+
 let totalIterations = 0;
 for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
   for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
@@ -50,12 +51,13 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       continue;
     }
 
-    const tileset = getTilesetFromTileId(tileId);
-    if (!tileset) continue;
-    const tilesetName = tileset?.source.replace('.json', '');
-    const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
+    // const prefix = getTilePrefix(tileId);
+    // const tileName = `${prefix?.file}-${tileId - prefix?.firstgrid + 1}.png`; // resulat torxh-N.png , nom
 
-    // const tileName = `map-${tileId}.png`;
+    const file = searchTileset(tileId);
+    const prefix = file?.source.replace('.json', '');
+    const tileName = `${prefix}-${tileId - file?.firstgid + 1}.png`;
+
     const xPosition = xIteration * map.tilewidth;
     const yPosition = yIteration * map.tileheight;
     tilemap.tile(tileName, xPosition, yPosition);
@@ -66,12 +68,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 
 // tilemap settings
 tilemap.zIndex = -1;
-const scale = 1;
-tilemap.width = app.screen.width * scale;
-tilemap.height = app.screen.height * scale;
-tilemap.pivot.x = (tilemap.width / scale) * 0.5;
-tilemap.pivot.y = (tilemap.height / scale) * 0.5;// tilemap.scale.x = 2;
-// tilemap.scale.y = 2;
+tilemap.width = app.screen.width * 1;
+tilemap.height = app.screen.height * 1;
 
-// draw the tilemap
-camera.addChild(tilemap);
+app.stage.addChild(tilemap);

@@ -1,32 +1,42 @@
 // import './atlas-generator';
-import './maps/map-draw-layers';
-import './maps/map-collisions';
+// import './maps/map-layer-1';
+// import './maps/mapCollisionsV2';
 import { Graphics } from 'pixi.js';
+import './maps/map-draw-layers';
 import app from './pixi/initialize';
 import './player/move';
 import { isColliding } from './math/collisions';
-import { playerHitbox } from './player/player';
+import { player, playerContainer } from './player/player';
 import inventory from './inventory';
 import { keyHud } from './hud';
 import './traps';
 import keyAnimation from './key';
+import torchAnimation from './torch';
 import { camera } from './player/camera';
-import './fireball'
 
 app.stage.addChild(camera);
 
 // left wall
 const borderLeft = new Graphics();
 borderLeft.beginFill('white', 0.5);
-borderLeft.drawRect(-camera.x, -camera.y, 10, app.screen.height);
-// camera.addChild(borderLeft);
+borderLeft.drawRect(0, 0, 10, app.screen.height);
+app.stage.addChild(borderLeft);
 
 // bottom wall
+const borderBottom = {
+  x: 0,
+  y: app.screen.height - 10,
+  width: app.screen.width,
+  height: 10,
+};
 const borderBottomDraw = new Graphics();
 borderBottomDraw.beginFill('white', 0.5);
-borderBottomDraw.x = -camera.x;
-borderBottomDraw.y = camera.y - 10;
-borderBottomDraw.drawRect(0, 0, app.screen.width, 10);
+borderBottomDraw.drawRect(
+  borderBottom.x,
+  borderBottom.y,
+  borderBottom.width,
+  borderBottom.height,
+);
 // camera.addChild(borderBottomDraw);
 
 // key
@@ -36,24 +46,24 @@ borderBottomDraw.drawRect(0, 0, app.screen.width, 10);
 // camera.addChild(torchAnimation);
 
 // chaque frame
-app.ticker.add(() => {
+app.ticker.add((delta: number) => {
   // si il y a une collision
   // isIntersect
-  // if (isColliding(borderLeft, getPlayerHitboxWorldPosition())) {
+  // if (isColliding(borderLeft, player)) {
   //   console.log('Collision borderLeft');
   //   playerContainer.x += 10 * delta;
   // }
 
-  // if (isColliding(borderBottomDraw, playerHitbox)) {
+  // if (isColliding(borderBottom, player)) {
   //   console.log('Collision borderBottom');
   //   playerContainer.y -= 10 * delta;
   // }
 
-  if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, playerHitbox)) {
+  if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, player)) {
     keyAnimation.hasBeenTaken = true;
     console.log('Collision key');
     inventory.keys += 1;
     keyHud.text = `Keys: ${inventory.keys}`;
-    camera.removeChild(keyAnimation);
+    app.stage.removeChild(keyAnimation);
   }
 });
