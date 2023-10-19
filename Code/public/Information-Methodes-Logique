@@ -229,3 +229,39 @@
         //Déboguer les Valeurs : Utilisez des outils de débogage ou des logs pour afficher les valeurs de delta, 
         // de la direction du mouvement et des coordonnées du joueur pendant le jeu.
         // Cela vous aidera à identifier où le problème se produit.     //
+
+        ////////////////////////////////////
+        
+                 
+                  //Creer dossier
+                      //1.Boss 
+                          //2 fichiers: 1 attaque , 1 phase et animation "dans phase, mettre si attaque active ou pas et leur condition")-->
+                      //2.Fantome
+                          //creer dossier : un fichier pour chaque fantome , quasi Ctrlc,Ctrlv juste changer valeurs positionsentre les differents fantomes, 
+                          //ou tout dans le meme fichier (apres), juste faire attention aux erreurs vaux mieux differents a chaque fois puis implementer ensemble.
+                      //3.Squelletes
+                          //creer Dossier :1 fichier par squellette , juste varier la position d'aorigine 
+                          //et les noms pour pas les confondres ( meme systeme pour chaque  quasi Ctrlc,Ctrlv )
+
+                      //4.levier
+                          //creer dossier : 1 par levier qui fonctionne (4) , puis 1 seul, pour tout les leviers qui fonctionnent pas ( y implementer le meme effet)
+                      //5.
+                      //6
+                  //5.
+                  //6.a
+                  //7.a
+                  //8.
+
+
+                
+             
+                  //creer Hitbox de base , et position sur la map au debut.
+
+              // 1 :boss , (animation, hitbox ,attaque, la condition phase 1 puis phase 2 , )
+              // 2 : hitbox levier (Faire dossier levier, creer un fichier pour chaque levier, implementer 
+              // hitboxportes
+              // HItbox skelette
+              // hitbox fantomes
+              // hitbox levier
+              //.Hitbox piege
+

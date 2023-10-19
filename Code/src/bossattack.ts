@@ -1,5 +1,5 @@
 import { Container, Graphics } from 'pixi.js';
-import { bossContainer } from './boss';
+import { bossContainer } from './map-objects/boss';
 import app from './pixi/initialize';
 
 const bossattackContainer = new Container();
