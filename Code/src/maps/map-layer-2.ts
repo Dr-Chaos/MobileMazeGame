@@ -1,5 +1,4 @@
 /* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
 
 import {
   Assets, type BaseTexture, Graphics, type Texture,

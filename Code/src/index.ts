@@ -1,4 +1,6 @@
 // import './atlas-generator';
+import './map/map-draw-layers';
+import './map/map-collisions';
 // import './maps/map-layer-1';
 import './boss';
 import './bossattack';
@@ -6,6 +8,9 @@ import './maps/map-collisions';
 import { Graphics } from 'pixi.js';
 import './maps/map-draw-layers';
 import app from './pixi/initialize';
+import './map-objects/traps';
+import { camera } from './camera';
+import './player/fireball';
 import './player/move';
 import { isColliding } from './math/collisions';
 import { player, playerContainer } from './player/player';
@@ -22,6 +27,20 @@ import './skullpath';
 3;
 
 app.stage.addChild(camera);
+
+// const collider = {
+//   x: 30,
+//   y: 0,
+//   width: 20,
+//   height: 20,
+// };
+// const colliderDraw = new Graphics();
+// colliderDraw.beginFill('white');
+// colliderDraw.x = collider.x;
+// colliderDraw.y = collider.y;
+// colliderDraw.drawRect(0, 0, collider.width, collider.height);
+// camera.addChild(colliderDraw);
+// console.log(getCoordinates(collider));
 
 // left wall
 const borderLeft = new Graphics();
@@ -66,6 +85,27 @@ app.ticker.add((delta: number) => {
   //   playerContainer.y -= 10 * delta;
   // }
 
+  // if (isColliding(playerHitbox, collider)) {
+  //   // movePlayer(collisionResponseDirection);
+  //   movePlayer(collisionResponseDirection(playerHitbox, collider));
+  // }
+
+  // if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, playerHitbox)) {
+  //   keyAnimation.hasBeenTaken = true;
+  //   console.log('Collision key');
+  //   inventory.keys += 1;
+  //   keyHud.text = `Keys: ${inventory.keys}`;
+  //   camera.removeChild(keyAnimation);
+  // }
+});
+
+// Press D key to display debug logs
+document.addEventListener('keydown', (event) => {
+  if (event.code !== 'Digit1') return;
+  // const allPixiObjects = app.stage.children;
+  // console.log(playerHitbox);
+  // console.log(collider);
+  // console.table(positionHistory);
   if (!keyAnimation.hasBeenTaken && isColliding(keyAnimation, player)) {
     keyAnimation.hasBeenTaken = true;
     console.log('Collision key');

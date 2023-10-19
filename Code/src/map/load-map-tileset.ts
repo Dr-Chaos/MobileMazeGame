@@ -1,11 +1,11 @@
-import { CompositeTilemap } from '@pixi/tilemap';
 import { Assets, type BaseTexture } from 'pixi.js';
 
 Assets.add({ alias: 'map', src: '/map/map-tileset.json' });
 Assets.add({ alias: 'spike', src: '/spike/spike.json' });
 Assets.add({ alias: 'torch', src: '/torch/torch.json' });
+Assets.add({ alias: 'key', src: '/key/key.json' });
 
-const mapTexture: BaseTexture[] = await Assets.load(['map', 'spike', 'torch']);
+const mapTexture = await Assets.load(['map', 'spike', 'torch', 'key']) as BaseTexture[];
 
 export {
   mapTexture,

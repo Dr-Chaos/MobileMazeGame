@@ -3,11 +3,18 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["xo-typescript/space", "xo", "plugin:unicorn/all", "airbnb-base"],
+  "extends": [
+    "xo-typescript/space",
+    "xo",
+    "plugin:unicorn/all",
+    "airbnb-base"
+  ],
   "overrides": [
     {
       "extends": [],
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "rules": {
         "import/prefer-default-export": "off",
         "no-console": "off",
@@ -17,7 +24,9 @@
         "unicorn/no-empty-file": "off",
         "unicorn/switch-case-braces": "off",
         "unicorn/prefer-dom-node-remove": "off",
-        "no-restricted-syntax": "off"
+        "no-restricted-syntax": "off",
+        "max-len": "off",
+        "no-plusplus": "off"
       }
     }
   ],

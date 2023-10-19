@@ -1,10 +1,11 @@
 // if solution active trap desctived done
 // else :    if trap actived, colision trap, degat once,
 import { Graphics } from 'pixi.js';
-import app from './pixi/initialize';
-import { isColliding } from './math/collisions';
-import { player } from './player/player';
-import { lifeHud } from './hud';
+import app from '../pixi/initialize';
+import { isColliding } from '../math/collisions';
+import { playerHitbox } from '../player/player';
+import { lifeHud } from '../player/hud';
+import { playerStats } from '../player/stats';
 
 // trap desactived xtime , return
 // let trapActive = true;
@@ -38,14 +39,16 @@ const trap = {
 };
 const trapDraw = new Graphics();
 trapDraw.beginFill('#ff8c8c', 0.7);
+trapDraw.x = 40;
+trapDraw.y = 40;
 trapDraw.drawRect(
-  trap.x,
-  trap.y,
+  0,
+  0,
   trap.width,
   trap.height,
 );
 trapDraw.visible = trap.isVisible;
-// app.stage.addChild(trapDraw);
+// camera.addChild(trapDraw);
 
 setInterval(() => {
   trap.isVisible = !trap.isVisible;
@@ -54,15 +57,15 @@ setInterval(() => {
 }, 1500);
 
 function checkTrapsCollision() {
-  if (!isColliding(player, trap)) {
+  if (!isColliding(trapDraw, playerHitbox)) {
     trap.playerReceiveDamage = false;
     return;
   }
 
   if (!trap.isVisible || trap.playerReceiveDamage) return;
   trap.playerReceiveDamage = true;
-  player.life -= 1;
-  lifeHud.text = `Life: ${player.life}`;
+  playerStats.life -= 1;
+  lifeHud.text = `Life: ${playerStats.life}`;
   console.log('Collision trap');
 }
 
