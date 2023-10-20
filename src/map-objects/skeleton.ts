@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container } from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
