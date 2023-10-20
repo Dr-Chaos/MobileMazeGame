@@ -1,3 +1,5 @@
+/* Meme CODE QUE POUR L?AUTRE MAIS DES CONDITIONS A RAJOUTER
+
 import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
