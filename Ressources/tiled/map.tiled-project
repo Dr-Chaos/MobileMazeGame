@@ -206,7 +206,7 @@
                     "value": 1
                 },
                 {
-                    "name": "lives",
+                    "name": "life",
                     "type": "int",
                     "value": 2
                 }
