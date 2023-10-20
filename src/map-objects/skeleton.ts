@@ -1,4 +1,4 @@
-import {
+/* import {
   AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
 import app from '../pixi/initialize';
@@ -14,4 +14,29 @@ skeletonAnimation.hasBeenTaken = false;
 skeletonAnimation.x = app.screen.width / 2;
 skeletonAnimation.y = app.screen.height / 2;
 
-export default skeletonAnimation;
+export default skeletonAnimation; */
+
+import { Container, Graphics } from 'pixi.js';
+import { camera } from './player/camera';
+
+const skeletonContainer = new Container();
+skeletonContainer.x = 1;
+skeletonContainer.y = -50;
+const skeletonHitbox = new Graphics();
+skeletonContainer.addChild(skeletonHitbox);
+skeletonHitbox.beginFill('blue', 0.7);
+skeletonHitbox.drawRect(0, 0, 10, 20);
+camera.addChild(skeletonContainer);
+
+const skeletonHitbox = {
+  x: skeletonContainer.x + 5, // + offset.x
+  y: skeletonContainer.y + 12, // + offset.y
+  width: 20,
+  height: 30,
+  offset: {
+    x: 5,
+    y: 13,
+  },
+};
+
+export { skeletonContainer };
