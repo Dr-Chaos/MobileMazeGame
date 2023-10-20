@@ -1,55 +1,71 @@
-class Character {
-  launchAttack(targetX: number, targetY: number) {
-    const projectile = createProjectileAnimation();
-    const startX = this.x; // Position de départ du personnage
-    const startY = this.y;
-    const speed = 5; // Vitesse du projectile (ajustez selon vos besoins)
-    const deltaX = targetX - startX;
-    const deltaY = targetY - startY;
-    const distance = Math.hypot(deltaX, deltaY);
-    const directionX = deltaX / distance;
-    const directionY = deltaY / distance;
+import { Graphics, Application } from 'pixi.js';
+import app from './pixi/initialize';
+import { camera } from './player/camera';
 
-    let projectileX = startX;
-    let projectileY = startY;
+// Définir un type pour Point
+type Point = {
+  x: number;
+  y: number;
+};
 
-    const updateProjectilePosition = () => {
-      projectileX += directionX * speed;
-      projectileY += directionY * speed;
-    };
+// Création d'une classe pour le squelette
+class Skeleton extends Graphics {
+  constructor() {
+    super();
+    this.beginFill(0xFF_00_00); // 'red' en couleur hexadécimale
+    this.drawRect(0, 0, 50, 50);
+    this.endFill();
+    // Vous pouvez initialiser d'autres propriétés ici si nécessaire
+  }
 
-    const animateProjectile = () => {
-      if (checkCollision(projectileX, projectileY) || distanceToTarget(projectileX, projectileY, targetX, targetY) < 5) {
-        cancelAnimationFrame(animationFrame);
-        destroyProjectileAnimation(projectile);
-      } else {
-        updateProjectilePosition();
-        requestAnimationFrame(animateProjectile);
-      }
-    };
+  // Méthode pour déplacer ce squelette vers une position cible
+  moveToTarget(targetPosition: Point): void {
+    const dirX = targetPosition.x - this.x;
+    const dirY = targetPosition.y - this.y;
+    const distance = Math.hypot(dirX, dirY);
 
-    const animationFrame = requestAnimationFrame(animateProjectile);
+    // Si la distance est suffisamment petite, nous considérons que le squelette a atteint le joueur
+    if (distance < 2) {
+      this.x = targetPosition.x;
+      this.y = targetPosition.y;
+      return;
+    }
+
+    const normDirX = dirX / distance;
+    const normDirY = dirY / distance;
+    const speed = 1; // Définissez cela en fonction de la vitesse souhaitée pour vos squelettes
+
+    // Déplace le squelette
+    this.x += normDirX * speed;
+    this.y += normDirY * speed;
   }
 }
 
-function createProjectileAnimation() {
-  // Code pour créer et démarrer l'animation du projectile.
+// Obtenir la position du joueur
+function getPlayerPosition(): Point {
+  return { x: 100, y: 100 }; // Ceci est un exemple, utilisez la logique réelle pour obtenir la position actuelle du joueur
 }
 
-function updateProjectileAnimationPosition(x: number, y: number) {
-  // Code pour mettre à jour la position de l'animation du projectile.
+// Créez vos instances de squelettes
+const skeleton1 = new Skeleton();
+const skeleton2 = new Skeleton();
+// ... Créez autant de squelettes que nécessaire
+
+// Ajoutez vos squelettes à la caméra ou à la scène
+camera.addChild(skeleton1);
+camera.addChild(skeleton2);
+// ... Répétez pour tous les squelettes
+
+// La fonction de mise à jour appelée par le ticker
+function update(delta: number): void { // delta est le temps écoulé en ms depuis la dernière mise à jour
+  // Obtient la position du joueur
+  const playerPosition = getPlayerPosition();
+
+  // Déplacez chaque squelette vers le joueur
+  skeleton1.moveToTarget(playerPosition);
+  skeleton2.moveToTarget(playerPosition);
+  // ... Répétez pour tous les squelettes
 }
 
-function checkCollision(x: number, y: number): boolean {
-  return false; // Modifiez cette fonction pour la détection de collision.
-}
-
-function distanceToTarget(x1: number, y1: number, x2: number, y2: number): number {
-  const deltaX = x2 - x1;
-  const deltaY = y2 - y1;
-  return Math.hypot(deltaX, deltaY);
-}
-
-// Exemple d'utilisation :
-// const character = new Character();
-// character.launchAttack(targetX, targetY);
+// Ajoutez la boucle de mise à jour au ticker
+app.ticker.add(update);
