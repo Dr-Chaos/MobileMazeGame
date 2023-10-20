@@ -7,15 +7,16 @@ import app from './pixi/initialize';
 import { camera } from './camera';
 // import { playerHitbox } from './player/player';
 import './player/move'; // handle move inputs
-import { skeletons, createSkeleton } from './map-objects/skeleton';
+import { createSkeleton } from './map-objects/skeleton';
 import './map-objects/skeletonpath';
 import { inputMovementDirection } from './input/mouvement';
+import { boss, createBoss } from './map-objects/boss';
 
 app.stage.addChild(camera); // create the world / camera
 
 // créer un skeleton ici
 createSkeleton(0, 0);
-
+createBoss(1, 1);
 // Press D key to display debug logs
 document.addEventListener('keydown', (event) => {
   if (event.code !== 'Digit1') return;
