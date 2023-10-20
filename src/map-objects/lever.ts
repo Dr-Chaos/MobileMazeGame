@@ -6,26 +6,26 @@ import { collisionResponseDirection, isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
 
-export function createLevier(x: number, y: number) {
-  const levier = new AnimatedSprite(atlasLoader.levier.animations.idle);
-  levier.scale.set(2);
-  levier.animationSpeed = 0;
-  levier.play();
-  levier.x = x;
-  levier.y = y;
-  levier.zIndex = -1;
-  levier.onLoop = () => {
+export function createLever(x: number, y: number) {
+  const lever = new AnimatedSprite(atlasLoader.lever.animations.idle);
+  lever.scale.set(2);
+  lever.animationSpeed = 0;
+  lever.play();
+  lever.x = x;
+  lever.y = y;
+  lever.zIndex = -1;
+  lever.onLoop = () => {
     console.log('Loop');
-    const lastFrameIndex = levier.totalFrames - 1;
-    levier.gotoAndStop(lastFrameIndex);
+    const lastFrameIndex = lever.totalFrames - 1;
+    lever.gotoAndStop(lastFrameIndex);
   };
 
-  camera.addChild(levier);
+  camera.addChild(lever);
 
   app.ticker.add(() => {
-    if (isColliding(playerHitbox, levier)) {
+    if (isColliding(playerHitbox, lever)) {
       // movePlayer(collisionResponseDirection(playerHitbox, levier));
-      levier.animationSpeed = 0.2;
+      lever.animationSpeed = 0.2;
     }
   });
 }

@@ -1,5 +1,5 @@
 { "columns":3,
- "image":"assets\/Mini_Dungeon_v1.0\/Objects\/Lever.png",
+ "image":"..\/public\/lever\/lever.png",
  "imageheight":16,
  "imagewidth":48,
  "margin":0,

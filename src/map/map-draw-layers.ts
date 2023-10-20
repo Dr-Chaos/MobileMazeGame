@@ -1,11 +1,10 @@
 import { CompositeTilemap } from '@pixi/tilemap';
-import map from '../../tiled/map-flo.json';
+import map from '../../tiled/map.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
-import { createSkeleton } from '../map-objects/skeleton';
 import { createSpike } from '../map-objects/spike';
-import { createLevier } from '../map-objects/levier';
+import { createLever } from '../map-objects/lever';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -97,42 +96,6 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   camera.addChild(tilemap);
 }
 
-type Objects = Array<{
-  gid: number;
-  height: number;
-  id: number;
-  name: string;
-  rotation: number;
-  type: string;
-  visible: boolean;
-  width: number;
-  x: number;
-  y: number;
-}>;
-
-function drawObjects(layerObjects: Objects) {
-  for (const layerObject of layerObjects) {
-    const objectType = layerObject.type;
-    // sur l'axe Y nous devons soustraire la hauteur de la tile
-    // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
-    const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
-
-    switch (objectType) {
-      case 'key':
-        createKey(tilePosition.x, tilePosition.y);
-        continue;
-      case 'piegeauto':
-        createSpike(tilePosition.x, tilePosition.y);
-        continue;
-      case 'levier':
-        createLevier(tilePosition.x, tilePosition.y);
-        continue;
-      default:
-        break;
-    }
-  }
-}
-
 const layers = map.layers.length;
 for (let index = 0; index < layers; index++) {
   // display the literated layer
@@ -151,5 +114,27 @@ for (let index = 0; index < layers; index++) {
     }
   }
 
-  if (layerObjects) drawObjects(layer.objects);
+  // draw objects
+  if (!layerObjects) continue;
+  for (const layerObject of layerObjects) {
+    const objectType = layerObject.type;
+    // sur l'axe Y nous devons soustraire la hauteur de la tile
+    // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
+    const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
+
+    console.log(objectType);
+    switch (objectType) {
+      case 'key':
+        createKey(tilePosition.x, tilePosition.y);
+        continue;
+      case 'spike':
+        createSpike(tilePosition.x, tilePosition.y);
+        continue;
+      case 'lever':
+        createLever(tilePosition.x, tilePosition.y);
+        continue;
+      default:
+        break;
+    }
+  }
 }

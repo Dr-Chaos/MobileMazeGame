@@ -12,9 +12,10 @@ import { atlasLoader } from '../pixi/atlas-loader';
 const spikes: AnimatedSprite[] = [];
 export function createSpike(x: number, y: number) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
-  // camera.addChild(spike); // HIDE SPIKES DURING DEV
+  camera.addChild(spike); // HIDE SPIKES DURING DEV
   spike.scale.set(2);
   spike.animationSpeed = 0.1;
+  spike.zIndex = -1;
   spike.play();
   spike.x = x;
   spike.y = y;
