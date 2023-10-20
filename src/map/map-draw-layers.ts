@@ -2,7 +2,7 @@
 
 import { CompositeTilemap } from '@pixi/tilemap';
 import { Container } from 'pixi.js';
-import map from '../../../Ressources/tiled/map.json';
+import map from '../../tiled/map.json';
 import { loadedAtlas } from '../pixi/loaded-atlas';
 import { camera } from '../camera';
 import { createKey, keysContainer } from '../map-objects/key';
