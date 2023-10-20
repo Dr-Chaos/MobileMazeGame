@@ -16,5 +16,3 @@ document.addEventListener('keydown', (event) => {
   // const allPixiObjects = app.stage.children;
   // console.table(playerHitbox);
 });
-
-// hello
