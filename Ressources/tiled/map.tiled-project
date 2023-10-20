@@ -13,6 +13,36 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
+            "id": 9,
+            "members": [
+                {
+                    "name": "activation",
+                    "type": "bool",
+                    "value": false
+                },
+                {
+                    "name": "collision",
+                    "type": "bool",
+                    "value": true
+                }
+            ],
+            "name": "",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
             "id": 8,
             "members": [
                 {
@@ -103,20 +133,45 @@
         {
             "color": "#ffa0a0a4",
             "drawFill": true,
-            "id": 9,
+            "id": 3,
             "members": [
-                {
-                    "name": "activation",
-                    "type": "bool",
-                    "value": false
-                },
                 {
                     "name": "collision",
                     "type": "bool",
                     "value": true
+                },
+                {
+                    "name": "keypoints",
+                    "type": "int",
+                    "value": 1
                 }
             ],
-            "name": "mauvaislevier",
+            "name": "key",
+            "type": "class",
+            "useAs": [
+                "property",
+                "map",
+                "layer",
+                "object",
+                "tile",
+                "tileset",
+                "wangcolor",
+                "wangset",
+                "project"
+            ]
+        },
+        {
+            "color": "#ffa0a0a4",
+            "drawFill": true,
+            "id": 14,
+            "members": [
+                {
+                    "name": "isactive",
+                    "type": "bool",
+                    "value": false
+                }
+            ],
+            "name": "levier",
             "type": "class",
             "useAs": [
                 "property",
@@ -161,36 +216,6 @@
             "useAs": [
                 "property",
                 "object",
-                "project"
-            ]
-        },
-        {
-            "color": "#ffa0a0a4",
-            "drawFill": true,
-            "id": 3,
-            "members": [
-                {
-                    "name": "collision",
-                    "type": "bool",
-                    "value": true
-                },
-                {
-                    "name": "keypoints",
-                    "type": "int",
-                    "value": 1
-                }
-            ],
-            "name": "key",
-            "type": "class",
-            "useAs": [
-                "property",
-                "map",
-                "layer",
-                "object",
-                "tile",
-                "tileset",
-                "wangcolor",
-                "wangset",
                 "project"
             ]
         },
