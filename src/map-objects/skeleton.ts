@@ -28,9 +28,9 @@ skeletonHitbox.beginFill('blue', 0.7);
 skeletonHitbox.drawRect(0, 0, 10, 20);
 camera.addChild(skeletonContainer);
 
-const skeletonHitbox = {
-  x: skeletonContainer.x + 5, // + offset.x
-  y: skeletonContainer.y + 12, // + offset.y
+const playerHitbox = {
+  x: playerContainer.x + 5, // + offset.x
+  y: playerContainer.y + 12, // + offset.y
   width: 20,
   height: 30,
   offset: {
