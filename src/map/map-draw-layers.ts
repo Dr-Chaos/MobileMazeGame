@@ -3,9 +3,10 @@
 import { CompositeTilemap } from '@pixi/tilemap';
 import { Container } from 'pixi.js';
 import map from '../../tiled/map.json';
-import { loadedAtlas } from '../pixi/loaded-atlas';
+import { atlasLoader, loadedAtlas } from '../pixi/atlas-loader';
 import { camera } from '../camera';
 import { createKey, keysContainer } from '../map-objects/key';
+import { createTorch } from '../map-objects/torch';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -25,7 +26,7 @@ function getTilesetFromTileId(tileId: number) {
 }
 
 function drawLayer(layer: number, zIndex: number, layerName?: string) {
-  const tilemap = new CompositeTilemap(loadedAtlas);
+  const tilemap = new CompositeTilemap(atlasLoader);
 
   // draw map
   const mapData = map.layers[layer].data;
@@ -48,14 +49,22 @@ function drawLayer(layer: number, zIndex: number, layerName?: string) {
         continue;
       }
 
-      if (layerName === 'clefs') {
-        const positions = {
-          x: xIteration * map.tilewidth * scale.x + scale.xOffet,
-          y: yIteration * map.tileheight * scale.y + scale.yOffset,
-        };
-        createKey(positions.x, positions.y);
-        totalIterations++;
-        continue;
+      // only used to place map objects (torches, enemies, keys, ets)
+      const objectPosition = {
+        x: xIteration * map.tilewidth * scale.x + scale.xOffet,
+        y: yIteration * map.tileheight * scale.y + scale.yOffset,
+      };
+      switch (layerName) {
+        case 'clefs':
+          createKey(objectPosition.x, objectPosition.y);
+          totalIterations++;
+          continue;
+        case 'decorsmurduhaut':
+          createTorch(objectPosition.x, objectPosition.y);
+          totalIterations++;
+          continue;
+        default:
+          break;
       }
 
       // add the tile to the tilemap container

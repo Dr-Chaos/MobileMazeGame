@@ -1,10 +1,9 @@
 import {
   AnimatedSprite, type Texture, Assets,
 } from 'pixi.js';
+import { atlasLoader } from '../pixi/atlas-loader';
 
-type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
-const witchIdleAtlas: AnimationSpriteAtlas = await Assets.load('/witch/idle/idle.json');
-const witchIdleAnimation = new AnimatedSprite(witchIdleAtlas.animations.idle);
+const witchIdleAnimation = new AnimatedSprite(atlasLoader.witchIdle.animations.idle);
 // witchIdleAnimation.scale.set(2);
 // witchIdleAnimation.anchor.x = 0.5;
 witchIdleAnimation.animationSpeed = 0.17;
