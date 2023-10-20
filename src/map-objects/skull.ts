@@ -6,30 +6,33 @@ import { atlasLoader } from '../pixi/atlas-loader';
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
 
-function createSkull(): AnimatedSprite {
+export function createSkull(): AnimatedSprite {
   const skull = new AnimatedSprite(atlasLoader.skull.animations.idle);
   skull.scale.set(2);
   skull.animationSpeed = 0.17;
   skull.play();
-  camera.addChild(skull);
+
   return skull;
 }
 
-let skull1 = createSkull();
-let skull2 = createSkull();
+export const skull1 = createSkull();
+export const skull2 = createSkull();
+
+camera.addChild(skull1);
+camera.addChild(skull2);
 
 const pointsSkull1: Point[] = [
-  { x: 50, y: 50 },
-  { x: 100, y: 100 },
-  { x: 150, y: 150 },
-  { x: 200, y: 200 },
+  { x: -360, y: 230 },
+  { x: -360, y: 360 },
+  { x: 100, y: 360 },
+  { x: 100, y: 230 },
 ];
 
 const pointsSkull2: Point[] = [
-  { x: 200, y: 50 },
-  { x: 150, y: 100 },
-  { x: 100, y: 150 },
-  { x: 50, y: 200 },
+  { x: -380, y: 200 },
+  { x: 130, y: 200 },
+  { x: 130, y: 390 },
+  { x: -380, y: 390 },
 ];
 
 let stateSkull1: MovementState = { index: 0, progress: 0 };
@@ -61,12 +64,16 @@ function updateSkullMovement(
 }
 
 app.ticker.add((delta) => {
-  const result1 = updateSkullMovement(skull1, pointsSkull1, stateSkull1, delta, 0.01);
-  skull1 = result1.updatedSkull;
-  stateSkull1 = result1.updatedState;
+  const { updatedSkull: updatedSkull1, updatedState: updatedStateSkull1 } = updateSkullMovement(skull1, pointsSkull1, stateSkull1, delta, 0.01);
+  // Directly update the properties, don't reassign
+  skull1.x = updatedSkull1.x;
+  skull1.y = updatedSkull1.y;
+  stateSkull1 = updatedStateSkull1; // Assuming this is a let variable, or else it should also not be reassigned.
 
-  const result2 = updateSkullMovement(skull2, pointsSkull2, stateSkull2, delta, 0.02);
-  skull2 = result2.updatedSkull;
-  stateSkull2 = result2.updatedState;
+  const { updatedSkull: updatedSkull2, updatedState: updatedStateSkull2 } = updateSkullMovement(skull2, pointsSkull2, stateSkull2, delta, 0.02);
+  skull2.x = updatedSkull2.x;
+  skull2.y = updatedSkull2.y;
+  stateSkull2 = updatedStateSkull2; // Same assumption as above.
+
+  // If there's more logic to be executed on each tick, add it here.
 });
-export { skull1, skull2 };
