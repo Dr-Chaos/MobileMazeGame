@@ -1,0 +1,16 @@
+{
+  "meta": { "image": "walk.png", "size": { "w": 32, "h": 384 }, "scale": "1" },
+  "frames": {
+    "walk-1.png": { "frame": { "x": 0, "y": 0, "w": 32, "h": 48 } },
+    "walk-2.png": { "frame": { "x": 0, "y": 48, "w": 32, "h": 48 } },
+    "walk-3.png": { "frame": { "x": 0, "y": 96, "w": 32, "h": 48 } },
+    "walk-4.png": { "frame": { "x": 0, "y": 144, "w": 32, "h": 48 } },
+    "walk-5.png": { "frame": { "x": 0, "y": 192, "w": 32, "h": 48 } },
+    "walk-6.png": { "frame": { "x": 0, "y": 240, "w": 32, "h": 48 } },
+    "walk-7.png": { "frame": { "x": 0, "y": 288, "w": 32, "h": 48 } },
+    "walk-8.png": { "frame": { "x": 0, "y": 336, "w": 32, "h": 48 } }
+  },
+  "animations": {
+    "walk": ["walk-1.png", "walk-2.png", "walk-3.png", "walk-4.png", "walk-5.png", "walk-6.png", "walk-7.png", "walk-8.png"]
+  }
+}

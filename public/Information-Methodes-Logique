@@ -1,0 +1,231 @@
+//////////////////////////
+    //Pour Creer Une Attaque avec un Personnage
+
+    //Lorsque le personnage lance l'attaque, démarrez l'animation du projectile.
+    //Vous pouvez utiliser une bibliothèque comme PixiJS pour gérer les animations.
+
+    //Calculez la trajectoire du projectile (vitesse, direction, etc.) en fonction de la position du personnage et de la cible. 
+    //Vous devrez également tenir compte de la durée de l'animation.
+
+    //Mettez à jour la position du projectile à chaque trame d'animation en fonction de la trajectoire calculée. 
+    //Cela peut être fait en déplaçant les tuiles sur la couche du projectile dans Tiled.
+
+    //Vérifiez si le projectile entre en collision avec un obstacle ou atteint sa cible. 
+    //Si c'est le cas, arrêtez l'animation du projectile.
+
+    //Supprimez le projectile de la carte ou masquez-le, car il n'est plus nécessaire.
+//
+// /////////////////////////////////////////////////////////////////////////////////////////////////   
+//      class Character {
+  // ...
+//        launchAttack(targetX: number, targetY: number) {
+//          // Lorsque le personnage lance l'attaque, démarrez l'animation du projectile.
+//          const projectile = createProjectileAnimation();
+//      
+//          // Calculez la trajectoire du projectile (vitesse, direction, etc.)
+//          const startX = this.x; // Position de départ du personnage
+//          const startY = this.y;
+//          const speed = 5; // Vitesse du projectile (ajustez selon vos besoins)
+//          const deltaX = targetX - startX;
+//          const deltaY = targetY - startY;
+//          const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//          const directionX = deltaX / distance;
+//          const directionY = deltaY / distance;
+//      
+//          // Mettez à jour la position du projectile à chaque trame d'animation en fonction de la trajectoire calculée.
+//          let projectileX = startX;
+//          let projectileY = startY;
+//      
+//          const updateProjectilePosition = () => {
+//            projectileX += directionX * speed;
+//            projectileY += directionY * speed;
+//            // Mettez à jour la position du projectile dans votre animation.
+//            updateProjectileAnimationPosition(projectileX, projectileY);
+//          };
+//      
+//          const animationFrame = requestAnimationFrame(function animateProjectile() {
+//            // Vérifiez si le projectile entre en collision avec un obstacle ou atteint sa cible.
+//            if (checkCollision(projectileX, projectileY) || distanceToTarget(projectileX, projectileY, targetX, targetY) < 5) {
+//              // Si c'est le cas, arrêtez l'animation du projectile après un certain nombre de frames.
+//              cancelAnimationFrame(animationFrame);
+//              destroyProjectileAnimation(projectile);
+//            } else {
+//              // Sinon, continuez à mettre à jour la position et l'animation.
+//              updateProjectilePosition();
+//              requestAnimationFrame(animateProjectile);
+//            }
+//          });
+//        }
+//      }
+//      
+//      function createProjectileAnimation() {
+//        // Code pour créer et démarrer l'animation du projectile.
+//      }
+//      
+//      function updateProjectileAnimationPosition(x: number, y: number) {
+//        // Code pour mettre à jour la position de l'animation du projectile.
+//      }
+//      
+//      function checkCollision(x: number, y: number): boolean {
+//        // Code pour vérifier la collision avec un obstacle.
+//        return false; // Modifiez cette fonction pour la détection de collision.
+//      }
+//      
+//      function distanceToTarget(x1: number, y1: number, x2: number, y2: number): number {
+//        const deltaX = x2 - x1;
+//        const deltaY = y2 - y1;
+//        return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+//      }
+//      
+//      function destroyProjectileAnimation(projectile: any) {
+//        // Code pour arrêter et détruire l'animation du projectile.
+//      }
+//      
+//      // Exemple d'utilisation :
+//      const character = new Character();
+//      character.launchAttack(targetX, targetY);
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //Pour faire en sorte qu'un monstre se dirige automatiquement vers un personnage:
+
+    // Initialisation :
+
+    //Créer un monstre et un personnage.
+    //Connaître la position initiale du personnage.
+    //Définir la vitesse de déplacement du monstre.
+
+    //Détection de la Cible :
+
+    //À chaque mise à jour du jeu, déterminez la position actuelle du personnage.
+
+    //Calcul de la Direction :
+
+    //Calculez la direction du monstre vers le personnage en utilisant les positions actuelles du monstre et du personnage.
+    //Normalisez la direction pour obtenir un vecteur de déplacement unitaire (longueur 1).
+
+    //Déplacement du Monstre :
+
+    //À chaque mise à jour du jeu, déplacez le monstre en fonction de sa vitesse et de la direction calculée.
+    //Mettez à jour les coordonnées du monstre.
+
+    //Mise à Jour de l'Animation (si nécessaire) :
+
+    //Si votre monstre a une animation de déplacement, mettez à jour son état ou son apparence pour refléter la direction du mouvement.
+
+    //Détection de la Cible Atteinte ou d'Obstacles :
+
+    //Vérifiez si le monstre a atteint le personnage (ou une certaine proximité) ou s'il rencontre un obstacle.
+
+    //Arrêt du Monstre :
+
+    //Si la cible est atteinte ou si un obstacle est rencontré, arrêtez le déplacement du monstre.
+
+    //Gestion des Obstacles :
+
+    //Prenez en compte la détection de collisions avec des obstacles pour éviter que le monstre ne passe à travers les murs ou autres objets.
+    //Ajustez la trajectoire du monstre en cas de collision.
+
+    //Optimisation :
+
+    //Limitez la fréquence à laquelle vous effectuez les calculs de direction et de déplacement pour des performances optimales.
+    //Gérez les mises à jour de manière efficace pour économiser des ressources.
+
+    //Répétition :
+
+    //Répétez ces étapes à chaque mise à jour du jeu tant que le monstre doit poursuivre le personnage.
+    //Ces étapes devraient vous aider à mettre en place la logique pour que le monstre se déplace automatiquement vers le personnage. Vous pourrez ensuite les traduire en code en utilisant la plateforme ou la bibliothèque de développement de jeux que vous utilisez.
+//////////////////////////////////////////////////////////////////////////////////
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//    // Étape 1: Initialisation
+//    const monster = createMonster(); // Créer le monstre
+//    const character = createCharacter(); // Créer le personnage
+//    let characterPosition = getCharacterPosition(); // Obtenir la position initiale du personnage
+//    const monsterSpeed = 2; // Définir la vitesse de déplacement du monstre
+
+//    //Étape 2: Détection de la Cible
+//      function update() {
+//      characterPosition = getCharacterPosition(); // Mettre à jour la position actuelle du personnage
+//}
+
+//  Étape 3: Calcul de la Direction
+//  function calculateDirection() {
+//  const directionX = characterPosition.x - monster.x;
+//  const directionY = characterPosition.y - monster.y;
+//  const distance = Math.sqrt(directionX * directionX + directionY * directionY);
+//  const normalizedDirectionX = directionX / distance;
+//  const normalizedDirectionY = directionY / distance;
+//}
+
+//  Étape 4: Déplacement du Monstre
+//  function moveMonster() {
+//  const speed = monsterSpeed;
+//  monster.x += normalizedDirectionX * speed; // Déplacer le monstre en fonction de la direction
+//  monster.y += normalizedDirectionY * speed;
+//}
+
+//  Étape 5: Mise à Jour de l'Animation (si nécessaire)
+
+//  Étape 6: Détection de la Cible Atteinte ou d'Obstacles
+//  function checkTargetReached() {
+//  const distanceToCharacter = calculateDistance(monster.x, monster.y, characterPosition.x, characterPosition.y);
+//  const targetReached = distanceToCharacter < 10; // Exemple: le monstre atteint le personnage si la distance est inférieure à 10 pixels
+//  const obstacleDetected = checkObstacleCollision(monster.x, monster.y); // Vérifier les collisions avec les obstacles
+//  if (targetReached || obstacleDetected) {
+//    stopMonster(); // Arrêter le déplacement du monstre
+//  }
+//}
+
+// Étape 7: Arrêt du Monstre
+//      function stopMonster() {
+  // Arrêtez le déplacement du monstre ici
+//}
+
+// Étape 8: Gestion des Obstacles
+
+// Étape 9: Optimisation
+
+//// Étape 10: Répétition
+//function gameLoop() {
+//  update(); // Mettre à jour la position du personnage
+//  calculateDirection(); // Calculer la direction du monstre
+//  moveMonster(); // Déplacer le monstre
+//  checkTargetReached(); // Vérifier si la cible est atteinte
+  // Répétez ces étapes dans la boucle de jeu
+//  requestAnimationFrame(gameLoop);
+//}
+
+// Démarrer la boucle de jeu
+//gameLoop();
+/////////////////////////////////////////////////////
+// POUR COLLISION
+        // Comprendre la Valeur de delta : Le code utilise la valeur delta pour lisser le déplacement en fonction du temps. Assurez-vous que la valeur de delta est correctement calculée et qu'elle correspond à la durée écoulée entre deux trames de jeu.
+        //
+        //Vérifier la Direction du Mouvement : Assurez-vous que la valeur de direction est correctement calculée. 
+        //La direction devrait être un vecteur unitaire (de longueur 1) pour déterminer la direction du mouvement.
+        //
+        //Ajuster la Vitesse : Le code actuel ajoute ou soustrait 1 * delta pour le déplacement du joueur. 
+        //Assurez-vous que la vitesse de déplacement est correctement configurée et qu'elle est adaptée à votre jeu. Une valeur de 1 peut être trop grande, provoquant un déplacement excessif.
+        //
+        //Vérifier l'Échelle : Vous avez ajusté l'échelle de mapCollidersDraw,
+        // mais assurez-vous que cela n'affecte pas la gestion des collisions. 
+        //Le calcul de la position et de la taille des tuiles de collision (tile) doit correspondre à l'échelle actuelle de votre jeu.
+        //
+        //Vérifier les Coordonnées : 
+        //Vérifiez que les coordonnées du joueur (playerContainer.x et playerContainer.y)
+        // sont correctement initialisées et gérées dans d'autres parties de votre code.
+        //
+        //Gérer la Collision Correctement : Assurez-vous que la fonction isColliding détecte les collisions de manière appropriée et renvoie les résultats attendus. Vous devrez peut-être déboguer cette fonction pour vérifier son comportement.
+        //
+        //Déboguer les Valeurs : Utilisez des outils de débogage ou des logs pour afficher les valeurs de delta, 
+        // de la direction du mouvement et des coordonnées du joueur pendant le jeu.
+        // Cela vous aidera à identifier où le problème se produit.     //
