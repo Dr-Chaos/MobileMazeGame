@@ -1,17 +1,31 @@
-import {
-  AnimatedSprite, type Texture, Assets,
-} from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
+import { camera } from '../camera';
+import { atlasLoader } from '../pixi/atlas-loader';
 import app from '../pixi/initialize';
+import { collisionResponseDirection, isColliding } from '../math/collisions';
+import { playerHitbox } from '../player/player';
+import { movePlayer } from '../player/move';
 
-type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
-const levierAtlas: AnimationSpriteAtlas = await Assets.load('/levier/levier.json');
-type ExtendedAnimatedSprite = AnimatedSprite & { hasBeenTaken?: boolean};
-const levierAnimation: ExtendedAnimatedSprite = new AnimatedSprite(levierAtlas.animations.idle);
-levierAnimation.scale.set(2.5);
-levierAnimation.animationSpeed = 0.01;
-levierAnimation.play();
-levierAnimation.hasBeenTaken = false;
-levierAnimation.x = app.screen.width / 2 - 150;
-levierAnimation.y = app.screen.height / 2 - 50;
+export function createLevier(x: number, y: number) {
+  const levier = new AnimatedSprite(atlasLoader.levier.animations.idle);
+  levier.scale.set(2);
+  levier.animationSpeed = 0;
+  levier.play();
+  levier.x = x;
+  levier.y = y;
+  levier.zIndex = -1;
+  levier.onLoop = () => {
+    console.log('Loop');
+    const lastFrameIndex = levier.totalFrames - 1;
+    levier.gotoAndStop(lastFrameIndex);
+  };
 
-export default levierAnimation;
+  camera.addChild(levier);
+
+  app.ticker.add(() => {
+    if (isColliding(playerHitbox, levier)) {
+      // movePlayer(collisionResponseDirection(playerHitbox, levier));
+      levier.animationSpeed = 0.2;
+    }
+  });
+}

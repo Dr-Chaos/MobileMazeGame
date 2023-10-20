@@ -9,42 +9,30 @@ import { playerStats } from '../player/stats';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 
-const traps = [];
+const spikes: AnimatedSprite[] = [];
 export function createSpike(x: number, y: number) {
-  let canPlayerReceiveDamage = true;
-
-  const trap = new AnimatedSprite(atlasLoader.spike.animations.idle);
-  camera.addChild(trap);
-  trap.scale.set(2);
-  trap.animationSpeed = 0.1;
-  trap.play();
-  trap.x = x;
-  trap.y = y;
-  trap.visible = true;
-  // torch.zIndex = zIndex;
-  traps.push(trap);
-
-  setInterval(() => {
-    trap.visible = !trap.visible;
-    // peut recevoir des dégâts lorsque le trap est visible
-    if (trap.visible) canPlayerReceiveDamage = true;
-  }, 1500);
-
-  function checkTrapsCollision() {
-    // si le joueur sort du trap, il peut à nouveau recevoir des dégâts
-    if (!isColliding(trap, playerHitbox)) {
-      canPlayerReceiveDamage = true;
-      return;
-    }
-
-    if (!canPlayerReceiveDamage) return;
-    // ne peut plus recevoir de dégâts tant que le trap réaparait à nouveau
-    // ou que le joueur sort du trap (puis y rentre à nouveau)
-    canPlayerReceiveDamage = false;
-    playerStats.life -= 1;
-    lifeHud.text = `Life: ${playerStats.life}`;
-    console.log('Collision trap');
-  }
-
-  app.ticker.add(checkTrapsCollision);
+  const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
+  // camera.addChild(spike); // HIDE SPIKES DURING DEV
+  spike.scale.set(2);
+  spike.animationSpeed = 0.1;
+  spike.play();
+  spike.x = x;
+  spike.y = y;
+  spike.visible = true;
+  spikes.push(spike);
 }
+
+let invulnerabilityTime = 0;
+const invulnerabilityTimer = 1500;
+app.ticker.add(() => {
+  for (const spike of spikes) {
+    if (isColliding(playerHitbox, spike)) {
+      if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) continue;
+      console.log('Receive damage from spikes');
+      invulnerabilityTime = Date.now();
+      playerStats.life -= 1;
+      lifeHud.text = `Life: ${playerStats.life}`;
+      console.log('Collision trap');
+    }
+  }
+});

@@ -9,10 +9,12 @@ import { camera } from './camera';
 import './player/move'; // handle move inputs
 import { createSpike } from './map-objects/spike';
 import { createSkeleton } from './map-objects/skeleton';
+import levier, { createLevier } from './map-objects/levier';
 
 app.stage.addChild(camera); // create the world / camera
-createSpike(40, -40);
-createSkeleton(0, 0);
+// createSpike(40, -40);
+// createSkeleton(0, 0);
+createLevier(0, 0);
 
 // Press D key to display debug logs
 document.addEventListener('keydown', (event) => {

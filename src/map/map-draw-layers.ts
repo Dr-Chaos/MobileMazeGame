@@ -5,6 +5,7 @@ import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSkeleton } from '../map-objects/skeleton';
 import { createSpike } from '../map-objects/spike';
+import { createLevier } from '../map-objects/levier';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -122,6 +123,9 @@ function drawObjects(layerObjects: Objects) {
         continue;
       case 'piegeauto':
         createSpike(tilePosition.x, tilePosition.y);
+        continue;
+      case 'levier':
+        createLevier(tilePosition.x, tilePosition.y);
         continue;
       default:
         break;
