@@ -1,5 +1,5 @@
 {
-  "meta": { "image": "levier.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "meta": { "image": "levier.png", "size": { "w": 48, "h": 16 }, "scale": "1" },
   "frames": {
     "levier-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
     "levier-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },

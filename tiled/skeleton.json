@@ -1,7 +1,7 @@
 { "columns":4,
- "image":"assets\/Character_animation\/monsters_idle\/skeleton2\/v2\/skeleton.png",
+ "image":"..\/public\/skeleton\/skeleton.png",
  "imageheight":16,
- "imagewidth":64,
+ "imagewidth":72,
  "margin":0,
  "name":"skeleton",
  "spacing":0,
@@ -29,7 +29,7 @@
                 }],
          "id":0
         }],
- "tilewidth":16,
+ "tilewidth":18,
  "type":"tileset",
  "version":"1.10"
 }

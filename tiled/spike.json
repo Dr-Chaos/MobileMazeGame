@@ -1,26 +1,26 @@
 { "columns":3,
- "image":"assets\/Mini_Dungeon_v1.0\/Objects\/spike\/spike.png",
- "imageheight":16,
+ "image":"..\/public\/spike\/spike.png",
+ "imageheight":21,
  "imagewidth":48,
  "margin":0,
  "name":"spike",
  "spacing":0,
  "tilecount":3,
  "tiledversion":"1.10.2",
- "tileheight":16,
+ "tileheight":21,
  "tiles":[
         {
          "animation":[
                 {
-                 "duration":250,
+                 "duration":200,
                  "tileid":0
                 }, 
                 {
-                 "duration":250,
+                 "duration":200,
                  "tileid":1
                 }, 
                 {
-                 "duration":250,
+                 "duration":1000,
                  "tileid":2
                 }],
          "id":1
