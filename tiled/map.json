@@ -363,7 +363,7 @@
          "source":"skeleton.json"
         }, 
         {
-         "firstgid":203,
+         "firstgid":135,
          "source":"joueur.json"
         }],
  "tilewidth":16,

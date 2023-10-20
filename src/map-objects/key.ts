@@ -1,8 +1,8 @@
 import {
-  AnimatedSprite, type Texture, Assets, Container,
+  AnimatedSprite,
 } from 'pixi.js';
 import { camera } from '../camera';
-import { loadedAtlas } from '../pixi/loaded-atlas';
+import { atlasLoader } from '../pixi/atlas-loader';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
@@ -10,24 +10,19 @@ import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
 
-// type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
-// const keyAtlas: AnimationSpriteAtlas = await Assets.load('/key/key.json');
-// type ExtendedAnimatedSprite = AnimatedSprite & { hasBeenTaken?: boolean};
+type Key = AnimatedSprite & { hasBeenTaken?: boolean};
 
-const keys: ExtendedAnimatedSprite[] = [];
-const keysContainer = new Container();
-camera.addChild(keysContainer);
-export { keysContainer };
+let keys: Key[] = [];
 export function createKey(x: number, y: number) {
-  const keyAnimation: ExtendedAnimatedSprite = new AnimatedSprite(loadedAtlas.key.animations.idle);
-  keyAnimation.scale.set(2);
-  keyAnimation.animationSpeed = 0.17;
-  keyAnimation.play();
-  keyAnimation.hasBeenTaken = false;
-  keyAnimation.x = x;
-  keyAnimation.y = y;
-  keysContainer.addChild(keyAnimation);
-  keys.push(keyAnimation);
+  const key: Key = new AnimatedSprite(atlasLoader.key.animations.idle);
+  camera.addChild(key);
+  key.scale.set(2);
+  key.animationSpeed = 0.17;
+  key.play();
+  key.hasBeenTaken = false;
+  key.x = x;
+  key.y = y;
+  keys.push(key);
 }
 
 app.ticker.add(() => {
@@ -37,8 +32,9 @@ app.ticker.add(() => {
       console.log('Collision key');
       inventory.keys += 1;
       keyHud.text = `Keys: ${inventory.keys}`;
-      // TODO: remove key from keys array
-      keysContainer.removeChild(key);
+      camera.removeChild(key);
+      // remove the key from keys array
+      keys = keys.filter((iteratedKey) => iteratedKey !== key);
     }
   }
 });
