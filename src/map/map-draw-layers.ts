@@ -3,6 +3,7 @@ import map from '../../tiled/map-test.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
+import { createSkeleton } from '../map-objects/skeleton';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -109,10 +110,21 @@ type Objects = Array<{
 
 function drawObjects(layerObjects: Objects) {
   for (const layerObject of layerObjects) {
+    const objectType = layerObject.type;
     // sur l'axe Y nous devons soustraire la hauteur de la tile
     // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
     const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
-    createKey(tilePosition.x, tilePosition.y);
+
+    switch (objectType) {
+      case 'clefs':
+        createKey(tilePosition.x, tilePosition.y);
+        continue;
+      case 'spike':
+        createSkeleton(tilePosition.x, tilePosition.y);
+        continue;
+      default:
+        break;
+    }
   }
 }
 
@@ -134,5 +146,5 @@ for (let index = 0; index < layers; index++) {
     }
   }
 
-  if (layerObjects && layerName === 'clefs') drawObjects(layer.objects);
+  if (layerObjects) drawObjects(layer.objects);
 }
