@@ -6,27 +6,34 @@ import { playerHitbox } from '../player/player';
 import { getCoordinates } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
 
-type Skeleton = AnimatedSprite & {life?: number; damage?: number};
-const skeletons: Skeleton[] = [];
+type Skeleton = AnimatedSprite & { life: number; damage: number };
+const skeletons: Record<string, Skeleton> = {}; // Utilisation d'un objet pour stocker les squelettes par leur nom
 
-export function createSkeleton(x: number, y: number) {
-  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
+export function createSkeleton(x: number, y: number, name: string) {
+  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
   skeleton.scale.set(2);
   skeleton.animationSpeed = 0.17;
   skeleton.play();
   skeleton.x = x;
   skeleton.y = y;
   camera.addChild(skeleton);
-  skeletons.push(skeleton);
   skeleton.life = 5;
   skeleton.damage = 1;
+  skeletons[name] = skeleton; // Stockez le squelette dans l'objet "skeletons" avec son nom comme clé
 }
 
 app.ticker.add(() => {
-  for (const skeleton of skeletons) {
-    if (isColliding(getCoordinates(skeleton), playerHitbox) && skeleton.life === 0) {
-      camera.removeChild(skeleton);
+  for (const name in skeletons) {
+    if (name in skeletons) {
+      const skeleton = skeletons[name];
+      if (isColliding(getCoordinates(skeleton), playerHitbox)) {
+        skeleton.life -= 1;
+        if (skeleton.life <= 0) {
+          camera.removeChild(skeleton);
+        }
+      }
     }
   }
 });
+
 export { skeletons };
