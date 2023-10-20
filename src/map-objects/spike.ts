@@ -10,24 +10,29 @@ import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 
 const spikes: AnimatedSprite[] = [];
-export function createSpike(x: number, y: number) {
+export function createSpike(x: number, y: number, name: string) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
   camera.addChild(spike); // HIDE SPIKES DURING DEV
   spike.scale.set(2);
-  spike.animationSpeed = 0.1;
+  spike.animationSpeed = 0.15;
   spike.zIndex = -1;
-  spike.play();
+  spike.stop();
   spike.x = x;
   spike.y = y;
-  spike.visible = true;
+  spike.visible = false;
+  spike.name = name;
   spikes.push(spike);
+  spike.onLoop = () => {
+    spike.stop();
+    spike.visible = false;
+  };
 }
 
 let invulnerabilityTime = 0;
-const invulnerabilityTimer = 1500;
+const invulnerabilityTimer = 1000;
 app.ticker.add(() => {
   for (const spike of spikes) {
-    if (isColliding(playerHitbox, spike)) {
+    if (spike.visible && isColliding(playerHitbox, spike)) {
       if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) continue;
       console.log('Receive damage from spikes');
       invulnerabilityTime = Date.now();
@@ -37,3 +42,5 @@ app.ticker.add(() => {
     }
   }
 });
+
+export { spikes };

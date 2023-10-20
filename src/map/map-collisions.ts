@@ -18,7 +18,7 @@ mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 mapCollidersDraw.zIndex = 2;
-camera.addChild(mapCollidersDraw);
+// camera.addChild(mapCollidersDraw); // DRAW HITBOXES DURING DEV
 // scaling = 500 / 16 * 100
 // const mapScaling = {
 //   width: app.screen.width / mapCollisions.tilewidth / mapCollisions.width,
@@ -58,7 +58,6 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 app.ticker.add(() => {
   for (const col of colliderTiles) {
     if (isColliding(col, playerHitbox)) {
-      console.log('Collision');
       movePlayer(collisionResponseDirection(playerHitbox, col));
     }
   }

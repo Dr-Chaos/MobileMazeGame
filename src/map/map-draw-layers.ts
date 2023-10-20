@@ -118,20 +118,27 @@ for (let index = 0; index < layers; index++) {
   if (!layerObjects) continue;
   for (const layerObject of layerObjects) {
     const objectType = layerObject.type;
+    const objectName = layerObject.name;
     // sur l'axe Y nous devons soustraire la hauteur de la tile
     // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
     const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
 
-    console.log(objectType);
     switch (objectType) {
       case 'key':
-        createKey(tilePosition.x, tilePosition.y);
+        console.log(objectName);
+
+        if (objectName === 'key1') {
+          createKey(tilePosition.x, tilePosition.y, objectName, false);
+          continue;
+        }
+
+        createKey(tilePosition.x, tilePosition.y, objectName);
         continue;
       case 'spike':
-        createSpike(tilePosition.x, tilePosition.y);
+        createSpike(tilePosition.x, tilePosition.y, objectName);
         continue;
       case 'lever':
-        createLever(tilePosition.x, tilePosition.y);
+        createLever(tilePosition.x, tilePosition.y, objectName);
         continue;
       default:
         break;

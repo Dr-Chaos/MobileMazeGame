@@ -16,11 +16,13 @@ app.stage.addChild(camera); // create the world / camera
 createSpike(40, -40);
 // createSkeleton(0, 0);
 
-// Press D key to display debug logs
+// display debug logs when press key 1
 document.addEventListener('keydown', (event) => {
   if (event.code !== 'Digit1') return;
-  console.log(getCoordinates(fireball));
+  // console.log(getCoordinates(fireball));
 
-  // const allPixiObjects = app.stage.children;
+  const allPixiObjects = app.stage.children;
+  console.log(allPixiObjects);
+
   // console.table(playerHitbox);
 });

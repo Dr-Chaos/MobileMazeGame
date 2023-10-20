@@ -10,16 +10,19 @@ import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
 
-type Key = AnimatedSprite & {hasBeenTaken?: boolean};
+type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
 let keys: Key[] = [];
-export function createKey(x: number, y: number) {
-  const key: Key = new AnimatedSprite(atlasLoader.key.animations.idle);
+export function createKey(x: number, y: number, name: string, isActive = true) {
+  const key = new AnimatedSprite(atlasLoader.key.animations.idle) as Key;
   camera.addChild(key);
+  key.name = 'key';
   key.scale.set(2);
   key.animationSpeed = 0.17;
   key.play();
   key.hasBeenTaken = false;
+  key.name = name;
+  key.visible = isActive;
   key.x = x;
   key.y = y;
   keys.push(key);
@@ -27,7 +30,11 @@ export function createKey(x: number, y: number) {
 
 app.ticker.add(() => {
   for (const key of keys) {
-    if (!key.hasBeenTaken && isColliding(getCoordinates(key), playerHitbox)) {
+    camera.addChild(key);
+    if (
+      key.visible
+      && !key.hasBeenTaken
+      && isColliding(getCoordinates(key), playerHitbox)) {
       key.hasBeenTaken = true;
       console.log('Collision key');
       inventory.keys += 1;
