@@ -1,0 +1,14 @@
+{
+  "meta": { "image": "idle.png", "size": { "w": 31, "h": 288 }, "scale": "1" },
+  "frames": {
+    "idle-1.png": { "frame": { "x": 0, "y": 0, "w": 32, "h": 48 } },
+    "idle-2.png": { "frame": { "x": 0, "y": 48, "w": 32, "h": 48 } },
+    "idle-3.png": { "frame": { "x": 0, "y": 96, "w": 32, "h": 48 } },
+    "idle-4.png": { "frame": { "x": 0, "y": 144, "w": 32, "h": 48 } },
+    "idle-5.png": { "frame": { "x": 0, "y": 192, "w": 32, "h": 48 } },
+    "idle-6.png": { "frame": { "x": 0, "y": 240, "w": 32, "h": 48 } }
+  },
+  "animations": {
+    "idle": ["idle-1.png", "idle-2.png", "idle-3.png", "idle-4.png", "idle-5.png", "idle-6.png"]
+  }
+}

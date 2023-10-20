@@ -1,0 +1,47 @@
+{"frames": {
+
+"skull1.png":
+{
+	"frame": {"x":0,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"skull2.png":
+{
+	"frame": {"x":16,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"skull3.png":
+{
+	"frame": {"x":32,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"skull4.png":
+{
+	"frame": {"x":48,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+}},
+"animations": {
+	"skull": ["skull1.png","skull2.png","skull3.png","skull4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "skull.png",
+	"format": "RGBA8888",
+	"size": {"w":64,"h":16},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c7d7a9725d9b6d004be5b79de081a30c:b4db025b46162d550e6c37a6e863a053:443f28002a1aabbdca7c6a666d0850c5$"
+}
+}

@@ -1,0 +1,47 @@
+{"frames": {
+
+"boss1.png":
+{
+	"frame": {"x":0,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"boss2.png":
+{
+	"frame": {"x":16,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"boss3.png":
+{
+	"frame": {"x":32,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+},
+"boss4.png":
+{
+	"frame": {"x":48,"y":0,"w":16,"h":16},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":16},
+	"sourceSize": {"w":16,"h":16}
+}},
+"animations": {
+	"boss": ["boss1.png","boss2.png","boss3.png","boss4.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.1",
+	"image": "boss.png",
+	"format": "RGBA8888",
+	"size": {"w":64,"h":16},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:f6b76e96c4c58520ef4fc9c2eab8da6c:0bbce93555abb6be98258502885cf896:46ed12eff2905e238af2d2a3f055c310$"
+}
+}
