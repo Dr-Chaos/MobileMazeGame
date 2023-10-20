@@ -14,8 +14,8 @@ let angle = 0;
 function moveFireball() {
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
-  fireball.position.set(x, y);
-  angle += 0.05;
+  fireball.position.set(x, y + 20);
+  angle += 0.1;
 }
 
 app.ticker.add(moveFireball);

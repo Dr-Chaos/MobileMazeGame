@@ -17,10 +17,34 @@ export function createSkeleton(x: number, y: number, name: string) {
   skeleton.x = x;
   skeleton.y = y;
   camera.addChild(skeleton);
-  skeleton.life = 5;
-  skeleton.damage = 1;
+  skeleton.life = 250;
+  skeleton.damage = 1000;
   skeletons[name] = skeleton;
 }
+
+app.ticker.add(() => {
+  for (const name in skeletons) {
+    if (name in skeletons) {
+      const skeleton = skeletons[name];
+      const playerX = playerHitbox.x;
+      const playerY = playerHitbox.y;
+
+      const directionX = playerX - skeleton.x;
+      const directionY = playerY - skeleton.y;
+
+      const distance = Math.hypot(directionX, directionY);
+
+      const normalizedDirectionX = directionX / distance;
+      const normalizedDirectionY = directionY / distance;
+
+      const speed = 1;
+      skeleton.x += normalizedDirectionX * speed;
+      skeleton.y += normalizedDirectionY * speed;
+
+      if (isColliding(getCoordinates(skeleton), playerHitbox)) {}
+    }
+  }
+});
 
 app.ticker.add(() => {
   for (const name in skeletons) {

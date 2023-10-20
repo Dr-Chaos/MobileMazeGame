@@ -1,32 +1,30 @@
 import { Graphics } from 'pixi.js';
-import './skull';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
+import { playerContainer } from '../player/player';
+import { skeletons, createSkeleton } from './map-objects/skeleton';
 
-type Point = {
-  x: number;
-  y: number;
-};
+const skeleton = new Graphics();
+skeleton.beginFill(0xFF_00_00);
+skeleton.drawRect(0, 0, 50, 50);
+camera.addChild(skeleton);
 
-let playerPosition: Point = { x: 0, y: 0 };
+const speed = 2;
 
-function getPlayerPosition(): Point {
-  playerPosition.x += 1;
-  playerPosition.y += 1;
+function moveSkeleton(): void {
+  const playerX = playerContainer.x;
+  const playerY = playerContainer.y;
 
-  return playerPosition;
+  const directionX = playerX - skeleton.x;
+  const directionY = playerY - skeleton.y;
+
+  const distance = Math.hypot(directionX, directionY);
+
+  const normalizedDirectionX = directionX / distance;
+  const normalizedDirectionY = directionY / distance;
+
+  skeleton.x += normalizedDirectionX * speed;
+  skeleton.y += normalizedDirectionY * speed;
 }
 
-const movingskeleton = new Graphics();
-movingskeleton.beginFill(0x00_00_FF); // Utilisation d'une couleur hexadécimale (bleu)
-movingskeleton.drawRect(0, 0, 50, 50);
-camera.addChild(movingskeleton);
-
-function moveskeleton(): void {
-  playerPosition = getPlayerPosition();
-
-  movingskeleton.x = playerPosition.x;
-  movingskeleton.y = playerPosition.y;
-}
-
-app.ticker.add(moveskeleton);
+app.ticker.add(moveSkeleton);
