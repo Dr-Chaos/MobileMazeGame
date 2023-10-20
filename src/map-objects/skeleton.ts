@@ -10,7 +10,7 @@ type Skeleton = AnimatedSprite & { life: number; damage: number };
 const skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number) {
-  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.spike.animations.idle) as Skeleton;
+  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
   skeleton.scale.set(2);
   skeleton.animationSpeed = 0.17;
   skeleton.play();

@@ -1,9 +1,10 @@
 import { CompositeTilemap } from '@pixi/tilemap';
-import map from '../../tiled/map-test.json';
+import map from '../../tiled/map-flo.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSkeleton } from '../map-objects/skeleton';
+import { createSpike } from '../map-objects/spike';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -66,7 +67,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
 
       switch (layerName) {
         case 'decorsmurduhaut':
-          createTorch(tileScale.x, tileScale.y);
+          createTorch(tileScale.x, tileScale.y, zIndex);
           totalIterations++;
           continue;
         default:
@@ -116,11 +117,11 @@ function drawObjects(layerObjects: Objects) {
     const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
 
     switch (objectType) {
-      case 'clefs':
+      case 'key':
         createKey(tilePosition.x, tilePosition.y);
         continue;
-      case 'spike':
-        createSkeleton(tilePosition.x, tilePosition.y);
+      case 'piegeauto':
+        createSpike(tilePosition.x, tilePosition.y);
         continue;
       default:
         break;

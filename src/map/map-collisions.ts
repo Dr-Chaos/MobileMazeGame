@@ -1,4 +1,3 @@
-/* eslint-disable no-continue */
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map.json';
 import mapCollisions from '../../tiled/map-collision.json';
