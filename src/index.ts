@@ -11,6 +11,7 @@ import { createSkeleton } from './map-objects/skeleton';
 import './map-objects/skeletonpath';
 import { inputMovementDirection } from './input/mouvement';
 import { boss, createBoss } from './map-objects/boss';
+import { skull1, skull2, createSkull } from './map-objects/skull';
 
 app.stage.addChild(camera); // create the world / camera
 
