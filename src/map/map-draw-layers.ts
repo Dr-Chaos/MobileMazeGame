@@ -1,7 +1,5 @@
-/* eslint-disable no-continue */
-
 import { CompositeTilemap } from '@pixi/tilemap';
-import map from '../../tiled/map.json';
+import map from '../../tiled/map-test.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
@@ -23,26 +21,34 @@ function getTilesetFromTileId(tileId: number) {
   return closestTileset;
 }
 
-function drawLayer(layer: number, zIndex: number, layerName?: string) {
+type LayerScale = {
+  x: number;
+  y: number;
+  xOffet: number;
+  yOffset: number;
+};
+
+const layerScale: LayerScale = {
+  x: 2,
+  y: 2,
+  xOffet: -camera.x - map.width * 7.5,
+  yOffset: -camera.y - map.height * 7.5,
+};
+
+function getTileScale(position: {x: number; y: number}) {
+  return {
+    x: position.x * layerScale.x + layerScale.xOffet,
+    y: position.y * layerScale.y + layerScale.yOffset,
+  };
+}
+
+function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   const tilemap = new CompositeTilemap();
 
-  // draw map
-  const mapData = map.layers[layer].data;
-  const mapWidth = map.layers[layer].width;
-  const mapHeight = map.layers[layer].height;
-  if (!mapWidth || !mapHeight || !mapData) return;
-
-  const scale = {
-    x: 2,
-    y: 2,
-    xOffet: -camera.x - mapWidth * 7.5,
-    yOffset: -camera.y - mapHeight * 7.5,
-  };
-
   let totalIterations = 0;
-  for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
-    for (let xIteration = 0; xIteration < mapWidth; xIteration++) {
-      const tileId = mapData[totalIterations];
+  for (let yIteration = 0; yIteration < map.height; yIteration++) {
+    for (let xIteration = 0; xIteration < map.width; xIteration++) {
+      const tileId = layerData[totalIterations];
 
       // if it's an empty cell (Tiled use id 0 to represent empty cell)
       if (tileId === 0) {
@@ -55,19 +61,11 @@ function drawLayer(layer: number, zIndex: number, layerName?: string) {
         y: yIteration * map.tileheight,
       };
 
-      // only used to place map objects (torches, enemies, keys, ets)
-      const objectPosition = {
-        x: tilePosition.x * scale.x + scale.xOffet,
-        y: tilePosition.y * scale.y + scale.yOffset,
-      };
+      const tileScale = getTileScale(tilePosition);
 
       switch (layerName) {
-        case 'clefs':
-          createKey(objectPosition.x, objectPosition.y);
-          totalIterations++;
-          continue;
         case 'decorsmurduhaut':
-          createTorch(objectPosition.x, objectPosition.y);
+          createTorch(tileScale.x, tileScale.y);
           totalIterations++;
           continue;
         default:
@@ -87,23 +85,54 @@ function drawLayer(layer: number, zIndex: number, layerName?: string) {
 
   // draw the tilemap
   tilemap.zIndex = zIndex;
-  tilemap.width *= scale.x;
-  tilemap.height *= scale.y;
-  tilemap.x = scale.xOffet;
-  tilemap.y = scale.yOffset;
+  tilemap.width *= layerScale.x;
+  tilemap.height *= layerScale.y;
+  tilemap.x = layerScale.xOffet;
+  tilemap.y = layerScale.yOffset;
 
   // tilemap.x = mapWidth
   camera.addChild(tilemap);
 }
 
+type Objects = Array<{
+  gid: number;
+  height: number;
+  id: number;
+  name: string;
+  rotation: number;
+  type: string;
+  visible: boolean;
+  width: number;
+  x: number;
+  y: number;
+}>;
+
+function drawObjects(layerObjects: Objects) {
+  for (const layerObject of layerObjects) {
+    // sur l'axe Y nous devons soustraire la hauteur de la tile
+    // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
+    const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
+    createKey(tilePosition.x, tilePosition.y);
+  }
+}
+
 const layers = map.layers.length;
 for (let index = 0; index < layers; index++) {
+  // display the literated layer
+  const layer = map.layers[index];
+  const layerName = layer.name;
+  const layerData = layer.data;
+  const layerObjects = layer.objects;
+
+  // draw tilemap
+  if (layerData) {
   // set mursdubas to index 1 for perspective
-  const layerName = map.layers[index].name;
-  if (layerName === 'mursdubas') {
-    drawLayer(index, 1);
-    continue;
+    if (layerName === 'mursdubas') {
+      drawLayer(layerData, 1);
+    } else {
+      drawLayer(layerData, -1, layerName);
+    }
   }
 
-  drawLayer(index, -1, layerName);
+  if (layerObjects && layerName === 'clefs') drawObjects(layer.objects);
 }

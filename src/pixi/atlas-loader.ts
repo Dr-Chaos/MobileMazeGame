@@ -14,6 +14,4 @@ const aliases = ['map', 'witchIdle', 'witchWalk', 'spike', 'torch', 'key', 'skel
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]> }>;
 const atlasLoader: AtlasLoader = await Assets.load(aliases);
 
-console.log(atlasLoader);
-
 export { atlasLoader };

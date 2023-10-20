@@ -10,7 +10,7 @@ import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
 
-type Key = AnimatedSprite & { hasBeenTaken?: boolean};
+type Key = AnimatedSprite & {hasBeenTaken?: boolean};
 
 let keys: Key[] = [];
 export function createKey(x: number, y: number) {

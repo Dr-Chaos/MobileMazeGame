@@ -1,17 +1,34 @@
-import {
-  AnimatedSprite,
-} from 'pixi.js';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
+import app from '../pixi/initialize';
+import { isColliding } from '../math/collisions';
+import { playerHitbox } from '../player/player';
 
-const skeletons = [];
+import { atlasLoader } from '../pixi/atlas-loader';
+
+type Skeleton = AnimatedSprite & { life: number; damage: number };
+const skeletons: Skeleton[] = [];
+
 export function createSkeleton(x: number, y: number) {
-  const skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
-  camera.addChild(skeleton);
+  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
   skeleton.scale.set(2);
   skeleton.animationSpeed = 0.17;
   skeleton.play();
   skeleton.x = x;
   skeleton.y = y;
+  camera.addChild(skeleton);
+  skeleton.life = 5;
+  skeleton.damage = 1;
   skeletons.push(skeleton);
 }
+
+app.ticker.add(() => {
+  for (const skeleton of skeletons) {
+    if (!isColliding(skeleton, playerHitbox)) continue;
+    skeleton.life -= 1;
+    if (skeleton.life > 0) continue;
+    camera.removeChild(skeleton);
+  }
+});
+
+export { skeletons };
