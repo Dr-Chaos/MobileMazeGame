@@ -7,28 +7,28 @@ import { atlasLoader } from '../pixi/atlas-loader';
 // Code de la fireball du joueur
 const playerFireball = new Graphics();
 playerFireball.beginFill('green');
-playerFireball.drawRect(0, 0, 20, 20);
+playerFireball.drawRect(0, 0, 5, 5);
 
-const radius = 50;
-let angle = 0;
+const radius = 20;
+let angle = 2;
 
 function movePlayerFireball() {
   const x = radius * Math.cos(angle);
   const y = radius * Math.sin(angle);
-  playerFireball.position.set(x, y + 20);
+  playerFireball.position.set(x + 5, y);
   angle += 0.1;
 }
 
 // Code pour les fireballs du boss
 const bossFireball1 = new Graphics();
 bossFireball1.beginFill('red');
-bossFireball1.drawRect(0, 0, 20, 20);
+bossFireball1.drawRect(0, 0, 5, 5);
 
 const bossFireball2 = new Graphics();
 bossFireball2.beginFill('blue');
-bossFireball2.drawRect(0, 0, 20, 20);
+bossFireball2.drawRect(0, 0, 5, 5);
 
-const bossRadius = 60;
+const bossRadius = 20;
 let bossAngle1 = 0;
 let bossAngle2 = Math.PI; // Angle initial pour la deuxième fireball
 
@@ -37,12 +37,12 @@ function moveBossFireballs() {
   const x1 = bossRadius * Math.cos(bossAngle1);
   const y1 = bossRadius * Math.sin(bossAngle1);
   bossFireball1.position.set(x1, y1);
-  bossAngle1 += 0.05;
+  bossAngle1 += 0.1;
 
   // Mouvement de la deuxième fireball
   const x2 = bossRadius * Math.cos(bossAngle2);
   const y2 = bossRadius * Math.sin(bossAngle2);
-  bossFireball2.position.set(x2, y2);
+  bossFireball2.position.set(x2 + 5, y2 + 10);
   bossAngle2 += 0.05;
 }
 
@@ -53,7 +53,7 @@ let invulnerable = false;
 
 export function createBoss(x: number, y: number) {
   boss = new AnimatedSprite(atlasLoader.boss.animations.idle) as Boss;
-  boss.scale.set(2);
+  boss.scale.set(6);
   boss.animationSpeed = 0.17;
   boss.play();
   boss.x = x;
