@@ -7,7 +7,7 @@ import { getCoordinates } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
 
 type Skeleton = AnimatedSprite & { life: number; damage: number };
-const skeletons: Record<string, Skeleton> = {}; // Utilisation d'un objet pour stocker les squelettes par leur nom
+const skeletons: Record<string, Skeleton> = {};
 
 export function createSkeleton(x: number, y: number, name: string) {
   const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
@@ -19,7 +19,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   camera.addChild(skeleton);
   skeleton.life = 5;
   skeleton.damage = 1;
-  skeletons[name] = skeleton; // Stockez le squelette dans l'objet "skeletons" avec son nom comme clé
+  skeletons[name] = skeleton;
 }
 
 app.ticker.add(() => {
