@@ -1,6 +1,6 @@
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map.json';
-import mapCollisions from '../../tiled/map-collision.json';
+import mapCollisions from '../../tiled/map-collisions.json';
 import app from '../pixi/initialize';
 import { playerHitbox } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
