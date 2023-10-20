@@ -1,4 +1,4 @@
-import { Assets, type BaseTexture } from 'pixi.js';
+import { Assets, type Texture } from 'pixi.js';
 
 Assets.add({ alias: 'map', src: '/map/map-tileset.json' });
 Assets.add({ alias: 'witchIdle', src: '/witch/idle/idle.json' });
@@ -9,20 +9,11 @@ Assets.add({ alias: 'key', src: '/key/key.json' });
 Assets.add({ alias: 'skeleton', src: '/skeleton/skeleton.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 
-const aliases = [
-  'map',
-  'witchIdle',
-  'witchWalk',
-  'spike',
-  'torch',
-  'key',
-  'skeleton',
-  'skull',
-  'spike',
-];
+const aliases = ['map', 'witchIdle', 'witchWalk', 'spike', 'torch', 'key', 'skeleton', 'skull', 'spike'];
 
-const atlasLoader = await Assets.load(aliases) as BaseTexture[];
+type AtlasLoader = Record<string, { animations: Record<string, Texture[]> }>;
+const atlasLoader: AtlasLoader = await Assets.load(aliases);
 
-export {
-  atlasLoader,
-};
+console.log(atlasLoader);
+
+export { atlasLoader };

@@ -1,5 +1,5 @@
 import {
-  AnimatedSprite, type Texture, Assets,
+  AnimatedSprite,
 } from 'pixi.js';
 import { atlasLoader } from '../pixi/atlas-loader';
 

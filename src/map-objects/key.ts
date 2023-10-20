@@ -1,5 +1,5 @@
 import {
-  AnimatedSprite, type Texture, Assets, Container,
+  AnimatedSprite,
 } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -10,21 +10,19 @@ import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
 
-// type AnimationSpriteAtlas = Texture & { animations: Record<string, Texture[]> };
-// const keyAtlas: AnimationSpriteAtlas = await Assets.load('/key/key.json');
-// type ExtendedAnimatedSprite = AnimatedSprite & { hasBeenTaken?: boolean};
+type Key = AnimatedSprite & { hasBeenTaken?: boolean};
 
-let keys: ExtendedAnimatedSprite[] = [];
+let keys: Key[] = [];
 export function createKey(x: number, y: number) {
-  const keyAnimation: ExtendedAnimatedSprite = new AnimatedSprite(atlasLoader.key.animations.idle);
-  camera.addChild(keyAnimation);
-  keyAnimation.scale.set(2);
-  keyAnimation.animationSpeed = 0.17;
-  keyAnimation.play();
-  keyAnimation.hasBeenTaken = false;
-  keyAnimation.x = x;
-  keyAnimation.y = y;
-  keys.push(keyAnimation);
+  const key: Key = new AnimatedSprite(atlasLoader.key.animations.idle);
+  camera.addChild(key);
+  key.scale.set(2);
+  key.animationSpeed = 0.17;
+  key.play();
+  key.hasBeenTaken = false;
+  key.x = x;
+  key.y = y;
+  keys.push(key);
 }
 
 app.ticker.add(() => {
