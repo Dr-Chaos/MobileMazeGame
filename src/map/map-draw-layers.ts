@@ -1,9 +1,8 @@
 import { CompositeTilemap } from '@pixi/tilemap';
-import map from '../../tiled/map-flo.json';
+import map from '../../tiled/map.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
-import { createSkeleton } from '../map-objects/skeleton';
 import { createSpike } from '../map-objects/spike';
 import { createLevier } from '../map-objects/levier';
 
