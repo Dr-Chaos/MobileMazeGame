@@ -19,3 +19,4 @@ function moveFireball() {
 }
 
 app.ticker.add(moveFireball);
+export { fireball };

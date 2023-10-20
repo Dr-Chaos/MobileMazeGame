@@ -5,6 +5,7 @@ import { isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 import { getCoordinates } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
+import { fireball } from '../player/fireball';
 
 type Skeleton = AnimatedSprite & { life: number; damage: number };
 const skeletons: Record<string, Skeleton> = {};
@@ -17,7 +18,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   skeleton.x = x;
   skeleton.y = y;
   camera.addChild(skeleton);
-  skeleton.life = 250;
+  skeleton.life = 50;
   skeleton.damage = 1000;
   skeletons[name] = skeleton;
 }
@@ -50,7 +51,7 @@ app.ticker.add(() => {
   for (const name in skeletons) {
     if (name in skeletons) {
       const skeleton = skeletons[name];
-      if (isColliding(getCoordinates(skeleton), playerHitbox)) {
+      if (isColliding(getCoordinates(skeleton), fireball)) { // remplacer playerhitbox par la fireball, car c'est la fireball qui fait des degats pas la hitbox du player
         skeleton.life -= 1;
         if (skeleton.life <= 0) {
           camera.removeChild(skeleton);
