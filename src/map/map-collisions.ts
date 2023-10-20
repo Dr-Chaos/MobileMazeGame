@@ -18,7 +18,7 @@ mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 mapCollidersDraw.zIndex = 2;
-// camera.addChild(mapCollidersDraw); // DRAW HITBOXES DURING DEV
+camera.addChild(mapCollidersDraw); // DRAW HITBOXES DURING DEV
 // scaling = 500 / 16 * 100
 // const mapScaling = {
 //   width: app.screen.width / mapCollisions.tilewidth / mapCollisions.width,

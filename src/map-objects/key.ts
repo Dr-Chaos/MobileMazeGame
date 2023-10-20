@@ -9,6 +9,7 @@ import { playerHitbox } from '../player/player';
 import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
+import { mapScaling } from '../map/map-draw-layers';
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -17,7 +18,7 @@ export function createKey(x: number, y: number, name: string, isActive = true) {
   const key = new AnimatedSprite(atlasLoader.key.animations.idle) as Key;
   camera.addChild(key);
   key.name = 'key';
-  key.scale.set(2);
+  key.scale.set(mapScaling);
   key.animationSpeed = 0.17;
   key.play();
   key.hasBeenTaken = false;

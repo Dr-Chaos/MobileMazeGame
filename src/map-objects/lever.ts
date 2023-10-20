@@ -7,12 +7,13 @@ import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
+import { mapScaling } from '../map/map-draw-layers';
 
 type Lever = AnimatedSprite & { mustBeActivated: boolean};
 
 export function createLever(x: number, y: number, name: string) {
   const lever = new AnimatedSprite(atlasLoader.lever.animations.idle) as Lever;
-  lever.scale.set(2);
+  lever.scale.set(mapScaling);
   lever.animationSpeed = 0;
   lever.play();
   lever.x = x;

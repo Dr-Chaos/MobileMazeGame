@@ -1,6 +1,6 @@
 // import './utils/atlas-generator';
 import './map/map-draw-layers';
-import './map/map-collisions';
+// import './map/map-collisions';
 // import './map-objects/traps';
 // import './player/fireball';
 import app from './pixi/initialize';

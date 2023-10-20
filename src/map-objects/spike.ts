@@ -8,12 +8,13 @@ import { lifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
+import { mapScaling } from '../map/map-draw-layers';
 
 const spikes: AnimatedSprite[] = [];
 export function createSpike(x: number, y: number, name: string) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
   camera.addChild(spike); // HIDE SPIKES DURING DEV
-  spike.scale.set(2);
+  spike.scale.set(mapScaling);
   spike.animationSpeed = 0.15;
   spike.zIndex = -1;
   spike.stop();

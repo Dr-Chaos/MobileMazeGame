@@ -8,7 +8,7 @@ const torches = [];
 export function createTorch(x: number, y: number, zIndex: number) {
   const torch = new AnimatedSprite(atlasLoader.torch.animations.idle);
   camera.addChild(torch);
-  torch.scale.set(2);
+  torch.scale.set(1.7);
   torch.animationSpeed = 0.17;
   torch.play();
   torch.x = x;
