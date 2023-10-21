@@ -1,6 +1,6 @@
 { "columns":3,
- "image":"assets\/Mini_Dungeon_v1.0\/Objects\/spike\/spike.png",
- "imageheight":16,
+ "image":"..\/public\/spike\/spike.png",
+ "imageheight":21,
  "imagewidth":48,
  "margin":0,
  "name":"spike",

@@ -4,7 +4,11 @@ import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
-import { createLevier } from '../map-objects/levier';
+import { createLever } from '../map-objects/lever';
+import { applyScalingAndOffset, getCoordinates } from '../utils/utils';
+import {
+  createDoorType1Bottom, createDoorType1Top, createDoorType2, doorRoomBottom, doorRoomRight,
+} from '../map-objects/door';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -23,26 +27,15 @@ function getTilesetFromTileId(tileId: number) {
   return closestTileset;
 }
 
-type LayerScale = {
-  x: number;
-  y: number;
-  xOffet: number;
-  yOffset: number;
+const mapSizeInPixel = {
+  width: map.width * map.tilewidth,
+  height: map.height * map.tileheight,
 };
 
-const layerScale: LayerScale = {
-  x: 2,
-  y: 2,
-  xOffet: -camera.x - map.width * 7.5,
-  yOffset: -camera.y - map.height * 7.5,
-};
-
-function getTileScale(position: {x: number; y: number}) {
-  return {
-    x: position.x * layerScale.x + layerScale.xOffet,
-    y: position.y * layerScale.y + layerScale.yOffset,
-  };
-}
+// NOTE: YOU MUST ALSO SCALE ALL YOU MAP OBJECT BY THIS VALUE
+// CETTE VALEUR EST TOTALEMENT INDEPENDENTE DU SCALING DE LA CAMERA
+const mapScaling = 1.7;
+export { mapScaling };
 
 function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   const tilemap = new CompositeTilemap();
@@ -63,11 +56,11 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
         y: yIteration * map.tileheight,
       };
 
-      const tileScale = getTileScale(tilePosition);
-
+      const tileCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
       switch (layerName) {
         case 'decorsmurduhaut':
-          createTorch(tileScale.x, tileScale.y, zIndex);
+
+          createTorch(tileCentered.x, tileCentered.y, zIndex);
           totalIterations++;
           continue;
         default:
@@ -80,6 +73,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
       const tilesetName = tileset.source.replace('.json', '');
       const tileName = `${tilesetName}-${tileId - tileset.firstgid + 1}.png`;
       tilemap.tile(tileName, tilePosition.x, tilePosition.y);
+      if (layerName === 'decorsmurduhaut') console.log(tilePosition);
 
       totalIterations++;
     }
@@ -87,49 +81,11 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
 
   // draw the tilemap
   tilemap.zIndex = zIndex;
-  tilemap.width *= layerScale.x;
-  tilemap.height *= layerScale.y;
-  tilemap.x = layerScale.xOffet;
-  tilemap.y = layerScale.yOffset;
-
-  // tilemap.x = mapWidth
+  tilemap.scale.set(mapScaling);
+  const tilemapCentered = applyScalingAndOffset(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+  tilemap.x = tilemapCentered.x;
+  tilemap.y = tilemapCentered.y;
   camera.addChild(tilemap);
-}
-
-type Objects = Array<{
-  gid: number;
-  height: number;
-  id: number;
-  name: string;
-  rotation: number;
-  type: string;
-  visible: boolean;
-  width: number;
-  x: number;
-  y: number;
-}>;
-
-function drawObjects(layerObjects: Objects) {
-  for (const layerObject of layerObjects) {
-    const objectType = layerObject.type;
-    // sur l'axe Y nous devons soustraire la hauteur de la tile
-    // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
-    const tilePosition = getTileScale({ x: layerObject.x, y: layerObject.y - layerObject.height });
-
-    switch (objectType) {
-      case 'key':
-        createKey(tilePosition.x, tilePosition.y);
-        continue;
-      case 'piegeauto':
-        createSpike(tilePosition.x, tilePosition.y);
-        continue;
-      case 'levier':
-        createLevier(tilePosition.x, tilePosition.y);
-        continue;
-      default:
-        break;
-    }
-  }
 }
 
 const layers = map.layers.length;
@@ -146,9 +102,61 @@ for (let index = 0; index < layers; index++) {
     if (layerName === 'mursdubas') {
       drawLayer(layerData, 1);
     } else {
-      drawLayer(layerData, -1, layerName);
+      drawLayer(layerData, -2, layerName);
     }
   }
 
-  if (layerObjects) drawObjects(layer.objects);
+  // draw objects
+  if (!layerObjects) continue;
+  for (const layerObject of layerObjects) {
+    const objectType = layerObject.type;
+    const objectName = layerObject.name;
+    // sur l'axe Y nous devons soustraire la hauteur de la tile
+    // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
+    const tilePosition = { x: layerObject.x, y: layerObject.y - layerObject.height };
+    const positionCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+
+    switch (objectType) {
+      case 'key':
+        if (objectName === 'key1') {
+          createKey(positionCentered.x, positionCentered.y, objectName, false);
+          continue;
+        }
+
+        createKey(positionCentered.x, positionCentered.y, objectName);
+        continue;
+      case 'spike':
+        createSpike(positionCentered.x, positionCentered.y, objectName);
+        continue;
+      case 'lever':
+        createLever(positionCentered.x, positionCentered.y, objectName);
+        continue;
+      case 'doorType1':
+        if (objectName === 'door1PartTop') {
+          const door = createDoorType1Top(0, 0);
+          doorRoomBottom.addChild(door);
+          doorRoomBottom.x = positionCentered.x;
+          doorRoomBottom.y = positionCentered.y;
+        }
+
+        if (objectName === 'door1PartBottom') {
+          const door = createDoorType1Bottom(0, map.tilewidth * mapScaling);
+          doorRoomBottom.addChild(door);
+        }
+
+        continue;
+      case 'doorType2':
+        if (objectName === 'door2') {
+          const door = createDoorType2(0, 0);
+          doorRoomRight.addChild(door);
+          doorRoomRight.x = positionCentered.x;
+          doorRoomRight.y = positionCentered.y;
+          doorRoomRight.zIndex = -1;
+        }
+
+        continue;
+      default:
+        break;
+    }
+  }
 }

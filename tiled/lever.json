@@ -1,31 +1,27 @@
-{ "columns":4,
- "image":"..\/public\/skull\/skull.png",
- "imageheight":18,
- "imagewidth":72,
+{ "columns":3,
+ "image":"..\/public\/lever\/lever.png",
+ "imageheight":16,
+ "imagewidth":48,
  "margin":0,
- "name":"skull",
+ "name":"Lever",
  "spacing":0,
- "tilecount":4,
+ "tilecount":3,
  "tiledversion":"1.10.2",
  "tileheight":16,
  "tiles":[
         {
          "animation":[
                 {
-                 "duration":100,
+                 "duration":200,
                  "tileid":0
                 }, 
                 {
-                 "duration":100,
+                 "duration":200,
                  "tileid":1
                 }, 
                 {
-                 "duration":100,
+                 "duration":200,
                  "tileid":2
-                }, 
-                {
-                 "duration":100,
-                 "tileid":3
                 }],
          "id":0
         }],

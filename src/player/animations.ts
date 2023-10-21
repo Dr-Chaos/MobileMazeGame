@@ -5,17 +5,18 @@ import witchWalkAnimation from './walk';
 import app from '../pixi/initialize';
 
 const playerAnimation = {
-  x: 0,
-  y: 0,
   width: 32,
   height: 48,
 };
 const playerAnimationsContainer = new Container();
 playerAnimationsContainer.pivot.x = playerAnimation.width / 2; // place le pivot au millieux du sprite pour pouvoir le rotate
-playerAnimationsContainer.x = playerContainer.x + playerAnimation.width / 2; // place l'animation au centre de la hitbox
+playerAnimationsContainer.pivot.y = playerAnimation.height / 2;
 playerContainer.addChild(playerAnimationsContainer);
+
 playerAnimationsContainer.addChild(witchIdleAnimation);
 playerAnimationsContainer.addChild(witchWalkAnimation);
+// playerAnimationsContainer.x = playerContainer.x;
+// playerAnimationsContainer.y = playerContainer.y - (playerAnimation.height / 2);
 
 enum Movements {
   Idle = 'Idle',

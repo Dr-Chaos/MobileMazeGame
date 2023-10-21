@@ -1,5 +1,5 @@
 { "columns":1,
- "image":"assets\/walk.png",
+ "image":"..\/public\/witch\/walk\/walk.png",
  "imageheight":384,
  "imagewidth":32,
  "margin":0,
