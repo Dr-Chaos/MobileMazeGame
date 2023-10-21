@@ -5,7 +5,7 @@ import { playerHitbox } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { movePlayer } from '../player/move';
 import { applyScalingAndOffset } from '../utils/utils';
-import { mapScaling } from './map-draw-layers';
+import { mapScaling } from './map-layers';
 import { camera } from '../camera';
 
 // draw map

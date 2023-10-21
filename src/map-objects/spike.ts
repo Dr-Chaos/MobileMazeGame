@@ -8,7 +8,7 @@ import { lifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import { mapScaling } from '../map/map-draw-layers';
+import { mapScaling } from '../map/map-layers';
 
 const spikes: AnimatedSprite[] = [];
 export function createSpike(x: number, y: number, name: string, visible = false) {

@@ -676,8 +676,8 @@
                  "type":"doorType3",
                  "visible":true,
                  "width":16,
-                 "x":224,
-                 "y":192
+                 "x":224.995244565217,
+                 "y":192.96535326087
                 }, 
                 {
                  "gid":68,
@@ -694,8 +694,8 @@
                  "type":"doorType3",
                  "visible":true,
                  "width":16,
-                 "x":240,
-                 "y":192
+                 "x":239.984375,
+                 "y":192.96875
                 }, 
                 {
                  "gid":38,
@@ -755,7 +755,7 @@
                  "gid":2147483782,
                  "height":16,
                  "id":189,
-                 "name":"skeleton2",
+                 "name":"skeletonRoomRight",
                  "rotation":0,
                  "type":"skeleton",
                  "visible":true,
@@ -767,7 +767,7 @@
                  "gid":2147483782,
                  "height":16,
                  "id":190,
-                 "name":"skeleton1",
+                 "name":"skeletonRoomRight",
                  "rotation":0,
                  "type":"skeleton",
                  "visible":true,
@@ -779,7 +779,7 @@
                  "gid":2147483782,
                  "height":16,
                  "id":191,
-                 "name":"skeleton3",
+                 "name":"skeletonRoomRight",
                  "rotation":0,
                  "type":"skeleton",
                  "visible":true,
@@ -791,7 +791,7 @@
                  "gid":2147483782,
                  "height":16,
                  "id":192,
-                 "name":"skeleton4",
+                 "name":"skeletonRoomRight",
                  "rotation":0,
                  "type":"skeleton",
                  "visible":true,
@@ -803,7 +803,7 @@
                  "gid":2147483782,
                  "height":16,
                  "id":193,
-                 "name":"skeleton5",
+                 "name":"skeletonRoomRight",
                  "rotation":0,
                  "type":"skeleton",
                  "visible":true,
@@ -1752,7 +1752,7 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":36,
+ "nextlayerid":37,
  "nextobjectid":278,
  "orientation":"orthogonal",
  "renderorder":"right-down",

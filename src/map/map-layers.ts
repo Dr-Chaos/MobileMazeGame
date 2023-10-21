@@ -7,8 +7,9 @@ import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
 import { applyScalingAndOffset, getCoordinates } from '../utils/utils';
 import {
-  createDoorType1Bottom, createDoorType1Top, createDoorType2, doorRoomBottom, doorRoomRight,
+  createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';
+import { createSkeleton } from '../map-objects/skeleton';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -140,7 +141,7 @@ for (let index = 0; index < layers; index++) {
         }
 
         if (objectName === 'door1PartBottom') {
-          const door = createDoorType1Bottom(0, map.tilewidth * mapScaling);
+          const door = createDoorType1Bottom(0, map.tileheight * mapScaling);
           doorRoomBottom.addChild(door);
         }
 
@@ -154,6 +155,24 @@ for (let index = 0; index < layers; index++) {
           doorRoomRight.zIndex = -1;
         }
 
+        continue;
+      case 'doorType3':
+        if (objectName === 'doorType3PartLeft') {
+          const door = createDoorType3PartLeft(0, 0);
+          doorRoomTop.addChild(door);
+          doorRoomTop.x = positionCentered.x;
+          doorRoomTop.y = positionCentered.y;
+          doorRoomTop.zIndex = -1;
+        }
+
+        if (objectName === 'doorType3PartRight') {
+          const door = createDoorType3PartRight(map.tilewidth * mapScaling, 0);
+          doorRoomTop.addChild(door);
+        }
+
+        continue;
+      case 'skeleton':
+        createSkeleton(positionCentered.x, positionCentered.y, objectName);
         continue;
       default:
         break;

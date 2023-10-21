@@ -7,8 +7,8 @@ import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
-import { mapScaling } from '../map/map-draw-layers';
-import { doorRoomBottom } from './door';
+import { mapScaling } from '../map/map-layers';
+import { doorRoomBottom, doorsContainers } from './door';
 
 type Lever = AnimatedSprite & { mustBeActivated: boolean};
 
@@ -46,8 +46,8 @@ export function createLever(x: number, y: number, name: string) {
 
     // lever porte du bas
     if (name === 'leverDoorBottom') {
-      doorRoomBottom.visible = false;
       camera.removeChild(doorRoomBottom);
+      doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
     }
   };
 
