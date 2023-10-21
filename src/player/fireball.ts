@@ -1,12 +1,22 @@
-import { Graphics } from 'pixi.js';
+import { AnimatedSprite } from 'pixi.js';
 import { playerContainer } from './player';
 import app from '../pixi/initialize';
+import { atlasLoader } from '../pixi/atlas-loader';
 
-const fireball = new Graphics();
+export function createfireball(): AnimatedSprite {
+  const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+  fireball.scale.set(2);
+  fireball.animationSpeed = 0.17;
+  fireball.play();
+
+  // It's important to return the 'fireball' before you try to use it outside the function.
+  return fireball;
+} // This closing brace was missing, causing your issue.
+
+// Assuming 'fireball' is accessible in this scope (i.e., it's declared or imported in this file)
+// you would add it to the playerContainer here, after the 'createfireball' function.
+const fireball = createfireball(); // You need to create the fireball using the function above.
 playerContainer.addChild(fireball);
-
-fireball.beginFill('orange');
-fireball.drawRect(0, 0, 30, 30);
 
 const radius = 50;
 let angle = 0.5;
@@ -19,4 +29,6 @@ function moveFireball() {
 }
 
 app.ticker.add(moveFireball);
+
+// If 'fireball' is a variable in the scope of this module, you can export it like this.
 export { fireball };
