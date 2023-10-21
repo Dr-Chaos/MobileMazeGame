@@ -5,7 +5,6 @@ import { isColliding } from '../math/collisions';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { playerStats } from '../player/stats';
 import { playerHitbox } from '../player/player';
-import { getCoordinates } from '../utils/utils';
 import { lifeHud } from '../player/hud';
 
 // position.x + scalePosition.x
@@ -97,6 +96,7 @@ camera.addChild(boss);
 
 let invulnerabilityTime = 0;
 const invulnerabilityTimer = 1000;
+
 app.ticker.add(() => {
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
 
