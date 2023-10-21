@@ -1,12 +1,10 @@
 import { CompositeTilemap } from '@pixi/tilemap';
-import { Graphics } from 'pixi.js';
 import map from '../../tiled/map.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
-import app from '../pixi/initialize';
 import { applyScalingAndOffset } from '../utils/utils';
 import { createDoorType1Bottom, createDoorType1Top, doorRoomBottom } from '../map-objects/door';
 

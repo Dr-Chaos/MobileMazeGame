@@ -6,7 +6,6 @@ import { mapScaling } from '../map/map-draw-layers';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
-import { getCoordinates } from '../utils/utils';
 
 export function createDoorType1Top(x: number, y: number) {
   const doorPartTop = new Sprite(atlasLoader.map.textures['map-tileset-47.png']);

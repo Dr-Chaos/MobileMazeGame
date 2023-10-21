@@ -1,5 +1,4 @@
 import { Container, Graphics } from 'pixi.js';
-import app from '../pixi/initialize';
 import { camera } from '../camera';
 
 const playerContainer = new Container();

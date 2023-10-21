@@ -1,10 +1,8 @@
 import { Container, Graphics } from 'pixi.js';
-// import map from '../../tiled/map.json';
 import map from '../../tiled/map-collisions.json';
 import app from '../pixi/initialize';
 import { playerHitbox } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
-import { camera } from '../camera';
 import { movePlayer } from '../player/move';
 import { applyScalingAndOffset } from '../utils/utils';
 import { mapScaling } from './map-draw-layers';
