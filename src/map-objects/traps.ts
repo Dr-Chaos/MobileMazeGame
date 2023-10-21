@@ -31,10 +31,10 @@ import { camera } from '../camera';
 
 // trap
 const trap = {
-  x: app.screen.width / 2 + 120,
-  y: app.screen.height / 2 - 50,
-  width: 100,
-  height: 100,
+  x: app.screen.width / 2 + 10,
+  y: app.screen.height / 2 + 10,
+  width: 16,
+  height: 16,
   isVisible: true,
   playerReceiveDamage: false,
 };
