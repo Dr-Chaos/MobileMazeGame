@@ -4,7 +4,7 @@ import app from '../pixi/initialize';
 import { playerHitbox } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { movePlayer } from '../player/move';
-import { applyScalingAndOffset } from '../utils/utils';
+import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { camera } from '../camera';
 
@@ -40,7 +40,7 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       height: map.tileheight * mapScaling,
     };
 
-    const tilePosition = applyScalingAndOffset(tile.x, tile.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+    const tilePosition = centerFromPivot(tile.x, tile.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
 
     const tilePositionned = {
       x: tilePosition.x,

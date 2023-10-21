@@ -5,7 +5,7 @@ import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
-import { applyScalingAndOffset, getCoordinates } from '../utils/utils';
+import { centerFromPivot, getCoordinates } from '../utils/utils';
 import {
   createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';
@@ -57,7 +57,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
         y: yIteration * map.tileheight,
       };
 
-      const tileCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+      const tileCentered = centerFromPivot(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
       switch (layerName) {
         case 'decorsmurduhaut':
 
@@ -83,7 +83,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   // draw the tilemap
   tilemap.zIndex = zIndex;
   tilemap.scale.set(mapScaling);
-  const tilemapCentered = applyScalingAndOffset(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+  const tilemapCentered = centerFromPivot(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
   tilemap.x = tilemapCentered.x;
   tilemap.y = tilemapCentered.y;
   camera.addChild(tilemap);
@@ -115,7 +115,7 @@ for (let index = 0; index < layers; index++) {
     // sur l'axe Y nous devons soustraire la hauteur de la tile
     // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
     const tilePosition = { x: layerObject.x, y: layerObject.y - layerObject.height };
-    const positionCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+    const positionCentered = centerFromPivot(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
 
     switch (objectType) {
       case 'key':
