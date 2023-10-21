@@ -1381,7 +1381,7 @@
                  "y":128
                 }, 
                 {
-                 "gid":140,
+                 "gid":139,
                  "height":44.5,
                  "id":279,
                  "name":"",
@@ -1391,6 +1391,90 @@
                  "width":45.5,
                  "x":217.5,
                  "y":56.5
+                }, 
+                {
+                 "height":0,
+                 "id":284,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":464,
+                 "y":0
+                }, 
+                {
+                 "height":0,
+                 "id":285,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":0,
+                 "y":0
+                }, 
+                {
+                 "height":0,
+                 "id":286,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":0,
+                 "y":464
+                }, 
+                {
+                 "height":0,
+                 "id":290,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":240,
+                 "y":192
+                }, 
+                {
+                 "height":0,
+                 "id":291,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":240,
+                 "y":48
+                }, 
+                {
+                 "gid":139,
+                 "height":18,
+                 "id":292,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":18,
+                 "x":48,
+                 "y":352
+                }, 
+                {
+                 "height":0,
+                 "id":293,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":48,
+                 "y":336
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1719,7 +1803,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":280,
+ "nextobjectid":295,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -1758,7 +1842,7 @@
          "source":"joueur.json"
         }, 
         {
-         "firstgid":140,
+         "firstgid":139,
          "source":"boss.json"
         }],
  "tilewidth":16,

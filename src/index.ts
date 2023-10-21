@@ -16,8 +16,8 @@ import { skull1, skull2, createSkull } from './map-objects/skull';
 app.stage.addChild(camera); // create the world / camera
 
 // créer un skeleton ici
-createSkeleton(0, 0);
-createBoss(1, 1);
+// createSkeleton(0, 0);
+createBoss(-40, -450);
 // Press D key to display debug logs
 document.addEventListener('keydown', (event) => {
   if (event.code !== 'Digit1') return;

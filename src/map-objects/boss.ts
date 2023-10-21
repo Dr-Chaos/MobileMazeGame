@@ -51,9 +51,9 @@ type Boss = AnimatedSprite & { life: number; damage: number };
 let boss: Boss;
 let invulnerable = false;
 
-export function createBoss(x: number, y: number) {
+export function createBoss(x: 217, y: 56) {
   boss = new AnimatedSprite(atlasLoader.boss.animations.idle) as Boss;
-  boss.scale.set(2);
+  boss.scale.set(6);
   boss.animationSpeed = 0.17;
   boss.play();
   boss.x = x;

@@ -1,0 +1,15 @@
+{
+    "meta": { "image": "fireball.png", "size": { "w": 96, "h": 16 }, "scale": "1" },
+    "frames": {
+      "fireball-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+      "fireball-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+      "fireball-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+      "fireball-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
+      "fireball-5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
+      "fireball-6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } }
+    },
+    "animations": {
+      "idle": ["fireball-1.png", "fireball-2.png", "fireball-3.png", "fireball-4.png", "fireball-5.png","fireball-6.png" ]
+    }
+  }
+  
