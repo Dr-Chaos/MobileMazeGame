@@ -4,7 +4,7 @@ import { Application, BaseTexture, SCALE_MODES } from 'pixi.js';
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
 
 const app = new Application<HTMLCanvasElement>({
-  background: '#6e8a76',
+  background: '#3d253b',
   width: 500,
   height: 500,
   hello: true, // display Pixi version on the console

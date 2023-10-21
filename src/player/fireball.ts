@@ -16,7 +16,7 @@ export function createfireball(): AnimatedSprite {
 // Assuming 'fireball' is accessible in this scope (i.e., it's declared or imported in this file)
 // you would add it to the playerContainer here, after the 'createfireball' function.
 const fireball = createfireball(); // You need to create the fireball using the function above.
-playerContainer.addChild(fireball);
+// playerContainer.addChild(fireball);
 
 const radius = 50;
 let angle = 0.5;
