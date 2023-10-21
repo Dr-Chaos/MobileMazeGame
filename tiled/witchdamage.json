@@ -1,0 +1,14 @@
+{ "columns":6,
+ "image":"..\/public\/witch\/damage\/witchdamage.png",
+ "imageheight":48,
+ "imagewidth":192,
+ "margin":0,
+ "name":"witchdamage",
+ "spacing":0,
+ "tilecount":6,
+ "tiledversion":"1.10.2",
+ "tileheight":48,
+ "tilewidth":32,
+ "type":"tileset",
+ "version":"1.10"
+}

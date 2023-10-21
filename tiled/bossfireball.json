@@ -1,11 +1,11 @@
-{ "columns":6,
- "image":"..\/public\/witch\/fireball\/fireball.png",
+{ "columns":8,
+ "image":"..\/public\/boss\/bossfireball\/bossfireball.png",
  "imageheight":16,
- "imagewidth":96,
+ "imagewidth":128,
  "margin":0,
- "name":"fireball",
+ "name":"bossfireball",
  "spacing":0,
- "tilecount":6,
+ "tilecount":8,
  "tiledversion":"1.10.2",
  "tileheight":16,
  "tiles":[
@@ -34,6 +34,14 @@
                 {
                  "duration":100,
                  "tileid":5
+                }, 
+                {
+                 "duration":100,
+                 "tileid":6
+                }, 
+                {
+                 "duration":100,
+                 "tileid":7
                 }],
          "id":0
         }],

@@ -1,11 +1,11 @@
-{ "columns":6,
- "image":"..\/public\/witch\/fireball\/fireball.png",
+{ "columns":10,
+ "image":"..\/public\/skeleton\/skeletondeath\/skeletondeath.png",
  "imageheight":16,
- "imagewidth":96,
+ "imagewidth":180,
  "margin":0,
- "name":"fireball",
+ "name":"skeletondeath",
  "spacing":0,
- "tilecount":6,
+ "tilecount":10,
  "tiledversion":"1.10.2",
  "tileheight":16,
  "tiles":[
@@ -34,10 +34,26 @@
                 {
                  "duration":100,
                  "tileid":5
+                }, 
+                {
+                 "duration":100,
+                 "tileid":6
+                }, 
+                {
+                 "duration":100,
+                 "tileid":7
+                }, 
+                {
+                 "duration":100,
+                 "tileid":8
+                }, 
+                {
+                 "duration":100,
+                 "tileid":9
                 }],
          "id":0
         }],
- "tilewidth":16,
+ "tilewidth":18,
  "type":"tileset",
  "version":"1.10"
 }

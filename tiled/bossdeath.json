@@ -1,0 +1,14 @@
+{ "columns":22,
+ "image":"..\/public\/boss\/bossdeath\/bossdeath.png",
+ "imageheight":18,
+ "imagewidth":396,
+ "margin":0,
+ "name":"bossdeath",
+ "spacing":0,
+ "tilecount":22,
+ "tiledversion":"1.10.2",
+ "tileheight":18,
+ "tilewidth":18,
+ "type":"tileset",
+ "version":"1.10"
+}

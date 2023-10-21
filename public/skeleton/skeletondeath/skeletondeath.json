@@ -1,0 +1,19 @@
+{
+    "meta": { "image": "skeletondeath.png", "size": { "w": 180, "h": 18 }, "scale": "1" },
+    "frames": {
+      "skeletondeath-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 16 } },
+      "skeletondeath-2.png": { "frame": { "x": 0, "y": 18, "w": 18, "h": 16 } },
+      "skeletondeath-3.png": { "frame": { "x": 0, "y": 36, "w": 18, "h": 18 } },
+      "skeletondeath-4.png": { "frame": { "x": 0, "y": 54, "w": 18, "h": 16 } },
+      "skeletondeath-5.png": { "frame": { "x": 0, "y": 72, "w": 18, "h": 16 } },
+      "skeletondeath-6.png": { "frame": { "x": 0, "y": 90, "w": 18, "h": 16 } },
+      "skeletondeath-7.png": { "frame": { "x": 0, "y": 108, "w": 18, "h": 16 } },
+      "skeletondeath-8.png": { "frame": { "x": 0, "y": 126, "w": 18, "h": 16 } },
+      "skeletondeath-9.png": { "frame": { "x": 0, "y": 144, "w": 18, "h": 16 } },
+      "skeletondeath-10.png": { "frame": { "x": 0, "y": 162, "w": 18, "h": 16 } }
+    },
+    "animations": {
+      "idle": ["skeletondeath-1.png", "skeletondeath-2.png", "skeletondeath-3.png", "skeletondeath-4.png", "skeletondeath-5.png", "skeletondeath-6.png","skeletondeath-7.png","skeletondeath-8.png","skeletondeath-9.png","skeletondeath-10.png"]
+    }
+  }
+  
