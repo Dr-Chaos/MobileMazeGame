@@ -7,6 +7,7 @@ import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
 import app from '../pixi/initialize';
+import { applyScalingAndOffset } from '../utils/utils';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -35,13 +36,6 @@ const mapSizeInPixel = {
 const mapScaling = 1.7;
 export { mapScaling };
 
-function center(x: number, y: number, width: number, height: number) {
-  return {
-    x: (x - width / 2) * mapScaling,
-    y: (y - height / 2) * mapScaling,
-  };
-}
-
 function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   const tilemap = new CompositeTilemap();
 
@@ -61,7 +55,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
         y: yIteration * map.tileheight,
       };
 
-      const tileCentered = center(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height);
+      const tileCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
       switch (layerName) {
         case 'decorsmurduhaut':
 
@@ -87,7 +81,7 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   // draw the tilemap
   tilemap.zIndex = zIndex;
   tilemap.scale.set(mapScaling);
-  const tilemapCentered = center(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height);
+  const tilemapCentered = applyScalingAndOffset(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
   tilemap.x = tilemapCentered.x;
   tilemap.y = tilemapCentered.y;
   camera.addChild(tilemap);
@@ -119,7 +113,7 @@ for (let index = 0; index < layers; index++) {
     // sur l'axe Y nous devons soustraire la hauteur de la tile
     // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
     const tilePosition = { x: layerObject.x, y: layerObject.y - layerObject.height };
-    const positionCentered = center(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height);
+    const positionCentered = applyScalingAndOffset(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
 
     switch (objectType) {
       case 'key':
