@@ -4,45 +4,40 @@ import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
 import { atlasLoader } from '../pixi/atlas-loader';
 
-// Code de la fireball du joueur
-const playerFireball = new Graphics();
-playerFireball.beginFill('green');
-playerFireball.drawRect(0, 0, 5, 5);
+export function createfireball(): AnimatedSprite {
+  const bossFireball = new AnimatedSprite(atlasLoader.bossfireball.animations.idle);
+  const bossFireball1 = new AnimatedSprite(atlasLoader.bossfireball.animations.idle);
+  const bossFireball2 = new AnimatedSprite(atlasLoader.bossfireball.animations.idle);
+  [bossFireball, bossFireball1, bossFireball2].forEach(fireball => {
+    fireball.scale.set(2);
+    fireball.animationSpeed = 0.17;
+    fireball.play();
+  });
 
-const radius = 15;
-let angle = 1;
-
-function movePlayerFireball() {
-  const x = radius * Math.cos(angle);
-  const y = radius * Math.sin(angle);
-  playerFireball.position.set(x + 5, y);
-  angle += 0.1;
-}
-
-// Code pour les fireballs du boss
-const bossFireball1 = new Graphics();
-bossFireball1.beginFill('red');
-bossFireball1.drawRect(0, 0, 5, 5);
-
-const bossFireball2 = new Graphics();
-bossFireball2.beginFill('blue');
-bossFireball2.drawRect(0, 0, 5, 5);
+  return bossFireball;
 
 const bossRadius = 15;
-let bossAngle1 = 0;
+let bossAngle = 0;
+let bossAngle1 = 0.5;
 let bossAngle2 = Math.PI; // Angle initial pour la deuxième fireball
 
 function moveBossFireballs() {
+  // Mouvement de la troisieme fireball
+  let x = bossRadius * Math.cos(bossAngle);
+  let y = bossRadius * Math.sin(bossAngle);
+  bossFireball2.position.set(x + 5, y + 10);
+  bossAngle += 0.05;
+
   // Mouvement de la première fireball
-  const x1 = bossRadius * Math.cos(bossAngle1);
-  const y1 = bossRadius * Math.sin(bossAngle1);
-  bossFireball1.position.set(x1, y1);
+  x = bossRadius * Math.cos(bossAngle1);
+  y = bossRadius * Math.sin(bossAngle1);
+  bossFireball1.position.set(x, y);
   bossAngle1 += 0.1;
 
   // Mouvement de la deuxième fireball
-  const x2 = bossRadius * Math.cos(bossAngle2);
-  const y2 = bossRadius * Math.sin(bossAngle2);
-  bossFireball2.position.set(x2 + 5, y2 + 10);
+  x = bossRadius * Math.cos(bossAngle2);
+  y = bossRadius * Math.sin(bossAngle2);
+  bossFireball2.position.set(x + 5, y + 10);
   bossAngle2 += 0.05;
 }
 
@@ -62,10 +57,8 @@ export function createBoss(x: number, y: number) {
   boss.life = 500;
   boss.damage = 10;
 
-  // Ajouter les fireballs du joueur au boss
-  boss.addChild(playerFireball);
-
   // Ajouter les fireballs du boss au boss, mais initialement invisibles
+  boss.addChild(bossFireball);
   boss.addChild(bossFireball1);
   boss.addChild(bossFireball2);
   bossFireball1.visible = true;
@@ -75,28 +68,22 @@ export function createBoss(x: number, y: number) {
 // Fonction pour rendre le boss vulnérable lorsque certaines conditions sont remplies
 export function makeBossVulnerable() {
   invulnerable = true;
+  bossFireball.visible = true;
   bossFireball1.visible = true; // Rendre les fireballs du boss visibles
   bossFireball2.visible = true;
 }
 
-// Fonction pour activer les fireballs du boss
-export function activateBossFireballs() {
-  bossFireball1.visible = true;
-  bossFireball2.visible = true;
-}
 
 app.ticker.add(() => {
   // Vérifier si le boss est vulnérable avant de déplacer la fireball du joueur
   if (!invulnerable) {
-    if (isColliding(boss, playerFireball)) {
+    if (isColliding(boss, Fireball)) {
       boss.life -= 1;
       if (boss.life <= 0) {
         camera.removeChild(boss);
       }
     }
 
-    // Déplacer la fireball du joueur
-    movePlayerFireball();
   }
 
   // Déplacer les fireballs du boss
