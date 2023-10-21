@@ -9,7 +9,7 @@ fireball.beginFill('orange');
 fireball.drawRect(0, 0, 30, 30);
 
 const radius = 50;
-let angle = 0;
+let angle = 0.5;
 
 function moveFireball() {
   const x = radius * Math.cos(angle);

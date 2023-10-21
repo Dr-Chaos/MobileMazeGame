@@ -14,11 +14,15 @@ import { boss, createBoss } from './map-objects/boss';
 import {
   skull, createSkull, skull1, skull2,
 } from './map-objects/skull';
+import {
+  ghost, createGhost, ghost1, ghost2,
+} from './map-objects/ghost';
 
 app.stage.addChild(camera); // create the world / camera
 
 // créer un skeleton ici
-createSkull(3, 3);
+createGhost(-6, -6);
+createSkull(6, 6);
 createSkeleton(2, 2);
 createBoss(-40, -450);
 // Press D key to display debug logs

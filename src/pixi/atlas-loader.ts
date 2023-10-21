@@ -9,8 +9,9 @@ Assets.add({ alias: 'key', src: '/key/key.json' });
 Assets.add({ alias: 'skeleton', src: '/skeleton/skeleton.json' });
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
+Assets.add({ alias: 'ghost', src: '/ghost/ghost.json' });
 
-const aliases = ['map', 'witchIdle', 'witchWalk', 'spike', 'torch', 'key', 'skeleton', 'spike', 'boss', 'skull'];
+const aliases = ['map', 'witchIdle', 'witchWalk', 'spike', 'torch', 'key', 'skeleton', 'spike', 'boss', 'skull', 'ghost'];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]> }>;
 const atlasLoader: AtlasLoader = await Assets.load(aliases);

@@ -1,0 +1,12 @@
+{
+  "meta": { "image": "ghost.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "frames": {
+    "ghost-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "ghost-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "ghost-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
+    "ghost-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } }
+  },
+  "animations": {
+    "idle": ["ghost-1.png", "ghost-2.png", "ghost-3.png", "ghost-4.png"]
+  }
+}

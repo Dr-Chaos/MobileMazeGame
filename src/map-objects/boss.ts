@@ -9,8 +9,8 @@ const playerFireball = new Graphics();
 playerFireball.beginFill('green');
 playerFireball.drawRect(0, 0, 5, 5);
 
-const radius = 20;
-let angle = 2;
+const radius = 15;
+let angle = 1;
 
 function movePlayerFireball() {
   const x = radius * Math.cos(angle);
@@ -28,7 +28,7 @@ const bossFireball2 = new Graphics();
 bossFireball2.beginFill('blue');
 bossFireball2.drawRect(0, 0, 5, 5);
 
-const bossRadius = 20;
+const bossRadius = 15;
 let bossAngle1 = 0;
 let bossAngle2 = Math.PI; // Angle initial pour la deuxième fireball
 
