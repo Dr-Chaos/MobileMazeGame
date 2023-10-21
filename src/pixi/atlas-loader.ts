@@ -12,7 +12,7 @@ Assets.add({ alias: 'lever', src: '/lever/lever.json' });
 
 const aliases = ['map', 'witchIdle', 'witchWalk', 'spike', 'torch', 'key', 'skeleton', 'skull', 'spike', 'lever'];
 
-type AtlasLoader = Record<string, { animations: Record<string, Texture[]> }>;
+type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;
 const atlasLoader: AtlasLoader = await Assets.load(aliases);
 
 export { atlasLoader };

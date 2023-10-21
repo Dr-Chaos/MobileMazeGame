@@ -453,7 +453,7 @@
                  "gid":103,
                  "height":16,
                  "id":178,
-                 "name":"bonlever2",
+                 "name":"leverDoorBottom",
                  "rotation":0,
                  "type":"lever",
                  "visible":true,
@@ -555,7 +555,7 @@
                  "gid":57,
                  "height":16,
                  "id":187,
-                 "name":"portebas2",
+                 "name":"door1PartBottom",
                  "properties":[
                         {
                          "name":"isactive",
@@ -563,7 +563,7 @@
                          "value":false
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"doorType1",
                  "visible":true,
                  "width":16,
                  "x":256,
@@ -573,7 +573,7 @@
                  "gid":47,
                  "height":16,
                  "id":188,
-                 "name":"portebas1",
+                 "name":"door1PartTop",
                  "properties":[
                         {
                          "name":"isactive",
@@ -581,7 +581,7 @@
                          "value":false
                         }],
                  "rotation":0,
-                 "type":"",
+                 "type":"doorType1",
                  "visible":true,
                  "width":16,
                  "x":256,

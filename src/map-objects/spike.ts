@@ -11,16 +11,16 @@ import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-draw-layers';
 
 const spikes: AnimatedSprite[] = [];
-export function createSpike(x: number, y: number, name: string) {
+export function createSpike(x: number, y: number, name: string, visible = false) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
   camera.addChild(spike); // HIDE SPIKES DURING DEV
   spike.scale.set(mapScaling);
-  spike.animationSpeed = 0.15;
+  spike.animationSpeed = 0.09;
   spike.zIndex = -1;
   spike.stop();
   spike.x = x;
   spike.y = y;
-  spike.visible = false;
+  spike.visible = visible;
   spike.name = name;
   spikes.push(spike);
   spike.onLoop = () => {
@@ -39,7 +39,7 @@ app.ticker.add(() => {
       invulnerabilityTime = Date.now();
       playerStats.life -= 1;
       lifeHud.text = `Life: ${playerStats.life}`;
-      console.log('Collision trap');
+      console.log('Collision spike');
     }
   }
 });

@@ -8,6 +8,7 @@ import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
 import { mapScaling } from '../map/map-draw-layers';
+import { doorRoomBottom } from './door';
 
 type Lever = AnimatedSprite & { mustBeActivated: boolean};
 
@@ -42,12 +43,20 @@ export function createLever(x: number, y: number, name: string) {
         spike.play();
       }
     }
+
+    // lever porte du bas
+    if (name === 'leverDoorBottom') {
+      doorRoomBottom.visible = false;
+      camera.removeChild(doorRoomBottom);
+    }
   };
 
   camera.addChild(lever);
 
   app.ticker.add(() => {
-    if (isColliding(playerHitbox, lever) && lever.mustBeActivated) {
+    if (isColliding(playerHitbox, lever)) {
+      movePlayer(collisionResponseDirection(playerHitbox, lever));
+      if (!lever.mustBeActivated) return;
       lever.mustBeActivated = false;
       lever.animationSpeed = 0.2;
     }

@@ -8,6 +8,7 @@ import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
 import app from '../pixi/initialize';
 import { applyScalingAndOffset } from '../utils/utils';
+import { createDoorType1Bottom, createDoorType1Top, doorRoomBottom } from '../map-objects/door';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -129,6 +130,20 @@ for (let index = 0; index < layers; index++) {
         continue;
       case 'lever':
         createLever(positionCentered.x, positionCentered.y, objectName);
+        continue;
+      case 'doorType1':
+        if (objectName === 'door1PartTop') {
+          const door = createDoorType1Top(0, 0);
+          doorRoomBottom.addChild(door);
+          doorRoomBottom.x = positionCentered.x;
+          doorRoomBottom.y = positionCentered.y;
+        }
+
+        if (objectName === 'door1PartBottom') {
+          const door = createDoorType1Bottom(0, map.tilewidth * mapScaling);
+          doorRoomBottom.addChild(door);
+        }
+
         continue;
       default:
         break;
