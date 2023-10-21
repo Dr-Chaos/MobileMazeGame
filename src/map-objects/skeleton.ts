@@ -28,6 +28,7 @@ export function createSkeleton(x: number, y: number, name: string) {
 }
 
 app.ticker.add(() => {
+  // Première boucle pour déplacer les squelettes et gérer les collisions avec les fireballs
   for (const skeleton of skeletons) {
     const playerX = playerHitbox.x;
     const playerY = playerHitbox.y;
@@ -37,24 +38,52 @@ app.ticker.add(() => {
 
     const distance = Math.hypot(directionX, directionY);
 
-    const normalizedDirectionX = directionX / distance;
-    const normalizedDirectionY = directionY / distance;
+    // Éviter la division par zéro lorsque la distance est égale à zéro
+    if (distance > 0) {
+      const normalizedDirectionX = directionX / distance;
+      const normalizedDirectionY = directionY / distance;
 
-    const speed = 1;
-    skeleton.x += normalizedDirectionX * speed;
-    skeleton.y += normalizedDirectionY * speed;
+      const speed = 1;
+      skeleton.x += normalizedDirectionX * speed;
+      skeleton.y += normalizedDirectionY * speed;
+    }
 
-    if (isColliding(skeleton, fireball)) { // remplacer playerhitbox par la fireball, car c'est la fireball qui fait des degats pas la hitbox du player
+    if (isColliding(skeleton, fireball)) {
       console.table(getCoordinates(fireball));
       skeleton.life -= 1;
       if (skeleton.life <= 0) {
-        // enlève de l'affichage
         camera.removeChild(skeleton);
-        // supprimer du tableau
-        skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+        skeletons = skeletons.filter((iteratedSkeleton) => iteratedSkeleton !== skeleton);
+      }
+    }
+  }
+
+  // Deuxième boucle pour gérer les collisions entre les squelettes
+  for (let index = 0; index < skeletons.length; index++) {
+    for (let index_ = index + 1; index_ < skeletons.length; index_++) {
+      const skeletonA = skeletons[index];
+      const skeletonB = skeletons[index_];
+
+      const dx = skeletonA.x - skeletonB.x;
+      const dy = skeletonA.y - skeletonB.y;
+      const distanceBetweenSkeletons = Math.hypot(dx, dy);
+
+      // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
+      const minDistance = skeletonA.width / 2 + skeletonB.width / 2; // ou une autre valeur selon la taille des squelettes
+
+      if (distanceBetweenSkeletons < minDistance) {
+        // Les squelettes sont trop proches, nous devons les repousser
+        const overlap = minDistance - distanceBetweenSkeletons;
+        const adjustX = (overlap / distanceBetweenSkeletons) * dx;
+        const adjustY = (overlap / distanceBetweenSkeletons) * dy;
+
+        // Ajuster les positions pour éviter la superposition
+        skeletonA.x += adjustX / 2;
+        skeletonA.y += adjustY / 2;
+        skeletonB.x -= adjustX / 2;
+        skeletonB.y -= adjustY / 2;
       }
     }
   }
 });
-
 export { skeletons };
