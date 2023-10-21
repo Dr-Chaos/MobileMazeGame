@@ -1,9 +1,9 @@
-/* eslint-disable no-continue */
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map.json';
 import mapCollisions from '../../tiled/map-collision.json';
 import app from '../pixi/initialize';
 import { playerHitbox } from '../player/player';
+import { skeletons } from '../map-objects/skeleton';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { camera } from '../camera';
 import { movePlayer } from '../player/move';
@@ -61,6 +61,29 @@ app.ticker.add(() => {
     if (isColliding(col, playerHitbox)) {
       console.log('Collision');
       movePlayer(collisionResponseDirection(playerHitbox, col));
+    }
+
+    for (const skeleton of skeletons) {
+      if (isColliding(col, skeleton)) {
+        console.log('Collision');
+
+        // Sauvegardez la position précédente.
+        const previousX = skeleton.x;
+        const previousY = skeleton.y;
+
+        // Calculez l'ajustement nécessaire pour éviter la collision.
+        const collisionAdjustment = collisionResponseDirection(skeleton, col);
+
+        // Ajustez la position du squelette en fonction de la collision.
+        skeleton.x += collisionAdjustment.x; // Notez que nous utilisons ici "+=" pour ajuster la position
+        skeleton.y += collisionAdjustment.y;
+
+        // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
+        if (isColliding(col, skeleton)) {
+          skeleton.x = previousX;
+          skeleton.y = previousY;
+        }
+      }
     }
   }
 });

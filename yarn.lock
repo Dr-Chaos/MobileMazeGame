@@ -2,7 +2,7 @@
 # Manual changes might be lost - proceed with caution!
 
 __metadata:
-  version: 7
+  version: 8
   cacheKey: 10
 
 "@aashutoshrathi/word-wrap@npm:^1.2.3":
@@ -780,6 +780,13 @@ __metadata:
   version: 2019.7.1
   resolution: "@types/offscreencanvas@npm:2019.7.1"
   checksum: 6835c06310ec6f39bdd10f66207c74e6dc522848bd4e4168e08590db4830b7a9c42f3151cb30dd75fda27acf6de80f44f45918d873caa67b74b71cf25477e309
+  languageName: node
+  linkType: hard
+
+"@types/pathfinding@npm:^0":
+  version: 0.0.8
+  resolution: "@types/pathfinding@npm:0.0.8"
+  checksum: 94ad853a4cfcc97045e220380d4975af7ac17c32531aa7507b69919b0ca9b4ad139005e15213d62d34e5a550f5e4ca075271e3641aa6906522bcbf0c4997d763
   languageName: node
   linkType: hard
 
@@ -2274,6 +2281,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"heap@npm:0.2.5":
+  version: 0.2.5
+  resolution: "heap@npm:0.2.5"
+  checksum: 84890f3345febcabbff53fb279e5eb608515f6e592aa4ff8a4230a30cebdc7d9a7df9782e9f4c371f202096f20aee15751ed161c18a3673ec0ef30cc0716a5db
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -3239,6 +3253,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pathfinding@npm:^0.4.18":
+  version: 0.4.18
+  resolution: "pathfinding@npm:0.4.18"
+  dependencies:
+    heap: "npm:0.2.5"
+  checksum: 41b6896be753f4983e3065ff8a8d0c7c9ee8c38e8be9b68aa1b8795688d95386c3037edcca83945acb0724239a939e6ba12348f76a50944ea48d0877503b5846
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -3982,11 +4005,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5.0.2#optional!builtin<compat/typescript>":
   version: 5.2.2
-  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=5da071"
+  resolution: "typescript@patch:typescript@npm%3A5.2.2#optional!builtin<compat/typescript>::version=5.2.2&hash=f3b441"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 1f0e3f341f0d8b8351b2367470ac58de9c63ea676ea00570fd142ec3b2020413d950d9424ab61c599d3579bb0c43a05d07123ba12a2eec16078d3be4b5226b09
+  checksum: f79cc2ba802c94c2b78dbb00d767a10adb67368ae764709737dc277273ec148aa4558033a03ce901406b35fddf4eac46dabc94a1e1d12d2587e2b9cfe5707b4a
   languageName: node
   linkType: hard
 
@@ -4063,6 +4086,7 @@ __metadata:
     "@pixi/math-extras": "npm:^7.3.1"
     "@pixi/tilemap": "npm:^4.0.0"
     "@types/eslint": "npm:^8"
+    "@types/pathfinding": "npm:^0"
     "@typescript-eslint/eslint-plugin": "npm:^6.7.5"
     "@typescript-eslint/parser": "npm:^6.7.5"
     eslint: "npm:^8.51.0"
@@ -4071,6 +4095,7 @@ __metadata:
     eslint-config-xo-typescript: "npm:^1.0.1"
     eslint-plugin-import: "npm:^2.28.1"
     eslint-plugin-unicorn: "npm:^48.0.1"
+    pathfinding: "npm:^0.4.18"
     pixi.js: "npm:^7.3.1"
     typescript: "npm:^5.0.2"
     vite: "npm:^4.4.5"
