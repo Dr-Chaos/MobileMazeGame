@@ -7,7 +7,7 @@
       "boss-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
     },
     "animations": {
-      "boss": ["boss-1.png", "boss-2.png", "boss-3.png", "boss-4.png"]
+      "idle": ["boss-1.png", "boss-2.png", "boss-3.png", "boss-4.png"]
     }
   }
   
