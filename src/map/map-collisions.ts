@@ -6,6 +6,7 @@ import { type Collider, isColliding, collisionResponseDirection } from '../math/
 import { movePlayer } from '../player/move';
 import { applyScalingAndOffset } from '../utils/utils';
 import { mapScaling } from './map-draw-layers';
+import { camera } from '../camera';
 
 // draw map
 const mapData = map.layers[0].data;

@@ -5,14 +5,15 @@ import { isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 
 import { atlasLoader } from '../pixi/atlas-loader';
+import { mapScaling } from '../map/map-draw-layers';
 
 type Skeleton = AnimatedSprite & { life: number; damage: number };
 const skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number) {
   const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
-  skeleton.scale.set(2);
-  skeleton.animationSpeed = 0.17;
+  skeleton.scale.set(mapScaling);
+  skeleton.animationSpeed = 0.13;
   skeleton.play();
   skeleton.x = x;
   skeleton.y = y;
@@ -22,13 +23,13 @@ export function createSkeleton(x: number, y: number) {
   skeletons.push(skeleton);
 }
 
-app.ticker.add(() => {
-  for (const skeleton of skeletons) {
-    if (!isColliding(skeleton, playerHitbox)) continue;
-    skeleton.life -= 1;
-    if (skeleton.life > 0) continue;
-    camera.removeChild(skeleton);
-  }
-});
+// app.ticker.add(() => {
+//   for (const skeleton of skeletons) {
+//     if (!isColliding(skeleton, playerHitbox)) continue;
+//     skeleton.life -= 1;
+//     if (skeleton.life > 0) continue;
+//     camera.removeChild(skeleton);
+//   }
+// });
 
 export { skeletons };

@@ -37,7 +37,7 @@ playerHitboxDraw.beginFill('#8c9fff', 0.4);
 playerHitboxDraw.x = playerHitbox.x; // if you keep de default playerContainer.x value (0), simple use playerHitbox.x
 playerHitboxDraw.y = playerHitbox.y; // if you keep de default playerContainer.y value (0), simple use playerHitbox.y
 playerHitboxDraw.drawRect(0, 0, playerHitbox.width, playerHitbox.height);
-// playerContainer.addChild(playerHitboxDraw); // DRAW HITBOX DURING DEV
+playerContainer.addChild(playerHitboxDraw); // DRAW HITBOX DURING DEV
 
 export {
   playerHitbox,

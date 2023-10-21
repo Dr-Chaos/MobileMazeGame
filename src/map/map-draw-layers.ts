@@ -5,8 +5,10 @@ import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
-import { applyScalingAndOffset } from '../utils/utils';
-import { createDoorType1Bottom, createDoorType1Top, doorRoomBottom } from '../map-objects/door';
+import { applyScalingAndOffset, getCoordinates } from '../utils/utils';
+import {
+  createDoorType1Bottom, createDoorType1Top, createDoorType2, doorRoomBottom, doorRoomRight,
+} from '../map-objects/door';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -100,7 +102,7 @@ for (let index = 0; index < layers; index++) {
     if (layerName === 'mursdubas') {
       drawLayer(layerData, 1);
     } else {
-      drawLayer(layerData, -1, layerName);
+      drawLayer(layerData, -2, layerName);
     }
   }
 
@@ -140,6 +142,16 @@ for (let index = 0; index < layers; index++) {
         if (objectName === 'door1PartBottom') {
           const door = createDoorType1Bottom(0, map.tilewidth * mapScaling);
           doorRoomBottom.addChild(door);
+        }
+
+        continue;
+      case 'doorType2':
+        if (objectName === 'door2') {
+          const door = createDoorType2(0, 0);
+          doorRoomRight.addChild(door);
+          doorRoomRight.x = positionCentered.x;
+          doorRoomRight.y = positionCentered.y;
+          doorRoomRight.zIndex = -1;
         }
 
         continue;
