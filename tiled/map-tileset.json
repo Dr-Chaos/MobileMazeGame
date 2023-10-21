@@ -1,5 +1,5 @@
 { "columns":10,
- "image":"assets\/character and tileset\/Dungeon_Tileset.png",
+ "image":"..\/public\/map\/map-tileset.png",
  "imageheight":160,
  "imagewidth":160,
  "margin":0,
@@ -464,7 +464,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
@@ -640,7 +639,6 @@
          "objectgroup":
             {
              "draworder":"index",
-             "id":2,
              "name":"",
              "objects":[
                     {
