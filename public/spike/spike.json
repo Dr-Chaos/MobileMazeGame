@@ -7,7 +7,7 @@
     
     },
     "animations": {
-      "idle": ["spike-1.png", "spike-2.png", "spike-3.png"]
+      "spike": ["spike-1.png", "spike-2.png", "spike-3.png"]
     }
   }
   

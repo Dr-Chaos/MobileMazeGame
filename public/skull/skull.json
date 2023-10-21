@@ -7,6 +7,6 @@
     "skull-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
   },
   "animations": {
-    "idle": ["skull-1.png", "skull-2.png", "skull-3.png", "skull-4.png"]
+    "skull": ["skull-1.png", "skull-2.png", "skull-3.png", "skull-4.png"]
   }
 }

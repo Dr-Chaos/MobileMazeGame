@@ -6,6 +6,6 @@
     "levier-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } }
   },
   "animations": {
-    "idle": ["levier-1.png", "levier-2.png", "levier-3.png"]
+    "levier": ["levier-1.png", "levier-2.png", "levier-3.png"]
   }
 }
