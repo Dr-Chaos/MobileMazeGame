@@ -10,7 +10,7 @@ import { gameConditions } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
-import { startInvulnerabilityTimer } from '../player/invulnerability';
+import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
 import { lifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 
@@ -94,7 +94,7 @@ app.ticker.add(() => {
     if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
     moveSkeletonToPlayer(skeleton);
 
-    if (isColliding(playerHitbox, skeleton)) {
+    if (!isInvulnerable() && isColliding(playerHitbox, skeleton.container.sprite)) {
       startInvulnerabilityTimer();
       playerStats.life -= 1;
       lifeHud.text = `Vie : ${playerStats.life}`;
@@ -104,13 +104,11 @@ app.ticker.add(() => {
     if (isColliding(skeleton.container.sprite, fireball)) {
       startInvulnerabilityTimer();
       skeleton.life -= 1;
-      console.log('damage to boss');
+      console.log('damage to skeleton');
       if (skeleton.life > 0) continue;
       camera.removeChild(skeleton.container.sprite);
       camera.removeChild(skeleton.container.playerDetectionZone);
       skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
-      // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
-      // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
         gameConditions.skeletonToKillToOpenDoor2 -= 1;
         if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
