@@ -22,7 +22,8 @@ app.stage.addChild(camera); // create the world / camera
 
 createGhost();
 createSkull();
-createTrap(1, 1, 10_000, 500_000);
+createTrap(32, 32, 10_000, 500_000);
+createTrap(16, 16, 10_000, 500_000);
 createSkeleton(0, 0, 'skeletons');
 createSkeleton(10, 10, 'skeletons1');
 createSkeleton(20, 20, 'skeletons2');

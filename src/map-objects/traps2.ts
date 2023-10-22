@@ -29,7 +29,6 @@ function createTrap(x: number, y: number, activationInterval: number, deactivati
   trap.animation.scale.set(2);
   trap.animation.animationSpeed = 0.1;
   trap.animation.play();
-  trap.animation.visible = trap.active;
   camera.addChild(trap.animation);
 
   // Gérez l'invulnérabilité du joueur
