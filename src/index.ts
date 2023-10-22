@@ -6,5 +6,6 @@ import { camera } from './camera';
 import './player/move'; // handle move inputs
 import './player/fireball';
 import './map-objects/skull';
+import './map-objects/boss';
 
 app.stage.addChild(camera); // create the world / camera

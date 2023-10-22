@@ -7,6 +7,8 @@ import { playerStats } from '../player/stats';
 import { playerHitbox } from '../player/player';
 import { lifeHud } from '../player/hud';
 import { gameConditions } from '../map/game-conditions';
+import { fireball } from '../player/fireball';
+import { startInvulnerabilityTimer } from '../player/invulnerability';
 
 // position.x + scalePosition.x
 // position.y + scalePosition.y
@@ -109,11 +111,11 @@ function disableBossInvulnerability() {
   app.ticker.add(disableBossInvulnerability);
 }
 
+const playerfireball = fireball;
+
 app.ticker.add(() => {
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
 
-  // Vérifier si le boss est vulnérable avant de déplacer la fireball du joueur
-  // if (!invulnerable) {a
   for (const fireball of fireballs) {
     const fireballCorrectionWithOffets = {
       x: fireball.x + offsetPosition.x,
@@ -123,17 +125,19 @@ app.ticker.add(() => {
     };
 
     if (isColliding(playerHitbox, fireballCorrectionWithOffets)) {
-      // if (fireball.name !== 'fireball') continue;
-
-      // console.table(getCoordinates(fireball));
       console.log('damage');
       if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) continue;
       invulnerabilityTime = Date.now();
       playerStats.life -= 1;
       lifeHud.text = `Life: ${playerStats.life}`;
-      // if (boss.life <= 0) {
-      // camera.removeChild(boss);
-      // }
+    }
+
+    if (isColliding(boss, playerfireball)) {
+      startInvulnerabilityTimer();
+      boss.life -= 1;
+      console.log('damage to boss');
+      if (boss.life > 0) continue;
+      camera.removeChild(boss);
     }
   }
 
@@ -141,29 +145,4 @@ app.ticker.add(() => {
 
   // Déplacer les fireballs du boss
   moveFireballs();
-});
-const drawFireball = new Graphics();
-drawFireball.beginFill('red');
-drawFireball.drawRect(0, 0, bossFireball.width, bossFireball.height);
-camera.addChild(drawFireball);
-
-const drawFireball1 = new Graphics();
-drawFireball1.beginFill('red');
-drawFireball1.drawRect(0, 0, bossFireball1.width, bossFireball1.height);
-boss.addChild(drawFireball1);
-
-const drawFireball2 = new Graphics();
-drawFireball2.beginFill('yellow');
-drawFireball2.drawRect(0, 0, bossFireball2.width, bossFireball2.height);
-boss.addChild(drawFireball2);
-
-app.ticker.add(() => {
-  drawFireball.x = bossFireball.x + offsetPosition.x;
-  drawFireball.y = bossFireball.y + offsetPosition.y;
-
-  drawFireball1.x = bossFireball1.x;
-  drawFireball1.y = bossFireball1.y;
-
-  drawFireball2.x = bossFireball2.x;
-  drawFireball2.y = bossFireball2.y;
 });

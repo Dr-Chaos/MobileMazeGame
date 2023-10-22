@@ -1,0 +1,32 @@
+
+{
+"meta": { "image": "bossdeath.png", "size": { "w": 396, "h": 18 }, "scale": "1" },
+    "frames": {
+      "bossdeath-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-5.png": { "frame": { "x": 72, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-6.png": { "frame": { "x": 90, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-7.png": { "frame": { "x": 108, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-8.png": { "frame": { "x": 126, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-9.png": { "frame": { "x": 144, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-10.png": { "frame": { "x": 162, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-11.png": { "frame": { "x": 180, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-12.png": { "frame": { "x": 198, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-13.png": { "frame": { "x": 216, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-14.png": { "frame": { "x": 234, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-15.png": { "frame": { "x": 252, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-16.png": { "frame": { "x": 270, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-17.png": { "frame": { "x": 288, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-18.png": { "frame": { "x": 306, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-19.png": { "frame": { "x": 324, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-20.png": { "frame": { "x": 342, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-21.png": { "frame": { "x": 360, "y": 0, "w": 18, "h": 18 } },
+      "bossdeath-22.png": { "frame": { "x": 378, "y": 0, "w": 18, "h": 18 } }
+    },
+    "animations": {
+      "bossdeath": ["bossdeath-1.png", "bossdeath-2.png", "bossdeath-3.png", "bossdeath-4.png", "bossdeath-5.png", "bossdeath-6.png", "bossdeath-7.png","bossdeath-8.png", "bossdeath-9.png","bossdeath-10.png","bossdeath-11.png","bossdeath-12.png","bossdeath-13.png","bossdeath-14.png","bossdeath-15.png","bossdeath-16.png","bossdeath-17.png","bossdeath-18.png","bossdeath-19.png","bossdeath-20.png","bossdeath-21.png","bossdeath-22.png" ]
+    }
+  }
+  

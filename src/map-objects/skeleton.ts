@@ -10,6 +10,9 @@ import { gameConditions } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
+import { startInvulnerabilityTimer } from '../player/invulnerability';
+import { lifeHud } from '../player/hud';
+import { playerStats } from '../player/stats';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;
@@ -56,7 +59,7 @@ export function createSkeleton(x: number, y: number, name: string) {
       sprite,
       playerDetectionZone,
     },
-    life: 5,
+    life: 50,
     damage: 1,
     name,
   });
@@ -90,10 +93,18 @@ app.ticker.add(() => {
     // if the detection zone is in collision with the player
     if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
     moveSkeletonToPlayer(skeleton);
+
+    if (isColliding(playerHitbox, skeleton)) {
+      startInvulnerabilityTimer();
+      playerStats.life -= 1;
+      lifeHud.text = `Vie : ${playerStats.life}`;
+    }
+
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
+      startInvulnerabilityTimer();
       skeleton.life -= 1;
-      // is the skeleton die
+      console.log('damage to boss');
       if (skeleton.life > 0) continue;
       camera.removeChild(skeleton.container.sprite);
       camera.removeChild(skeleton.container.playerDetectionZone);
