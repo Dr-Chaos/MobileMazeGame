@@ -16,7 +16,7 @@ export function createSpike(x: number, y: number, name: string, visible = false)
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
   camera.addChild(spike); // HIDE SPIKES DURING DEV
   spike.scale.set(mapScaling);
-  spike.animationSpeed = 0.09;
+  spike.animationSpeed = 0.01;
   spike.zIndex = -1;
   spike.stop();
   spike.x = x;

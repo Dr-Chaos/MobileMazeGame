@@ -59,7 +59,7 @@ export function createSkeleton(x: number, y: number, name: string) {
       sprite,
       playerDetectionZone,
     },
-    life: 50,
+    life: 15,
     damage: 1,
     name,
   });
