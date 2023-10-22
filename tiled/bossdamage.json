@@ -1,0 +1,14 @@
+{ "columns":3,
+ "image":"..\/public\/boss\/bossdamage\/bossdamage.png",
+ "imageheight":18,
+ "imagewidth":54,
+ "margin":0,
+ "name":"bossdamage",
+ "spacing":0,
+ "tilecount":3,
+ "tiledversion":"1.10.2",
+ "tileheight":18,
+ "tilewidth":18,
+ "type":"tileset",
+ "version":"1.10"
+}
