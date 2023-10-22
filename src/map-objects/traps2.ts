@@ -10,7 +10,7 @@ import { atlasLoader } from '../pixi/atlas-loader';
 type Trap = {
   x: number;
   y: number;
-  visible: boolean;
+  active: boolean;
   playerReceiveDamage: boolean;
   animation: AnimatedSprite;
 };
@@ -21,14 +21,15 @@ function createTrap(x: number, y: number, activationInterval: number, deactivati
   const trap: Trap = {
     x: 8,
     y: 8,
-    visible: false, // Le piège démarre désactivé
+    active: false,
     playerReceiveDamage: false, // Le joueur n'a pas encore été blessé
     animation: new AnimatedSprite(atlasLoader.spike.animations.idle),
   };
+  // trap.animation.zIndex = 3;
   trap.animation.scale.set(2);
   trap.animation.animationSpeed = 0.1;
   trap.animation.play();
-  trap.animation.visible = trap.visible;
+  trap.animation.visible = trap.active;
   camera.addChild(trap.animation);
 
   // Gérez l'invulnérabilité du joueur
@@ -37,7 +38,7 @@ function createTrap(x: number, y: number, activationInterval: number, deactivati
 
   // Fonction pour vérifier la collision entre le piège et le joueur
   function checkTrapCollision() {
-    if (!trap.visible || trap.playerReceiveDamage) return;
+    if (!trap.active || trap.playerReceiveDamage) return;
     if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) return;
     if (isColliding(trap.animation, playerHitbox)) {
       console.log('Le joueur subit des dégâts du piège');
@@ -49,9 +50,9 @@ function createTrap(x: number, y: number, activationInterval: number, deactivati
   }
 
   setInterval(() => {
-    trap.visible = true;
+    trap.active = true;
     setTimeout(() => {
-      trap.visible = false;
+      trap.active = false;
       trap.playerReceiveDamage = false;
     }, deactivationInterval);
   }, activationInterval);

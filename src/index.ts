@@ -22,14 +22,14 @@ app.stage.addChild(camera); // create the world / camera
 
 createGhost();
 createSkull();
-createTrap(30, 30);
+createTrap(1, 1, 10_000, 500_000);
 createSkeleton(0, 0, 'skeletons');
 createSkeleton(10, 10, 'skeletons1');
 createSkeleton(20, 20, 'skeletons2');
 createSkeleton(30, 30, 'skeletons3');
 createSkeleton(40, 40, 'skeletons4');
 
-createTrap(0, 0, 200, 1000);
+createTrap(0, 0, 200, 1000, 5000);
 // createBoss(-40, -450);
 // Press D key to display debug logs
 document.addEventListener('keydown', (event) => {
