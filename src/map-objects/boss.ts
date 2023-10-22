@@ -69,7 +69,9 @@ camera.addChild(bossContainer);
 bossContainer.x += offsetPosition.x;
 bossContainer.y += offsetPosition.y;
 
-const boss = new AnimatedSprite(atlasLoader.boss.animations.boss, 500, 10);
+// 50 ,100
+
+const boss = new AnimatedSprite(atlasLoader.boss.animations.boss);
 // life: number, damage: number
 export function createBoss(x: number, y: number) {
   boss.play();
