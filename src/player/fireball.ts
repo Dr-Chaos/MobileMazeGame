@@ -16,11 +16,11 @@ fireball.zIndex = 2;
 camera.addChild(fireball);
 
 const radius = 50;
-let angle = 0;
+let angle = 2;
 function moveFireball() {
   fireball.x = playerContainer.x + radius * Math.cos(angle);
   fireball.y = playerContainer.y + radius * Math.sin(angle);
-  angle += 0.05;
+  angle += 0.1;
 }
 
 app.ticker.add(moveFireball);

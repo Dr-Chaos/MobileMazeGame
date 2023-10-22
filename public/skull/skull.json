@@ -1,10 +1,10 @@
 {
-  "meta": { "image": "skull.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "meta": { "image": "skull.png", "size": { "w": 72, "h": 18 }, "scale": "1" },
   "frames": {
-    "skull-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
-    "skull-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
-    "skull-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
-    "skull-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } }
+    "skull-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+    "skull-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+    "skull-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+    "skull-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
   },
   "animations": {
     "idle": ["skull-1.png", "skull-2.png", "skull-3.png", "skull-4.png"]

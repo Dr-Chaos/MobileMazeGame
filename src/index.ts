@@ -4,14 +4,8 @@ import './map/map-collisions';
 import app from './pixi/initialize';
 import { camera } from './camera';
 import './player/move'; // handle move inputs
-import { atlasLoader } from './pixi/atlas-loader';
-// import './player/fireball';
-import { createSkeleton, skeletons } from './map-objects/skeleton';
-import { getCoordinates } from './utils/utils';
-import { playerContainer } from './player/player';
-import { createBoss } from './map-objects/boss';
-import { createSpikeAuto } from './map-objects/spike-auto';
-import { isInvulnerable, startInvulnerabilityTimer } from './player/invulnerability';
+import './player/fireball';
+import './map-objects/skull';
 // import './tests';
 
 app.stage.addChild(camera); // create the world / camera

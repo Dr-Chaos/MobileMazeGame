@@ -9,6 +9,7 @@ import { mapScaling } from '../map/map-layers';
 import { mapCondition } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
+import { fireball } from '../player/fireball';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;
@@ -22,43 +23,50 @@ type Skeleton = {
   damage: number;
 };
 
-const skeletons: Skeleton[] = [];
+let skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number, name: string) {
-  const skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
-  skeleton.scale.set(mapScaling);
-  skeleton.animationSpeed = 0.13;
-  skeleton.play();
-  skeleton.x = x;
-  skeleton.y = y;
-  camera.addChild(skeleton);
+  const sprite = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
+  sprite.scale.set(mapScaling);
+  sprite.animationSpeed = 0.13;
+  sprite.play();
+  sprite.x = x;
+  sprite.y = y;
+  camera.addChild(sprite);
 
-  const playerDetectionDraw = new Graphics();
-  playerDetectionDraw.beginFill('white', 0.5);
-  const playerDetection = centerIfPivotIsUpperLeft(
+  const playerDetectionZone = new Graphics();
+  playerDetectionZone.beginFill('white', 0.5);
+  const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
     {
-      x: skeleton.x,
-      y: skeleton.y,
-      width: skeleton.width,
-      height: skeleton.height,
+      x: sprite.x,
+      y: sprite.y,
+      width: sprite.width,
+      height: sprite.height,
     },
     5.5,
   );
-  playerDetectionDraw.x = playerDetection.x;
-  playerDetectionDraw.y = playerDetection.y;
-  playerDetectionDraw.drawRect(0, 0, playerDetection.width, playerDetection.height);
-  playerDetectionDraw.visible = false; // dispaly or hide the player detection zone
-  camera.addChild(playerDetectionDraw);
+  playerDetectionZone.x = playerDetectionZonePosition.x;
+  playerDetectionZone.y = playerDetectionZonePosition.y;
+  playerDetectionZone.drawRect(0, 0, playerDetectionZonePosition.width, playerDetectionZonePosition.height);
+  playerDetectionZone.visible = false; // dispaly or hide the player detection zone
+  camera.addChild(playerDetectionZone);
 
   skeletons.push({
     container: {
-      sprite: skeleton,
-      playerDetectionZone: playerDetectionDraw,
+      sprite,
+      playerDetectionZone,
     },
     life: 5,
     damage: 1,
     name,
   });
+}
+
+function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
+  skeleton.container.sprite.x += x;
+  skeleton.container.sprite.y += y;
+  skeleton.container.playerDetectionZone.x += x;
+  skeleton.container.playerDetectionZone.y += y;
 }
 
 function moveSkeletonToPlayer(skeleton: Skeleton) {
@@ -74,10 +82,7 @@ function moveSkeletonToPlayer(skeleton: Skeleton) {
   const normalizedDirectionY = directionY / distance;
 
   const speed = 1;
-  skeleton.container.sprite.x += normalizedDirectionX * speed;
-  skeleton.container.sprite.y += normalizedDirectionY * speed;
-  skeleton.container.playerDetectionZone.position.x += normalizedDirectionX * speed;
-  skeleton.container.playerDetectionZone.position.y += normalizedDirectionY * speed;
+  moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed);
 }
 
 app.ticker.add(() => {
@@ -87,10 +92,17 @@ app.ticker.add(() => {
     //     //   continue;
     //     // }
 
-    if (isColliding(playerHitbox, skeleton.container.playerDetectionZone)) {
-      console.log('Detection');
-      moveSkeletonToPlayer(skeleton);
-      continue;
+    // if the detection zone is in collision with the player
+    if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
+    moveSkeletonToPlayer(skeleton);
+    // if the skeleton sprite is in collision with the player fireball
+    if (isColliding(skeleton.container.sprite, fireball)) {
+      skeleton.life -= 1;
+      if (skeleton.life <= 0) {
+        camera.removeChild(skeleton.container.sprite);
+        camera.removeChild(skeleton.container.playerDetectionZone);
+        skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      }
     }
 
     //     moveSkeletonToPlayer(skeleton);
@@ -109,6 +121,34 @@ app.ticker.add(() => {
     //       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
     //       console.log(doorsContainers);
     //     }
+  }
+
+  // Deuxième boucle pour gérer les collisions entre les squelettes
+  for (let index = 0; index < skeletons.length; index++) {
+    for (let index_ = index + 1; index_ < skeletons.length; index_++) {
+      const skeletonA = skeletons[index];
+      const skeletonB = skeletons[index_];
+
+      const skeletonASprite = skeletonA.container.sprite;
+      const skeletonBSprite = skeletonB.container.sprite;
+      const dx = skeletonASprite.x - skeletonBSprite.x;
+      const dy = skeletonASprite.y - skeletonBSprite.y;
+      const distanceBetweenSkeletons = Math.hypot(dx, dy);
+
+      // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
+      const minDistance = skeletonASprite.width / 2 + skeletonBSprite.width / 2; // ou une autre valeur selon la taille des squelettes
+
+      if (distanceBetweenSkeletons < minDistance) {
+        // Les squelettes sont trop proches, nous devons les repousser
+        const overlap = minDistance - distanceBetweenSkeletons;
+        const adjustX = (overlap / distanceBetweenSkeletons) * dx;
+        const adjustY = (overlap / distanceBetweenSkeletons) * dy;
+
+        // Ajuster les positions pour éviter la superposition
+        moveSkeleton(skeletonA, adjustX / 2, adjustY / 2);
+        moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
+      }
+    }
   }
 });
 
