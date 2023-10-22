@@ -1501,8 +1501,8 @@
                  "type":"",
                  "visible":true,
                  "width":17.75,
-                 "x":211.5,
-                 "y":238.25
+                 "x":200.5,
+                 "y":258
                 }, 
                 {
                  "gid":174,
@@ -1513,8 +1513,8 @@
                  "type":"",
                  "visible":true,
                  "width":12.5,
-                 "x":237.5,
-                 "y":231.75
+                 "x":235.25,
+                 "y":252.5
                 }, 
                 {
                  "gid":180,
@@ -1525,8 +1525,8 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":260.5,
-                 "y":235.25
+                 "x":260.25,
+                 "y":254.75
                 }, 
                 {
                  "gid":188,
@@ -1537,8 +1537,32 @@
                  "type":"",
                  "visible":true,
                  "width":18,
-                 "x":224,
-                 "y":208
+                 "x":201.25,
+                 "y":200
+                }, 
+                {
+                 "gid":198,
+                 "height":28.421875,
+                 "id":303,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":19.7717391304348,
+                 "x":198.75,
+                 "y":232.5
+                }, 
+                {
+                 "gid":204,
+                 "height":57.5,
+                 "id":304,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":55,
+                 "x":231,
+                 "y":233.25
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1827,7 +1851,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":303,
+ "nextobjectid":306,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -1922,6 +1946,14 @@
         {
          "firstgid":188,
          "source":"skeletondeath.json"
+        }, 
+        {
+         "firstgid":198,
+         "source":"witchdamage.json"
+        }, 
+        {
+         "firstgid":204,
+         "source":"bossdeath.json"
         }],
  "tilewidth":16,
  "type":"map",
