@@ -6,6 +6,7 @@ import { atlasLoader } from '../pixi/atlas-loader';
 import { playerStats } from '../player/stats';
 import { playerHitbox } from '../player/player';
 import { lifeHud } from '../player/hud';
+import { gameConditions } from '../map/game-conditions';
 
 // position.x + scalePosition.x
 // position.y + scalePosition.y
@@ -69,7 +70,9 @@ bossContainer.x += offsetPosition.x;
 bossContainer.y += offsetPosition.y;
 
 type Boss = AnimatedSprite & { life: number; damage: number };
-const boss = new AnimatedSprite(atlasLoader.boss.animations.idle) as Boss;
+
+export function createBoss(x: number, y: number);
+const boss = new AnimatedSprite(atlasLoader.boss.animations.boss) as Boss;
 boss.scale.set(scaling.boss);
 boss.animationSpeed = 0.17;
 boss.play();
@@ -78,6 +81,8 @@ boss.x += offsetPosition.x;
 boss.y += offsetPosition.y;
 boss.life = 500;
 boss.damage = 10;
+boss.play();
+boss.zIndex = -1;
 
 // Ajouter les fireballs du boss au boss, mais initialement invisibles
 bossContainer.addChild(bossFireball);
@@ -96,6 +101,13 @@ camera.addChild(boss);
 
 let invulnerabilityTime = 0;
 const invulnerabilityTimer = 1000;
+
+function disableBossInvulnerability() {
+  if (gameConditions.leverToAttackTheBoss > 0) return;
+  app.ticker.remove(disableBossInvulnerability);
+  console.log('BOSS SPAWN');
+  app.ticker.add(disableBossInvulnerability);
+}
 
 app.ticker.add(() => {
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
@@ -130,31 +142,6 @@ app.ticker.add(() => {
   // Déplacer les fireballs du boss
   moveFireballs();
 });
-
-/* //////////////////////////// COMMENTAIRES SUR LA LOGIQUE DU JEU  //////////////////////////// */
-
-// let activatedBossLever = 0;
-// export {activatedBossLever}
-// // a chaque fois qu'on monte un levier de la salle du boss
-// // on va faire activatedBossLever += 1
-// // dans une boucle de jeu
-// // si activatedBossLever == 2
-// // on active le boss
-
-// // quand je descine la map avec le fichier Tiled
-// // si levier.name === 'levierBoss1'
-// // je rajoute dans sa boucle de jeu
-// // si collision avec le joueur, si !levier.active =>  activatedBossLever += 1
-
-// // Fonction pour rendre le boss vulnérable lorsque certaines conditions sont remplies
-// export function makeBossVulnerable() {
-//   vulnerable = true;
-//   bossFireball.visible = true;
-//   bossFireball1.visible = true; // Rendre les fireballs du boss visibles
-//   bossFireball2.visible = true;
-// }
-
-// DRAW FIREBALL FOR DEBUGGING
 const drawFireball = new Graphics();
 drawFireball.beginFill('red');
 drawFireball.drawRect(0, 0, bossFireball.width, bossFireball.height);

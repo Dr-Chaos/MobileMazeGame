@@ -179,9 +179,9 @@ for (let index = 0; index < layers; index++) {
       case 'skeleton':
         createSkeleton(positionCentered.x, positionCentered.y, objectName);
         continue;
-      case 'boss':
-        createBoss(positionCentered.x, positionCentered.y);
-        continue;
+      // case 'boss':
+      //   createBoss(positionCentered.x, positionCentered.y);
+      //   continue;
       default:
         break;
     }
