@@ -137,7 +137,10 @@ app.ticker.add(() => {
       boss.life -= 1;
       console.log('damage to boss');
       if (boss.life > 0) continue;
+      console.log('death of boss');
+      // animation mort du boss
       camera.removeChild(boss);
+      camera.removeChild(bossContainer);
     }
   }
 
