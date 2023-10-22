@@ -7,6 +7,7 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { camera } from '../camera';
+import { moveSkeleton, skeletons } from '../map-objects/skeleton';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -66,8 +67,32 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 // console.table(tile);
 app.ticker.add(() => {
   for (const tile of colliderTiles) {
+    // collision with the player
     if (isColliding(tile, playerHitbox)) {
       movePlayer(collisionResponseDirection(playerHitbox, tile));
+    }
+
+    // collision with skeletons
+    for (const skeletonObject of skeletons) {
+      const skeletonSprite = skeletonObject.container.sprite;
+      if (isColliding(tile, skeletonSprite)) {
+        console.log('Collision');
+
+        // Sauvegardez la position précédente.
+        const previousX = skeletonSprite.x;
+        const previousY = skeletonSprite.y;
+
+        // Calculez l'ajustement nécessaire pour éviter la collision.
+        const collisionAdjustment = collisionResponseDirection(skeletonSprite, tile);
+
+        // Ajustez la position du squelette en fonction de la collision.
+        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y);
+
+        // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
+        if (isColliding(tile, skeletonSprite)) {
+          moveSkeleton(skeletonObject, previousX, previousY);
+        }
+      }
     }
   }
 });

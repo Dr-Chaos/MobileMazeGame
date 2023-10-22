@@ -180,7 +180,7 @@ for (let index = 0; index < layers; index++) {
         createSkeleton(positionCentered.x, positionCentered.y, objectName);
         continue;
       case 'boss':
-        // createBoss(positionCentered.x, positionCentered.y);
+        createBoss(positionCentered.x, positionCentered.y);
         continue;
       default:
         break;

@@ -877,7 +877,7 @@
                  "id":200,
                  "name":"skull2",
                  "rotation":0,
-                 "type":"spike",
+                 "type":"ghost",
                  "visible":true,
                  "width":16,
                  "x":272,
@@ -1001,7 +1001,7 @@
                  "type":"spikeAuto",
                  "visible":true,
                  "width":16,
-                 "x":48,
+                 "x":48.0625,
                  "y":368
                 }, 
                 {
