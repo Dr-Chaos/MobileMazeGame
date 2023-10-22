@@ -1,0 +1,15 @@
+{
+    "meta": { "image": "witchdamage.png", "size": { "w": 192, "h": 48 }, "scale": "1" },
+    "frames": {
+      "witchdamage-1.png": { "frame": { "x": 0, "y": 0, "w": 32, "h": 48 } },
+      "witchdamage-2.png": { "frame": { "x": 32, "y": 0, "w": 32, "h": 48 } },
+      "witchdamage-3.png": { "frame": { "x": 64, "y": 0, "w": 32, "h": 48 } },
+      "witchdamage-4.png": { "frame": { "x": 96, "y": 0, "w": 32, "h": 48 } },
+      "witchdamage-5.png": { "frame": { "x": 128, "y": 0, "w": 32, "h": 48 } },
+      "witchdamage-6.png": { "frame": { "x": 160, "y": 0, "w": 32, "h": 48 } }
+    },
+    "animations": {
+      "idle": ["witchdamage-1.png", "witchdamage-2.png", "witchdamage-3.png", "witchdamage-4.png", "witchdamage-5.png","witchdamage-6.png"]
+    }
+  }
+  
