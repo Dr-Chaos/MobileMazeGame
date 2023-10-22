@@ -6,7 +6,7 @@ import { playerHitbox } from '../player/player';
 
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
-import { mapCondition } from '../map/map-conditions';
+import { mapCondition } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
 

@@ -11,27 +11,27 @@ import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
 import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
 
-const spikes: AnimatedSprite[] = [];
-export function createSpike(x: number, y: number, name: string, visible = false) {
+const spikesAuto: AnimatedSprite[] = [];
+export function createSpikeAuto(x: number, y: number, name: string) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
-  camera.addChild(spike); // HIDE SPIKES DURING DEV
+  camera.addChild(spike);
   spike.scale.set(mapScaling);
   spike.animationSpeed = 0.09;
   spike.zIndex = -1;
-  spike.stop();
+  spike.play();
   spike.x = x;
   spike.y = y;
-  spike.visible = visible;
+  spike.visible = true;
   spike.name = name;
-  spikes.push(spike);
+  spikesAuto.push(spike);
   spike.onLoop = () => {
     spike.stop();
     spike.visible = false;
   };
-}
 
-app.ticker.add(() => {
-  for (const spike of spikes) {
+  let displaySpikeTime = 0;
+  const displaySpikeTimer = 1500;
+  app.ticker.add(() => {
     if (spike.visible && !isInvulnerable() && isColliding(playerHitbox, spike)) {
       startInvulnerabilityTimer();
       console.log('Receive damage from spikes');
@@ -39,7 +39,14 @@ app.ticker.add(() => {
       lifeHud.text = `Life: ${playerStats.life}`;
       console.log('Collision spike');
     }
-  }
-});
 
-export { spikes };
+    // if displaySpikeTimer seconds elapse
+    // play spike animation
+    if (Date.now() - displaySpikeTime <= displaySpikeTimer) return;
+    spike.play();
+    spike.visible = true;
+    displaySpikeTime = Date.now();
+  });
+}
+
+export { spikesAuto };

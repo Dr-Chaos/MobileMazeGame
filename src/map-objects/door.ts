@@ -10,7 +10,7 @@ import { getCoordinates } from '../utils/utils';
 import { keys } from './key';
 import { playerStats } from '../player/stats';
 import inventory from '../player/inventory';
-import { mapCondition } from '../map/map-conditions';
+import { gameConditions } from '../map/game-conditions';
 
 // DEMO TO CREATE DOOR IN MULTIPLE PARTS
 export function doorExample() {
@@ -112,7 +112,7 @@ function removeDoorRoomTop() {
   // supprimer la porte du tableau
   // supprimer cette fonction de la game loop
   // si clés === 3
-  if (inventory.keys !== mapCondition.keysToOpenTopRoom) return;
+  if (inventory.keys !== gameConditions.keysToOpenTopRoom) return;
   console.log('remove');
 
   camera.removeChild(doorRoomTop);
