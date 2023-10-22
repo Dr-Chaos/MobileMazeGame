@@ -2,6 +2,10 @@ import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { atlasLoader } from '../pixi/atlas-loader';
+import { playerStats } from '../player/stats';
+import { isColliding } from '../math/collisions';
+import { lifeHud } from '../player/hud';
+import { playerHitbox } from '../player/player';
 
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
@@ -38,6 +42,9 @@ const pointsGhost2: Point[] = [
 let stateGhost1: MovementState = { index: 0, progress: 0 };
 let stateGhost2: MovementState = { index: 0, progress: 0 };
 
+let invulnerabilityTime = 0;
+const invulnerabilityTimer = 1000;
+
 function updateGhostMovement(
   ghost: AnimatedSprite,
   points: Point[],
@@ -73,7 +80,17 @@ app.ticker.add((delta) => {
   const { updatedGhost: updatedGhost2, updatedState: updatedStateGhost2 } = updateGhostMovement(ghost2, pointsGhost2, stateGhost2, delta, 0.02);
   ghost2.x = updatedGhost2.x;
   ghost2.y = updatedGhost2.y;
-  stateGhost2 = updatedStateGhost2; // Same assumption as above.
+  stateGhost2 = updatedStateGhost2;
 
-  // If there's more logic to be executed on each tick, add it here.
+  if (isColliding(playerHitbox, ghost1) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
+    invulnerabilityTime = Date.now();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
+
+  if (isColliding(playerHitbox, ghost2) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
+    invulnerabilityTime = Date.now();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
 });

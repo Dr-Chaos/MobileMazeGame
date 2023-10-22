@@ -2,6 +2,10 @@ import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { atlasLoader } from '../pixi/atlas-loader';
+import { playerStats } from '../player/stats';
+import { isColliding } from '../math/collisions';
+import { lifeHud } from '../player/hud';
+import { playerHitbox } from '../player/player';
 
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
@@ -38,6 +42,9 @@ const pointsSkull2: Point[] = [
 let stateSkull1: MovementState = { index: 0, progress: 0 };
 let stateSkull2: MovementState = { index: 0, progress: 0 };
 
+let invulnerabilityTime = 0;
+const invulnerabilityTimer = 1000;
+
 function updateSkullMovement(
   skull: AnimatedSprite,
   points: Point[],
@@ -65,15 +72,25 @@ function updateSkullMovement(
 
 app.ticker.add((delta) => {
   const { updatedSkull: updatedSkull1, updatedState: updatedStateSkull1 } = updateSkullMovement(skull1, pointsSkull1, stateSkull1, delta, 0.01);
-  // Directly update the properties, don't reassign
+
   skull1.x = updatedSkull1.x;
   skull1.y = updatedSkull1.y;
-  stateSkull1 = updatedStateSkull1; // Assuming this is a let variable, or else it should also not be reassigned.
+  stateSkull1 = updatedStateSkull1;
 
   const { updatedSkull: updatedSkull2, updatedState: updatedStateSkull2 } = updateSkullMovement(skull2, pointsSkull2, stateSkull2, delta, 0.02);
   skull2.x = updatedSkull2.x;
   skull2.y = updatedSkull2.y;
-  stateSkull2 = updatedStateSkull2; // Same assumption as above.
+  stateSkull2 = updatedStateSkull2;
 
-  // If there's more logic to be executed on each tick, add it here.
+  if (isColliding(playerHitbox, skull1) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
+    invulnerabilityTime = Date.now();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
+
+  if (isColliding(playerHitbox, skull2) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
+    invulnerabilityTime = Date.now();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
 });
