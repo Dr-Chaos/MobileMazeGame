@@ -9,15 +9,12 @@ import { atlasLoader } from './pixi/atlas-loader';
 import { createSkeleton, skeletons } from './map-objects/skeleton';
 import { getCoordinates } from './utils/utils';
 import { playerContainer } from './player/player';
-import './map-objects/boss-spawn';
+import { createBoss } from './map-objects/boss';
 import { createSpikeAuto } from './map-objects/spike-auto';
 import { isInvulnerable, startInvulnerabilityTimer } from './player/invulnerability';
 // import './tests';
 
 app.stage.addChild(camera); // create the world / camera
-
-createSpikeAuto(0, 0, 'test');
-createSpikeAuto(0, 18, 'test');
 
 // createSkeleton(0, 0, 'special');
 
@@ -27,7 +24,7 @@ document.addEventListener('keydown', (event) => {
   const allPixiObjects = app.stage.children;
   // console.log(allPixiObjects);
   // console.log(atlasLoader);
-  startInvulnerabilityTimer();
+  // startInvulnerabilityTimer();
   // console.log(isInvulnerable());
 
   // for (const skeleton of skeletons) {
@@ -37,11 +34,4 @@ document.addEventListener('keydown', (event) => {
   // console.table(getCoordinates(skeleton.container.playerDetectionZone));
 
   // }
-});
-
-document.addEventListener('keydown', (event) => {
-  if (event.code !== 'Digit2') return;
-  startInvulnerabilityTimer();
-
-  // console.log(isInvulnerable());
 });

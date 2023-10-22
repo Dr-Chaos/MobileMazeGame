@@ -10,6 +10,8 @@ import {
   createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';
 import { createSkeleton } from '../map-objects/skeleton';
+import { createSpikeAuto } from '../map-objects/spike-auto';
+import { createBoss } from '../map-objects/boss';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);
@@ -129,6 +131,9 @@ for (let index = 0; index < layers; index++) {
       case 'spike':
         createSpike(positionCentered.x, positionCentered.y, objectName);
         continue;
+      case 'spikeAuto':
+        createSpikeAuto(positionCentered.x, positionCentered.y, objectName);
+        continue;
       case 'lever':
         createLever(positionCentered.x, positionCentered.y, objectName);
         continue;
@@ -173,6 +178,9 @@ for (let index = 0; index < layers; index++) {
         continue;
       case 'skeleton':
         createSkeleton(positionCentered.x, positionCentered.y, objectName);
+        continue;
+      case 'boss':
+        createBoss(positionCentered.x, positionCentered.y);
         continue;
       default:
         break;
