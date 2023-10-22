@@ -6,7 +6,7 @@ import { playerHitbox } from '../player/player';
 
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
-import { mapCondition } from '../map/game-conditions';
+import { gameConditions } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
@@ -43,7 +43,7 @@ export function createSkeleton(x: number, y: number, name: string) {
       width: sprite.width,
       height: sprite.height,
     },
-    5.5,
+    6.5,
   );
   playerDetectionZone.x = playerDetectionZonePosition.x;
   playerDetectionZone.y = playerDetectionZonePosition.y;
@@ -62,7 +62,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   });
 }
 
-function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
+export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
   skeleton.container.sprite.x += x;
   skeleton.container.sprite.y += y;
   skeleton.container.playerDetectionZone.x += x;
@@ -87,47 +87,34 @@ function moveSkeletonToPlayer(skeleton: Skeleton) {
 
 app.ticker.add(() => {
   for (const skeleton of skeletons) {
-    //     // if (skeleton.name === 'special') {
-    //     //   // moveSkeletonToPlayer(skeleton);
-    //     //   continue;
-    //     // }
-
     // if the detection zone is in collision with the player
     if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
     moveSkeletonToPlayer(skeleton);
-    // if the skeleton sprite is in collision with the player fireball
+    // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
       skeleton.life -= 1;
-      if (skeleton.life <= 0) {
-        camera.removeChild(skeleton.container.sprite);
-        camera.removeChild(skeleton.container.playerDetectionZone);
-        skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      // is the skeleton die
+      if (skeleton.life > 0) continue;
+      camera.removeChild(skeleton.container.sprite);
+      camera.removeChild(skeleton.container.playerDetectionZone);
+      skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
+      // but we can keep it to implement a killed monster counter
+      if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
+        gameConditions.skeletonToKillToOpenDoor2 -= 1;
+        if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
+        // disable the room2 door
+        camera.removeChild(doorRoomRight);
+        doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
     }
-
-    //     moveSkeletonToPlayer(skeleton);
-    //     if (isColliding(skeleton.container.sprite, playerHitbox)) continue;
-    //     skeleton.life -= 1;
-    //     if (skeleton.life > 0) continue;
-    //     camera.removeChild(skeleton.container.sprite);
-    //     camera.removeChild(skeleton.container.playerDetectionZone);
-    //     skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
-    //     // if it's skeleton form room 2
-    //     if (skeleton.name === 'skeletonRoomRight' && mapCondition.skeletonToKillToOpenDoor2 > 0) {
-    //       mapCondition.skeletonToKillToOpenDoor2 -= 1;
-    //       if (mapCondition.skeletonToKillToOpenDoor2 > 0) continue;
-    //       // disable the room2 door
-    //       camera.removeChild(doorRoomRight);
-    //       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
-    //       console.log(doorsContainers);
-    //     }
   }
 
   // Deuxième boucle pour gérer les collisions entre les squelettes
-  for (let index = 0; index < skeletons.length; index++) {
-    for (let index_ = index + 1; index_ < skeletons.length; index_++) {
-      const skeletonA = skeletons[index];
-      const skeletonB = skeletons[index_];
+  for (let indexSkeletonA = 0; indexSkeletonA < skeletons.length; indexSkeletonA++) {
+    for (let indexSkeletonB = indexSkeletonA + 1; indexSkeletonB < skeletons.length; indexSkeletonB++) {
+      const skeletonA = skeletons[indexSkeletonA];
+      const skeletonB = skeletons[indexSkeletonB];
 
       const skeletonASprite = skeletonA.container.sprite;
       const skeletonBSprite = skeletonB.container.sprite;

@@ -6,9 +6,9 @@ import { camera } from '../camera';
 import { playerAnimationsContainer } from './animations';
 
 // boss fireball
-const fireball = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
+// const fireball = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 // witch fireball
-// const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
 fireball.animationSpeed = 0.15;
 fireball.scale.set(1.2);
 fireball.play();
