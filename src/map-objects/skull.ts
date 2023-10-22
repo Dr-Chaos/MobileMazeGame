@@ -39,7 +39,7 @@ function updateSkullMovement(
 
   updatedSkull.x = startPoint.x + (endPoint.x - startPoint.x) * state.progress;
   updatedSkull.y = startPoint.y + (endPoint.y - startPoint.y) * state.progress;
-  state.progress += speed * delta;
+  state.progress += speed * delta * 0.7;
 
   return { updatedSkull, updatedState: state };
 }
