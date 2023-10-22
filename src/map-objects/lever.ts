@@ -7,10 +7,11 @@ import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
-import { mapScaling } from '../map/map-draw-layers';
-import { doorRoomBottom } from './door';
+import { mapScaling } from '../map/map-layers';
+import { doorRoomBottom, doorsContainers } from './door';
+import { gameConditions } from '../map/game-conditions';
 
-type Lever = AnimatedSprite & { mustBeActivated: boolean};
+type Lever = AnimatedSprite & { canBeActivated: boolean};
 
 export function createLever(x: number, y: number, name: string) {
   const lever = new AnimatedSprite(atlasLoader.lever.animations.idle) as Lever;
@@ -21,9 +22,8 @@ export function createLever(x: number, y: number, name: string) {
   lever.y = y;
   lever.zIndex = -1;
   lever.name = name;
-  lever.mustBeActivated = true;
+  lever.canBeActivated = true;
   lever.onLoop = () => {
-    console.log('Loop');
     const lastFrameIndex = lever.totalFrames - 1;
     lever.gotoAndStop(lastFrameIndex);
 
@@ -46,8 +46,22 @@ export function createLever(x: number, y: number, name: string) {
 
     // lever porte du bas
     if (name === 'leverDoorBottom') {
-      doorRoomBottom.visible = false;
       camera.removeChild(doorRoomBottom);
+      doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
+    }
+
+    // lever boss room
+    if (name === 'leverBossGood') {
+      gameConditions.leverToAttackTheBoss -= 1;
+      console.log(gameConditions.leverToAttackTheBoss);
+    }
+
+    if (name === 'leverBossBad') {
+      for (const spike of spikes) {
+        if (spike.name !== 'spikeBossLever') continue;
+        spike.visible = true;
+        spike.play();
+      }
     }
   };
 
@@ -56,8 +70,8 @@ export function createLever(x: number, y: number, name: string) {
   app.ticker.add(() => {
     if (isColliding(playerHitbox, lever)) {
       movePlayer(collisionResponseDirection(playerHitbox, lever));
-      if (!lever.mustBeActivated) return;
-      lever.mustBeActivated = false;
+      if (!lever.canBeActivated) return;
+      lever.canBeActivated = false;
       lever.animationSpeed = 0.2;
     }
   });

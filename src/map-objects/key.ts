@@ -9,7 +9,7 @@ import { playerHitbox } from '../player/player';
 import { getCoordinates } from '../utils/utils';
 import inventory from '../player/inventory';
 import { keyHud } from '../player/hud';
-import { mapScaling } from '../map/map-draw-layers';
+import { mapScaling } from '../map/map-layers';
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -31,7 +31,6 @@ export function createKey(x: number, y: number, name: string, isActive = true) {
 
 app.ticker.add(() => {
   for (const key of keys) {
-    camera.addChild(key);
     if (
       key.visible
       && !key.hasBeenTaken
