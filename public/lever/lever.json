@@ -1,0 +1,11 @@
+{
+  "meta": { "image": "lever.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "frames": {
+    "lever-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
+    "lever-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
+    "lever-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } }
+  },
+  "animations": {
+    "idle": ["lever-1.png", "lever-2.png", "lever-3.png"]
+  }
+}
