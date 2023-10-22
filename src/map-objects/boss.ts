@@ -69,9 +69,6 @@ camera.addChild(bossContainer);
 bossContainer.x += offsetPosition.x;
 bossContainer.y += offsetPosition.y;
 
-// Remplacez par votre chemin d'accès réel
-// ... autres imports ...
-
 const boss = new AnimatedSprite(atlasLoader.boss.animations.boss, 500, 10);
 // life: number, damage: number
 export function createBoss(x: number, y: number) {
