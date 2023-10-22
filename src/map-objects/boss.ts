@@ -68,16 +68,25 @@ camera.addChild(bossContainer);
 bossContainer.x += offsetPosition.x;
 bossContainer.y += offsetPosition.y;
 
-type Boss = AnimatedSprite & { life: number; damage: number };
-const boss = new AnimatedSprite(atlasLoader.boss.animations.idle) as Boss;
-boss.scale.set(scaling.boss);
-boss.animationSpeed = 0.17;
-boss.play();
-bossContainer.addChild(boss);
-boss.x += offsetPosition.x;
-boss.y += offsetPosition.y;
-boss.life = 500;
-boss.damage = 10;
+export function createBoss(x: number, y: number) {
+  const boss = new AnimatedSprite(atlasLoader.boss.animations.boss);
+  boss.play();
+  boss.animationSpeed = 0.08;
+  boss.scale.set(6);
+  boss.zIndex = -1;
+  boss.x = x;
+  boss.y = y;
+  camera.addChild(boss);
+
+  boss.scale.set(scaling.boss);
+  boss.animationSpeed = 0.17;
+  boss.play();
+  bossContainer.addChild(boss);
+  boss.x += offsetPosition.x;
+  boss.y += offsetPosition.y;
+  boss.life = 500;
+  boss.damage = 10;
+}
 
 // Ajouter les fireballs du boss au boss, mais initialement invisibles
 bossContainer.addChild(bossFireball);

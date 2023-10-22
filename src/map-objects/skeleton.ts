@@ -2,74 +2,128 @@ import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
-import { playerContainer, playerHitbox } from '../player/player';
-import { atlasLoader } from '../pixi/atlas-loader';
-import { fireball } from '../player/fireball';
-import { getCoordinates } from '../utils/utils';
+import { playerHitbox } from '../player/player';
 
-type Skeleton = AnimatedSprite & { life: number; damage: number };
+import { atlasLoader } from '../pixi/atlas-loader';
+import { mapScaling } from '../map/map-layers';
+import { gameConditions } from '../map/game-conditions';
+import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
+import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
+import { fireball } from '../player/fireball';
+
+type SkeletonContainer = {
+  sprite: AnimatedSprite;
+  playerDetectionZone: Graphics;
+};
+
+type Skeleton = {
+  container: SkeletonContainer;
+  life: number;
+  name: string;
+  damage: number;
+};
+
 let skeletons: Skeleton[] = [];
 
-// {} objectskele
-// [] array
-
 export function createSkeleton(x: number, y: number, name: string) {
-  const skeleton: Skeleton = new AnimatedSprite(atlasLoader.skeleton.animations.idle) as Skeleton;
-  skeleton.scale.set(1.61);
-  // skeleton.animationSpeed = 0.17;
-  // skeleton.play();
-  skeleton.x = x;
-  skeleton.y = y;
-  camera.addChild(skeleton);
-  skeleton.life = 50;
-  skeleton.damage = 1;
-  skeletons.push(skeleton);
-  console.log(skeleton.width);
+  const sprite = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
+  sprite.scale.set(mapScaling);
+  sprite.animationSpeed = 0.13;
+  sprite.play();
+  sprite.x = x;
+  sprite.y = y;
+  camera.addChild(sprite);
+
+  const playerDetectionZone = new Graphics();
+  playerDetectionZone.beginFill('white', 0.5);
+  const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
+    {
+      x: sprite.x,
+      y: sprite.y,
+      width: sprite.width,
+      height: sprite.height,
+    },
+    6.5,
+  );
+  playerDetectionZone.x = playerDetectionZonePosition.x;
+  playerDetectionZone.y = playerDetectionZonePosition.y;
+  playerDetectionZone.drawRect(0, 0, playerDetectionZonePosition.width, playerDetectionZonePosition.height);
+  playerDetectionZone.visible = false; // dispaly or hide the player detection zone
+  camera.addChild(playerDetectionZone);
+
+  skeletons.push({
+    container: {
+      sprite,
+      playerDetectionZone,
+    },
+    life: 5,
+    damage: 1,
+    name,
+  });
+}
+
+export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
+  skeleton.container.sprite.x += x;
+  skeleton.container.sprite.y += y;
+  skeleton.container.playerDetectionZone.x += x;
+  skeleton.container.playerDetectionZone.y += y;
+}
+
+function moveSkeletonToPlayer(skeleton: Skeleton) {
+  const playerX = playerHitbox.x;
+  const playerY = playerHitbox.y;
+
+  const directionX = playerX - skeleton.container.sprite.x;
+  const directionY = playerY - skeleton.container.sprite.y;
+
+  const distance = Math.hypot(directionX, directionY);
+
+  const normalizedDirectionX = directionX / distance;
+  const normalizedDirectionY = directionY / distance;
+
+  const speed = 1;
+  moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed);
 }
 
 app.ticker.add(() => {
-  // Première boucle pour déplacer les squelettes et gérer les collisions avec les fireballs
   for (const skeleton of skeletons) {
-    const playerX = playerHitbox.x;
-    const playerY = playerHitbox.y;
-
-    const directionX = playerX - skeleton.x;
-    const directionY = playerY - skeleton.y;
-
-    const distance = Math.hypot(directionX, directionY);
-
-    // Éviter la division par zéro lorsque la distance est égale à zéro
-    if (distance > 0) {
-      const normalizedDirectionX = directionX / distance;
-      const normalizedDirectionY = directionY / distance;
-
-      const speed = 1;
-      skeleton.x += normalizedDirectionX * speed;
-      skeleton.y += normalizedDirectionY * speed;
-    }
-
-    if (isColliding(skeleton, fireball)) {
-      console.table(getCoordinates(fireball));
+    // if the detection zone is in collision with the player
+    if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
+    moveSkeletonToPlayer(skeleton);
+    // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
+    if (isColliding(skeleton.container.sprite, fireball)) {
       skeleton.life -= 1;
-      if (skeleton.life <= 0) {
-        camera.removeChild(skeleton);
-        skeletons = skeletons.filter((iteratedSkeleton) => iteratedSkeleton !== skeleton);
+      // is the skeleton die
+      if (skeleton.life > 0) continue;
+      camera.removeChild(skeleton.container.sprite);
+      camera.removeChild(skeleton.container.playerDetectionZone);
+      skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
+      // but we can keep it to implement a killed monster counter
+      if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
+        gameConditions.skeletonToKillToOpenDoor2 -= 1;
+        if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
+        // disable the room2 door
+        camera.removeChild(doorRoomRight);
+        doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
     }
   }
 
   // Deuxième boucle pour gérer les collisions entre les squelettes
-  for (let index = 0; index < skeletons.length; index++) {
-    for (let index_ = index + 1; index_ < skeletons.length; index_++) {
-      const skeletonA = skeletons[index];
-      const skeletonB = skeletons[index_];
+  for (let indexSkeletonA = 0; indexSkeletonA < skeletons.length; indexSkeletonA++) {
+    for (let indexSkeletonB = indexSkeletonA + 1; indexSkeletonB < skeletons.length; indexSkeletonB++) {
+      const skeletonA = skeletons[indexSkeletonA];
+      const skeletonB = skeletons[indexSkeletonB];
 
-      const dx = skeletonA.x - skeletonB.x;
-      const dy = skeletonA.y - skeletonB.y;
+      const skeletonASprite = skeletonA.container.sprite;
+      const skeletonBSprite = skeletonB.container.sprite;
+      const dx = skeletonASprite.x - skeletonBSprite.x;
+      const dy = skeletonASprite.y - skeletonBSprite.y;
       const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
       // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-      const minDistance = skeletonA.width / 2 + skeletonB.width / 2; // ou une autre valeur selon la taille des squelettes
+      const minDistance = skeletonASprite.width / 2 + skeletonBSprite.width / 2; // ou une autre valeur selon la taille des squelettes
 
       if (distanceBetweenSkeletons < minDistance) {
         // Les squelettes sont trop proches, nous devons les repousser
@@ -78,12 +132,11 @@ app.ticker.add(() => {
         const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
         // Ajuster les positions pour éviter la superposition
-        skeletonA.x += adjustX / 2;
-        skeletonA.y += adjustY / 2;
-        skeletonB.x -= adjustX / 2;
-        skeletonB.y -= adjustY / 2;
+        moveSkeleton(skeletonA, adjustX / 2, adjustY / 2);
+        moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
       }
     }
   }
 });
+
 export { skeletons };
