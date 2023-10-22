@@ -6,6 +6,7 @@ import { camera } from './camera';
 import './player/move'; // handle move inputs
 import { atlasLoader } from './pixi/atlas-loader';
 import './player/fireball';
+import './map-objects/skull';
 
 app.stage.addChild(camera); // create the world / camera
 

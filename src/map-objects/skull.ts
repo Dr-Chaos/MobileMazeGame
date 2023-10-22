@@ -6,6 +6,7 @@ import { playerStats } from '../player/stats';
 import { isColliding } from '../math/collisions';
 import { lifeHud } from '../player/hud';
 import { playerHitbox } from '../player/player';
+import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
 
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
@@ -15,35 +16,8 @@ export function createSkull(): AnimatedSprite {
   skull.scale.set(2);
   skull.animationSpeed = 0.17;
   skull.play();
-
   return skull;
 }
-
-export const skull1 = createSkull();
-export const skull2 = createSkull();
-
-camera.addChild(skull1);
-camera.addChild(skull2);
-
-const pointsSkull1: Point[] = [
-  { x: -360, y: 230 },
-  { x: -360, y: 360 },
-  { x: 100, y: 360 },
-  { x: 100, y: 230 },
-];
-
-const pointsSkull2: Point[] = [
-  { x: -380, y: 200 },
-  { x: 130, y: 200 },
-  { x: 130, y: 390 },
-  { x: -380, y: 390 },
-];
-
-let stateSkull1: MovementState = { index: 0, progress: 0 };
-let stateSkull2: MovementState = { index: 0, progress: 0 };
-
-let invulnerabilityTime = 0;
-const invulnerabilityTimer = 1000;
 
 function updateSkullMovement(
   skull: AnimatedSprite,
@@ -70,6 +44,50 @@ function updateSkullMovement(
   return { updatedSkull, updatedState: state };
 }
 
+export const skull1 = createSkull();
+export const skull2 = createSkull();
+export const ghost1 = createSkull();
+export const ghost2 = createSkull();
+
+camera.addChild(skull1);
+camera.addChild(skull2);
+
+camera.addChild(ghost1);
+camera.addChild(ghost2);
+
+const pointsSkull1: Point[] = [
+  { x: -360, y: 230 },
+  { x: -360, y: 360 },
+  { x: 100, y: 360 },
+  { x: 100, y: 230 },
+];
+
+const pointsSkull2: Point[] = [
+  { x: -380, y: 200 },
+  { x: 130, y: 200 },
+  { x: 130, y: 390 },
+  { x: -380, y: 390 },
+];
+
+const pointsGhost1: Point[] = [
+  { x: +115, y: -410 },
+  { x: +115, y: -270 },
+  { x: -145, y: -270 },
+  { x: -145, y: -410 },
+];
+
+const pointsGhost2: Point[] = [
+  { x: 230, y: -430 },
+  { x: 230, y: -230 },
+  { x: -250, y: -230 },
+  { x: -250, y: -430 },
+];
+
+let stateSkull1: MovementState = { index: 0, progress: 0 };
+let stateSkull2: MovementState = { index: 0, progress: 0 };
+let stateGhost1: MovementState = { index: 0, progress: 0 };
+let stateGhost2: MovementState = { index: 0, progress: 0 };
+
 app.ticker.add((delta) => {
   const { updatedSkull: updatedSkull1, updatedState: updatedStateSkull1 } = updateSkullMovement(skull1, pointsSkull1, stateSkull1, delta, 0.01);
 
@@ -82,14 +100,36 @@ app.ticker.add((delta) => {
   skull2.y = updatedSkull2.y;
   stateSkull2 = updatedStateSkull2;
 
-  if (isColliding(playerHitbox, skull1) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
-    invulnerabilityTime = Date.now();
+  const { updatedSkull: updatedGhost1, updatedState: updatedStateGhost1 } = updateSkullMovement(ghost1, pointsGhost1, stateGhost1, delta, 0.01);
+  ghost1.x = updatedGhost1.x;
+  ghost1.y = updatedGhost1.y;
+  stateGhost1 = updatedStateGhost1;
+
+  const { updatedSkull: updatedGhost2, updatedState: updatedStateGhost2 } = updateSkullMovement(ghost2, pointsGhost2, stateGhost2, delta, 0.02);
+  ghost2.x = updatedGhost2.x;
+  ghost2.y = updatedGhost2.y;
+  stateGhost2 = updatedStateGhost2;
+
+  if (!isInvulnerable() && isColliding(playerHitbox, skull1)) {
+    startInvulnerabilityTimer();
     playerStats.life -= 1;
     lifeHud.text = `Vie : ${playerStats.life}`;
   }
 
-  if (isColliding(playerHitbox, skull2) && Date.now() - invulnerabilityTime > invulnerabilityTimer) {
-    invulnerabilityTime = Date.now();
+  if (!isInvulnerable() && isColliding(playerHitbox, skull2)) {
+    startInvulnerabilityTimer();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
+
+  if (!isInvulnerable() && isColliding(playerHitbox, ghost1)) {
+    startInvulnerabilityTimer();
+    playerStats.life -= 1;
+    lifeHud.text = `Vie : ${playerStats.life}`;
+  }
+
+  if (!isInvulnerable() && isColliding(playerHitbox, ghost2)) {
+    startInvulnerabilityTimer();
     playerStats.life -= 1;
     lifeHud.text = `Vie : ${playerStats.life}`;
   }

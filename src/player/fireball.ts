@@ -8,6 +8,7 @@ export function createfireball(): AnimatedSprite {
   const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
   fireball.scale.set(1);
   fireball.animationSpeed = 0.17;
+  fireball.zIndex = 2;
   fireball.play();
 
   // It's important to return the 'fireball' before you try to use it outside the function.
