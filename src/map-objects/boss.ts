@@ -144,6 +144,10 @@ app.ticker.add(() => {
     activateFireballs();
   }
 
+  if (!bossIsAlive) {
+    return;
+  }
+
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
 
   for (const fireball of fireballs) {
@@ -154,7 +158,7 @@ app.ticker.add(() => {
       height: fireball.height,
     };
 
-    if (isColliding(playerHitbox, fireballCorrectionWithOffsets)) {
+    if (bossIsAlive && !bossIsInvulnerable && isColliding(playerHitbox, fireballCorrectionWithOffsets)) {
       console.log('Player takes damage');
       if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) continue;
       invulnerabilityTime = Date.now();
@@ -165,14 +169,17 @@ app.ticker.add(() => {
       }
     }
 
-    if (isColliding(boss, playerfireball) && !bossIsInvulnerable) {
+    if (isColliding(boss, playerfireball) && !bossIsInvulnerable && bossIsAlive) {
       boss.life -= 1;
       console.log('Boss takes damage');
-      if (boss.life <= 0 && bossIsAlive) {
+      if (boss.life <= 0) {
         console.log('Boss is dead');
         deactivateBoss();
-        camera.removeChild(boss);
+        bossContainer.removeChild(bossFireball);
+        bossContainer.removeChild(bossFireball1);
+        bossContainer.removeChild(bossFireball2);
         camera.removeChild(bossContainer);
+        camera.removeChild(boss);
       }
     }
   }
