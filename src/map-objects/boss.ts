@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container, Graphics } from 'pixi.js';
+import { AnimatedSprite, Container } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
@@ -103,49 +103,83 @@ camera.addChild(boss);
 
 let invulnerabilityTime = 0;
 const invulnerabilityTimer = 1000;
-
-function disableBossInvulnerability() {
-  if (gameConditions.leverToAttackTheBoss > 0) return;
-  app.ticker.remove(disableBossInvulnerability);
-  console.log('BOSS SPAWN');
-  app.ticker.add(disableBossInvulnerability);
-}
-
 const playerfireball = fireball;
 
+let bossIsActive = false;
+let bossIsAlive = true; // Consider the boss as alive initially
+let bossIsInvulnerable = true; // The boss starts invulnerable
+
+function activateBoss() {
+  bossIsActive = true;
+  bossIsAlive = true; // The boss is now active and alive
+  bossIsInvulnerable = false; // The boss can now take damage
+  // Any additional setup when the boss becomes active
+}
+
+function deactivateBoss() {
+  bossIsActive = false;
+  bossIsAlive = false; // The boss is no longer active or alive
+  // Any cleanup when the boss is deactivated
+}
+
+function deactivateFireballs() {
+  const fireballs = [bossFireball, bossFireball1, bossFireball2];
+  for (const fireball of fireballs) {
+    fireball.visible = false; // Make fireballs invisible
+    // any other properties to 'deactivate' the fireball
+  }
+}
+
+function activateFireballs() {
+  const fireballs = [bossFireball, bossFireball1, bossFireball2];
+  for (const fireball of fireballs) {
+    fireball.visible = true; // Make fireballs visible
+    // any other properties to 'activate' the fireball
+  }
+}
+
 app.ticker.add(() => {
+  if (!bossIsActive && gameConditions.leverToAttackTheBoss <= 0) {
+    activateBoss();
+    activateFireballs();
+  }
+
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
 
   for (const fireball of fireballs) {
-    const fireballCorrectionWithOffets = {
+    const fireballCorrectionWithOffsets = {
       x: fireball.x + offsetPosition.x,
       y: fireball.y + offsetPosition.y,
       width: fireball.width,
       height: fireball.height,
     };
 
-    if (isColliding(playerHitbox, fireballCorrectionWithOffets)) {
-      console.log('damage');
+    if (isColliding(playerHitbox, fireballCorrectionWithOffsets)) {
+      console.log('Player takes damage');
       if (Date.now() - invulnerabilityTime <= invulnerabilityTimer) continue;
       invulnerabilityTime = Date.now();
       playerStats.life -= 1;
       lifeHud.text = `Life: ${playerStats.life}`;
+      if (playerStats.life <= 0) {
+        //  player death
+      }
     }
 
-    if (isColliding(boss, playerfireball)) {
-      startInvulnerabilityTimer();
+    if (isColliding(boss, playerfireball) && !bossIsInvulnerable) {
       boss.life -= 1;
-      console.log('damage to boss');
-      if (boss.life > 0) continue;
-      console.log('death of boss');
-      // animation mort du boss
-      camera.removeChild(boss);
-      camera.removeChild(bossContainer);
+      console.log('Boss takes damage');
+      if (boss.life <= 0 && bossIsAlive) {
+        console.log('Boss is dead');
+        deactivateBoss();
+        camera.removeChild(boss);
+        camera.removeChild(bossContainer);
+      }
     }
   }
 
-  // }
-
-  // Déplacer les fireballs du boss
-  moveFireballs();
+  if (bossIsAlive) {
+    moveFireballs();
+  }
 });
+deactivateBoss();
+deactivateFireballs();
