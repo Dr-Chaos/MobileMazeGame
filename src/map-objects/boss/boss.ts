@@ -1,14 +1,14 @@
 import { AnimatedSprite, Container } from 'pixi.js';
-import { camera } from '../camera';
-import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
-import { atlasLoader } from '../pixi/atlas-loader';
-import { playerStats } from '../player/stats';
-import { playerHitbox } from '../player/player';
-import { lifeHud } from '../player/hud';
-import { gameConditions } from '../map/game-conditions';
-import { fireball } from '../player/fireball';
-import { startInvulnerabilityTimer } from '../player/invulnerability';
+import { camera } from '../../camera';
+import app from '../../pixi/initialize';
+import { isColliding } from '../../math/collisions';
+import { atlasLoader } from '../../pixi/atlas-loader';
+import { playerStats } from '../../player/stats';
+import { playerHitbox } from '../../player/player';
+import { lifeHud } from '../../player/hud';
+import { gameConditions } from '../../map/game-conditions';
+import { fireball } from '../../player/fireball';
+import { startInvulnerabilityTimer } from '../../player/invulnerability';
 
 // position.x + scalePosition.x
 // position.y + scalePosition.y

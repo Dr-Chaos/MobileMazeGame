@@ -6,7 +6,7 @@ import { collisionResponseDirection, isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
-import { spikes } from './spike';
+import { spikes } from './spikes (les 2)/spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';

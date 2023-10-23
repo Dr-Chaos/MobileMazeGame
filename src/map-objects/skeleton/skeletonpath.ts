@@ -1,7 +1,7 @@
 import { Graphics } from 'pixi.js';
-import { camera } from '../camera';
-import app from '../pixi/initialize';
-import { playerContainer } from '../player/player';
+import { camera } from '../../camera';
+import app from '../../pixi/initialize';
+import { playerContainer } from '../../player/player';
 import { skeletons, createSkeleton } from './map-objects/skeleton';
 
 const skeleton = new Graphics();

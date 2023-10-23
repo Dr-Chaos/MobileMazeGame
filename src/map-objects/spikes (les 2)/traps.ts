@@ -1,12 +1,12 @@
 // if solution active trap desctived done
 // else :    if trap actived, colision trap, degat once,
 import { Graphics } from 'pixi.js';
-import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
-import { lifeHud } from '../player/hud';
-import { playerStats } from '../player/stats';
-import { camera } from '../camera';
+import app from '../../pixi/initialize';
+import { isColliding } from '../../math/collisions';
+import { playerHitbox } from '../../player/player';
+import { lifeHud } from '../../player/hud';
+import { playerStats } from '../../player/stats';
+import { camera } from '../../camera';
 
 // trap desactived xtime , return
 // let trapActive = true;

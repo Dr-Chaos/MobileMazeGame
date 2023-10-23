@@ -41,6 +41,7 @@ export function createDoorType1Bottom(x: number, y: number) {
 }
 
 const doorRoomBottom = new Container();
+doorRoomBottom.name = 'doorRoomBottom';
 camera.addChild(doorRoomBottom);
 export { doorRoomBottom };
 

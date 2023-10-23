@@ -1,18 +1,18 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
-import { camera } from '../camera';
-import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { camera } from '../../camera';
+import app from '../../pixi/initialize';
+import { isColliding } from '../../math/collisions';
+import { playerHitbox } from '../../player/player';
 
-import { atlasLoader } from '../pixi/atlas-loader';
-import { mapScaling } from '../map/map-layers';
-import { gameConditions } from '../map/game-conditions';
-import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
-import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
-import { fireball } from '../player/fireball';
-import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
-import { lifeHud } from '../player/hud';
-import { playerStats } from '../player/stats';
+import { atlasLoader } from '../../pixi/atlas-loader';
+import { mapScaling } from '../../map/map-layers';
+import { gameConditions } from '../../map/game-conditions';
+import { doorRoomBottom, doorRoomRight, doorsContainers } from '../door';
+import { centerFromPivot, centerIfPivotIsUpperLeft } from '../../utils/utils';
+import { fireball } from '../../player/fireball';
+import { isInvulnerable, startInvulnerabilityTimer } from '../../player/invulnerability';
+import { lifeHud } from '../../player/hud';
+import { playerStats } from '../../player/stats';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;

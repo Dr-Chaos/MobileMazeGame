@@ -7,7 +7,7 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { camera } from '../camera';
-import { moveSkeleton, skeletons } from '../map-objects/skeleton';
+import { moveSkeleton, skeletons } from '../map-objects/skeleton/skeleton';
 
 // draw map
 const mapData = map.layers[0].data;

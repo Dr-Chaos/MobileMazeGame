@@ -3,15 +3,15 @@ import map from '../../tiled/map.json';
 import { camera } from '../camera';
 import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
-import { createSpike } from '../map-objects/spike';
+import { createSpike } from '../map-objects/spikes (les 2)/spike';
 import { createLever } from '../map-objects/lever';
 import { centerFromPivot, getCoordinates } from '../utils/utils';
 import {
   createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';
-import { createSkeleton } from '../map-objects/skeleton';
-import { createSpikeAuto } from '../map-objects/spike-auto';
-import { createBoss } from '../map-objects/boss';
+import { createSkeleton } from '../map-objects/skeleton/skeleton';
+import { createSpikeAuto } from '../map-objects/spikes (les 2)/spike-auto';
+import { createBoss } from '../map-objects/boss/boss';
 
 // the tilesets are already sorted
 // const sorted = map.tilesets.sort((a, b) => a.firstgid - b.firstgid);

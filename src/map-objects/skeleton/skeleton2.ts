@@ -1,10 +1,10 @@
 import { AnimatedSprite } from 'pixi.js';
-import { camera } from '../camera';
-import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { camera } from '../../camera';
+import app from '../../pixi/initialize';
+import { isColliding } from '../../math/collisions';
+import { playerHitbox } from '../../player/player';
 
-import { atlasLoader } from '../pixi/atlas-loader';
+import { atlasLoader } from '../../pixi/atlas-loader';
 
 type Skeleton = AnimatedSprite & { life: number; damage: number };
 const skeletons: Skeleton[] = [];

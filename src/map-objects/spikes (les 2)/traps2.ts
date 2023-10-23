@@ -1,11 +1,11 @@
 import { AnimatedSprite } from 'pixi.js';
-import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
-import { lifeHud } from '../player/hud';
-import { playerStats } from '../player/stats';
-import { camera } from '../camera';
-import { atlasLoader } from '../pixi/atlas-loader';
+import app from '../../pixi/initialize';
+import { isColliding } from '../../math/collisions';
+import { playerHitbox } from '../../player/player';
+import { lifeHud } from '../../player/hud';
+import { playerStats } from '../../player/stats';
+import { camera } from '../../camera';
+import { atlasLoader } from '../../pixi/atlas-loader';
 
 type Trap = {
   x: number;

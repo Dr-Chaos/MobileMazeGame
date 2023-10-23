@@ -3,6 +3,7 @@ import witchIdleAnimation from './idle';
 import { playerContainer } from './player';
 import witchWalkAnimation from './walk';
 import app from '../pixi/initialize';
+// import witchDeathAnimation from './death
 
 const playerAnimation = {
   width: 32,
