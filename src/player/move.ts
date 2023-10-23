@@ -1,7 +1,7 @@
 import app from '../pixi/initialize';
 import { Movements, movement, playerAnimationsContainer } from './animations';
 import { camera } from '../camera';
-import { inputMovementDirection } from './input-movement';
+import { inputMovementDirection } from './movement-keyboard';
 import {
   playerContainer, playerHitbox,
 } from './player';

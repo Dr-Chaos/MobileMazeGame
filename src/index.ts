@@ -1,4 +1,5 @@
 import './index.css';
+import './player/mouvement-touch';
 // import './utils/atlas-generator';
 import './map/map-layers';
 import './map/map-collisions';
