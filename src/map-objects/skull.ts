@@ -56,31 +56,31 @@ camera.addChild(ghost1);
 camera.addChild(ghost2);
 
 const pointsSkull1: Point[] = [
-  { x: -360, y: 230 },
-  { x: -360, y: 360 },
-  { x: 100, y: 360 },
-  { x: 100, y: 230 },
+  { x: -304, y: 208 },
+  { x: -304, y: 320 },
+  { x: 80, y: 320 },
+  { x: 80, y: 208 },
 ];
 
 const pointsSkull2: Point[] = [
-  { x: -380, y: 200 },
-  { x: 130, y: 200 },
-  { x: 130, y: 390 },
-  { x: -380, y: 390 },
+  { x: -330, y: 176 },
+  { x: 104, y: 176 },
+  { x: 104, y: 356 },
+  { x: -330, y: 356 },
 ];
 
 const pointsGhost1: Point[] = [
-  { x: +115, y: -410 },
-  { x: +115, y: -270 },
-  { x: -145, y: -270 },
-  { x: -145, y: -410 },
+  { x: 96, y: -320 },
+  { x: 96, y: -224 },
+  { x: -128, y: -224 },
+  { x: -128, y: -320 },
 ];
 
 const pointsGhost2: Point[] = [
-  { x: 230, y: -430 },
-  { x: 230, y: -230 },
-  { x: -250, y: -230 },
-  { x: -250, y: -430 },
+  { x: 186, y: -368 },
+  { x: 186, y: -192 },
+  { x: -224, y: -192 },
+  { x: -224, y: -368 },
 ];
 
 let stateSkull1: MovementState = { index: 0, progress: 0 };
