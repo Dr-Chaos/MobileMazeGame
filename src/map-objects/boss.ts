@@ -13,8 +13,8 @@ import { startInvulnerabilityTimer } from '../player/invulnerability';
 // position.x + scalePosition.x
 // position.y + scalePosition.y
 const offsetPosition = {
-  x: -35,
-  y: -450,
+  x: -40,
+  y: -352,
 };
 
 // si scaling fireball 1: size: 16
