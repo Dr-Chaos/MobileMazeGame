@@ -13,7 +13,7 @@ fireball.animationSpeed = 0.15;
 fireball.scale.set(1.2);
 fireball.play();
 fireball.zIndex = 2;
-camera.addChild(fireball);
+// camera.addChild(fireball); // DURING DEV, DISABLE THE DISPLAYED FIREBALL (THE FIREBALL HITBOX IS STILL ACTIVE)
 
 const radius = 50;
 let angle = 2;
