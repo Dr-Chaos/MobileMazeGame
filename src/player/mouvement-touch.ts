@@ -28,18 +28,18 @@ document.addEventListener('touchmove', (event) => {
 
   // console.log(userTouch);
 
-  if (userTouch.x + 100 < originTouch.x) {
+  if (userTouch.x < originTouch.x) {
     console.log('Left');
     directionHistory.x.push(-1);
-  } else if (userTouch.x - 100 > originTouch.x) {
+  } else if (userTouch.x > originTouch.x) {
     console.log('right');
     directionHistory.x.push(1);
   }
 
-  if (userTouch.y + 100 < originTouch.y) {
+  if (userTouch.y < originTouch.y) {
     console.log('top');
     directionHistory.y.push(-1);
-  } else if (userTouch.y - 100 > originTouch.y) {
+  } else if (userTouch.y > originTouch.y) {
     console.log('bottom');
     directionHistory.y.push(1);
   }
@@ -48,6 +48,18 @@ document.addEventListener('touchmove', (event) => {
     x: userTouch.x,
     y: userTouch.y,
   };
+
+  // Calculate the angle
+  const deltaX = userTouch.x - originTouch.x;
+  const deltaY = userTouch.y - originTouch.y;
+  const angle = Math.atan2(deltaY, deltaX);
+  let degrees = (angle * 180) / Math.PI;
+  // to have 360° instead of 180
+  if (degrees < 0) {
+    degrees += 360;
+  }
+
+  console.log(degrees);
 });
 
 document.addEventListener('touchend', (event) => {
