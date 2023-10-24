@@ -10,6 +10,11 @@ import { gameConditions } from '../map/game-conditions';
 import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
 import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
+import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
+import {
+  Movements, PlayerState, AnimationStates, movement, animationState,
+} from '../player/animations/animations';
+import { playerStats } from '../player/stats';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;
@@ -92,7 +97,7 @@ app.ticker.add(() => {
     moveSkeletonToPlayer(skeleton);
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
-      skeleton.life -= 1;
+      // skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
       // is the skeleton die
       if (skeleton.life > 0) continue;
       camera.removeChild(skeleton.container.sprite);
@@ -107,6 +112,12 @@ app.ticker.add(() => {
         camera.removeChild(doorRoomRight);
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
+    }
+
+    if (isColliding(playerHitbox, skeleton.container.sprite) && !isInvulnerable()) {
+      startInvulnerabilityTimer();
+      console.log('Receive ');
+      animationState.current = AnimationStates.ReceiveDamage;
     }
   }
 

@@ -1,0 +1,16 @@
+{
+  "meta": { "image": "witch-walk.png", "size": { "w": 32, "h": 384 }, "scale": "1" },
+  "frames": {
+    "witch-walk-1.png": { "frame": { "x": 0, "y": 0, "w": 32, "h": 48 } },
+    "witch-walk-2.png": { "frame": { "x": 0, "y": 48, "w": 32, "h": 48 } },
+    "witch-walk-3.png": { "frame": { "x": 0, "y": 96, "w": 32, "h": 48 } },
+    "witch-walk-4.png": { "frame": { "x": 0, "y": 144, "w": 32, "h": 48 } },
+    "witch-walk-5.png": { "frame": { "x": 0, "y": 192, "w": 32, "h": 48 } },
+    "witch-walk-6.png": { "frame": { "x": 0, "y": 240, "w": 32, "h": 48 } },
+    "witch-walk-7.png": { "frame": { "x": 0, "y": 288, "w": 32, "h": 48 } },
+    "witch-walk-8.png": { "frame": { "x": 0, "y": 336, "w": 32, "h": 48 } }
+  },
+  "animations": {
+    "walk": ["witch-walk-1.png", "witch-walk-2.png", "witch-walk-3.png", "witch-walk-4.png", "witch-walk-5.png", "witch-walk-6.png", "witch-walk-7.png", "witch-walk-8.png"]
+  }
+}

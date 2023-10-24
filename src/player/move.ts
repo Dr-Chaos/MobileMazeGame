@@ -1,5 +1,5 @@
 import app from '../pixi/initialize';
-import { Movements, movement, playerAnimationsContainer } from './animations';
+import { Movements, movement, playerAnimationsContainer } from './animations/animations';
 import { camera } from '../camera';
 import { inputMovementDirection } from './movement-keyboard';
 import {

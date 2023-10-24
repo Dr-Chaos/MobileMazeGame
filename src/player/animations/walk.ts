@@ -1,7 +1,7 @@
 import {
   AnimatedSprite,
 } from 'pixi.js';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { atlasLoader } from '../../pixi/atlas-loader';
 
 const witchWalkAnimation = new AnimatedSprite(atlasLoader.witchWalk.animations.walk);
 // witchWalkAnimation.scale.set(2);

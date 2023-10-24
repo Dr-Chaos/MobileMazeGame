@@ -8,6 +8,8 @@ import { camera } from './camera';
 import './player/move'; // handle move inputs
 // import './player/fireball';
 import './map-objects/skull';
+import { AnimatedSprite } from 'pixi.js';
+import { atlasLoader } from './pixi/atlas-loader';
 // import './tests';
 
 app.stage.addChild(camera); // create the world / camera
@@ -31,3 +33,8 @@ document.addEventListener('keydown', (event) => {
 
   // }
 });
+
+// const witchDie = new AnimatedSprite(atlasLoader.witchDamage.animations.damage);
+// witchDie.animationSpeed = 0.2;
+// witchDie.play();
+// camera.addChild(witchDie);

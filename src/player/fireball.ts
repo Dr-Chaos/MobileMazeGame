@@ -3,7 +3,7 @@ import { playerContainer } from './player';
 import app from '../pixi/initialize';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { camera } from '../camera';
-import { playerAnimationsContainer } from './animations';
+import { playerAnimationsContainer } from './animations/animations';
 
 // boss fireball
 // const fireball = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);

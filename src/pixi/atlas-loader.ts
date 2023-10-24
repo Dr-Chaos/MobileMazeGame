@@ -1,8 +1,10 @@
 import { Assets, type Texture } from 'pixi.js';
 
 Assets.add({ alias: 'map', src: '/map/map-tileset.json' });
-Assets.add({ alias: 'witchIdle', src: '/witch/idle/idle.json' });
-Assets.add({ alias: 'witchWalk', src: '/witch/walk/walk.json' });
+Assets.add({ alias: 'witchIdle', src: '/witch/idle/witch-idle.json' });
+Assets.add({ alias: 'witchWalk', src: '/witch/walk/witch-walk.json' });
+Assets.add({ alias: 'witchDamage', src: '/witch/damage/witch-damage.json' }); // animationSpeed = 0.2;
+Assets.add({ alias: 'witchDeath', src: '/witch/death/witch-death.json' });
 Assets.add({ alias: 'spike', src: '/spike/spike.json' });
 Assets.add({ alias: 'torch', src: '/torch/torch.json' });
 Assets.add({ alias: 'key', src: '/key/key.json' });
@@ -18,6 +20,8 @@ const aliases = [
   'map',
   'witchIdle',
   'witchWalk',
+  'witchDamage',
+  // 'witchDeath',
   'spike',
   'torch',
   'key',

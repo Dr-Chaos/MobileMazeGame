@@ -1,8 +1,9 @@
 import { Container } from 'pixi.js';
 import witchIdleAnimation from './idle';
-import { playerContainer } from './player';
+import { playerContainer } from '../player';
 import witchWalkAnimation from './walk';
-import app from '../pixi/initialize';
+import app from '../../pixi/initialize';
+import witchDamageAnimation from './damage';
 
 const playerAnimation = {
   width: 32,
@@ -15,32 +16,53 @@ playerContainer.addChild(playerAnimationsContainer);
 
 playerAnimationsContainer.addChild(witchIdleAnimation);
 playerAnimationsContainer.addChild(witchWalkAnimation);
+playerAnimationsContainer.addChild(witchDamageAnimation);
+
 // playerAnimationsContainer.x = playerContainer.x;
 // playerAnimationsContainer.y = playerContainer.y - (playerAnimation.height / 2);
 
 enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
+  Damage = 'Damage',
 }
 
 const movement = {
-  current: 'Idle',
+  current: Movements.Idle,
 };
 
 const animations = [
   { state: Movements.Idle, animation: witchIdleAnimation },
   { state: Movements.Walk, animation: witchWalkAnimation },
+  { state: Movements.Damage, animation: witchDamageAnimation },
 ];
+
+export enum AnimationStates {
+  ReceiveDamage = 'ReceiveDamage',
+  CanMove = 'CanMove',
+}
+
+export const animationState = {
+  current: AnimationStates.CanMove,
+};
 
 app.ticker.add(() => {
   for (const animation of animations) {
+    if (animationState.current === AnimationStates.ReceiveDamage) {
+      if (animation.state === Movements.Damage) {
+        animation.animation.play();
+      }
+
+      animation.animation.visible = animation.state === Movements.Damage;
+      continue;
+    }
+
     switch (movement.current) {
       case Movements.Idle:
         animation.animation.visible = animation.state === Movements.Idle;
         break;
       case Movements.Walk:
         animation.animation.visible = animation.state === Movements.Walk;
-
         break;
       default:
         animation.animation.visible = animation.state === Movements.Idle;
