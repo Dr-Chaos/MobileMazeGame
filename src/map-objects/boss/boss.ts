@@ -26,11 +26,11 @@ const scaling = {
 };
 
 /* //////////////////////////// CREATION DES FIREBALLS  //////////////////////////// */
-const bossFireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const bossFireball = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 bossFireball.name = 'fireball';
-const bossFireball1 = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const bossFireball1 = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 bossFireball1.name = 'fireball1';
-const bossFireball2 = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const bossFireball2 = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 bossFireball2.name = 'fireball2';
 
 for (const fireball of [bossFireball, bossFireball1, bossFireball2]) {
@@ -139,7 +139,7 @@ function activateFireballs() {
 }
 
 app.ticker.add(() => {
-  if (!bossIsActive && gameConditions.leverToAttackTheBoss <= 0) {
+  if (boss.life > 0 && !bossIsActive && gameConditions.leverToAttackTheBoss <= 0) {
     activateBoss();
     activateFireballs();
   }
@@ -148,6 +148,9 @@ app.ticker.add(() => {
     return;
   }
 
+  const bossDeathAnimation = new AnimatedSprite(atlasLoader.bossDeath.animations.bossdeath);
+  bossDeathAnimation.x += offsetPosition.x;
+  bossDeathAnimation.y += offsetPosition.y;
   const fireballs = [bossFireball, bossFireball1, bossFireball2];
 
   for (const fireball of fireballs) {
@@ -164,9 +167,7 @@ app.ticker.add(() => {
       invulnerabilityTime = Date.now();
       playerStats.life -= 1;
       lifeHud.text = `Life: ${playerStats.life}`;
-      if (playerStats.life <= 0) {
-        //  player death
-      }
+      if (playerStats.life <= 0) {}
     }
 
     if (isColliding(boss, playerfireball) && !bossIsInvulnerable && bossIsAlive) {
@@ -174,12 +175,43 @@ app.ticker.add(() => {
       console.log('Boss takes damage');
       if (boss.life <= 0) {
         console.log('Boss is dead');
-        deactivateBoss();
+        /* deactivateBoss();
         bossContainer.removeChild(bossFireball);
         bossContainer.removeChild(bossFireball1);
         bossContainer.removeChild(bossFireball2);
-        camera.removeChild(bossContainer);
         camera.removeChild(boss);
+        camera.removeChild(bossContainer);
+
+        bossDeathAnimation.animationSpeed = 0.5;
+        bossDeathAnimation.loop = false;
+        bossDeathAnimation.onComplete = () => {
+          camera.addChild(bossDeathAnimation);
+          bossDeathAnimation.play();
+          camera.removeChild(bossDeathAnimation);
+        }; */
+        bossIsAlive = false; // assurez-vous de mettre à jour l'état de vie du boss
+        bossContainer.removeChild(boss); // supprimez le sprite du boss vivant
+        deactivateFireballs();
+
+        // Jouer l'animation de mort
+        const bossDeathAnimation = new AnimatedSprite(atlasLoader.bossDeath.animations.bossdeath);
+        bossDeathAnimation.scale.set(scaling.boss);
+        bossDeathAnimation.position.set(boss.x, boss.y); // la position de l'animation doit correspondre à celle du boss
+        bossDeathAnimation.animationSpeed = 0.01;
+        bossDeathAnimation.loop = false;
+        camera.removeChild(boss);
+        bossDeathAnimation.zIndex = -1;
+        camera.addChild(bossDeathAnimation);
+        bossDeathAnimation.onComplete = () => { // assurez-vous d'ajouter l'animation à la caméra ou à un conteneur qui est rendu
+          bossDeathAnimation.play();
+          camera.addChild(bossDeathAnimation);
+          // supprimer l'animation après qu'elle soit terminée
+          // Ici, vous pouvez également gérer ce qui se passe après la mort du boss (charger un nouveau niveau, etc.)
+        };
+
+        // camera.removeChild(bossContainer);
+        // camera.removeChild(bossDeathAnimation);
+        // deactivateBoss();
       }
     }
   }
