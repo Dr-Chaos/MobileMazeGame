@@ -1,11 +1,5 @@
 import { directionHistory } from './move-direction';
 
-let previousTouch = {
-  x: 0,
-  y: 0,
-};
-
-// fix relative andabsolute positions
 let originTouch = {
   x: 0,
   y: 0,
@@ -24,42 +18,59 @@ document.addEventListener('touchmove', (event) => {
     y: event.changedTouches[0].clientY,
   };
 
-  // console.log(event.changedTouches);
-
-  // console.log(userTouch);
-
-  if (userTouch.x < originTouch.x) {
-    console.log('Left');
-    directionHistory.x.push(-1);
-  } else if (userTouch.x > originTouch.x) {
-    console.log('right');
-    directionHistory.x.push(1);
-  }
-
-  if (userTouch.y < originTouch.y) {
-    console.log('top');
-    directionHistory.y.push(-1);
-  } else if (userTouch.y > originTouch.y) {
-    console.log('bottom');
-    directionHistory.y.push(1);
-  }
-
-  previousTouch = {
-    x: userTouch.x,
-    y: userTouch.y,
-  };
-
-  // Calculate the angle
   const deltaX = userTouch.x - originTouch.x;
   const deltaY = userTouch.y - originTouch.y;
   const angle = Math.atan2(deltaY, deltaX);
-  let degrees = (angle * 180) / Math.PI;
-  // to have 360° instead of 180
-  if (degrees < 0) {
-    degrees += 360;
+  const degrees = (angle * 180) / Math.PI;
+
+  if (degrees > 150 || degrees < -150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [0];
+    console.log('left');
   }
 
-  console.log(degrees);
+  if (degrees < -105 && degrees > -150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [-1];
+    console.log('top left');
+  }
+
+  if (degrees < -60 && degrees > -105) {
+    directionHistory.x = [0];
+    directionHistory.y = [-1];
+    console.log('top ');
+  }
+
+  if (degrees < -30 && degrees > -60) {
+    directionHistory.x = [1];
+    directionHistory.y = [-1];
+
+    console.log('right top');
+  }
+
+  if (degrees > -30 && degrees < 30) {
+    directionHistory.x = [1];
+    directionHistory.y = [0];
+    console.log('right');
+  }
+
+  if (degrees > 30 && degrees < 60) {
+    directionHistory.x = [1];
+    directionHistory.y = [1];
+    console.log('right bottom');
+  }
+
+  if (degrees > 60 && degrees < 105) {
+    directionHistory.x = [0];
+    directionHistory.y = [1];
+    console.log('bottom');
+  }
+
+  if (degrees > 105 && degrees < 150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [1];
+    console.log('bottom left');
+  }
 });
 
 document.addEventListener('touchend', (event) => {
