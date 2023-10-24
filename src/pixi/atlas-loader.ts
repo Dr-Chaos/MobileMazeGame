@@ -30,8 +30,8 @@ const aliases = [
   'boss',
   'bossDeath',
   'bossFireball',
-  'skeletonwalk',
-  'skeletondeath',
+  // 'skeletonwalk',
+  // 'skeletondeath',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;

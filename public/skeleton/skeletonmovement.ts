@@ -1,8 +1,9 @@
 import { Container } from 'pixi.js';
-import skeletonIdleAnimation from './skeletonidle';
-import { skeletonContainer } from './player';
-import skeletonWalkAnimation from './skeletonwalk';
-import app from '../pixi/initialize';
+import skeletonIdleAnimation from './skeletonidle/skeleton.json';
+import { skeletons } from './../../src/map-objects/skeleton/skeleton';
+import skeletonWalkAnimation from './skeletonwalk/skeletonwalk.json';
+import skeletonDeathAnimation from './skeletondeath/skeletondeath.json'
+import app from './../../src/pixi/initialize';
 
 
 
@@ -13,14 +14,16 @@ const skeletonAnimation = {
 const skeletonAnimationsContainer = new Container();
 skeletonAnimationsContainer.pivot.x = skeletonAnimation.width / 2; // place le pivot au millieux du sprite pour pouvoir le rotate
 skeletonAnimationsContainer.pivot.y = skeletonAnimation.height / 2;
-skeletonContainer.addChild(skeletonAnimationsContainer);
+SkeletonContainer.addChild(skeletonAnimationsContainer);
 
 skeletonAnimationsContainer.addChild(skeletonIdleAnimation);
 skeletonAnimationsContainer.addChild(skeletonWalkAnimation);
+skeletonAnimationsContainer.addChild(skeletonDeathAnimation);
 
 enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
+  Death = 'Death'
 }
 
 const movement = {
@@ -30,6 +33,7 @@ const movement = {
 const animations = [
   { state: Movements.Idle, animation: skeletonIdleAnimation },
   { state: Movements.Walk, animation: skeletonWalkAnimation },
+  { state: Movements.Death, animation: skeletonDeathAnimation},
 ];
 
 app.ticker.add(() => {
