@@ -74,7 +74,7 @@ app.ticker.add(() => {
 
     // collision with skeletons
     for (const skeletonObject of skeletons) {
-      const skeletonSprite = skeletonObject.container.sprite;
+      const skeletonSprite = skeletonObject.container;
       if (isColliding(tile, skeletonSprite)) {
         console.log('Collision');
 

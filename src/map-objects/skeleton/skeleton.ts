@@ -1,4 +1,4 @@
-import { AnimatedSprite, Graphics } from 'pixi.js';
+import { AnimatedSprite, Container, Graphics } from 'pixi.js';
 import { camera } from '../../camera';
 import app from '../../pixi/initialize';
 import { isColliding } from '../../math/collisions';
@@ -6,45 +6,71 @@ import { playerHitbox } from '../../player/player';
 
 import { atlasLoader } from '../../pixi/atlas-loader';
 import { mapScaling } from '../../map/map-layers';
-import { gameConditions } from '../../map/game-conditions';
-import { doorRoomBottom, doorRoomRight, doorsContainers } from '../door';
-import { centerFromPivot, centerIfPivotIsUpperLeft } from '../../utils/utils';
+// import { gameConditions } from '../../map/game-conditions';
+// import { doorsContainers } from '../door';
+import { centerIfPivotIsUpperLeft } from '../../utils/utils';
 import { fireball } from '../../player/fireball';
 import { isInvulnerable, startInvulnerabilityTimer } from '../../player/invulnerability';
 import { lifeHud } from '../../player/hud';
 import { playerStats } from '../../player/stats';
 
-type SkeletonContainer = {
-  sprite: AnimatedSprite;
-  playerDetectionZone: Graphics;
+enum SkeletonStates {
+  Idle = 'Idle',
+  Walk = 'Walk',
+  Death = 'Death',
+}
+
+const movement: {current: SkeletonStates } = {
+  current: SkeletonStates.Idle,
 };
 
 type Skeleton = {
-  container: SkeletonContainer;
+  container: Container;
+  detectionZone: Graphics;
   life: number;
   name: string;
   damage: number;
+  state: SkeletonStates;
+  animations: Array<{name: SkeletonStates; sprite: AnimatedSprite}>;
 };
 
-let skeletons: Skeleton[] = [];
+const skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number, name: string) {
-  const sprite = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
-  sprite.scale.set(mapScaling);
-  sprite.animationSpeed = 0.13;
-  sprite.play();
-  sprite.x = x;
-  sprite.y = y;
-  camera.addChild(sprite);
+  const animations = new Container();
+  animations.x = x;
+  animations.y = y;
+  const idle = new AnimatedSprite(atlasLoader.skeleton.animations.skeleton);
+  idle.scale.set(mapScaling);
+  idle.animationSpeed = 0.13;
+  idle.visible = true;
+  idle.play();
+  camera.addChild(animations);
+
+  const walk = new AnimatedSprite(atlasLoader.skeletonwalk.animations.skeletonwalk);
+  walk.scale.set(mapScaling);
+  walk.animationSpeed = 0.13;
+  walk.visible = false;
+  walk.play();
+  walk.visible = false; // Commencez par masquer l'animation de marche
+
+  const death = new AnimatedSprite(atlasLoader.skeletondeath.animations.skeletondeath);
+  death.scale.set(mapScaling);
+  death.visible = false;
+  death.animationSpeed = 0.13;
+  death.loop = false;
+  death.visible = false; // Commencez par masquer l'animation de mort
+
+  animations.addChild(idle, walk, death);
 
   const playerDetectionZone = new Graphics();
-  playerDetectionZone.beginFill('white', 0.5);
+  playerDetectionZone.beginFill(0xFF_FF_FF, 0.5); // 'white' remplacé par 0xFFFFFF pour PIXI
   const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
     {
-      x: sprite.x,
-      y: sprite.y,
-      width: sprite.width,
-      height: sprite.height,
+      x: idle.x,
+      y: idle.y,
+      width: idle.width,
+      height: idle.height,
     },
     6.5,
   );
@@ -54,30 +80,55 @@ export function createSkeleton(x: number, y: number, name: string) {
   playerDetectionZone.visible = false; // dispaly or hide the player detection zone
   camera.addChild(playerDetectionZone);
 
-  skeletons.push({
-    container: {
-      sprite,
-      playerDetectionZone,
-    },
+  const skeleton: Skeleton = {
+    container: animations,
+    animations: [
+      { name: SkeletonStates.Idle, sprite: idle },
+      { name: SkeletonStates.Walk, sprite: walk },
+      { name: SkeletonStates.Death, sprite: death },
+    ],
     life: 15,
     damage: 1,
     name,
-  });
+    state: SkeletonStates.Idle,
+    detectionZone: playerDetectionZone,
+  };
+
+  skeletons.push(skeleton);
 }
 
 export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
-  skeleton.container.sprite.x += x;
-  skeleton.container.sprite.y += y;
-  skeleton.container.playerDetectionZone.x += x;
-  skeleton.container.playerDetectionZone.y += y;
+  skeleton.container.x += x;
+  skeleton.container.y += y;
+  skeleton.detectionZone.x += x;
+  skeleton.detectionZone.y += y;
+  skeleton.state = SkeletonStates.Walk;
+}
+
+function handleAnimationState(skeleton: Skeleton) {
+  for (const animation of skeleton.animations) {
+    switch (skeleton.state) {
+      case SkeletonStates.Idle:
+        animation.sprite.visible = animation.name === SkeletonStates.Idle;
+        break;
+      case SkeletonStates.Walk:
+        animation.sprite.visible = animation.name === SkeletonStates.Walk;
+        break;
+      case SkeletonStates.Death:
+        animation.sprite.visible = animation.name === SkeletonStates.Death;
+        break;
+      default:
+        animation.sprite.visible = animation.name === SkeletonStates.Idle;
+    }
+  }
 }
 
 function moveSkeletonToPlayer(skeleton: Skeleton) {
   const playerX = playerHitbox.x;
   const playerY = playerHitbox.y;
 
-  const directionX = playerX - skeleton.container.sprite.x;
-  const directionY = playerY - skeleton.container.sprite.y;
+  const directionX = playerX - skeleton.container.x;
+  const directionY = playerY - skeleton.container.y;
 
   const distance = Math.hypot(directionX, directionY);
 
@@ -86,35 +137,31 @@ function moveSkeletonToPlayer(skeleton: Skeleton) {
 
   const speed = 1;
   moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed);
+
+  skeleton.state = SkeletonStates.Walk;
 }
 
 app.ticker.add(() => {
   for (const skeleton of skeletons) {
+    handleAnimationState(skeleton);
     // if the detection zone is in collision with the player
-    if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
+    if (!isColliding(playerHitbox, skeleton.detectionZone)) continue;
+    // Gérer l'animation de marche
     moveSkeletonToPlayer(skeleton);
 
-    if (!isInvulnerable() && isColliding(playerHitbox, skeleton.container.sprite)) {
+    if (!isInvulnerable() && isColliding(playerHitbox, skeleton.container)) {
       startInvulnerabilityTimer();
       playerStats.life -= 1;
       lifeHud.text = `Vie : ${playerStats.life}`;
     }
 
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
-    if (isColliding(skeleton.container.sprite, fireball)) {
+    if (isColliding(skeleton.container, fireball)) {
       startInvulnerabilityTimer();
       skeleton.life -= 1;
       console.log('damage to skeleton');
-      if (skeleton.life > 0) continue;
-      camera.removeChild(skeleton.container.sprite);
-      camera.removeChild(skeleton.container.playerDetectionZone);
-      skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
-      if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
-        gameConditions.skeletonToKillToOpenDoor2 -= 1;
-        if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
-        // disable the room2 door
-        camera.removeChild(doorRoomRight);
-        doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
+      if (skeleton.life <= 0) {
+        skeleton.state = SkeletonStates.Death;
       }
     }
   }
@@ -125,8 +172,8 @@ app.ticker.add(() => {
       const skeletonA = skeletons[indexSkeletonA];
       const skeletonB = skeletons[indexSkeletonB];
 
-      const skeletonASprite = skeletonA.container.sprite;
-      const skeletonBSprite = skeletonB.container.sprite;
+      const skeletonASprite = skeletonA.container;
+      const skeletonBSprite = skeletonB.container;
       const dx = skeletonASprite.x - skeletonBSprite.x;
       const dy = skeletonASprite.y - skeletonBSprite.y;
       const distanceBetweenSkeletons = Math.hypot(dx, dy);

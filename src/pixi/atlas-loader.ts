@@ -6,7 +6,7 @@ Assets.add({ alias: 'witchWalk', src: '/witch/walk/walk.json' });
 Assets.add({ alias: 'spike', src: '/spike/spike.json' });
 Assets.add({ alias: 'torch', src: '/torch/torch.json' });
 Assets.add({ alias: 'key', src: '/key/key.json' });
-Assets.add({ alias: 'skeleton', src: '/skeleton/skeletonidle/skeleton.json' });
+Assets.add({ alias: 'skeleton', src: '/skeleton/skeleton.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
 Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // animationSpeed = 0.18
@@ -30,8 +30,8 @@ const aliases = [
   'boss',
   'bossDeath',
   'bossFireball',
-  // 'skeletonwalk',
-  // 'skeletondeath',
+  'skeletonwalk',
+  'skeletondeath',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;
