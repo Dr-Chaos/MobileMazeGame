@@ -1541,18 +1541,6 @@
                  "y":200
                 }, 
                 {
-                 "gid":198,
-                 "height":28.421875,
-                 "id":303,
-                 "name":"",
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":19.7717391304348,
-                 "x":198.75,
-                 "y":232.5
-                }, 
-                {
                  "gid":204,
                  "height":57.5,
                  "id":304,
@@ -1563,6 +1551,42 @@
                  "width":55,
                  "x":231,
                  "y":233.25
+                }, 
+                {
+                 "gid":198,
+                 "height":22.5,
+                 "id":306,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15,
+                 "x":199.5,
+                 "y":231.25
+                }, 
+                {
+                 "gid":226,
+                 "height":18.4444444444444,
+                 "id":307,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":20.75,
+                 "x":176,
+                 "y":224
+                }, 
+                {
+                 "gid":230,
+                 "height":23.75,
+                 "id":308,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":23.75,
+                 "x":231.5,
+                 "y":287.75
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -1851,7 +1875,7 @@
          "y":0
         }],
  "nextlayerid":31,
- "nextobjectid":306,
+ "nextobjectid":309,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
@@ -1954,6 +1978,14 @@
         {
          "firstgid":204,
          "source":"bossdeath.json"
+        }, 
+        {
+         "firstgid":226,
+         "source":"skeletonwalk.json"
+        }, 
+        {
+         "firstgid":230,
+         "source":"bossdamage.json"
         }],
  "tilewidth":16,
  "type":"map",

@@ -8,6 +8,23 @@
  "tilecount":3,
  "tiledversion":"1.10.2",
  "tileheight":18,
+ "tiles":[
+        {
+         "animation":[
+                {
+                 "duration":100,
+                 "tileid":0
+                }, 
+                {
+                 "duration":100,
+                 "tileid":1
+                }, 
+                {
+                 "duration":100,
+                 "tileid":2
+                }],
+         "id":0
+        }],
  "tilewidth":18,
  "type":"tileset",
  "version":"1.10"
