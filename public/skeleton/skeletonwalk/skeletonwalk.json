@@ -1,10 +1,10 @@
 {
-    "meta": { "image": "skeletonwalk.png", "size": { "w": 64, "h": 18 }, "scale": "1" },
+    "meta": { "image": "skeletonwalk.png", "size": { "w": 72, "h": 16 }, "scale": "1" },
     "frames": {
-      "skeletonwalk-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 18 } },
-      "skeletonwalk-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 18 } },
-      "skeletonwalk-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 18 } },
-      "skeletonwalk-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 18 } }
+      "skeletonwalk-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 16 } },
+      "skeletonwalk-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 16 } },
+      "skeletonwalk-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 16 } },
+      "skeletonwalk-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 16 } }
 
     },
     "animations": {
