@@ -17,6 +17,7 @@ import {
 import { playerStats } from '../player/stats';
 import { movePlayer } from '../player/move';
 import { updateLifeHud } from '../player/hud';
+import { damagePlayer } from '../player/receive-damage';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;
@@ -117,10 +118,7 @@ app.ticker.add(() => {
     }
 
     if (isColliding(playerHitbox, skeleton.container.sprite) && !isInvulnerable()) {
-      startInvulnerabilityTimer();
-      playerStats.life -= 1;
-      updateLifeHud(playerStats.life);
-      animationState.current = AnimationStates.ReceiveDamage;
+      damagePlayer(1);
     }
 
     // move player on skeleton collison

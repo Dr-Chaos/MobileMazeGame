@@ -15,6 +15,8 @@ witchDamageAnimation.stop();
 witchDamageAnimation.onLoop = () => {
   witchDamageAnimation.stop();
 
+  console.log(playerStats.life);
+
   if (playerStats.life <= 0) {
     animationState.current = AnimationStates.Death;
     return;

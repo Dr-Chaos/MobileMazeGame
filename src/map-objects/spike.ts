@@ -10,6 +10,7 @@ import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
 import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
+import { damagePlayer } from '../player/receive-damage';
 
 const spikes: AnimatedSprite[] = [];
 export function createSpike(x: number, y: number, name: string, visible = false) {
@@ -33,11 +34,7 @@ export function createSpike(x: number, y: number, name: string, visible = false)
 app.ticker.add(() => {
   for (const spike of spikes) {
     if (spike.visible && !isInvulnerable() && isColliding(playerHitbox, spike)) {
-      startInvulnerabilityTimer();
-      console.log('Receive damage from spikes');
-      playerStats.life -= 1;
-      updateLifeHud(playerStats.life);
-      console.log('Collision spike');
+      damagePlayer(1);
     }
   }
 });

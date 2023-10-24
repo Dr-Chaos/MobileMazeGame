@@ -7,6 +7,7 @@ import { isColliding } from '../math/collisions';
 import { lifeHud, updateLifeHud } from '../player/hud';
 import { playerHitbox } from '../player/player';
 import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
+import { damagePlayer } from '../player/receive-damage';
 
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
@@ -111,26 +112,18 @@ app.ticker.add((delta) => {
   stateGhost2 = updatedStateGhost2;
 
   if (!isInvulnerable() && isColliding(playerHitbox, skull1)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    updateLifeHud(playerStats.life);
+    damagePlayer(1);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, skull2)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    updateLifeHud(playerStats.life);
+    damagePlayer(1);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, ghost1)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    updateLifeHud(playerStats.life);
+    damagePlayer(1);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, ghost2)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    updateLifeHud(playerStats.life);
+    damagePlayer(1);
   }
 });
