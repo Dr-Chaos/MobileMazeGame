@@ -1,3 +1,4 @@
+import './index.css';
 // import './atlas-generator';
 import './map/map-draw-layers';
 import './map/map-collisions';
