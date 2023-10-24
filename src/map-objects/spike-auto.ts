@@ -3,7 +3,7 @@
 import { AnimatedSprite } from 'pixi.js';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player, playerHitbox } from '../player/player';
 import { lifeHud, updateLifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 import { camera } from '../camera';
@@ -12,7 +12,14 @@ import { mapScaling } from '../map/map-layers';
 import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 
-const spikesAuto: AnimatedSprite[] = [];
+type SpikeAuto = {
+  animation: AnimatedSprite;
+  displayTime: number;
+  displayTimer: number;
+};
+
+const spikesAuto: SpikeAuto[] = [];
+
 export function createSpikeAuto(x: number, y: number, name: string) {
   const spike = new AnimatedSprite(atlasLoader.spike.animations.idle);
   camera.addChild(spike);
@@ -24,26 +31,35 @@ export function createSpikeAuto(x: number, y: number, name: string) {
   spike.y = y;
   spike.visible = true;
   spike.name = name;
-  spikesAuto.push(spike);
   spike.onLoop = () => {
     spike.stop();
     spike.visible = false;
   };
 
-  let displaySpikeTime = 0;
-  const displaySpikeTimer = 1500;
-  app.ticker.add(() => {
-    if (spike.visible && !isInvulnerable() && isColliding(playerHitbox, spike)) {
-      damagePlayer(1);
-    }
+  spikesAuto.push({
+    animation: spike,
+    displayTime: 0,
+    displayTimer: 1500,
+  });
+}
 
+export function activateSpikesAuto() {
+  for (const spike of spikesAuto) {
     // if displaySpikeTimer seconds elapse
     // play spike animation
-    if (Date.now() - displaySpikeTime <= displaySpikeTimer) return;
-    spike.play();
-    spike.visible = true;
-    displaySpikeTime = Date.now();
-  });
+    if (Date.now() - spike.displayTime <= spike.displayTimer) return;
+    spike.animation.play();
+    spike.animation.visible = true;
+    spike.displayTime = Date.now();
+
+    // the check if spike is in collision with the player
+    // ! YOU MUST PLACE THIS CONDITION HERE, AFTER CHECKING IF SPIKE IS ACTIVATE, BECAUSE PREVIOUSLY
+    // ! WE SET visible = true
+    if (spike.animation.visible && !isInvulnerable() && isColliding(player.hitbox, spike.animation)) {
+      console.log('Damage');
+      damagePlayer(1);
+    }
+  }
 }
 
 export { spikesAuto };

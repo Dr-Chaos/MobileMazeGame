@@ -3,7 +3,7 @@
 import { AnimatedSprite } from 'pixi.js';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player, playerHitbox } from '../player/player';
 import { lifeHud, updateLifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 import { camera } from '../camera';
@@ -31,12 +31,12 @@ export function createSpike(x: number, y: number, name: string, visible = false)
   };
 }
 
-app.ticker.add(() => {
+export function activeSpikes() {
   for (const spike of spikes) {
-    if (spike.visible && !isInvulnerable() && isColliding(playerHitbox, spike)) {
+    if (spike.visible && !isInvulnerable() && isColliding(player.hitbox, spike)) {
       damagePlayer(1);
     }
   }
-});
+}
 
 export { spikes };

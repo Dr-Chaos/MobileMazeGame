@@ -1,7 +1,7 @@
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map-collisions.json';
 import app from '../pixi/initialize';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
@@ -65,11 +65,11 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-app.ticker.add(() => {
+export function mapCollision() {
   for (const tile of colliderTiles) {
     // collision with the player
-    if (isColliding(tile, playerHitbox)) {
-      movePlayer(collisionResponseDirection(playerHitbox, tile));
+    if (isColliding(tile, player.hitbox)) {
+      movePlayer(collisionResponseDirection(player.hitbox, tile));
     }
 
     // collision with skeletons
@@ -95,4 +95,4 @@ app.ticker.add(() => {
       }
     }
   }
-});
+}

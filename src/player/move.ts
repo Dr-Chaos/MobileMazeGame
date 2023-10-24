@@ -1,29 +1,28 @@
-import app from '../pixi/initialize';
-import { Movements, movement, playerAnimationsContainer } from './animations/animations';
+import {
+  AnimationStates, Movements, animationState, movement, playerAnimationsContainer,
+} from './animations/animations';
 import { camera } from '../camera';
 import { inputMovementDirection } from './movement-keyboard';
-import {
-  playerContainer, playerHitbox,
-} from './player';
 import { playerStats } from './stats';
+import { player } from './player';
 
 export function movePlayer(direction: {x: number; y: number}) {
   // move the player container (sprites, hitbox draw, etc)
-  playerContainer.x += direction.x;
-  playerContainer.y += direction.y;
+  player.container.x += direction.x;
+  player.container.y += direction.y;
 
   // adjust the hitbox values
   // positionHistory.old = { x: playerHitbox.x, y: playerHitbox.y };
-  playerHitbox.x += direction.x;
-  playerHitbox.y += direction.y;
+  player.hitbox.x += direction.x;
+  player.hitbox.y += direction.y;
   // positionHistory.new = { x: playerHitbox.x, y: playerHitbox.y };
 
   // adjust the camera
-  camera.pivot.copyFrom(playerContainer);
+  camera.pivot.copyFrom(player.container);
 }
 
-// move the player when direction change
-app.ticker.add((delta) => {
+export function moveGameLoop(delta: number) {
+  if (animationState.current === AnimationStates.Death) return;
   const direction = inputMovementDirection();
   // if don't move, set Idle state
   if (!direction.x && !direction.y) {
@@ -43,4 +42,4 @@ app.ticker.add((delta) => {
   };
 
   movePlayer(movePosition);
-});
+}

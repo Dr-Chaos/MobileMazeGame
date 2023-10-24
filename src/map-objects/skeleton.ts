@@ -2,21 +2,15 @@ import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
-
+import { player, playerHitbox } from '../player/player';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
 import { gameConditions } from '../map/game-conditions';
-import { doorRoomBottom, doorRoomRight, doorsContainers } from './door';
-import { centerFromPivot, centerIfPivotIsUpperLeft } from '../utils/utils';
+import { doorRoomRight, doorsContainers } from './door';
+import { centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
-import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
-import {
-  Movements, PlayerState, AnimationStates, movement, animationState,
-} from '../player/animations/animations';
-import { playerStats } from '../player/stats';
+import { isInvulnerable } from '../player/invulnerability';
 import { movePlayer } from '../player/move';
-import { updateLifeHud } from '../player/hud';
 import { damagePlayer } from '../player/receive-damage';
 
 type SkeletonContainer = {
@@ -78,8 +72,8 @@ export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
 }
 
 function moveSkeletonToPlayer(skeleton: Skeleton) {
-  const playerX = playerHitbox.x;
-  const playerY = playerHitbox.y;
+  const playerX = player.hitbox.x;
+  const playerY = player.hitbox.y;
 
   const directionX = playerX - skeleton.container.sprite.x;
   const directionY = playerY - skeleton.container.sprite.y;
@@ -93,10 +87,10 @@ function moveSkeletonToPlayer(skeleton: Skeleton) {
   moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed);
 }
 
-app.ticker.add(() => {
+export function skeletonsGameLoop() {
   for (const skeleton of skeletons) {
     // if the detection zone is in collision with the player
-    if (!isColliding(playerHitbox, skeleton.container.playerDetectionZone)) continue;
+    if (!isColliding(player.hitbox, skeleton.container.playerDetectionZone)) continue;
     moveSkeletonToPlayer(skeleton);
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
@@ -117,23 +111,23 @@ app.ticker.add(() => {
       }
     }
 
-    if (isColliding(playerHitbox, skeleton.container.sprite) && !isInvulnerable()) {
+    if (isColliding(player.hitbox, skeleton.container.sprite) && !isInvulnerable()) {
       damagePlayer(1);
     }
 
     // move player on skeleton collison
-    if (isColliding(playerHitbox, skeleton.container.sprite)) {
-      movePlayer(collisionResponseDirection(playerHitbox, skeleton.container.sprite));
+    if (isColliding(player.hitbox, skeleton.container.sprite)) {
+      movePlayer(collisionResponseDirection(player.hitbox, skeleton.container.sprite));
     }
 
     // move skeleton on player collision
     const skeletonASprite = skeleton.container.sprite;
-    const dx = skeletonASprite.x - playerHitbox.x;
-    const dy = skeletonASprite.y - playerHitbox.y;
+    const dx = skeletonASprite.x - player.hitbox.x;
+    const dy = skeletonASprite.y - player.hitbox.y;
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonASprite.width / 2 + playerHitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonASprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
@@ -174,6 +168,6 @@ app.ticker.add(() => {
       }
     }
   }
-});
+}
 
 export { skeletons };

@@ -1,35 +1,16 @@
 import { Container } from 'pixi.js';
 import witchIdleAnimation from './idle';
-import { playerContainer } from '../player';
 import witchWalkAnimation from './walk';
-import app from '../../pixi/initialize';
 import witchDamageAnimation from './damage';
 import witchDeathAnimation from './death';
-
-const playerAnimation = {
-  width: 32,
-  height: 48,
-};
-const playerAnimationsContainer = new Container();
-playerAnimationsContainer.pivot.x = playerAnimation.width / 2; // place le pivot au millieux du sprite pour pouvoir le rotate
-playerAnimationsContainer.pivot.y = playerAnimation.height / 2;
-playerContainer.addChild(playerAnimationsContainer);
-
-playerAnimationsContainer.addChild(witchIdleAnimation);
-playerAnimationsContainer.addChild(witchWalkAnimation);
-playerAnimationsContainer.addChild(witchDamageAnimation);
-playerAnimationsContainer.addChild(witchDeathAnimation);
-
-// playerAnimationsContainer.x = playerContainer.x;
-// playerAnimationsContainer.y = playerContainer.y - (playerAnimation.height / 2);
+import { player } from '../player';
 
 enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
-
 }
 
-const movement = {
+const movement: {current: Movements } = {
   current: Movements.Idle,
 };
 
@@ -39,6 +20,10 @@ export enum AnimationStates {
   CanMove = 'CanMove',
 }
 
+export const animationState: {current: AnimationStates } = {
+  current: AnimationStates.CanMove,
+};
+
 const animations = [
   { state: Movements.Idle, animation: witchIdleAnimation },
   { state: Movements.Walk, animation: witchWalkAnimation },
@@ -46,11 +31,29 @@ const animations = [
   { state: AnimationStates.Death, animation: witchDeathAnimation },
 ];
 
-export const animationState = {
-  current: AnimationStates.CanMove,
+const playerAnimation = {
+  width: 32,
+  height: 48,
 };
 
-app.ticker.add(() => {
+const playerAnimationsContainer = new Container();
+
+export function initializePlayerAnimations() {
+  // Initialize state
+  movement.current = Movements.Idle;
+  animationState.current = AnimationStates.CanMove;
+
+  playerAnimationsContainer.pivot.x = playerAnimation.width / 2; // place le pivot au millieux du sprite pour pouvoir le rotate
+  playerAnimationsContainer.pivot.y = playerAnimation.height / 2;
+  player.container.addChild(playerAnimationsContainer);
+
+  playerAnimationsContainer.addChild(witchIdleAnimation);
+  playerAnimationsContainer.addChild(witchWalkAnimation);
+  playerAnimationsContainer.addChild(witchDamageAnimation);
+  playerAnimationsContainer.addChild(witchDeathAnimation);
+}
+
+export function animationsGameLoop() {
   for (const animation of animations) {
     if (animationState.current === AnimationStates.ReceiveDamage) {
       if (animation.state === AnimationStates.ReceiveDamage) animation.animation.play();
@@ -76,7 +79,7 @@ app.ticker.add(() => {
         break;
     }
   }
-});
+}
 
 export {
   Movements,

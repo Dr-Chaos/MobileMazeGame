@@ -1,3 +1,5 @@
+import { Container } from 'pixi.js';
+
 export function getCoordinates(object: {x: number; y: number; width: number; height: number}) {
   return {
     x: object.x, y: object.y, width: object.width, height: object.height,
@@ -23,4 +25,21 @@ export function centerIfPivotIsUpperLeft(position: {x: number; y: number; width:
     width: position.width * scaling,
     height: position.height * scaling,
   };
+}
+
+export function clearContainerChildrenRecursively(parent: Container) {
+  const { children } = parent;
+  const childrenToRemove = [];
+
+  for (const child of children) {
+    if (child instanceof Container && child.children.length > 0) {
+      clearContainerChildrenRecursively(child);
+    }
+
+    childrenToRemove.push(child);
+  }
+
+  for (const childToRemove of childrenToRemove) {
+    parent.removeChild(childToRemove);
+  }
 }

@@ -4,7 +4,7 @@ import {
 import { atlasLoader } from '../pixi/atlas-loader';
 import { camera } from '../camera';
 
-const torches = [];
+export const torches = [];
 export function createTorch(x: number, y: number, zIndex: number) {
   const torch = new AnimatedSprite(atlasLoader.torch.animations.idle);
   camera.addChild(torch);
