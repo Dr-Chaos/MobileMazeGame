@@ -21,7 +21,7 @@ const aliases = [
   'witchIdle',
   'witchWalk',
   'witchDamage',
-  // 'witchDeath',
+  'witchDeath',
   'spike',
   'torch',
   'key',

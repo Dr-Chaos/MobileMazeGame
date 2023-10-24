@@ -10,6 +10,9 @@ import './player/move'; // handle move inputs
 import './map-objects/skull';
 import { AnimatedSprite } from 'pixi.js';
 import { atlasLoader } from './pixi/atlas-loader';
+import { playerStats } from './player/stats';
+import { AnimationStates, animationState } from './player/animations/animations';
+import { updateLifeHud } from './player/hud';
 // import './tests';
 
 app.stage.addChild(camera); // create the world / camera
@@ -20,6 +23,12 @@ app.stage.addChild(camera); // create the world / camera
 document.addEventListener('keydown', (event) => {
   if (event.code !== 'Digit1') return;
   const allPixiObjects = app.stage.children;
+
+  playerStats.life -= 1;
+  updateLifeHud(playerStats.life);
+  animationState.current = AnimationStates.ReceiveDamage;
+
+  // playerStats.life = 0;
   // console.log(allPixiObjects);
   // console.log(atlasLoader);
   // startInvulnerabilityTimer();
@@ -38,3 +47,10 @@ document.addEventListener('keydown', (event) => {
 // witchDie.animationSpeed = 0.2;
 // witchDie.play();
 // camera.addChild(witchDie);
+
+// app.ticker.add(() => {
+//   if (playerStats.life <= 0) {
+//     animationState.current = AnimationStates.Death;
+//     console.log('Die');
+//   }
+// });

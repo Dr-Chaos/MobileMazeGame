@@ -1,7 +1,7 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
-import { isColliding } from '../math/collisions';
+import { collisionResponseDirection, isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
 
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -15,6 +15,8 @@ import {
   Movements, PlayerState, AnimationStates, movement, animationState,
 } from '../player/animations/animations';
 import { playerStats } from '../player/stats';
+import { movePlayer } from '../player/move';
+import { updateLifeHud } from '../player/hud';
 
 type SkeletonContainer = {
   sprite: AnimatedSprite;
@@ -97,7 +99,7 @@ app.ticker.add(() => {
     moveSkeletonToPlayer(skeleton);
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
-      // skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
+      skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
       // is the skeleton die
       if (skeleton.life > 0) continue;
       camera.removeChild(skeleton.container.sprite);
@@ -116,8 +118,34 @@ app.ticker.add(() => {
 
     if (isColliding(playerHitbox, skeleton.container.sprite) && !isInvulnerable()) {
       startInvulnerabilityTimer();
-      console.log('Receive ');
+      playerStats.life -= 1;
+      updateLifeHud(playerStats.life);
       animationState.current = AnimationStates.ReceiveDamage;
+    }
+
+    // move player on skeleton collison
+    if (isColliding(playerHitbox, skeleton.container.sprite)) {
+      movePlayer(collisionResponseDirection(playerHitbox, skeleton.container.sprite));
+    }
+
+    // move skeleton on player collision
+    const skeletonASprite = skeleton.container.sprite;
+    const dx = skeletonASprite.x - playerHitbox.x;
+    const dy = skeletonASprite.y - playerHitbox.y;
+    const distanceBetweenSkeletons = Math.hypot(dx, dy);
+
+    // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
+    const minDistance = skeletonASprite.width / 2 + playerHitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+
+    if (distanceBetweenSkeletons < minDistance) {
+    // Les squelettes sont trop proches, nous devons les repousser
+      const overlap = minDistance - distanceBetweenSkeletons;
+      const adjustX = (overlap / distanceBetweenSkeletons) * dx;
+      const adjustY = (overlap / distanceBetweenSkeletons) * dy;
+
+      // Ajuster les positions pour éviter la superposition
+      moveSkeleton(skeleton, adjustX / 2, adjustY / 2);
+    // moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
     }
   }
 

@@ -4,6 +4,7 @@ import { playerContainer } from '../player';
 import witchWalkAnimation from './walk';
 import app from '../../pixi/initialize';
 import witchDamageAnimation from './damage';
+import witchDeathAnimation from './death';
 
 const playerAnimation = {
   width: 32,
@@ -17,6 +18,7 @@ playerContainer.addChild(playerAnimationsContainer);
 playerAnimationsContainer.addChild(witchIdleAnimation);
 playerAnimationsContainer.addChild(witchWalkAnimation);
 playerAnimationsContainer.addChild(witchDamageAnimation);
+playerAnimationsContainer.addChild(witchDeathAnimation);
 
 // playerAnimationsContainer.x = playerContainer.x;
 // playerAnimationsContainer.y = playerContainer.y - (playerAnimation.height / 2);
@@ -24,23 +26,25 @@ playerAnimationsContainer.addChild(witchDamageAnimation);
 enum Movements {
   Idle = 'Idle',
   Walk = 'Walk',
-  Damage = 'Damage',
+
 }
 
 const movement = {
   current: Movements.Idle,
 };
 
+export enum AnimationStates {
+  ReceiveDamage = 'ReceiveDamage',
+  Death = 'Death',
+  CanMove = 'CanMove',
+}
+
 const animations = [
   { state: Movements.Idle, animation: witchIdleAnimation },
   { state: Movements.Walk, animation: witchWalkAnimation },
-  { state: Movements.Damage, animation: witchDamageAnimation },
+  { state: AnimationStates.ReceiveDamage, animation: witchDamageAnimation },
+  { state: AnimationStates.Death, animation: witchDeathAnimation },
 ];
-
-export enum AnimationStates {
-  ReceiveDamage = 'ReceiveDamage',
-  CanMove = 'CanMove',
-}
 
 export const animationState = {
   current: AnimationStates.CanMove,
@@ -49,11 +53,14 @@ export const animationState = {
 app.ticker.add(() => {
   for (const animation of animations) {
     if (animationState.current === AnimationStates.ReceiveDamage) {
-      if (animation.state === Movements.Damage) {
-        animation.animation.play();
-      }
+      if (animation.state === AnimationStates.ReceiveDamage) animation.animation.play();
+      animation.animation.visible = animation.state === AnimationStates.ReceiveDamage;
+      continue;
+    }
 
-      animation.animation.visible = animation.state === Movements.Damage;
+    if (animationState.current === AnimationStates.Death) {
+      if (animation.state === AnimationStates.Death) animation.animation.play();
+      animation.animation.visible = animation.state === AnimationStates.Death;
       continue;
     }
 
