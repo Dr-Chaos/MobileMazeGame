@@ -4,7 +4,7 @@ import app from '../pixi/initialize';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { playerStats } from '../player/stats';
 import { isColliding } from '../math/collisions';
-import { lifeHud } from '../player/hud';
+import { lifeHud, updateLifeHud } from '../player/hud';
 import { playerHitbox } from '../player/player';
 import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
 
@@ -113,24 +113,24 @@ app.ticker.add((delta) => {
   if (!isInvulnerable() && isColliding(playerHitbox, skull1)) {
     startInvulnerabilityTimer();
     playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
+    updateLifeHud(playerStats.life);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, skull2)) {
     startInvulnerabilityTimer();
     playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
+    updateLifeHud(playerStats.life);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, ghost1)) {
     startInvulnerabilityTimer();
     playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
+    updateLifeHud(playerStats.life);
   }
 
   if (!isInvulnerable() && isColliding(playerHitbox, ghost2)) {
     startInvulnerabilityTimer();
     playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
+    updateLifeHud(playerStats.life);
   }
 });

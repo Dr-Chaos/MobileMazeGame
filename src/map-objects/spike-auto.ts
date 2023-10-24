@@ -4,7 +4,7 @@ import { AnimatedSprite } from 'pixi.js';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
 import { playerHitbox } from '../player/player';
-import { lifeHud } from '../player/hud';
+import { lifeHud, updateLifeHud } from '../player/hud';
 import { playerStats } from '../player/stats';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -36,7 +36,7 @@ export function createSpikeAuto(x: number, y: number, name: string) {
       startInvulnerabilityTimer();
       console.log('Receive damage from spikes');
       playerStats.life -= 1;
-      lifeHud.text = `Life: ${playerStats.life}`;
+      updateLifeHud(playerStats.life);
       console.log('Collision spike');
     }
 
