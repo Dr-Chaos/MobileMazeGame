@@ -197,14 +197,15 @@ app.ticker.add(() => {
         const bossDeathAnimation = new AnimatedSprite(atlasLoader.bossDeath.animations.bossdeath);
         bossDeathAnimation.scale.set(scaling.boss);
         bossDeathAnimation.position.set(boss.x, boss.y); // la position de l'animation doit correspondre à celle du boss
-        bossDeathAnimation.animationSpeed = 0.01;
-        bossDeathAnimation.loop = false;
+        bossDeathAnimation.animationSpeed = 0.5;
+        bossDeathAnimation.loop = true;
         camera.removeChild(boss);
         bossDeathAnimation.zIndex = -1;
         camera.addChild(bossDeathAnimation);
         bossDeathAnimation.onComplete = () => { // assurez-vous d'ajouter l'animation à la caméra ou à un conteneur qui est rendu
           bossDeathAnimation.play();
-          camera.addChild(bossDeathAnimation);
+
+          camera.removeChild(bossDeathAnimation);
           // supprimer l'animation après qu'elle soit terminée
           // Ici, vous pouvez également gérer ce qui se passe après la mort du boss (charger un nouveau niveau, etc.)
         };
