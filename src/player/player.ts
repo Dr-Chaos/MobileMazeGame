@@ -1,50 +1,47 @@
 import { Container, Graphics } from 'pixi.js';
-import app from '../pixi/initialize';
 import { camera } from '../camera';
 
-const playerContainer = new Container();
-playerContainer.y = -50;
-camera.addChild(playerContainer);
-// initialize the camera
-camera.pivot.copyFrom(playerContainer);
-
-// if you keep default playerContainer.x and playerContainer.y values (0 by default)
-// const playerHitbox = {
-//   x: 5,
-//   y: playerContainer.y + 12,
-//   width: 20,
-//   height: 30,
-// };
-// else we need to increment the initial playerContainer.x and playerContainer.y positions
-const playerHitbox = {
-  x: playerContainer.x + 5, // + offset.x
-  y: playerContainer.y + 12, // + offset.y
-  width: 20,
-  height: 30,
-  offset: {
-    x: 5,
-    y: 13,
+const player = {
+  container: new Container(),
+  hitbox: {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
   },
 };
 
-export function getPlayerHitboxWorldPosition() {
-  return {
-    x: app.screen.width / 2 + camera.pivot.x - playerHitbox.width / 2,
-    y: app.screen.height / 2 + camera.pivot.y - playerHitbox.height / 2,
-    width: 30,
-    height: 50,
+export function initializePlayer() {
+  const playerContainer = new Container();
+
+  const spriteSize = {
+    x: 32,
+    y: 48,
   };
+
+  const playerHitbox = {
+    x: -(spriteSize.x / 2) + 6.5, // center of the sprite -/+ x (to adjust playerHitbox.width offset)
+    y: -(spriteSize.y / 2) + 19, // center of the sprite -/+ y (to adjust playerHitbox.height offset)
+    width: 32 - 15, // sprite width -/+ offset
+    height: 48 - 25, // -/+ offset
+  };
+
+  camera.addChild(playerContainer);
+  // initialize the camera
+  camera.pivot.copyFrom(playerContainer);
+
+  // draw the hitbox
+  const playerHitboxDraw = new Graphics();
+  playerHitboxDraw.beginFill('#8c9fff', 0.4);
+  playerHitboxDraw.x = playerHitbox.x; // if you keep de default playerContainer.x value (0), simple use playerHitbox.x
+  playerHitboxDraw.y = playerHitbox.y; // if you keep de default playerContainer.y value (0), simple use playerHitbox.y
+  playerHitboxDraw.drawRect(0, 0, playerHitbox.width, playerHitbox.height);
+  // playerContainer.addChild(playerHitboxDraw); // DRAW HITBOX DURING DEV
+
+  player.container = playerContainer;
+  player.hitbox = playerHitbox;
 }
 
-// draw the hitbox
-const playerHitboxDraw = new Graphics();
-playerHitboxDraw.beginFill('#8c9fff', 0.4);
-playerHitboxDraw.x = playerHitbox.offset.x; // if you keep de default playerContainer.x value (0), simple use playerHitbox.x
-playerHitboxDraw.y = playerHitbox.offset.y; // if you keep de default playerContainer.y value (0), simple use playerHitbox.y
-playerHitboxDraw.drawRect(0, 0, playerHitbox.width, playerHitbox.height);
-playerContainer.addChild(playerHitboxDraw);
-
 export {
-  playerHitbox,
-  playerContainer,
+  player,
 };

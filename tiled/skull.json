@@ -7,7 +7,7 @@
  "spacing":0,
  "tilecount":4,
  "tiledversion":"1.10.2",
- "tileheight":18,
+ "tileheight":16,
  "tiles":[
         {
          "animation":[
@@ -29,7 +29,7 @@
                 }],
          "id":0
         }],
- "tilewidth":18,
+ "tilewidth":16,
  "type":"tileset",
  "version":"1.10"
 }

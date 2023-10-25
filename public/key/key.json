@@ -11,6 +11,6 @@
     "key-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
   },
   "animations": {
-    "key": ["key-1.png", "key-2.png", "key-3.png", "key-4.png", "key-5.png", "key-6.png", "key-7.png", "key-8.png"]
+    "idle": ["key-1.png", "key-2.png", "key-3.png", "key-4.png", "key-5.png", "key-6.png", "key-7.png", "key-8.png"]
   }
 }

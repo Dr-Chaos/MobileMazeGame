@@ -11,6 +11,6 @@
     "torch-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
   },
   "animations": {
-    "torch": ["torch-1.png", "torch-2.png", "torch-3.png", "torch-4.png", "torch-5.png", "torch-6.png", "torch-7.png", "torch-8.png"]
+    "idle": ["torch-1.png", "torch-2.png", "torch-3.png", "torch-4.png", "torch-5.png", "torch-6.png", "torch-7.png", "torch-8.png"]
   }
 }
