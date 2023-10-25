@@ -1,15 +1,12 @@
 // if solution active trap desctived done
 // else :    if trap actived, colision trap, degat once,
 import { AnimatedSprite } from 'pixi.js';
-import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
-import { player, playerHitbox } from '../player/player';
-import { lifeHud, updateLifeHud } from '../player/hud';
-import { playerStats } from '../player/stats';
+import { player } from '../player/player';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
-import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
+import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 
 const spikes: AnimatedSprite[] = [];

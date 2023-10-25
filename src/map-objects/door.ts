@@ -86,7 +86,7 @@ const doorsContainers = {
 export { doorsContainers };
 
 // DOORS COLLISIONS
-export function doorsCollisionsGameLoop() {
+export function doorsCollisionsGameLoop(delta: number) {
   for (const doorContainer of doorsContainers.list) {
     const doorContainerCoordinates = getCoordinates(doorContainer);
     // need this lines to manage perspectives
@@ -95,7 +95,7 @@ export function doorsCollisionsGameLoop() {
     }
 
     if (isColliding(player.hitbox, doorContainerCoordinates)) {
-      movePlayer(collisionResponseDirection(player.hitbox, doorContainerCoordinates));
+      movePlayer(collisionResponseDirection(player.hitbox, doorContainerCoordinates), delta);
     }
   }
 }

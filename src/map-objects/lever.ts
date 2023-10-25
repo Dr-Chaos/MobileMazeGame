@@ -1,9 +1,8 @@
 import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import app from '../pixi/initialize';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { player, playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
@@ -69,10 +68,10 @@ export function createLever(x: number, y: number, name: string) {
   levers.push(lever);
 }
 
-export function leversGameLoop() {
+export function leversGameLoop(delta: number) {
   for (const lever of levers) {
     if (isColliding(player.hitbox, lever)) {
-      movePlayer(collisionResponseDirection(player.hitbox, lever));
+      movePlayer(collisionResponseDirection(player.hitbox, lever), delta);
       if (!lever.canBeActivated) return;
       lever.canBeActivated = false;
       lever.animationSpeed = 0.2;

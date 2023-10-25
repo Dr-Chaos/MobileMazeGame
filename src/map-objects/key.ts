@@ -3,7 +3,6 @@ import {
 } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
 import { player } from '../player/player';
 import { getCoordinates } from '../utils/utils';

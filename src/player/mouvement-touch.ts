@@ -73,7 +73,7 @@ document.addEventListener('touchmove', (event) => {
   }
 });
 
-document.addEventListener('touchend', (event) => {
+document.addEventListener('touchend', () => {
   directionHistory.x = [];
   directionHistory.y = [];
 });

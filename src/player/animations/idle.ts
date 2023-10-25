@@ -2,7 +2,6 @@ import {
   AnimatedSprite,
 } from 'pixi.js';
 import { atlasLoader } from '../../pixi/atlas-loader';
-import { Movements, movement } from './animations';
 
 const witchIdleAnimation = new AnimatedSprite(atlasLoader.witchIdle.animations.idle);
 // witchIdleAnimation.scale.set(2);

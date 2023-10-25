@@ -3,7 +3,7 @@ import {
 } from 'pixi.js';
 import { atlasLoader } from '../../pixi/atlas-loader';
 import {
-  AnimationStates, Movements, animationState, movement,
+  AnimationStates, animationState,
 } from './animations';
 import { playerStats } from '../stats';
 

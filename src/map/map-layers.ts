@@ -5,7 +5,7 @@ import { createKey } from '../map-objects/key';
 import { createTorch } from '../map-objects/torch';
 import { createSpike } from '../map-objects/spike';
 import { createLever } from '../map-objects/lever';
-import { centerFromPivot, getCoordinates } from '../utils/utils';
+import { centerFromPivot } from '../utils/utils';
 import {
   createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';

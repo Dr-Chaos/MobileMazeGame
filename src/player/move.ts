@@ -6,15 +6,15 @@ import { inputMovementDirection } from './movement-keyboard';
 import { playerStats } from './stats';
 import { player } from './player';
 
-export function movePlayer(direction: {x: number; y: number}) {
+export function movePlayer(direction: {x: number; y: number}, delta: number) {
   // move the player container (sprites, hitbox draw, etc)
-  player.container.x += direction.x;
-  player.container.y += direction.y;
+  player.container.x += direction.x * delta;
+  player.container.y += direction.y * delta;
 
   // adjust the hitbox values
   // positionHistory.old = { x: playerHitbox.x, y: playerHitbox.y };
-  player.hitbox.x += direction.x;
-  player.hitbox.y += direction.y;
+  player.hitbox.x += direction.x * delta;
+  player.hitbox.y += direction.y * delta;
   // positionHistory.new = { x: playerHitbox.x, y: playerHitbox.y };
 
   // adjust the camera
@@ -37,9 +37,9 @@ export function moveGameLoop(delta: number) {
   playerAnimationsContainer.scale.x = direction.x < 0 ? -1 : 1;
 
   const movePosition = {
-    x: direction.x * playerStats.speed * delta,
-    y: direction.y * playerStats.speed * delta,
+    x: direction.x * playerStats.speed,
+    y: direction.y * playerStats.speed,
   };
 
-  movePlayer(movePosition);
+  movePlayer(movePosition, delta);
 }

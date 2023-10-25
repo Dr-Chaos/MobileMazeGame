@@ -6,7 +6,6 @@ import { type Collider, isColliding, collisionResponseDirection } from '../math/
 import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
-import { camera } from '../camera';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
 
 // draw map
@@ -65,11 +64,11 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-export function mapCollision() {
+export function mapCollision(delta: number) {
   for (const tile of colliderTiles) {
     // collision with the player
     if (isColliding(tile, player.hitbox)) {
-      movePlayer(collisionResponseDirection(player.hitbox, tile));
+      movePlayer(collisionResponseDirection(player.hitbox, tile), delta);
     }
 
     // collision with skeletons
@@ -86,11 +85,11 @@ export function mapCollision() {
         const collisionAdjustment = collisionResponseDirection(skeletonSprite, tile);
 
         // Ajustez la position du squelette en fonction de la collision.
-        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y);
+        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y, delta);
 
         // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
         if (isColliding(tile, skeletonSprite)) {
-          moveSkeleton(skeletonObject, previousX, previousY);
+          moveSkeleton(skeletonObject, previousX, previousY, delta);
         }
       }
     }

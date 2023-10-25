@@ -1,8 +1,6 @@
-import { AnimatedSprite, Graphics } from 'pixi.js';
-import app from '../pixi/initialize';
+import { AnimatedSprite } from 'pixi.js';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { camera } from '../camera';
-import { playerAnimationsContainer } from './animations/animations';
 import { player } from './player';
 
 // boss fireball
@@ -22,10 +20,10 @@ export function initializeFireball() {
   angle = 2;
 }
 
-export function moveFireball() {
+export function moveFireball(delta: number) {
   fireball.x = player.container.x + radius * Math.cos(angle);
   fireball.y = player.container.y + radius * Math.sin(angle);
-  angle += 0.1;
+  angle += 0.1 * delta;
 }
 
 export { fireball };

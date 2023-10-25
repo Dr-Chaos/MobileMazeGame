@@ -1,8 +1,7 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
-import app from '../pixi/initialize';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { player, playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
 import { gameConditions } from '../map/game-conditions';
@@ -64,14 +63,14 @@ export function createSkeleton(x: number, y: number, name: string) {
   });
 }
 
-export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
-  skeleton.container.sprite.x += x;
-  skeleton.container.sprite.y += y;
-  skeleton.container.playerDetectionZone.x += x;
-  skeleton.container.playerDetectionZone.y += y;
+export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: number) {
+  skeleton.container.sprite.x += x * delta;
+  skeleton.container.sprite.y += y * delta;
+  skeleton.container.playerDetectionZone.x += x * delta;
+  skeleton.container.playerDetectionZone.y += y * delta;
 }
 
-function moveSkeletonToPlayer(skeleton: Skeleton) {
+function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const playerX = player.hitbox.x;
   const playerY = player.hitbox.y;
 
@@ -84,14 +83,14 @@ function moveSkeletonToPlayer(skeleton: Skeleton) {
   const normalizedDirectionY = directionY / distance;
 
   const speed = 1;
-  moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed);
+  moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed, delta);
 }
 
-export function skeletonsGameLoop() {
+export function skeletonsGameLoop(delta: number) {
   for (const skeleton of skeletons) {
     // if the detection zone is in collision with the player
     if (!isColliding(player.hitbox, skeleton.container.playerDetectionZone)) continue;
-    moveSkeletonToPlayer(skeleton);
+    moveSkeletonToPlayer(skeleton, delta);
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
@@ -117,7 +116,7 @@ export function skeletonsGameLoop() {
 
     // move player on skeleton collison
     if (isColliding(player.hitbox, skeleton.container.sprite)) {
-      movePlayer(collisionResponseDirection(player.hitbox, skeleton.container.sprite));
+      movePlayer(collisionResponseDirection(player.hitbox, skeleton.container.sprite), delta);
     }
 
     // move skeleton on player collision
@@ -136,7 +135,7 @@ export function skeletonsGameLoop() {
       const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
       // Ajuster les positions pour éviter la superposition
-      moveSkeleton(skeleton, adjustX / 2, adjustY / 2);
+      moveSkeleton(skeleton, adjustX / 2, adjustY / 2, delta);
     // moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
     }
   }
@@ -163,8 +162,8 @@ export function skeletonsGameLoop() {
         const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
         // Ajuster les positions pour éviter la superposition
-        moveSkeleton(skeletonA, adjustX / 2, adjustY / 2);
-        moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
+        moveSkeleton(skeletonA, adjustX / 2, adjustY / 2, delta);
+        moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2), delta);
       }
     }
   }
