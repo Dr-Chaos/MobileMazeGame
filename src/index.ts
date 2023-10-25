@@ -9,7 +9,7 @@ import './map-objects/skull';
 import './map-objects/boss/boss';
 import {
   SkeletonStates, createSkeleton, gameLoop, skeletons,
-} from './temporary';
+} from './map-objects/skeleton/temporary';
 // aaa
 
 app.stage.addChild(camera); // create the world / camera
