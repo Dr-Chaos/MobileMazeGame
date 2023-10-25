@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@pixi/math-extras": "^7.3.1",
+    "@pixi/sound": "^5.2.2",
     "@pixi/tilemap": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",

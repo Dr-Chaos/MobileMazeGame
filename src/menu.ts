@@ -1,6 +1,7 @@
 import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
+import { Sound, sound } from '@pixi/sound';
 import app from './pixi/initialize';
 
 // forme (rectangle)
@@ -46,13 +47,15 @@ app.stage.addChild(title);
 
 // image
 
+const clicksound = Sound.from('./sons/bruitages/key.wav');
+
 // lorsque l'on clique sur le boutton
 const playbutton = new Text('Play', style);
 
-playbutton.anchor.x = 0.4;
+playbutton.anchor.x = 0.43;
 playbutton.x = app.screen.width / 2;
 
-playbutton.anchor.y = 1.4;
+playbutton.anchor.y = 1.5;
 playbutton.y = app.screen.height / 2;
 
 playbutton.interactive = true;
@@ -60,3 +63,11 @@ playbutton.on('click', () => {
   alert('clicked');
 });
 app.stage.addChild(playbutton);
+
+const backgroundmusic = Sound.from({
+  url: './sons/musiques/musicdungeon2.mp3',
+  autoPlay: true,
+
+});
+
+app.stage.addChild(backgroundmusic);
