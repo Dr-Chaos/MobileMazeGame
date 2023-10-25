@@ -1,0 +1,34 @@
+{
+  "meta": {
+    "image": "heart.png",
+    "size": {
+      "w": 34,
+      "h": 17
+    },
+    "scale": "1"
+  },
+  "frames": {
+    "heart-1.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 17,
+        "h": 17
+      }
+    },
+    "heart-2.png": {
+      "frame": {
+        "x": 17,
+        "y": 0,
+        "w": 17,
+        "h": 17
+      }
+    }
+  },
+  "animations": {
+    "idle": [
+      "heart-1.png",
+      "heart-2.png"
+    ]
+  }
+}

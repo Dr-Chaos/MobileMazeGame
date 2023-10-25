@@ -4,7 +4,7 @@ import { playerStats } from './stats';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { inventory } from './inventory';
 
-const lifeAnimation = new AnimatedSprite(atlasLoader.torch.animations.idle);
+const lifeAnimation = new AnimatedSprite(atlasLoader.heart.animations.idle);
 const lifeText = new Text();
 const keyAnimation = new AnimatedSprite(atlasLoader.key.animations.idle);
 const keyText = new Text();
