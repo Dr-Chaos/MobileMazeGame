@@ -11,7 +11,7 @@
       "hudkey-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
     },
     "animations": {
-      "hudkey": ["hudkey-1.png", "hudkey-2.png", "hudkey-3.png", "hudkey-4.png", "hudkey-5.png", "hudkey-6.png", "hudkey-7.png", "hudkey-8.png"]
+      "idle": ["hudkey-1.png", "hudkey-2.png", "hudkey-3.png", "hudkey-4.png", "hudkey-5.png", "hudkey-6.png", "hudkey-7.png", "hudkey-8.png"]
     }
   }
   

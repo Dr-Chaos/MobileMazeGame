@@ -1,3 +1,4 @@
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { AnimationStates, animationState } from './animations/animations';
@@ -6,6 +7,8 @@ import { updateLifeHud } from './hud';
 import { startInvulnerabilityTimer } from './invulnerability';
 import { player } from './player';
 import { playerStats } from './stats';
+
+const soundplayerdamage = Sound.from('./sons/bruitages/playerdamage.ogg');
 
 export function damagePlayer(damageNumber: number) {
   if (playerStats.life <= 0) {
@@ -24,4 +27,5 @@ export function damagePlayer(damageNumber: number) {
   playerStats.life -= damageNumber;
   updateLifeHud(playerStats.life);
   animationState.current = AnimationStates.ReceiveDamage;
+  soundplayerdamage.play();
 }

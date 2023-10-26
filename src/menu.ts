@@ -1,7 +1,7 @@
 import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
-import { Sound, sound } from '@pixi/sound';
+import { Sound } from '@pixi/sound';
 import app from './pixi/initialize';
 
 // forme (rectangle)

@@ -1,6 +1,7 @@
 import {
   AnimatedSprite,
 } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { isColliding } from '../math/collisions';
@@ -9,6 +10,8 @@ import { getCoordinates } from '../utils/utils';
 import { updateKeyHud } from '../player/hud';
 import { mapScaling } from '../map/map-layers';
 import { inventory } from '../player/inventory';
+
+const keysound = Sound.from(atlasLoader.keysound);
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -39,6 +42,7 @@ export function keyGameLoop() {
       inventory.keys += 1;
       updateKeyHud(inventory.keys);
       camera.removeChild(key);
+      keysound.play();
       // remove the key from keys array
       keys = keys.filter((iteratedKey) => iteratedKey !== key);
     }

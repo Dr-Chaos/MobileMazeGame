@@ -1,4 +1,5 @@
 import { AnimatedSprite, Text } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { playerStats } from './stats';
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -6,8 +7,9 @@ import { inventory } from './inventory';
 
 const lifeAnimation = new AnimatedSprite(atlasLoader.heart.animations.idle);
 const lifeText = new Text();
-const keyAnimation = new AnimatedSprite(atlasLoader.key.animations.idle);
+const keyAnimation = new AnimatedSprite(atlasLoader.hudkey.animations.idle);
 const keyText = new Text();
+const backgroundmusic = Sound.from(atlasLoader.musicdungeon2);
 
 export function initializeHud() {
   lifeAnimation.play();
@@ -39,6 +41,7 @@ export function initializeHud() {
   keyText.y = lifeText.height + 5;
   app.stage.addChild(keyAnimation);
   app.stage.addChild(keyText);
+  backgroundmusic.play();
 }
 
 // export {

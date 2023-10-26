@@ -1,4 +1,5 @@
 import { Assets, type Texture } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 
 Assets.add({ alias: 'map', src: '/map/map-tileset.json' });
 Assets.add({ alias: 'witchIdle', src: '/witch/idle/witch-idle.json' });
@@ -15,7 +16,17 @@ Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // anim
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
 Assets.add({ alias: 'bossFireball', src: '/boss/bossfireball/bossfireball.json' }); //  animationSpeed = 0.15
 Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // animationSpeed = 1.18
-Assets.add({ alias: 'heart', src: '/heart/heart.json' });
+Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
+Assets.add({ alias: 'hudkey', src: '/hud/hudkey/hudkey.json' });
+Assets.add({ alias: 'musicdungeon2', src: '/sons/musiques/musicdungeon2.mp3' });
+Assets.add({ alias: 'keysound', src: '/sons/bruitages/key.wav' });
+Assets.add({ alias: 'skeletonsound', src: '/sons/bruitages/skeleton.mp3' });
+Assets.add({ alias: 'playerdamagesound', src: '/sons/bruitages/playerdamage.ogg' });
+Assets.add({ alias: 'burn', src: '/sons/bruitages/burn.wav' });
+Assets.add({ alias: 'burn2', src: '/sons/bruitages/burn2.wav' });
+Assets.add({ alias: 'spikesound', src: '/sons/bruitages/spike.wav' });
+Assets.add({ alias: 'leversound', src: '/sons/bruitages/levier.wav' });
+Assets.add({ alias: 'doorsound', src: '/sons/bruitages/door.wav' });
 
 const aliases = [
   'map',
@@ -35,6 +46,17 @@ const aliases = [
   'bossDeath',
   'bossFireball',
   'heart',
+  'hudkey',
+  'musicdungeon2',
+  'keysound',
+  'skeletonsound',
+  'playerdamagesound',
+  'burn',
+  'burn2',
+  'spikesound',
+  'leversound',
+  'doorsound',
+
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;

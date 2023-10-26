@@ -1,14 +1,14 @@
-{ "columns":8,
+{ "columns":9,
  "image":"..\/public\/boss\/bossfireball\/bossfireball.png",
  "imageheight":18,
  "imagewidth":144,
  "margin":0,
  "name":"bossfireball",
  "spacing":0,
- "tilecount":8,
+ "tilecount":9,
  "tiledversion":"1.10.2",
- "tileheight":18,
- "tilewidth":18,
+ "tileheight":16,
+ "tilewidth":16,
  "type":"tileset",
  "version":"1.10"
 }

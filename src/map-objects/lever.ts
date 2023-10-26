@@ -1,4 +1,5 @@
 import { AnimatedSprite } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
@@ -9,6 +10,10 @@ import { spikes } from './spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
+
+const leversound = Sound.from(atlasLoader.leversound);
+const spikesound = Sound.from(atlasLoader.spikesound);
+const doorsound = Sound.from(atlasLoader.doorsound);
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
 export const levers: Lever[] = [];
@@ -31,6 +36,7 @@ export function createLever(x: number, y: number, name: string) {
       if (name === 'lever1') {
         const key1 = keys.find((key) => key.name === 'key1')!;
         key1.visible = true;
+        leversound.play();
       }
     }, 135);
 
@@ -39,6 +45,8 @@ export function createLever(x: number, y: number, name: string) {
       const spikesRoom1 = spikes.filter((spike) => spike.name === 'spikeRoom1');
       for (const spike of spikesRoom1) {
         spike.visible = true;
+        leversound.play();
+        spikesound.play();
         spike.play();
       }
     }
@@ -47,18 +55,23 @@ export function createLever(x: number, y: number, name: string) {
     if (name === 'leverDoorBottom') {
       camera.removeChild(doorRoomBottom);
       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
+      leversound.play();
+      doorsound.play();
     }
 
     // lever boss room
     if (name === 'leverBossGood') {
       gameConditions.leverToAttackTheBoss -= 1;
       console.log(gameConditions.leverToAttackTheBoss);
+      leversound.play();
     }
 
     if (name === 'leverBossBad') {
       for (const spike of spikes) {
         if (spike.name !== 'spikeBossLever') continue;
         spike.visible = true;
+        leversound.play();
+        spikesound.play();
         spike.play();
       }
     }
