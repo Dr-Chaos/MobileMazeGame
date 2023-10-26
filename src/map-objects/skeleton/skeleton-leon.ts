@@ -170,3 +170,13 @@ export function skeletonsGameLoop(delta: number) {
 }
 
 export { skeletons };
+
+// function repoussement(skeletin: Collider, player: Collider): boolean {
+// const overlapX = Math.min(object1.x + object1.width, object2.x + object2.width) - Math.max(object1.x, object2.x);
+// const overlapY = Math.min(object1.y + object1.height, object2.y + object2.height) - Math.max(object1.y, object2.y);
+
+// Calculer 30% de la zone du sprite. .
+// const xhwvauchement = 0.3 * Math.min(object1.width, object1.height);
+// return overlapX > chavauchement|| overlapY > chavauchement|;
+// if (repoussement(player.collider, skeleton.collider)) {
+//  const direction = collisionResponseDirection(player.collider, skeleton.collider);
