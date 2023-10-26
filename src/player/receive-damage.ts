@@ -7,7 +7,9 @@ import { updateLifeHud } from './hud';
 import { startInvulnerabilityTimer } from './invulnerability';
 import { player } from './player';
 import { playerStats } from './stats';
+import { atlasLoader } from '../pixi/atlas-loader';
 
+// const deathsound = Sound.from(atlasLoader.burn2);
 const soundplayerdamage = Sound.from('./sons/bruitages/playerdamage.ogg');
 
 export function damagePlayer(damageNumber: number) {
