@@ -1,25 +1,43 @@
-// import './utils/atlas-generator';
-import './map/map-layers';
-import './map/map-collisions';
+import './index.css';
 import app from './pixi/initialize';
 import { camera } from './camera';
-import './player/move'; // handle move inputs
-import './player/fireball';
-import './map-objects/skull';
-import './map-objects/boss/boss';
-import {
-  SkeletonStates, createSkeleton, gameLoop, skeletons,
-} from './map-objects/skeleton/temporary';
-// aaa
+// import { initialize } from './map/map-layers';
+// import { skeletons } from './map-objects/skeleton';
+// import { initializeFireball } from './player/fireball';
+// import { initializeMap } from './map/map-layers';
+import { clearAndInitializeScene } from './scene';
+import { AnimationStates, animationState } from './player/animations/animations';
+import { updateLifeHud } from './player/hud';
+import { playerStats } from './player/stats';
+import { initializeMenu } from './screens/menu';
+// import { initializeHud } from './player/hud';
 
-app.stage.addChild(camera); // create the world / camera
+initializeMenu();
+// clearAndInitializeScene();
 
-// ici on va créer un squelette
-createSkeleton();
-app.ticker.add(gameLoop);
+// createSkeleton(0, 0, 'special');
 
-document.addEventListener('keydown', (event) => {
-  if (event.code === 'Digit1') skeletons[0].state = SkeletonStates.Idle;
-  if (event.code === 'Digit2') skeletons[0].state = SkeletonStates.Walk;
-  if (event.code === 'Digit3') skeletons[0].state = SkeletonStates.Death;
+// display debug logs when press key 1
+document.addEventListener('keydown', async (event) => {
+  if (event.code !== 'Digit1') return;
+  // const allPixiObjects = app.stage.children;
+
+  // damage the player
+  playerStats.life -= 1;
+  updateLifeHud(playerStats.life);
+  animationState.current = AnimationStates.ReceiveDamage;
+
+  // console.log(camera.children);
 });
+
+// const witchDie = new AnimatedSprite(atlasLoader.witchDamage.animations.damage);
+// witchDie.animationSpeed = 0.2;
+// witchDie.play();
+// camera.addChild(witchDie);
+
+// app.ticker.add(() => {
+//   if (playerStats.life <= 0) {
+//     animationState.current = AnimationStates.Death;
+//     console.log('Die');
+//   }
+// });

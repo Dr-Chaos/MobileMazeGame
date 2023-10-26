@@ -1,13 +1,12 @@
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map-collisions.json';
 import app from '../pixi/initialize';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
-import { camera } from '../camera';
-import { moveSkeleton, skeletons } from '../map-objects/skeleton/skeleton';
+import { moveSkeleton, skeletons } from '../map-objects/skeleton';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -65,16 +64,16 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-app.ticker.add(() => {
+export function mapCollision(delta: number) {
   for (const tile of colliderTiles) {
     // collision with the player
-    if (isColliding(tile, playerHitbox)) {
-      movePlayer(collisionResponseDirection(playerHitbox, tile));
+    if (isColliding(tile, player.hitbox)) {
+      movePlayer(collisionResponseDirection(player.hitbox, tile), delta);
     }
 
     // collision with skeletons
     for (const skeletonObject of skeletons) {
-      const skeletonSprite = skeletonObject.container;
+      const skeletonSprite = skeletonObject.container.sprite;
       if (isColliding(tile, skeletonSprite)) {
         console.log('Collision');
 
@@ -86,13 +85,13 @@ app.ticker.add(() => {
         const collisionAdjustment = collisionResponseDirection(skeletonSprite, tile);
 
         // Ajustez la position du squelette en fonction de la collision.
-        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y);
+        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y, delta);
 
         // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
         if (isColliding(tile, skeletonSprite)) {
-          moveSkeleton(skeletonObject, previousX, previousY);
+          moveSkeleton(skeletonObject, previousX, previousY, delta);
         }
       }
     }
   }
-});
+}

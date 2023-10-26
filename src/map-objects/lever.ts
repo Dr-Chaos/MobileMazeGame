@@ -1,18 +1,17 @@
 import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import app from '../pixi/initialize';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
-import { spikes } from './spikes (les 2)/spike';
+import { spikes } from './spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
-
+export const levers: Lever[] = [];
 export function createLever(x: number, y: number, name: string) {
   const lever = new AnimatedSprite(atlasLoader.lever.animations.idle) as Lever;
   lever.scale.set(mapScaling);
@@ -66,13 +65,16 @@ export function createLever(x: number, y: number, name: string) {
   };
 
   camera.addChild(lever);
+  levers.push(lever);
+}
 
-  app.ticker.add(() => {
-    if (isColliding(playerHitbox, lever)) {
-      movePlayer(collisionResponseDirection(playerHitbox, lever));
+export function leversGameLoop(delta: number) {
+  for (const lever of levers) {
+    if (isColliding(player.hitbox, lever)) {
+      movePlayer(collisionResponseDirection(player.hitbox, lever), delta);
       if (!lever.canBeActivated) return;
       lever.canBeActivated = false;
       lever.animationSpeed = 0.2;
     }
-  });
+  }
 }

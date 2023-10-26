@@ -3,13 +3,12 @@ import {
 } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { getCoordinates } from '../utils/utils';
-import inventory from '../player/inventory';
-import { keyHud } from '../player/hud';
+import { updateKeyHud } from '../player/hud';
 import { mapScaling } from '../map/map-layers';
+import { inventory } from '../player/inventory';
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -29,22 +28,22 @@ export function createKey(x: number, y: number, name: string, isActive = true) {
   keys.push(key);
 }
 
-app.ticker.add(() => {
+export function keyGameLoop() {
   for (const key of keys) {
     if (
       key.visible
       && !key.hasBeenTaken
-      && isColliding(getCoordinates(key), playerHitbox)) {
+      && isColliding(getCoordinates(key), player.hitbox)) {
       key.hasBeenTaken = true;
       console.log('Collision key');
       inventory.keys += 1;
-      keyHud.text = `Keys: ${inventory.keys}`;
+      updateKeyHud(inventory.keys);
       camera.removeChild(key);
       // remove the key from keys array
       keys = keys.filter((iteratedKey) => iteratedKey !== key);
     }
   }
-});
+}
 
 export {
   keys,
