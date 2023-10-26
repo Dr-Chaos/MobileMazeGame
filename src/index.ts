@@ -9,10 +9,11 @@ import { clearAndInitializeScene } from './scene';
 import { AnimationStates, animationState } from './player/animations/animations';
 import { updateLifeHud } from './player/hud';
 import { playerStats } from './player/stats';
+import { initializeMenu } from './screens/menu';
 // import { initializeHud } from './player/hud';
 
-app.stage.addChild(camera); // create the world / camera
-clearAndInitializeScene();
+initializeMenu();
+// clearAndInitializeScene();
 
 // createSkeleton(0, 0, 'special');
 

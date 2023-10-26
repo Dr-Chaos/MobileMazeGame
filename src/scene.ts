@@ -49,7 +49,7 @@ export function removeGameLoops() {
   }
 }
 
-export function clearAndInitializeScene() {
+export function clearScene() {
   // ! clear camera containers and game loop
   clearContainerChildrenRecursively(camera);
   // ! clear all game loops (search on all files: ticker.add)
@@ -66,6 +66,10 @@ export function clearAndInitializeScene() {
   directionHistory.x = [];
   directionHistory.y = [];
 
+  // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
+}
+
+export function initializeScene() {
   // ! TRY TO INITIALIZE ONLY ONE FUNCTION, TO SEE IF IT APPEARS
   // ! AND IS TOTALLY INDEPENDENT FROM OTHER CODE
   // initialize the map
@@ -82,6 +86,4 @@ export function clearAndInitializeScene() {
   initializeHud();
   // initialize game loops
   initializeGameLoops();
-
-  // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
 }
