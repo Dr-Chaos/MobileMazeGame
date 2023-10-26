@@ -15,7 +15,8 @@ Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // anim
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
 Assets.add({ alias: 'bossFireball', src: '/boss/bossfireball/bossfireball.json' }); //  animationSpeed = 0.15
 Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // animationSpeed = 1.18
-Assets.add({ alias: 'heart', src: '/heart/heart.json' });
+Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
+Assets.add({ alias: 'hudKey', src: '/hud/hudkey/hudkey.json' });
 
 const aliases = [
   'map',
@@ -35,6 +36,7 @@ const aliases = [
   'bossDeath',
   'bossFireball',
   'heart',
+  'hudKey',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;

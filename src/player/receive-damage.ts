@@ -8,6 +8,11 @@ import { player } from './player';
 import { playerStats } from './stats';
 
 export function damagePlayer(damageNumber: number) {
+  startInvulnerabilityTimer();
+  playerStats.life -= damageNumber;
+  updateLifeHud(playerStats.life);
+  animationState.current = AnimationStates.ReceiveDamage;
+
   if (playerStats.life <= 0) {
     // remove the fireball
     app.ticker.remove(moveFireball);
@@ -17,11 +22,5 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.y = 0;
     player.hitbox.width = 0;
     player.hitbox.height = 0;
-    return;
   }
-
-  startInvulnerabilityTimer();
-  playerStats.life -= damageNumber;
-  updateLifeHud(playerStats.life);
-  animationState.current = AnimationStates.ReceiveDamage;
 }
