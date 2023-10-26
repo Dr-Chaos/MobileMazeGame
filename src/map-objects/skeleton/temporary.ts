@@ -1,13 +1,13 @@
-import { Container, AnimatedSprite } from 'pixi.js';
+import { Container, AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../../camera';
 // import app from '../../pixi/initialize';
 import { isColliding } from '../../math/collisions';
 import { playerHitbox } from '../../player/player';
 import { atlasLoader } from '../../pixi/atlas-loader';
-// import { mapScaling } from '../../map/map-layers';
+import { mapScaling } from '../../map/map-layers';
 // import { gameConditions } from '../../map/game-conditions';
 // import { doorRoomRight, doorsContainers } from '../door';
-// import { centerIfPivotIsUpperLeft } from '../../utils/utils';
+import { centerIfPivotIsUpperLeft } from '../../utils/utils';
 import { fireball } from '../../player/fireball';
 import { isInvulnerable, startInvulnerabilityTimer } from '../../player/invulnerability';
 import { lifeHud } from '../../player/hud';
@@ -34,7 +34,7 @@ type Skeleton = {
 
 export const skeletons: Skeleton[] = [];
 
-export function createSkeleton() {
+export function createSkeleton(x: number, y: number, name: string) {
   // life
   const life = 5;
   // degats
@@ -43,30 +43,25 @@ export function createSkeleton() {
   const idle = new AnimatedSprite(atlasLoader.skeleton.animations.skeleton);
   // quand on lance le jeu, le skeleton joue l'animation IDLE par defaut
   idle.play();
-  idle.scale.set(3);
   // animation walk
   const walk = new AnimatedSprite(atlasLoader.skeletonwalk.animations.skeletonwalk);
   // on cache walk au lencement du jeu
   walk.play();
-  walk.scale.set(3);
   // animation mort
   const death = new AnimatedSprite(atlasLoader.skeletondeath.animations.skeletondeath);
   death.play();
-  death.scale.set(3);
   // zone detection carrée
   // un carré, x, y, width, height
-  const zoneDetection = {
-    x: 0,
-    y: 0,
-    width: 50,
-    height: 50,
-  };
+
   // vitesse deplacement
   const speed = 1;
   // state du skeleton
   const state = SkeletonStates.Idle;
   // constante contanier
   const container = new Container();
+  container.x = x;
+  container.y = y;
+  container.name = name;
   container.addChild(idle);
   container.addChild(walk);
   container.addChild(death);
@@ -76,10 +71,34 @@ export function createSkeleton() {
   idle.animationSpeed = 0.15;
   walk.animationSpeed = 0.15;
   death.animationSpeed = 0.15;
+  container.scale.set(mapScaling);
 
   // afficher dans le jeu
   camera.addChild(container);
   // create de l'objet skeleton
+  const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
+    {
+      x: container.x,
+      y: container.y,
+      width: container.width,
+      height: container.height,
+    },
+    6.5,
+  );
+  const playerDetectionZone = new Graphics();
+  playerDetectionZone.beginFill('white', 0.5);
+  playerDetectionZone.x = playerDetectionZonePosition.x;
+  playerDetectionZone.y = playerDetectionZonePosition.y;
+  playerDetectionZone.drawRect(0, 0, playerDetectionZonePosition.width, playerDetectionZonePosition.height);
+  playerDetectionZone.visible = true; // dispaly or hide the player detection zone
+  camera.addChild(playerDetectionZone);
+  const zoneDetection = {
+    x: playerDetectionZonePosition.x,
+    y: playerDetectionZonePosition.y,
+    width: playerDetectionZonePosition.width,
+    height: playerDetectionZonePosition.height,
+  };
+
   const skeleton: Skeleton = {
     life,
     degat,
@@ -96,6 +115,9 @@ export function createSkeleton() {
   skeletons.push(skeleton);
 }
 
+// la ya erreur eslint, (reaffection de propieté)
+// créer des méthodes setter dans la classe/objet Skeleton ou de manipuler l'état ?
+// peut-être creer une nouvelle constante ?
 export function moveSkeleton(skeleton: Skeleton, x: number, y: number) {
   skeleton.container.x += x;
   skeleton.container.y += y;
@@ -142,37 +164,42 @@ export function gameLoop() {
         skeleton.walk.visible = false;// Utilisation de votre structure d'animation existante.
         skeleton.death.play();
         camera.removeChild(skeleton.container);
+        // dois-je remove autrement ?
         // Ici, vous pouvez également gérer la suppression du squelette de la liste 'skeletons' si nécessaire.
       }
+    }
+
+    switch (skeleton.state) {
+      case SkeletonStates.Idle:
+        // afficher l'animation idle
+        skeleton.idle.visible = true;
+        // cacher l'animation walk
+        skeleton.walk.visible = false;
+        // cacher l'animation death
+        skeleton.death.visible = false;
+        break;
+      case SkeletonStates.Walk:
+        // cacher l'animation idle
+        skeleton.idle.visible = false;
+        // afficher l'animation walk
+        skeleton.walk.visible = true;
+        // cacher l'animation death
+        skeleton.death.visible = false;
+        break;
+      case SkeletonStates.Death:
+        // cacher l'animation idle
+        skeleton.idle.visible = false;
+        // cacher l'animation walk
+        skeleton.walk.visible = false;
+        // afficher l'animation death
+        skeleton.death.visible = true;
+        break;
+      default:
+        break;
     }
   }
 }
 
-switch (skeleton.state) {
-  case SkeletonStates.Idle:
-    // afficher l'animation idle
-    skeleton.idle.visible = true;
-    // cacher l'animation walk
-    skeleton.walk.visible = false;
-    // cacher l'animation death
-    skeleton.death.visible = false;
-    break;
-  case SkeletonStates.Walk:
-    // cacher l'animation idle
-    skeleton.idle.visible = false;
-    // afficher l'animation walk
-    skeleton.walk.visible = true;
-    // cacher l'animation death
-    skeleton.death.visible = false;
-    break;
-  case SkeletonStates.Death:
-    // cacher l'animation idle
-    skeleton.idle.visible = false;
-    // cacher l'animation walk
-    skeleton.walk.visible = false;
-    // afficher l'animation death
-    skeleton.death.visible = true;
-    break;
-  default:
-    break;
-}
+// meme probleme eslint?
+// p-e je dois juste metttre dans la loop?
+// skeleton doit être defini

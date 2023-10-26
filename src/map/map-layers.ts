@@ -9,7 +9,7 @@ import { centerFromPivot, getCoordinates } from '../utils/utils';
 import {
   createDoorType1Bottom, createDoorType1Top, createDoorType2, createDoorType3PartLeft, createDoorType3PartRight, doorRoomBottom, doorRoomRight, doorRoomTop,
 } from '../map-objects/door';
-import { createSkeleton } from '../map-objects/skeleton/skeleton';
+import { createSkeleton } from '../map-objects/skeleton/temporary';
 import { createSpikeAuto } from '../map-objects/spikes (les 2)/spike-auto';
 import { createBoss } from '../map-objects/boss/boss';
 
