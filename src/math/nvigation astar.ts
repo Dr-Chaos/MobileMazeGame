@@ -1,7 +1,7 @@
 import { Grid } from 'pathfinding';
 import { Finder } from 'pathfinding';
 import map from '../../tiled/map-collision.json';
-import { skeletons } from '../map-objects/skeleton/skeleton';
+import { skeletons } from '../map-objects/skeleton/skeleton3';
 
 
 const gridWidth = 60

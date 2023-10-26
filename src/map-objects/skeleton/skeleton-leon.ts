@@ -176,7 +176,7 @@ export { skeletons };
 // const overlapY = Math.min(object1.y + object1.height, object2.y + object2.height) - Math.max(object1.y, object2.y);
 
 // Calculer 30% de la zone du sprite. .
-// const xhwvauchement = 0.3 * Math.min(object1.width, object1.height);
+// const chevauchement = 0.3 * Math.min(object1.width, object1.height);
 // return overlapX > chavauchement|| overlapY > chavauchement|;
 // if (repoussement(player.collider, skeleton.collider)) {
 //  const direction = collisionResponseDirection(player.collider, skeleton.collider);
