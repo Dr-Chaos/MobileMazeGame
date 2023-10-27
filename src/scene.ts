@@ -1,12 +1,14 @@
 import { camera } from './camera';
+import { bossGameLoop, createBoss } from './map-objects/boss';
 import { doorsCollisionsGameLoop, initializeDoorsContainers, removeDoorRoomTop } from './map-objects/door';
 import { keyGameLoop, keys } from './map-objects/key';
 import { levers, leversGameLoop } from './map-objects/lever';
 import { skeletons, skeletonsGameLoop } from './map-objects/skeleton';
 import { initializeSkulls, skullGameLoop, skulls } from './map-objects/skull';
 import { activeSpikes, spikes } from './map-objects/spike';
-import { activateSpikesAuto, createSpikeAuto, spikesAuto } from './map-objects/spike-auto';
+import { activateSpikesAuto, spikesAuto } from './map-objects/spike-auto';
 import { torches } from './map-objects/torch';
+import { initializeGameConditions } from './map/game-conditions';
 import { mapCollision } from './map/map-collisions';
 import { initializeMap } from './map/map-layers';
 import app from './pixi/initialize';
@@ -35,6 +37,7 @@ gameLoops.push(
   doorsCollisionsGameLoop,
   mapCollision,
   skullGameLoop,
+  bossGameLoop,
 );
 
 export function initializeGameLoops() {
@@ -65,7 +68,6 @@ export function clearScene() {
   skulls.length = 0;
   directionHistory.x = [];
   directionHistory.y = [];
-
   // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
 }
 
@@ -74,9 +76,10 @@ export function initializeScene() {
   // ! TRY TO INITIALIZE ONLY ONE FUNCTION, TO SEE IF IT APPEARS
   // ! AND IF IS TOTALLY INDEPENDENT FROM OTHER CODE
   // initialize the map
+  initializeGameConditions();
   initializeMap();
-  initializeSkulls();
   initializeDoorsContainers();
+  initializeSkulls();
   // initialize player
   initializePlayer();
   initializePlayerAnimations();
@@ -87,6 +90,4 @@ export function initializeScene() {
   initializeHud();
   // initialize game loops
   initializeGameLoops();
-
-  createSpikeAuto(0, 0, 'test');
 }

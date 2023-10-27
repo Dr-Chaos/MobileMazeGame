@@ -1,7 +1,15 @@
 import './index.css';
-import { AnimationStates, animationState } from './player/animations/animations';
-import { updateLifeHud } from './player/hud';
+import {
+  boss,
+  bossGameLoop,
+} from './map-objects/boss';
+import { skeletons } from './map-objects/skeleton';
+import { gameConditions } from './map/game-conditions';
+import app from './pixi/initialize';
+import { inventory } from './player/inventory';
+import { damagePlayer } from './player/receive-damage';
 import { playerStats } from './player/stats';
+
 import { initializeScene } from './scene';
 
 // start on the menu
@@ -9,6 +17,7 @@ import { initializeScene } from './scene';
 
 // ! DURING DEV start directly in the game
 initializeScene();
+app.ticker.add(bossGameLoop);
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
@@ -16,11 +25,20 @@ document.addEventListener('keydown', async (event) => {
   // const allPixiObjects = app.stage.children;
 
   // damage the player
-  playerStats.life -= 1;
-  updateLifeHud(playerStats.life);
-  animationState.current = AnimationStates.ReceiveDamage;
+  // damagePlayer(1);
+
+  playerStats.life = 1000;
+  inventory.keys = 3;
+  gameConditions.leverToAttackTheBoss = 0;
+  skeletons.length = 0;
 
   // for (const children of allPixiObjects) {
   //   console.log(children.name);
   // }
+});
+
+document.addEventListener('keydown', async (event) => {
+  if (event.code !== 'Digit2') return;
+  damagePlayer(100_000);
+  boss.life = 0;
 });
