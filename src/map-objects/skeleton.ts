@@ -16,23 +16,12 @@ type SkeletonContainer = {
   sprite: AnimatedSprite;
   playerDetectionZone: Graphics;
 };
-enum SkeletonStates {
-  Idle = 'Idle',
-  Walk = 'Walk',
-  Death = 'Death',
-}
 
-const movement: { current: SkeletonStates } = {
-  current: SkeletonStates.Idle,
-};
 type Skeleton = {
   container: SkeletonContainer;
   life: number;
   name: string;
   damage: number;
-  idle: AnimatedSprite;
-  walk: AnimatedSprite;
-  death: AnimatedSprite;
 };
 
 let skeletons: Skeleton[] = [];
@@ -45,16 +34,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   sprite.x = x;
   sprite.y = y;
   camera.addChild(sprite);
-  // const idle = new AnimatedSprite(atlasLoader.skeleton.animations.skeleton);
-  // quand on lance le jeu, le skeleton joue l'animation IDLE par defaut
-  // idle.play();
-  // animation walk
-  // const walk = new AnimatedSprite(atlasLoader.skeletonwalk.animations.skeletonwalk);
-  // on cache walk au lencement du jeu
-  // walk.play();
-  // animation mort
-  // const death = new AnimatedSprite(atlasLoader.skeletondeath.animations.skeletondeath);
-  // death.play();
+
   const playerDetectionZone = new Graphics();
   playerDetectionZone.beginFill('white', 0.5);
   const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
@@ -90,24 +70,6 @@ export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: nu
   skeleton.container.playerDetectionZone.y += y * delta;
 }
 
-function handleAnimationState(skeleton: Skeleton) {
-  const animation = skeleton.container.sprite;
-
-  switch (movement.current) {
-    case SkeletonStates.Idle:
-      animation.textures = atlasLoader.skeleton.animations.idle;
-      break;
-    case SkeletonStates.Walk:
-      animation.textures = atlasLoader.skeleton.animations.walk;
-      break;
-    case SkeletonStates.Death:
-      animation.textures = atlasLoader.skeleton.animations.death;
-      break;
-    default:
-      animation.textures = atlasLoader.skeleton.animations.idle;
-  }
-}
-
 function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const playerX = player.hitbox.x;
   const playerY = player.hitbox.y;
@@ -120,16 +82,8 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const normalizedDirectionX = directionX / distance;
   const normalizedDirectionY = directionY / distance;
 
-  const speed = 1;
-
-  // Déplacez le squelette
-  skeleton.container.sprite.x += normalizedDirectionX * speed;
-  skeleton.container.sprite.y += normalizedDirectionY * speed;
-
-  // Vérifiez la collision avec le joueur
-  if (isColliding(skeleton.container.sprite, player.hitbox)) {
-    // Laissez les squelettes continuer à se déplacer vers le joueur même après la collision
-  }
+  const speed = 1.3;
+  moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed, delta);
 }
 
 export function skeletonsGameLoop(delta: number) {
@@ -137,14 +91,11 @@ export function skeletonsGameLoop(delta: number) {
     // if the detection zone is in collision with the player
     if (!isColliding(player.hitbox, skeleton.container.playerDetectionZone)) continue;
     moveSkeletonToPlayer(skeleton, delta);
-    movement.current = SkeletonStates.Walk;
-    skeleton.container.walk;
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.container.sprite, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
       // is the skeleton die
       if (skeleton.life > 0) continue;
-      movement.current = SkeletonStates.Death;
       camera.removeChild(skeleton.container.sprite);
       camera.removeChild(skeleton.container.playerDetectionZone);
       skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
@@ -165,8 +116,8 @@ export function skeletonsGameLoop(delta: number) {
 
     // move skeleton on player collision
     const skeletonASprite = skeleton.container.sprite;
-    const dx = skeletonASprite.x - player.hitbox.x / 2;
-    const dy = skeletonASprite.y - player.hitbox.y / 2;
+    const dx = skeletonASprite.x - player.hitbox.x / 1.3;
+    const dy = skeletonASprite.y - player.hitbox.y / 1.3;
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
@@ -174,12 +125,12 @@ export function skeletonsGameLoop(delta: number) {
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
-      const overlap = minDistance - distanceBetweenSkeletons * 1.6;
-      const adjustX = (overlap / 3 / distanceBetweenSkeletons) * dx;
-      const adjustY = (overlap / 3 / distanceBetweenSkeletons) * dy;
+      const overlap = minDistance - distanceBetweenSkeletons * 1.7;
+      const adjustX = (overlap / distanceBetweenSkeletons) * dx;
+      const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
       // Ajuster les positions pour éviter la superposition
-      moveSkeleton(skeleton, adjustX, adjustY, delta);
+      moveSkeleton(skeleton, adjustX / 2, adjustY / 2, delta);
     // moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
     }
   }
@@ -192,8 +143,8 @@ export function skeletonsGameLoop(delta: number) {
 
       const skeletonASprite = skeletonA.container.sprite;
       const skeletonBSprite = skeletonB.container.sprite;
-      const dx = skeletonASprite.x - skeletonBSprite.x;
-      const dy = skeletonASprite.y - skeletonBSprite.y;
+      const dx = skeletonASprite.x - skeletonBSprite.x / 1.08;
+      const dy = skeletonASprite.y - skeletonBSprite.y / 1.08;
       const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
       // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
@@ -201,9 +152,9 @@ export function skeletonsGameLoop(delta: number) {
 
       if (distanceBetweenSkeletons < minDistance) {
         // Les squelettes sont trop proches, nous devons les repousser
-        const overlap = minDistance - distanceBetweenSkeletons * 1.3;
-        const adjustX = (overlap / distanceBetweenSkeletons) * dx / 2;
-        const adjustY = (overlap / distanceBetweenSkeletons) * dy / 2;
+        const overlap = minDistance - distanceBetweenSkeletons;
+        const adjustX = (overlap / distanceBetweenSkeletons) * dx;
+        const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
         // Ajuster les positions pour éviter la superposition
         moveSkeleton(skeletonA, adjustX / 2, adjustY / 2, delta);
