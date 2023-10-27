@@ -1,5 +1,4 @@
 import './index.css';
-import { createSpikeAuto } from './map-objects/spike-auto';
 import { AnimationStates, animationState } from './player/animations/animations';
 import { updateLifeHud } from './player/hud';
 import { playerStats } from './player/stats';

@@ -8,7 +8,7 @@ import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
-import { centerIfPivotIsUpperLeft, type Rectangle } from '../utils/utils';
+import { type Rectangle } from '../utils/utils';
 
 type SpikeAuto = {
   animation: AnimatedSprite;
