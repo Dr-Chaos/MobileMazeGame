@@ -174,7 +174,7 @@ export function skeletonsGameLoop(delta: number) {
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
-      const overlap = minDistance - distanceBetweenSkeletons * 1.5;
+      const overlap = minDistance - distanceBetweenSkeletons * 1.6;
       const adjustX = (overlap / 3 / distanceBetweenSkeletons) * dx;
       const adjustY = (overlap / 3 / distanceBetweenSkeletons) * dy;
 
