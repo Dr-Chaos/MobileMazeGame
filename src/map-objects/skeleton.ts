@@ -82,7 +82,7 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const normalizedDirectionX = directionX / distance;
   const normalizedDirectionY = directionY / distance;
 
-  const speed = 1.3;
+  const speed = 1;
   moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed, delta);
 }
 
@@ -114,14 +114,16 @@ export function skeletonsGameLoop(delta: number) {
       damagePlayer(1);
     }
 
+    skeleton.container.sprite.alpha = isColliding(player.hitbox, skeleton.container.sprite) ? 0.5 : 1;
+
     // move skeleton on player collision
     const skeletonASprite = skeleton.container.sprite;
-    const dx = skeletonASprite.x - player.hitbox.x / 1.3;
-    const dy = skeletonASprite.y - player.hitbox.y / 1.3;
+    const dx = skeletonASprite.x - player.hitbox.x / 2;
+    const dy = skeletonASprite.y - player.hitbox.y / 2;
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonASprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonASprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
