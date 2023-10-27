@@ -1,21 +1,15 @@
 import './index.css';
-import app from './pixi/initialize';
-import { camera } from './camera';
-// import { initialize } from './map/map-layers';
-// import { skeletons } from './map-objects/skeleton';
-// import { initializeFireball } from './player/fireball';
-// import { initializeMap } from './map/map-layers';
-import { clearAndInitializeScene } from './scene';
+import { createSpikeAuto } from './map-objects/spike-auto';
 import { AnimationStates, animationState } from './player/animations/animations';
 import { updateLifeHud } from './player/hud';
 import { playerStats } from './player/stats';
-import { initializeMenu } from './screens/menu';
-// import { initializeHud } from './player/hud';
+import { initializeScene } from './scene';
 
-initializeMenu();
-// clearAndInitializeScene();
+// start on the menu
+// initializeStartScreen();
 
-// createSkeleton(0, 0, 'special');
+// ! DURING DEV start directly in the game
+initializeScene();
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
@@ -27,17 +21,7 @@ document.addEventListener('keydown', async (event) => {
   updateLifeHud(playerStats.life);
   animationState.current = AnimationStates.ReceiveDamage;
 
-  // console.log(camera.children);
+  // for (const children of allPixiObjects) {
+  //   console.log(children.name);
+  // }
 });
-
-// const witchDie = new AnimatedSprite(atlasLoader.witchDamage.animations.damage);
-// witchDie.animationSpeed = 0.2;
-// witchDie.play();
-// camera.addChild(witchDie);
-
-// app.ticker.add(() => {
-//   if (playerStats.life <= 0) {
-//     animationState.current = AnimationStates.Death;
-//     console.log('Die');
-//   }
-// });

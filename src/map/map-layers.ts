@@ -59,7 +59,9 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
         y: yIteration * map.tileheight,
       };
 
-      const tileCentered = centerFromPivot(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+      const tileCentered = centerFromPivot({
+        x: tilePosition.x, y: tilePosition.y, width: mapSizeInPixel.width, height: mapSizeInPixel.height,
+      }, mapScaling);
       switch (layerName) {
         case 'decorsmurduhaut':
 
@@ -85,7 +87,9 @@ function drawLayer(layerData: number[], zIndex: number, layerName?: string) {
   // draw the tilemap
   tilemap.zIndex = zIndex;
   tilemap.scale.set(mapScaling);
-  const tilemapCentered = centerFromPivot(tilemap.x, tilemap.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+  const tilemapCentered = centerFromPivot({
+    x: tilemap.x, y: tilemap.y, width: mapSizeInPixel.width, height: mapSizeInPixel.height,
+  }, mapScaling);
   tilemap.x = tilemapCentered.x;
   tilemap.y = tilemapCentered.y;
   camera.addChild(tilemap);
@@ -118,7 +122,9 @@ export function initializeMap() {
       // sur l'axe Y nous devons soustraire la hauteur de la tile
       // car tiled positionne la première tile (0,0) en dehors de l'écran, aux lieux de la placer dans la case 1 (première case à l'intérieur de l'écran)
       const tilePosition = { x: layerObject.x, y: layerObject.y - layerObject.height };
-      const positionCentered = centerFromPivot(tilePosition.x, tilePosition.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+      const positionCentered = centerFromPivot({
+        x: tilePosition.x, y: tilePosition.y, width: mapSizeInPixel.width, height: mapSizeInPixel.height,
+      }, mapScaling);
 
       switch (objectType) {
         case 'key':

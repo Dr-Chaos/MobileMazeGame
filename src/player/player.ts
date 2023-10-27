@@ -20,10 +20,10 @@ export function initializePlayer() {
   };
 
   const playerHitbox = {
-    x: -(spriteSize.x / 2) + 6.5, // center of the sprite -/+ x (to adjust playerHitbox.width offset)
-    y: -(spriteSize.y / 2) + 19, // center of the sprite -/+ y (to adjust playerHitbox.height offset)
-    width: 32 - 15, // sprite width -/+ offset
-    height: 48 - 25, // -/+ offset
+    x: -(spriteSize.x / 2) + 12, // center of the sprite -/+ x (to adjust playerHitbox.width offset)
+    y: -(spriteSize.y / 2) + 22, // center of the sprite -/+ y (to adjust playerHitbox.height offset)
+    width: 32 - 23, // sprite width -/+ offset
+    height: 48 - 30, // -/+ offset
   };
 
   camera.addChild(playerContainer);
@@ -36,7 +36,7 @@ export function initializePlayer() {
   playerHitboxDraw.x = playerHitbox.x; // if you keep de default playerContainer.x value (0), simple use playerHitbox.x
   playerHitboxDraw.y = playerHitbox.y; // if you keep de default playerContainer.y value (0), simple use playerHitbox.y
   playerHitboxDraw.drawRect(0, 0, playerHitbox.width, playerHitbox.height);
-  // playerContainer.addChild(playerHitboxDraw); // DRAW HITBOX DURING DEV
+  playerContainer.addChild(playerHitboxDraw); // DRAW HITBOX DURING DEV
 
   player.container = playerContainer;
   player.hitbox = playerHitbox;
