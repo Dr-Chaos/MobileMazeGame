@@ -14,6 +14,7 @@ import { gameConditions } from '../map/game-conditions';
 const leversound = Sound.from(atlasLoader.leversound);
 const spikesound = Sound.from(atlasLoader.spikesound);
 const doorsound = Sound.from(atlasLoader.doorsound);
+const playerdamagesound = Sound.from(atlasLoader.playerdamagesound);
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
 export const levers: Lever[] = [];
@@ -47,6 +48,7 @@ export function createLever(x: number, y: number, name: string) {
         spike.visible = true;
         leversound.play();
         spikesound.play();
+        playerdamagesound.play();
         spike.play();
       }
     }
@@ -72,6 +74,7 @@ export function createLever(x: number, y: number, name: string) {
         spike.visible = true;
         leversound.play();
         spikesound.play();
+        playerdamagesound.play();
         spike.play();
       }
     }

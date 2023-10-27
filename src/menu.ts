@@ -35,7 +35,7 @@ const style = new TextStyle({
   fontSize: 16,
 
 });
-const title = new Text('Witch Dungeon', style);
+const title = new Text('Witch & Skeletons', style);
 
 title.anchor.x = 0.45;
 title.x = app.screen.width / 2;
