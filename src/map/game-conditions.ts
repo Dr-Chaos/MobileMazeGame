@@ -5,7 +5,7 @@ export const gameConditions = {
 };
 
 export function initializeGameConditions() {
-  gameConditions.keysToOpenTopRoom = 5;
+  gameConditions.skeletonToKillToOpenDoor2 = 5;
   gameConditions.keysToOpenTopRoom = 3;
   gameConditions.leverToAttackTheBoss = 2;
 }

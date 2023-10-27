@@ -1,6 +1,8 @@
 import { camera } from './camera';
-import { bossGameLoop, createBoss } from './map-objects/boss';
-import { doorsCollisionsGameLoop, initializeDoorsContainers, removeDoorRoomTop } from './map-objects/door';
+import { bossGameLoop } from './map-objects/boss';
+import {
+  doorsCollisionsGameLoop, doorsContainers, initializeDoorsContainers, removeDoorRoomTop,
+} from './map-objects/door';
 import { keyGameLoop, keys } from './map-objects/key';
 import { levers, leversGameLoop } from './map-objects/lever';
 import { skeletons, skeletonsGameLoop } from './map-objects/skeleton';
@@ -68,6 +70,7 @@ export function clearScene() {
   skulls.length = 0;
   directionHistory.x = [];
   directionHistory.y = [];
+  doorsContainers.list = [];
   // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
 }
 

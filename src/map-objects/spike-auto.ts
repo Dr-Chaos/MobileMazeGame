@@ -36,17 +36,30 @@ export function createSpikeAuto(x: number, y: number, name: string) {
     spike.visible = false;
   };
 
-  const hitbox = {
-    x: spike.x + 3,
-    y: spike.y + 11,
-    width: spike.width - 5,
-    height: spike.height - 12,
+  const hitbox: Rectangle = {
+    x: 0,
+    y: 0,
+    width: 0,
+    height: 0,
   };
+
+  if (name.includes('|largeHitbox|')) {
+    hitbox.x = spike.x;
+    hitbox.y = spike.y;
+    hitbox.width = spike.width;
+    hitbox.height = spike.height;
+  } else {
+    hitbox.x = spike.x + 3;
+    hitbox.y = spike.y + 11;
+    hitbox.width = spike.width - 5;
+    hitbox.height = spike.height - 12;
+  }
+
   const hitboxDraw = new Graphics();
   hitboxDraw.beginFill('white', 0.1);
   hitboxDraw.x = hitbox.x;
   hitboxDraw.y = hitbox.y;
-  hitboxDraw.drawRect(0, 0, hitbox.width, hitbox.height);
+  // hitboxDraw.drawRect(0, 0, hitbox.width, hitbox.height); // ! DURIN DEW, DRAW HITBOX
   camera.addChild(hitboxDraw);
 
   spikesAuto.push({

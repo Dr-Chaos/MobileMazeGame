@@ -7,6 +7,7 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
+import { camera } from '../camera';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -19,7 +20,7 @@ mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 mapCollidersDraw.zIndex = 2;
-// camera.addChild(mapCollidersDraw); // DRAW HITBOXES DURING DEV
+// camera.addChild(mapCollidersDraw); // ! DRAW HITBOXES DURING DEV
 const mapSizeInPixel = {
   width: map.width * map.tilewidth,
   height: map.height * map.tileheight,
