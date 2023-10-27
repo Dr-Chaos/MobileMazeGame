@@ -84,7 +84,7 @@ export function createBoss(x: number, y: number) {
     fireballDraw.beginFill('yellow', 0.1);
     fireballDraw.drawRect(0, 0, fireballOne.width, fireballOne.height);
     fireballDraw.zIndex = -1;
-    boss.fireballsContainer.addChild(fireballDraw); // ! DURING DEV, DISPLAY FIREBALL HITBOX
+    // boss.fireballsContainer.addChild(fireballDraw); // ! DURING DEV, DISPLAY FIREBALL HITBOX
   }
 
   boss.fireballsContainer.x = x;

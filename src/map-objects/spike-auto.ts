@@ -83,7 +83,6 @@ export function activateSpikesAuto() {
     // ! YOU MUST PLACE THIS CONDITION HERE, AFTER CHECKING IF SPIKE IS ACTIVATE, BECAUSE PREVIOUSLY
     // ! WE SET visible = true
     if (spike.animation.visible && !isInvulnerable() && isColliding(player.hitbox, spike.hitbox)) {
-      console.log('Damage');
       damagePlayer(1);
     }
   }

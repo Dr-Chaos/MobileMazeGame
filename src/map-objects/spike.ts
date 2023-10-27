@@ -38,7 +38,7 @@ export function createSpike(x: number, y: number, name: string, visible = false)
   hitboxDraw.x = hitbox.x;
   hitboxDraw.y = hitbox.y;
   hitboxDraw.drawRect(0, 0, hitbox.width, hitbox.height);
-  camera.addChild(hitboxDraw);
+  // camera.addChild(hitboxDraw); // ! DURING DEV, DRAW HITBOX
 
   spikes.push({
     sprite: spike,
