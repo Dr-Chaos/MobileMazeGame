@@ -8,6 +8,7 @@ camera.x = app.screen.width / 2;
 camera.y = app.screen.height / 2;
 camera.sortableChildren = true;
 camera.scale.set(2);
+camera.name = 'camera';
 
 const cameraCenter = {
   width: 2,

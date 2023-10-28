@@ -1,20 +1,13 @@
 import './index.css';
-import app from './pixi/initialize';
-import { camera } from './camera';
-// import { initialize } from './map/map-layers';
-// import { skeletons } from './map-objects/skeleton';
-// import { initializeFireball } from './player/fireball';
-// import { initializeMap } from './map/map-layers';
-import { clearAndInitializeScene } from './scene';
-import { AnimationStates, animationState } from './player/animations/animations';
-import { updateLifeHud } from './player/hud';
-import { playerStats } from './player/stats';
-// import { initializeHud } from './player/hud';
+import { clearScene, initializeScene } from './scene';
+import { initializeStartScreen } from './screens/start';
 
-app.stage.addChild(camera); // create the world / camera
-clearAndInitializeScene();
+// start on the menu
+initializeStartScreen();
 
-// createSkeleton(0, 0, 'special');
+// ! DURING DEV start directly in the game
+// clearScene();
+// initializeScene();
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
@@ -22,21 +15,29 @@ document.addEventListener('keydown', async (event) => {
   // const allPixiObjects = app.stage.children;
 
   // damage the player
-  playerStats.life -= 1;
-  updateLifeHud(playerStats.life);
-  animationState.current = AnimationStates.ReceiveDamage;
+  // damagePlayer(1);
 
-  // console.log(camera.children);
+  // to test the boss
+  // playerStats.life = 1000;
+  // inventory.keys = 3;
+  // gameConditions.leverToAttackTheBoss = 0;
+  // skeletons.length = 0;
+  // boss.life = 1;
+
+  // for (const children of allPixiObjects) {
+  //   console.log(children.name);
+  // }
 });
 
-// const witchDie = new AnimatedSprite(atlasLoader.witchDamage.animations.damage);
-// witchDie.animationSpeed = 0.2;
-// witchDie.play();
-// camera.addChild(witchDie);
+document.addEventListener('keydown', async (event) => {
+  if (event.code !== 'Digit2') return;
+  // damagePlayer(100_000);
+  // boss.life = 0;
+  clearScene();
+  initializeScene();
+});
 
+// ! UPDATE FPS HUD DURING DEV
 // app.ticker.add(() => {
-//   if (playerStats.life <= 0) {
-//     animationState.current = AnimationStates.Death;
-//     console.log('Die');
-//   }
+//   updateFpsText(app.ticker.FPS);
 // });
