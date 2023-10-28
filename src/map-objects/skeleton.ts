@@ -1,6 +1,6 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
-import { collisionResponseDirection, isColliding } from '../math/collisions';
+import { isColliding } from '../math/collisions';
 import { player } from '../player/player';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
@@ -9,7 +9,6 @@ import { doorRoomRight, doorsContainers } from './door';
 import { centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
-import { movePlayer } from '../player/move';
 import { damagePlayer } from '../player/receive-damage';
 
 type SkeletonContainer = {
@@ -123,7 +122,7 @@ export function skeletonsGameLoop(delta: number) {
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonSprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonSprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser

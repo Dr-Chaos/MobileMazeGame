@@ -10,7 +10,6 @@ import { updateFpsText } from './player/hud';
 import { inventory } from './player/inventory';
 import { damagePlayer } from './player/receive-damage';
 import { playerStats } from './player/stats';
-
 import { initializeScene } from './scene';
 import { initializeGameOverScreen } from './screens/game-over';
 import { initializeStartScreen } from './screens/start';
