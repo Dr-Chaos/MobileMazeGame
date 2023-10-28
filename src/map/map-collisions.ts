@@ -7,7 +7,6 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
-import { camera } from '../camera';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -26,7 +25,7 @@ const mapSizeInPixel = {
 };
 
 export function initializeMapCollision() {
-  camera.addChild(mapCollidersDraw); // ! DRAW HITBOXES DURING DEV
+  // camera.addChild(mapCollidersDraw); // ! DRAW HITBOXES DURING DEV
 
   let totalIterations = 0;
   for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
