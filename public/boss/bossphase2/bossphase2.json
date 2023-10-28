@@ -1,0 +1,12 @@
+{
+  "meta": { "image": "bossphase2.png", "size": { "w": 72, "h": 18 }, "scale": "1" },
+  "frames": {
+    "bossphase2-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+    "bossphase2-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+    "bossphase2-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+    "bossphase2-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
+  },
+  "animations": {
+    "idle": ["bossphase2-1.png", "bossphase2-2.png", "bossphase2-3.png", "bossphase2-4.png"]
+  }
+}

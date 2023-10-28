@@ -2,6 +2,7 @@ import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from './pixi/initialize';
+import { atlasLoader } from './pixi/atlas-loader';
 
 // forme (rectangle)
 const youwin = new Graphics();
@@ -20,24 +21,29 @@ screenwinner.anchor.y = 0.5;
 screenwinner.y = app.screen.height / 2;
 
 const style = new TextStyle({
+  dropShadowColor: '#0a76db',
+  fill: [
+    '#ba7956',
+    '#c97090',
 
-  dropShadowBlur: 3,
-  dropShadowDistance: 12,
+  ],
+  fillGradientStops: [
+    0.2,
+  ],
+  fontFamily: atlasLoader.yoster.family,
   fontVariant: 'small-caps',
-  fontWeight: 'bold',
-  letterSpacing: 10,
-  lineJoin: 'bevel',
-  stroke: '#d20419',
-  strokeThickness: 5,
-  fontSize: 20,
-
+  fontWeight: 'bolder',
+  letterSpacing: 5,
+  stroke: '#a4c09f',
+  strokeThickness: 2,
+  fontSize: 60,
 });
 const title = new Text('You Win !', style);
 
 title.anchor.x = 0.5;
 title.x = app.screen.width / 2;
 
-title.anchor.y = 4.3;
+title.anchor.y = 2.9;
 title.y = app.screen.height / 2;
 
 app.stage.addChild(title);
@@ -45,12 +51,12 @@ app.stage.addChild(title);
 // image
 
 // lorsque l'on clique sur le boutton
-const replaybutton = new Text('Replay', style);
+const replaybutton = new Text('> Replay', style);
 
 replaybutton.anchor.x = 0.5;
 replaybutton.x = app.screen.width / 2;
 
-replaybutton.anchor.y = 1;
+replaybutton.anchor.y = -1.8;
 replaybutton.y = app.screen.height / 2;
 
 replaybutton.interactive = true;

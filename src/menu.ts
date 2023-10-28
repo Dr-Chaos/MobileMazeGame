@@ -3,6 +3,7 @@ import {
 } from 'pixi.js';
 import { Sound } from '@pixi/sound';
 import app from './pixi/initialize';
+import { atlasLoader } from './pixi/atlas-loader';
 
 // forme (rectangle)
 const menu = new Graphics();
@@ -21,26 +22,31 @@ start.anchor.y = 0.5;
 start.y = app.screen.height / 2;
 
 const style = new TextStyle({
-  dropShadow: true,
-  dropShadowAlpha: 0.8,
-  dropShadowAngle: -1.5,
-  dropShadowBlur: 3,
-  dropShadowDistance: 12,
-  fontVariant: 'small-caps',
-  fontWeight: 'bold',
-  letterSpacing: 9,
-  lineJoin: 'bevel',
-  stroke: '#d20419',
-  strokeThickness: 3,
-  fontSize: 16,
+  dropShadowColor: '#0a76db',
+  fill: [
 
+    '#68386e',
+    '#a94f05',
+    '#8b5a5d',
+
+  ],
+  fillGradientStops: [
+    0.2,
+  ],
+  fontFamily: atlasLoader.yoster.family,
+  fontVariant: 'small-caps',
+  fontWeight: 'bolder',
+  letterSpacing: 5,
+  stroke: '#3e6e38',
+  strokeThickness: 6,
+  fontSize: 60,
 });
-const title = new Text('Witch & Skeletons', style);
+const title = new Text('Witch+Skeletons \n', style);
 
 title.anchor.x = 0.45;
 title.x = app.screen.width / 2;
 
-title.anchor.y = 6.1;
+title.anchor.y = 2.4;
 title.y = app.screen.height / 2;
 
 app.stage.addChild(title);
@@ -50,12 +56,12 @@ app.stage.addChild(title);
 const clicksound = Sound.from('./sons/bruitages/key.wav');
 
 // lorsque l'on clique sur le boutton
-const playbutton = new Text('Play', style);
+const playbutton = new Text('> Play', style);
 
-playbutton.anchor.x = 0.43;
+playbutton.anchor.x = 0.63;
 playbutton.x = app.screen.width / 2;
 
-playbutton.anchor.y = 1.5;
+playbutton.anchor.y = -1.5;
 playbutton.y = app.screen.height / 2;
 
 playbutton.interactive = true;
@@ -69,5 +75,4 @@ const backgroundmusic = Sound.from({
   autoPlay: true,
 
 });
-
 app.stage.addChild(backgroundmusic);

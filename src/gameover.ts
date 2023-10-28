@@ -2,6 +2,7 @@ import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from './pixi/initialize';
+import { atlasLoader } from './pixi/atlas-loader';
 
 // forme (rectangle)
 const gameover = new Graphics();
@@ -19,25 +20,30 @@ screenloser.x = app.screen.width / 2;
 screenloser.anchor.y = 0.5;
 screenloser.y = app.screen.height / 2;
 
-const style = new TextStyle({
-
-  dropShadowBlur: 3,
-  dropShadowDistance: 12,
+cconst style = new TextStyle({
+  dropShadowColor: '#0a76db',
+  fill: [
+    '#14520C',
+    // '#510876',
+    '#738C74',
+  ],
+  fillGradientStops: [
+    0.2,
+  ],
+  fontFamily: atlasLoader.yoster.family,
   fontVariant: 'small-caps',
-  fontWeight: 'bold',
-  letterSpacing: 16,
-  lineJoin: 'bevel',
-  stroke: '#d20419',
-  strokeThickness: 5,
-  fontSize: 25,
-
+  fontWeight: 'bolder',
+  letterSpacing: 5,
+  stroke: '794F6C',
+  strokeThickness: 2,
+  fontSize: 60,
 });
 const title = new Text('Game Over', style);
 
 title.anchor.x = 0.5;
 title.x = app.screen.width / 2;
 
-title.anchor.y = 6;
+title.anchor.y = 2.9;
 title.y = app.screen.height / 2;
 
 app.stage.addChild(title);
@@ -45,12 +51,12 @@ app.stage.addChild(title);
 // image
 
 // lorsque l'on clique sur le boutton
-const replaybutton = new Text('Replay', style);
+const replaybutton = new Text('> Replay', style);
 
 replaybutton.anchor.x = 0.5;
 replaybutton.x = app.screen.width / 2;
 
-replaybutton.anchor.y = -3;
+replaybutton.anchor.y = -0.55;
 replaybutton.y = app.screen.height / 2;
 
 replaybutton.interactive = true;

@@ -27,6 +27,8 @@ Assets.add({ alias: 'burn2', src: '/sons/bruitages/burn2.wav' });
 Assets.add({ alias: 'spikesound', src: '/sons/bruitages/spike.wav' });
 Assets.add({ alias: 'leversound', src: '/sons/bruitages/levier.wav' });
 Assets.add({ alias: 'doorsound', src: '/sons/bruitages/door.wav' });
+Assets.add({ alias: 'yoster', src: '/font/yoster.ttf' });
+Assets.add({ alias: 'dungeonmusic', src: '/sons/musiques/musicdungeon2.mp3' });
 
 const aliases = [
   'map',
@@ -56,6 +58,8 @@ const aliases = [
   'spikesound',
   'leversound',
   'doorsound',
+  'yoster',
+  'dungeonmusic',
 
 ];
 
