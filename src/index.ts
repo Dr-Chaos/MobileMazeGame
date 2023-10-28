@@ -1,13 +1,20 @@
+import { camera } from './camera';
 import './index.css';
+import app from './pixi/initialize';
+import { fireball } from './player/fireball';
+import { initializeJoystick, joystickGameLoop } from './player/mobile-joystick';
 import { clearScene, initializeScene } from './scene';
 import { initializeStartScreen } from './screens/start';
 
 // start on the menu
-initializeStartScreen();
+// initializeStartScreen();
 
 // ! DURING DEV start directly in the game
-// clearScene();
-// initializeScene();
+clearScene();
+initializeScene();
+initializeJoystick();
+app.ticker.add(joystickGameLoop);
+camera.removeChild(fireball);
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
