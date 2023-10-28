@@ -3,7 +3,7 @@ import {
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { initializeScene } from '../scene';
-import { clearStage } from '../utils/utils';
+import { clearStage, play } from '../utils/utils';
 
 export function initializeGameOverScreen() {
   const background = new Graphics();
@@ -49,8 +49,10 @@ export function initializeGameOverScreen() {
   playAgainButton.y = app.screen.height / 2;
   playAgainButton.eventMode = 'dynamic';
   playAgainButton.on('click', () => {
-    clearStage();
-    initializeScene();
+    play();
+  });
+  playAgainButton.on('touchstart', () => {
+    play();
   });
   app.stage.addChild(playAgainButton);
 }
