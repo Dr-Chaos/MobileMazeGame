@@ -47,7 +47,7 @@ export function initializeGameOverScreen() {
   playAgainButton.x = app.screen.width / 2;
   playAgainButton.anchor.y = 1.5;
   playAgainButton.y = app.screen.height / 2;
-  playAgainButton.interactive = true;
+  playAgainButton.eventMode = 'dynamic';
   playAgainButton.on('click', () => {
     clearStage();
     initializeScene();

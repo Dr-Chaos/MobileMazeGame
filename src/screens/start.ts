@@ -46,7 +46,7 @@ export function initializeStartScreen() {
   playButton.x = app.screen.width / 2;
   playButton.anchor.y = 1.5;
   playButton.y = app.screen.height / 2;
-  playButton.interactive = true;
+  playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     clearStage();
     initializeScene();

@@ -95,6 +95,7 @@ export function createBoss(x: number, y: number) {
 export function activateBossFireballs() {
   const fireballs = [fireballOne, fireballTwo, fireballThree];
   for (const iteratedFireball of fireballs) {
+    iteratedFireball.play();
     iteratedFireball.visible = true;
   }
 }
