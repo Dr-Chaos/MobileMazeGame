@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "image": "bossnored.png",
+    "size": { "w": 72, "h": 18 },
+    "scale": "1"
+  },
+  "frames": {
+    "bossnored-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+    "bossnored-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+    "bossnored-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+    "bossnored-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
+  },
+  "animations": {
+    "bossnored": [
+      "bossnored-1.png",
+      "bossnored-2.png",
+      "bossnored-3.png",
+      "bossnored-4.png"
+    ]
+  }
+}
