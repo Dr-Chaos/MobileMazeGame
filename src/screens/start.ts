@@ -2,8 +2,8 @@ import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from '../pixi/initialize';
-import { initializeScene } from '../scene';
-import { clearStage } from '../utils/utils';
+import { play } from '../utils/utils';
+import { atlasLoader } from '../pixi/atlas-loader';
 
 export function initializeStartScreen() {
   const background = new Graphics();
@@ -20,7 +20,10 @@ export function initializeStartScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
+  // console.log(atlasLoader.yoster);
+
   const titleStyle = new TextStyle({
+    fontFamily: atlasLoader.yoster.family,
     dropShadow: true,
     dropShadowAlpha: 0.8,
     dropShadowAngle: -1.5,
@@ -34,7 +37,7 @@ export function initializeStartScreen() {
     strokeThickness: 3,
     fontSize: 16,
   });
-  const title = new Text('Witch Dungeon', titleStyle);
+  const title = new Text('Witch+Skeletons', titleStyle);
   title.anchor.x = 0.45;
   title.x = app.screen.width / 2;
   title.anchor.y = 6.1;
@@ -48,8 +51,10 @@ export function initializeStartScreen() {
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
-    clearStage();
-    initializeScene();
+    play();
+  });
+  playButton.on('touchstart', () => {
+    play();
   });
   app.stage.addChild(playButton);
 }

@@ -15,11 +15,12 @@ Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
 Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // animationSpeed = 0.18
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
+Assets.add({ alias: 'bossActivated', src: '/boss/boss-activated/boss-activated.json' });
 Assets.add({ alias: 'bossFireball', src: '/boss/bossfireball/v2/bossfireball.json' }); //  animationSpeed = 0.15
 Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // animationSpeed = 1.18
 Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
 Assets.add({ alias: 'hudKey', src: '/hud/hudkey/hudkey.json' });
-Assets.add({ alias: 'bossnored', src: '/boss/bossnored/bossnored.json' });
+Assets.add({ alias: 'yoster', src: '/fonts/yoster.ttf' });
 
 const aliases = [
   'map',
@@ -38,14 +39,15 @@ const aliases = [
   'lever',
   'fireball',
   'boss',
+  'bossActivated',
   'bossDeath',
   'bossFireball',
   'heart',
   'hudKey',
-  'bossnored',
+  'yoster',
 ];
 
-type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;
+type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }> & Record<string, FontFace>;
 const atlasLoader: AtlasLoader = await Assets.load(aliases);
 
 export { atlasLoader };

@@ -1,5 +1,6 @@
 import { Container } from 'pixi.js';
 import app from '../pixi/initialize';
+import { initializeScene } from '../scene';
 
 export type Rectangle = {x: number; y: number; width: number; height: number};
 export function getCoordinates(object: Rectangle) {
@@ -48,4 +49,9 @@ export function clearContainerChildrenRecursively(parent: Container) {
 
 export function clearStage() {
   clearContainerChildrenRecursively(app.stage);
+}
+
+export function play() {
+  clearStage();
+  initializeScene();
 }

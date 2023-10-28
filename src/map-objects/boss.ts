@@ -120,7 +120,7 @@ function moveBossFireballs() {
   bossAngle2 += 0.07 / 2;
 }
 
-const bossnoredanimation = new AnimatedSprite(atlasLoader.bossnored.animations.bossnored);
+const bossnoredanimation = new AnimatedSprite(atlasLoader.bossActivated.animations.default);
 
 export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss

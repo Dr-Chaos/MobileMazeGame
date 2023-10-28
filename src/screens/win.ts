@@ -2,8 +2,7 @@ import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from '../pixi/initialize';
-import { initializeScene } from '../scene';
-import { clearStage } from '../utils/utils';
+import { play } from '../utils/utils';
 
 export function initializeWinScreen() {
   const background = new Graphics();
@@ -48,8 +47,10 @@ export function initializeWinScreen() {
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
-    clearStage();
-    initializeScene();
+    play();
+  });
+  playButton.on('touchstart', () => {
+    play();
   });
   app.stage.addChild(playButton);
 }

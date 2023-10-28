@@ -11,7 +11,7 @@ import { activeSpikes, spikes } from './map-objects/spike';
 import { activateSpikesAuto, spikesAuto } from './map-objects/spike-auto';
 import { torches } from './map-objects/torch';
 import { initializeGameConditions } from './map/game-conditions';
-import { mapCollision } from './map/map-collisions';
+import { colliderTiles, initializeMapCollision, mapCollision } from './map/map-collisions';
 import { initializeMap } from './map/map-layers';
 import app from './pixi/initialize';
 import { animationsGameLoop, initializePlayerAnimations } from './player/animations/animations';
@@ -37,9 +37,9 @@ gameLoops.push(
   keyGameLoop,
   removeDoorRoomTop,
   doorsCollisionsGameLoop,
-  mapCollision,
   skullGameLoop,
   bossGameLoop,
+  mapCollision,
 );
 
 export function initializeGameLoops() {
@@ -71,6 +71,7 @@ export function clearScene() {
   directionHistory.x = [];
   directionHistory.y = [];
   doorsContainers.list = [];
+  colliderTiles.length = 0;
   // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
 }
 
@@ -81,6 +82,7 @@ export function initializeScene() {
   // initialize the map
   initializeGameConditions();
   initializeMap();
+  initializeMapCollision();
   initializeDoorsContainers();
   initializeSkulls();
   // initialize player
@@ -96,6 +98,6 @@ export function initializeScene() {
 }
 
 export function uninitializeScene() {
-  removeGameLoops();
   clearScene();
+  removeGameLoops();
 }
