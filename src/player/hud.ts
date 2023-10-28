@@ -45,7 +45,7 @@ export function initializeHud() {
   app.stage.addChild(keyAnimation);
   app.stage.addChild(keyText);
 
-  fpsText.x = 10;
+  fpsText.x = 20;
   fpsText.y = lifeText.height + keyText.height + 10;
   fpsText.style = {
     fill: 'white',
