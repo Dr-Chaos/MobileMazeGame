@@ -36,10 +36,10 @@ export function createLever(x: number, y: number, name: string) {
 
     // levier 2, 3 et 4
     if (name === 'lever2' || name === 'lever3' || name === 'lever4') {
-      const spikesRoom1 = spikes.filter((spike) => spike.name === 'spikeRoom1');
+      const spikesRoom1 = spikes.filter((spike) => spike.sprite.name === 'spikeRoom1');
       for (const spike of spikesRoom1) {
-        spike.visible = true;
-        spike.play();
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
 
@@ -57,9 +57,9 @@ export function createLever(x: number, y: number, name: string) {
 
     if (name === 'leverBossBad') {
       for (const spike of spikes) {
-        if (spike.name !== 'spikeBossLever') continue;
-        spike.visible = true;
-        spike.play();
+        if (spike.sprite.name !== 'spikeBossLever') continue;
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
   };

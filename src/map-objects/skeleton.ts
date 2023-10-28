@@ -24,7 +24,7 @@ type Skeleton = {
   damage: number;
 };
 
-let skeletons: Skeleton[] = [];
+export let skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number, name: string) {
   const sprite = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
@@ -57,7 +57,7 @@ export function createSkeleton(x: number, y: number, name: string) {
       sprite,
       playerDetectionZone,
     },
-    life: 35,
+    life: 35, // 35
     damage: 1,
     name,
   });
@@ -117,13 +117,13 @@ export function skeletonsGameLoop(delta: number) {
     skeleton.container.sprite.alpha = isColliding(player.hitbox, skeleton.container.sprite) ? 0.5 : 1;
 
     // move skeleton on player collision
-    const skeletonASprite = skeleton.container.sprite;
-    const dx = skeletonASprite.x - player.hitbox.x / 2;
-    const dy = skeletonASprite.y - player.hitbox.y / 2;
+    const skeletonSprite = skeleton.container.sprite;
+    const dx = skeletonSprite.x - player.hitbox.x / 2;
+    const dy = skeletonSprite.y - player.hitbox.y / 2;
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonASprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonSprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
@@ -165,5 +165,3 @@ export function skeletonsGameLoop(delta: number) {
     }
   }
 }
-
-export { skeletons };

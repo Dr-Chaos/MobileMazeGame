@@ -1,5 +1,8 @@
 import { camera } from './camera';
-import { doorsCollisionsGameLoop, initializeDoorsContainers, removeDoorRoomTop } from './map-objects/door';
+import { bossGameLoop } from './map-objects/boss';
+import {
+  doorsCollisionsGameLoop, doorsContainers, initializeDoorsContainers, removeDoorRoomTop,
+} from './map-objects/door';
 import { keyGameLoop, keys } from './map-objects/key';
 import { levers, leversGameLoop } from './map-objects/lever';
 import { skeletons, skeletonsGameLoop } from './map-objects/skeleton';
@@ -7,6 +10,7 @@ import { initializeSkulls, skullGameLoop, skulls } from './map-objects/skull';
 import { activeSpikes, spikes } from './map-objects/spike';
 import { activateSpikesAuto, spikesAuto } from './map-objects/spike-auto';
 import { torches } from './map-objects/torch';
+import { initializeGameConditions } from './map/game-conditions';
 import { mapCollision } from './map/map-collisions';
 import { initializeMap } from './map/map-layers';
 import app from './pixi/initialize';
@@ -18,7 +22,7 @@ import { moveGameLoop } from './player/move';
 import { directionHistory } from './player/move-direction';
 import { initializePlayer } from './player/player';
 import { initializePlayerStats } from './player/stats';
-import { clearContainerChildrenRecursively } from './utils/utils';
+import { clearStage } from './utils/utils';
 
 export const gameLoops: Array<(delta: number) => void> = [];
 
@@ -35,6 +39,7 @@ gameLoops.push(
   doorsCollisionsGameLoop,
   mapCollision,
   skullGameLoop,
+  bossGameLoop,
 );
 
 export function initializeGameLoops() {
@@ -50,8 +55,8 @@ export function removeGameLoops() {
 }
 
 export function clearScene() {
-  // ! clear camera containers and game loop
-  clearContainerChildrenRecursively(camera);
+  // ! clear stage containers
+  clearStage();
   // ! clear all game loops (search on all files: ticker.add)
   removeGameLoops();
 
@@ -65,17 +70,19 @@ export function clearScene() {
   skulls.length = 0;
   directionHistory.x = [];
   directionHistory.y = [];
-
+  doorsContainers.list = [];
   // ! PENSEZ EGALEMENT A RESET TOUS LES STATES DES STATES MACHINES
 }
 
 export function initializeScene() {
+  app.stage.addChild(camera);
   // ! TRY TO INITIALIZE ONLY ONE FUNCTION, TO SEE IF IT APPEARS
-  // ! AND IS TOTALLY INDEPENDENT FROM OTHER CODE
+  // ! AND IF IS TOTALLY INDEPENDENT FROM OTHER CODE
   // initialize the map
+  initializeGameConditions();
   initializeMap();
-  initializeSkulls();
   initializeDoorsContainers();
+  initializeSkulls();
   // initialize player
   initializePlayer();
   initializePlayerAnimations();
@@ -86,4 +93,9 @@ export function initializeScene() {
   initializeHud();
   // initialize game loops
   initializeGameLoops();
+}
+
+export function uninitializeScene() {
+  removeGameLoops();
+  clearScene();
 }

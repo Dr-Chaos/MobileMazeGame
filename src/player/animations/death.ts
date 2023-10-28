@@ -2,10 +2,8 @@ import {
   AnimatedSprite,
 } from 'pixi.js';
 import { atlasLoader } from '../../pixi/atlas-loader';
-import { initializeMenu } from '../../screens/menu';
-import { clearContainerChildrenRecursively } from '../../utils/utils';
-import { camera } from '../../camera';
-import { clearScene } from '../../scene';
+import { clearScene, uninitializeScene } from '../../scene';
+import { initializeGameOverScreen } from '../../screens/game-over';
 
 const witchDeathAnimation = new AnimatedSprite(atlasLoader.witchDeath.animations.default);
 // witchIdleAnimation.scale.set(2);
@@ -17,8 +15,8 @@ witchDeathAnimation.onLoop = () => {
   witchDeathAnimation.gotoAndStop(lastFrameIndex);
 
   setTimeout(() => {
-    clearScene();
-    initializeMenu();
+    uninitializeScene();
+    initializeGameOverScreen();
   }, 700);
 };
 

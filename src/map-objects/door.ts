@@ -76,14 +76,9 @@ doorRoomTop.name = 'doorRoomTop';
 export { doorRoomTop };
 
 // DOORS CONTAINERS
-const doorsContainers = {
-  list: [
-    doorRoomBottom,
-    doorRoomRight,
-    doorRoomTop,
-  ],
+export const doorsContainers: { list: Container[] } = {
+  list: [],
 };
-export { doorsContainers };
 
 // DOORS COLLISIONS
 export function doorsCollisionsGameLoop(delta: number) {
@@ -115,6 +110,11 @@ export function removeDoorRoomTop() {
 }
 
 export function initializeDoorsContainers() {
+  doorsContainers.list = [
+    doorRoomBottom,
+    doorRoomRight,
+    doorRoomTop,
+  ];
   camera.addChild(doorRoomTop);
   camera.addChild(doorRoomRight);
   camera.addChild(doorRoomBottom);
