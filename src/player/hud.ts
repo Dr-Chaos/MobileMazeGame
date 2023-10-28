@@ -50,7 +50,7 @@ export function initializeHud() {
   fpsText.style = {
     fill: 'white',
   };
-  app.stage.addChild(fpsText);
+  // app.stage.addChild(fpsText); // ! DURING DEV, DISPLAY FPS
 }
 
 // export {
