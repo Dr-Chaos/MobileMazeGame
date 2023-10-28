@@ -9,6 +9,8 @@ const lifeText = new Text();
 const keyAnimation = new AnimatedSprite(atlasLoader.hudKey.animations.default);
 const keyText = new Text();
 
+const fpsText = new Text();
+
 export function initializeHud() {
   // life animation
   lifeAnimation.play();
@@ -42,6 +44,13 @@ export function initializeHud() {
   keyText.y = lifeText.height + 7;
   app.stage.addChild(keyAnimation);
   app.stage.addChild(keyText);
+
+  fpsText.x = 10;
+  fpsText.y = lifeText.height + keyText.height + 10;
+  fpsText.style = {
+    fill: 'white',
+  };
+  app.stage.addChild(fpsText);
 }
 
 // export {
@@ -55,4 +64,8 @@ export function updateLifeHud(value: number) {
 
 export function updateKeyHud(value: number) {
   keyText.text = value;
+}
+
+export function updateFpsText(value: number) {
+  fpsText.text = Math.trunc(value) === 59 ? 60 : Math.trunc(value);
 }

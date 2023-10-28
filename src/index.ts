@@ -6,6 +6,7 @@ import {
 import { skeletons } from './map-objects/skeleton';
 import { gameConditions } from './map/game-conditions';
 import app from './pixi/initialize';
+import { updateFpsText } from './player/hud';
 import { inventory } from './player/inventory';
 import { damagePlayer } from './player/receive-damage';
 import { playerStats } from './player/stats';
@@ -48,4 +49,8 @@ document.addEventListener('keydown', async (event) => {
   if (event.code !== 'Digit2') return;
   damagePlayer(100_000);
   boss.life = 0;
+});
+
+app.ticker.add(() => {
+  updateFpsText(app.ticker.FPS);
 });
