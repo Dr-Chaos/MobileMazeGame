@@ -1,9 +1,8 @@
 import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
-import app from '../pixi/initialize';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { movePlayer } from '../player/move';
 import { keys } from './key';
 import { spikes } from './spike';
@@ -12,7 +11,7 @@ import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
-
+export const levers: Lever[] = [];
 export function createLever(x: number, y: number, name: string) {
   const lever = new AnimatedSprite(atlasLoader.lever.animations.idle) as Lever;
   lever.scale.set(mapScaling);
@@ -37,10 +36,10 @@ export function createLever(x: number, y: number, name: string) {
 
     // levier 2, 3 et 4
     if (name === 'lever2' || name === 'lever3' || name === 'lever4') {
-      const spikesRoom1 = spikes.filter((spike) => spike.name === 'spikeRoom1');
+      const spikesRoom1 = spikes.filter((spike) => spike.sprite.name === 'spikeRoom1');
       for (const spike of spikesRoom1) {
-        spike.visible = true;
-        spike.play();
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
 
@@ -58,21 +57,24 @@ export function createLever(x: number, y: number, name: string) {
 
     if (name === 'leverBossBad') {
       for (const spike of spikes) {
-        if (spike.name !== 'spikeBossLever') continue;
-        spike.visible = true;
-        spike.play();
+        if (spike.sprite.name !== 'spikeBossLever') continue;
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
   };
 
   camera.addChild(lever);
+  levers.push(lever);
+}
 
-  app.ticker.add(() => {
-    if (isColliding(playerHitbox, lever)) {
-      movePlayer(collisionResponseDirection(playerHitbox, lever));
+export function leversGameLoop() {
+  for (const lever of levers) {
+    if (isColliding(player.hitbox, lever)) {
+      movePlayer(collisionResponseDirection(player.hitbox, lever), 1);
       if (!lever.canBeActivated) return;
       lever.canBeActivated = false;
       lever.animationSpeed = 0.2;
     }
-  });
+  }
 }

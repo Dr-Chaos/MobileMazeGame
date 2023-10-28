@@ -1,0 +1,14 @@
+{
+  "meta": { "image": "witch-idle.png", "size": { "w": 31, "h": 288 }, "scale": "1" },
+  "frames": {
+    "witch-idle-1.png": { "frame": { "x": 0, "y": 0, "w": 32, "h": 48 } },
+    "witch-idle-2.png": { "frame": { "x": 0, "y": 48, "w": 32, "h": 48 } },
+    "witch-idle-3.png": { "frame": { "x": 0, "y": 96, "w": 32, "h": 48 } },
+    "witch-idle-4.png": { "frame": { "x": 0, "y": 144, "w": 32, "h": 48 } },
+    "witch-idle-5.png": { "frame": { "x": 0, "y": 192, "w": 32, "h": 48 } },
+    "witch-idle-6.png": { "frame": { "x": 0, "y": 240, "w": 32, "h": 48 } }
+  },
+  "animations": {
+    "idle": ["witch-idle-1.png", "witch-idle-2.png", "witch-idle-3.png", "witch-idle-4.png", "witch-idle-5.png", "witch-idle-6.png"]
+  }
+}

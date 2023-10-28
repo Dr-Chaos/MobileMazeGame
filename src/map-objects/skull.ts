@@ -1,22 +1,60 @@
 import { AnimatedSprite } from 'pixi.js';
 import { camera } from '../camera';
-import app from '../pixi/initialize';
 import { atlasLoader } from '../pixi/atlas-loader';
-import { playerStats } from '../player/stats';
 import { isColliding } from '../math/collisions';
-import { lifeHud } from '../player/hud';
-import { playerHitbox } from '../player/player';
-import { isInvulnerable, startInvulnerabilityTimer } from '../player/invulnerability';
+import { player } from '../player/player';
+import { isInvulnerable } from '../player/invulnerability';
+import { damagePlayer } from '../player/receive-damage';
 
 type Point = { x: number; y: number };
 type MovementState = { index: number; progress: number };
+type Skull = { sprite: AnimatedSprite; movementState: MovementState; points: Point[]; speed: number };
+export const skulls: Skull[] = [];
 
-export function createSkull(): AnimatedSprite {
+export function createSkull(points: Point[], speed: number) {
   const skull = new AnimatedSprite(atlasLoader.skull.animations.idle);
   skull.scale.set(2);
   skull.animationSpeed = 0.17;
   skull.play();
-  return skull;
+
+  skulls.push({
+    sprite: skull,
+    movementState: { index: 0, progress: 0 },
+    points,
+    speed,
+  });
+
+  camera.addChild(skull);
+}
+
+export function initializeSkulls() {
+  createSkull([
+    { x: -304, y: 208 },
+    { x: -304, y: 320 },
+    { x: 80, y: 320 },
+    { x: 80, y: 208 },
+  ], 0.003);
+
+  createSkull([
+    { x: -330, y: 176 },
+    { x: 104, y: 176 },
+    { x: 104, y: 356 },
+    { x: -330, y: 356 },
+  ], 0.006);
+
+  createSkull([
+    { x: 96, y: -320 },
+    { x: 96, y: -224 },
+    { x: -128, y: -224 },
+    { x: -128, y: -320 },
+  ], 0.003);
+
+  createSkull([
+    { x: 186, y: -368 },
+    { x: 186, y: -192 },
+    { x: -224, y: -192 },
+    { x: -224, y: -368 },
+  ], 0.006);
 }
 
 function updateSkullMovement(
@@ -44,93 +82,16 @@ function updateSkullMovement(
   return { updatedSkull, updatedState: state };
 }
 
-export const skull1 = createSkull();
-export const skull2 = createSkull();
-export const ghost1 = createSkull();
-export const ghost2 = createSkull();
+export function skullGameLoop(delta: number) {
+  for (const skull of skulls) {
+    const { updatedSkull, updatedState } = updateSkullMovement(skull.sprite, skull.points, skull.movementState, delta, skull.speed);
 
-camera.addChild(skull1);
-camera.addChild(skull2);
+    skull.sprite.x = updatedSkull.x;
+    skull.sprite.y = updatedSkull.y;
+    skull.movementState = updatedState;
 
-camera.addChild(ghost1);
-camera.addChild(ghost2);
-
-const pointsSkull1: Point[] = [
-  { x: -360, y: 230 },
-  { x: -360, y: 360 },
-  { x: 100, y: 360 },
-  { x: 100, y: 230 },
-];
-
-const pointsSkull2: Point[] = [
-  { x: -380, y: 200 },
-  { x: 130, y: 200 },
-  { x: 130, y: 390 },
-  { x: -380, y: 390 },
-];
-
-const pointsGhost1: Point[] = [
-  { x: +115, y: -410 },
-  { x: +115, y: -270 },
-  { x: -145, y: -270 },
-  { x: -145, y: -410 },
-];
-
-const pointsGhost2: Point[] = [
-  { x: 230, y: -430 },
-  { x: 230, y: -230 },
-  { x: -250, y: -230 },
-  { x: -250, y: -430 },
-];
-
-let stateSkull1: MovementState = { index: 0, progress: 0 };
-let stateSkull2: MovementState = { index: 0, progress: 0 };
-let stateGhost1: MovementState = { index: 0, progress: 0 };
-let stateGhost2: MovementState = { index: 0, progress: 0 };
-
-app.ticker.add((delta) => {
-  const { updatedSkull: updatedSkull1, updatedState: updatedStateSkull1 } = updateSkullMovement(skull1, pointsSkull1, stateSkull1, delta, 0.01);
-
-  skull1.x = updatedSkull1.x;
-  skull1.y = updatedSkull1.y;
-  stateSkull1 = updatedStateSkull1;
-
-  const { updatedSkull: updatedSkull2, updatedState: updatedStateSkull2 } = updateSkullMovement(skull2, pointsSkull2, stateSkull2, delta, 0.02);
-  skull2.x = updatedSkull2.x;
-  skull2.y = updatedSkull2.y;
-  stateSkull2 = updatedStateSkull2;
-
-  const { updatedSkull: updatedGhost1, updatedState: updatedStateGhost1 } = updateSkullMovement(ghost1, pointsGhost1, stateGhost1, delta, 0.01);
-  ghost1.x = updatedGhost1.x;
-  ghost1.y = updatedGhost1.y;
-  stateGhost1 = updatedStateGhost1;
-
-  const { updatedSkull: updatedGhost2, updatedState: updatedStateGhost2 } = updateSkullMovement(ghost2, pointsGhost2, stateGhost2, delta, 0.02);
-  ghost2.x = updatedGhost2.x;
-  ghost2.y = updatedGhost2.y;
-  stateGhost2 = updatedStateGhost2;
-
-  if (!isInvulnerable() && isColliding(playerHitbox, skull1)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
+    if (!isInvulnerable() && isColliding(player.hitbox, skull.sprite)) {
+      damagePlayer(1);
+    }
   }
-
-  if (!isInvulnerable() && isColliding(playerHitbox, skull2)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
-  }
-
-  if (!isInvulnerable() && isColliding(playerHitbox, ghost1)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
-  }
-
-  if (!isInvulnerable() && isColliding(playerHitbox, ghost2)) {
-    startInvulnerabilityTimer();
-    playerStats.life -= 1;
-    lifeHud.text = `Vie : ${playerStats.life}`;
-  }
-});
+}

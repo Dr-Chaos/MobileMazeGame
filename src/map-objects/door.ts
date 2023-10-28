@@ -4,13 +4,11 @@ import app from '../pixi/initialize';
 import { camera } from '../camera';
 import { mapScaling } from '../map/map-layers';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { movePlayer } from '../player/move';
 import { getCoordinates } from '../utils/utils';
-import { keys } from './key';
-import { playerStats } from '../player/stats';
-import inventory from '../player/inventory';
 import { gameConditions } from '../map/game-conditions';
+import { inventory } from '../player/inventory';
 
 // DEMO TO CREATE DOOR IN MULTIPLE PARTS
 export function doorExample() {
@@ -41,11 +39,9 @@ export function createDoorType1Bottom(x: number, y: number) {
 }
 
 const doorRoomBottom = new Container();
-camera.addChild(doorRoomBottom);
 export { doorRoomBottom };
 
 // DOOR ROOM RIGHT
-
 export function createDoorType2(x: number, y: number) {
   const doorType2 = new Sprite(atlasLoader.map.textures['map-tileset-38.png']);
   doorType2.scale.set(mapScaling);
@@ -56,7 +52,6 @@ export function createDoorType2(x: number, y: number) {
 
 const doorRoomRight = new Container();
 doorRoomRight.name = 'doorRoomRIght';
-camera.addChild(doorRoomRight);
 export { doorRoomRight };
 
 // DOOR ROOM TOP
@@ -78,21 +73,15 @@ export function createDoorType3PartRight(x: number, y: number) {
 
 const doorRoomTop = new Container();
 doorRoomTop.name = 'doorRoomTop';
-camera.addChild(doorRoomTop);
 export { doorRoomTop };
 
 // DOORS CONTAINERS
-const doorsContainers = {
-  list: [
-    doorRoomBottom,
-    doorRoomRight,
-    doorRoomTop,
-  ],
+export const doorsContainers: { list: Container[] } = {
+  list: [],
 };
-export { doorsContainers };
 
 // DOORS COLLISIONS
-app.ticker.add(() => {
+export function doorsCollisionsGameLoop(delta: number) {
   for (const doorContainer of doorsContainers.list) {
     const doorContainerCoordinates = getCoordinates(doorContainer);
     // need this lines to manage perspectives
@@ -100,14 +89,14 @@ app.ticker.add(() => {
       doorContainerCoordinates.height = doorContainerCoordinates.height / 2 - 1.7;
     }
 
-    if (isColliding(playerHitbox, doorContainerCoordinates)) {
-      movePlayer(collisionResponseDirection(playerHitbox, doorContainerCoordinates));
+    if (isColliding(player.hitbox, doorContainerCoordinates)) {
+      movePlayer(collisionResponseDirection(player.hitbox, doorContainerCoordinates), delta);
     }
   }
-});
+}
 
 // OPEN DOOR ROOM TOP
-function removeDoorRoomTop() {
+export function removeDoorRoomTop() {
   // supprimer la porte de la camera
   // supprimer la porte du tableau
   // supprimer cette fonction de la game loop
@@ -120,4 +109,13 @@ function removeDoorRoomTop() {
   app.ticker.remove(removeDoorRoomTop);
 }
 
-app.ticker.add(removeDoorRoomTop);
+export function initializeDoorsContainers() {
+  doorsContainers.list = [
+    doorRoomBottom,
+    doorRoomRight,
+    doorRoomTop,
+  ];
+  camera.addChild(doorRoomTop);
+  camera.addChild(doorRoomRight);
+  camera.addChild(doorRoomBottom);
+}

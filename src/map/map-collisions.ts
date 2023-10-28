@@ -1,12 +1,11 @@
 import { Container, Graphics } from 'pixi.js';
 import map from '../../tiled/map-collisions.json';
 import app from '../pixi/initialize';
-import { playerHitbox } from '../player/player';
+import { player } from '../player/player';
 import { type Collider, isColliding, collisionResponseDirection } from '../math/collisions';
 import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
-import { camera } from '../camera';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
 
 // draw map
@@ -20,7 +19,7 @@ mapCollidersDraw.name = 'mapCollidersDraw';
 mapCollidersDraw.width = app.screen.width;
 mapCollidersDraw.height = app.screen.height;
 mapCollidersDraw.zIndex = 2;
-// camera.addChild(mapCollidersDraw); // DRAW HITBOXES DURING DEV
+// camera.addChild(mapCollidersDraw); // ! DRAW HITBOXES DURING DEV
 const mapSizeInPixel = {
   width: map.width * map.tilewidth,
   height: map.height * map.tileheight,
@@ -41,7 +40,9 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
       height: map.tileheight * mapScaling,
     };
 
-    const tilePosition = centerFromPivot(tile.x, tile.y, mapSizeInPixel.width, mapSizeInPixel.height, mapScaling);
+    const tilePosition = centerFromPivot({
+      x: tile.x, y: tile.y, width: mapSizeInPixel.width, height: mapSizeInPixel.height,
+    }, mapScaling);
 
     const tilePositionned = {
       x: tilePosition.x,
@@ -65,16 +66,16 @@ for (let yIteration = 0; yIteration < mapHeight; yIteration++) {
 }
 
 // console.table(tile);
-app.ticker.add(() => {
+export function mapCollision() {
   for (const tile of colliderTiles) {
     // collision with the player
-    if (isColliding(tile, playerHitbox)) {
-      movePlayer(collisionResponseDirection(playerHitbox, tile));
+    if (isColliding(tile, player.hitbox)) {
+      movePlayer(collisionResponseDirection(player.hitbox, tile), 1);
     }
 
     // collision with skeletons
     for (const skeletonObject of skeletons) {
-      const skeletonSprite = skeletonObject.container.sprite;
+      const skeletonSprite = skeletonObject.animations.idle;
       if (isColliding(tile, skeletonSprite)) {
         console.log('Collision');
 
@@ -86,13 +87,13 @@ app.ticker.add(() => {
         const collisionAdjustment = collisionResponseDirection(skeletonSprite, tile);
 
         // Ajustez la position du squelette en fonction de la collision.
-        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y);
+        moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y, 1);
 
         // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
         if (isColliding(tile, skeletonSprite)) {
-          moveSkeleton(skeletonObject, previousX, previousY);
+          moveSkeleton(skeletonObject, previousX, previousY, 1);
         }
       }
     }
   }
-});
+}
