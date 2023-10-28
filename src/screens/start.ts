@@ -11,7 +11,7 @@ export function initializeStartScreen() {
   background.drawRect(0, 0, app.screen.width, app.screen.height);
   app.stage.addChild(background);
 
-  const backgroundImage = Sprite.from('./screens/start.png');
+  const backgroundImage = Sprite.from('./screens/v2/start.png');
   // start.width = app.screen.width;
   // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;

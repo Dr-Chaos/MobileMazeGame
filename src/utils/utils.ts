@@ -50,7 +50,3 @@ export function clearContainerChildrenRecursively(parent: Container) {
 export function clearStage() {
   clearContainerChildrenRecursively(app.stage);
 }
-
-export function clearCamera() {
-  clearContainerChildrenRecursively(camera);
-}

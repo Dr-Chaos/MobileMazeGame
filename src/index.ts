@@ -11,13 +11,18 @@ import { damagePlayer } from './player/receive-damage';
 import { playerStats } from './player/stats';
 
 import { initializeScene } from './scene';
+import { initializeGameOverScreen } from './screens/game-over';
+import { initializeStartScreen } from './screens/start';
+import { initializeWinScreen } from './screens/win';
 
 // start on the menu
-// initializeStartScreen();
+initializeStartScreen();
+
+// initializeWinScreen();
 
 // ! DURING DEV start directly in the game
-initializeScene();
-app.ticker.add(bossGameLoop);
+// initializeScene();
+// app.ticker.add(bossGameLoop);
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
@@ -31,6 +36,8 @@ document.addEventListener('keydown', async (event) => {
   inventory.keys = 3;
   gameConditions.leverToAttackTheBoss = 0;
   skeletons.length = 0;
+
+  boss.life = 1;
 
   // for (const children of allPixiObjects) {
   //   console.log(children.name);

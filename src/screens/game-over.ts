@@ -11,7 +11,7 @@ export function initializeGameOverScreen() {
   background.drawRect(0, 0, app.screen.width, app.screen.height);
   app.stage.addChild(background);
 
-  const backgroundImage = Sprite.from('./screens/game-over.png');
+  const backgroundImage = Sprite.from('./screens/v2/game-over.png');
   // start.width = app.screen.width;
   // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;

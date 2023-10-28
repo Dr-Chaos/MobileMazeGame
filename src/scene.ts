@@ -94,3 +94,8 @@ export function initializeScene() {
   // initialize game loops
   initializeGameLoops();
 }
+
+export function uninitializeScene() {
+  removeGameLoops();
+  clearScene();
+}

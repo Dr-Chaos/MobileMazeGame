@@ -10,6 +10,7 @@ import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
 import { clearStage } from '../utils/utils';
 import { initializeWinScreen } from '../screens/win';
+import { clearScene, removeGameLoops, uninitializeScene } from '../scene';
 
 const scaling = {
   fireball: 3, // 3
@@ -169,7 +170,7 @@ export function bossGameLoop(delta: number) {
     camera.addChild(bossDeathAnimation);
     app.ticker.remove(bossGameLoop);
     setTimeout(() => {
-      clearStage();
+      uninitializeScene();
       initializeWinScreen();
     }, 3000);
   }
