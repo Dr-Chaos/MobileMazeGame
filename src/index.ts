@@ -28,11 +28,11 @@ document.addEventListener('keydown', async (event) => {
   // damagePlayer(1);
 
   playerStats.life = 1000;
-  inventory.keys = 3;
-  gameConditions.leverToAttackTheBoss = 0;
-  skeletons.length = 0;
+  // inventory.keys = 3;
+  // gameConditions.leverToAttackTheBoss = 0;
+  // skeletons.length = 0;
 
-  boss.life = 1;
+  // boss.life = 1;
 
   // for (const children of allPixiObjects) {
   //   console.log(children.name);

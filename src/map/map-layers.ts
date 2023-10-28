@@ -184,7 +184,14 @@ export function initializeMap() {
 
           continue;
         case 'skeleton':
-          createSkeleton(positionCentered.x, positionCentered.y, objectName);
+          // rajuste la position du squelette sur l'axe X,
+          // car dans createSkeleton, nous définissont le pivot X au centre du sprite
+          // et appliquons un scaling du sprite équivalent à mapScaling
+          const skeletonSpriteSize = {
+            width: 18,
+            heigth: 16,
+          };
+          createSkeleton(positionCentered.x + ((skeletonSpriteSize.width / 2) * mapScaling), positionCentered.y, objectName);
           continue;
         case 'boss':
           createBoss(positionCentered.x, positionCentered.y);

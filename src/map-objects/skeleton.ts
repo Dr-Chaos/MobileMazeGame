@@ -38,6 +38,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   const state = SkeletonStates.Idle;
 
   const idle = new AnimatedSprite(atlasLoader.skeletonIdle.animations.default);
+  idle.anchor.x = 0.5;
   idle.scale.set(mapScaling);
   idle.animationSpeed = 0.13;
   idle.play();
@@ -46,6 +47,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   camera.addChild(idle);
 
   const walk = new AnimatedSprite(atlasLoader.skeletonWalk.animations.default);
+  walk.anchor.x = 0.5;
   walk.scale.set(mapScaling);
   walk.animationSpeed = 0.13;
   walk.play();
@@ -55,6 +57,7 @@ export function createSkeleton(x: number, y: number, name: string) {
   camera.addChild(walk);
 
   const death = new AnimatedSprite(atlasLoader.skeletonDeath.animations.default);
+  death.anchor.x = 0.5;
   death.scale.set(mapScaling);
   death.animationSpeed = 0.13;
   death.stop();
@@ -88,7 +91,7 @@ export function createSkeleton(x: number, y: number, name: string) {
     },
     state,
     playerDetectionZone,
-    life: 35, // 35
+    life: 3500, // 35
     damage: 1,
     name,
   });
@@ -101,10 +104,16 @@ export function createSkeleton(x: number, y: number, name: string) {
 export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: number) {
   skeleton.animations.idle.x += x * delta;
   skeleton.animations.idle.y += y * delta;
+  // skeleton.animations.idle.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
   skeleton.animations.walk.x += x * delta;
   skeleton.animations.walk.y += y * delta;
+  // skeleton.animations.walk.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
   skeleton.animations.death.x += x * delta;
   skeleton.animations.death.y += y * delta;
+  // skeleton.animations.death.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
   skeleton.playerDetectionZone.x += x * delta;
   skeleton.playerDetectionZone.y += y * delta;
 }
@@ -124,6 +133,10 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
 
   const speed = 1;
   moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed, delta);
+
+  skeleton.animations.idle.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+  skeleton.animations.walk.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+  skeleton.animations.death.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
 }
 
 function skeletonsStatesLoop(skeleton: Skeleton) {
