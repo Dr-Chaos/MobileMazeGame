@@ -1,18 +1,13 @@
 import './index.css';
-import { skeletons } from './map-objects/skeleton';
-import { gameConditions } from './map/game-conditions';
-import { inventory } from './player/inventory';
-import { playerStats } from './player/stats';
 import { clearScene, initializeScene } from './scene';
 import { initializeStartScreen } from './screens/start';
 
 // start on the menu
-// initializeStartScreen();
+initializeStartScreen();
 
 // ! DURING DEV start directly in the game
-clearScene();
-initializeScene();
-// app.ticker.add(bossGameLoop);
+// clearScene();
+// initializeScene();
 
 // display debug logs when press key 1
 document.addEventListener('keydown', async (event) => {
@@ -23,10 +18,10 @@ document.addEventListener('keydown', async (event) => {
   // damagePlayer(1);
 
   // to test the boss
-  playerStats.life = 1000;
-  inventory.keys = 3;
-  gameConditions.leverToAttackTheBoss = 0;
-  skeletons.length = 0;
+  // playerStats.life = 1000;
+  // inventory.keys = 3;
+  // gameConditions.leverToAttackTheBoss = 0;
+  // skeletons.length = 0;
   // boss.life = 1;
 
   // for (const children of allPixiObjects) {

@@ -15,6 +15,7 @@ Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
 Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // animationSpeed = 0.18
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
+Assets.add({ alias: 'bossActivated', src: '/boss/boss-activated/boss-activated.json' });
 Assets.add({ alias: 'bossFireball', src: '/boss/bossfireball/v2/bossfireball.json' }); //  animationSpeed = 0.15
 Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // animationSpeed = 1.18
 Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
@@ -38,6 +39,7 @@ const aliases = [
   'lever',
   'fireball',
   'boss',
+  'bossActivated',
   'bossDeath',
   'bossFireball',
   'heart',

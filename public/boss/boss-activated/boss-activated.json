@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "image": "boss-activated.png",
+    "size": { "w": 72, "h": 18 },
+    "scale": "1"
+  },
+  "frames": {
+    "boss-activated-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+    "boss-activated-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+    "boss-activated-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+    "boss-activated-4.png": { "frame": { "x": 54, "y": 0, "w": 18, "h": 18 } }
+  },
+  "animations": {
+    "default": ["boss-activated-1.png", "boss-activated-2.png", "boss-activated-3.png", "boss-activated-4.png"]
+  }
+}
