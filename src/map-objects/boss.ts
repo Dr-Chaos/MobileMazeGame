@@ -52,7 +52,7 @@ let bossAngle1 = 0;
 let bossAngle2 = 0;
 
 export function createBoss(x: number, y: number) {
-  boss.life = 500;
+  boss.life = 300;
   boss.damage = 10;
   boss.isActive = false;
   boss.invulnerabilityTime = 0;
@@ -120,11 +120,20 @@ function moveBossFireballs() {
   bossAngle2 += 0.07 / 2;
 }
 
+const bossnoredanimation = new AnimatedSprite(atlasLoader.bossnored.animations.bossnored);
+
 export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss
   if (!boss.isActive && gameConditions.leverToAttackTheBoss <= 0) {
     boss.isActive = true;
     activateBossFireballs();
+    camera.removeChild(boss.sprite);
+    bossnoredanimation.scale.set(scaling.boss);
+    bossnoredanimation.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
+    bossnoredanimation.animationSpeed = 0.2;
+    bossnoredanimation.zIndex = -1;
+    camera.addChild(bossnoredanimation);
+    bossnoredanimation.play();
   }
 
   // si le boss n'est pas actif, stop l'execution de la fonction
@@ -153,6 +162,7 @@ export function bossGameLoop() {
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
+    camera.removeChild(bossnoredanimation);
     camera.removeChild(boss.fireballsContainer);
 
     // Jouer l'animation de mort
