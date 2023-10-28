@@ -1,6 +1,6 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
 import { camera } from '../camera';
-import { collisionResponseDirection, isColliding } from '../math/collisions';
+import { isColliding } from '../math/collisions';
 import { player } from '../player/player';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { mapScaling } from '../map/map-layers';
@@ -9,16 +9,24 @@ import { doorRoomRight, doorsContainers } from './door';
 import { centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
-import { movePlayer } from '../player/move';
 import { damagePlayer } from '../player/receive-damage';
 
-type SkeletonContainer = {
-  sprite: AnimatedSprite;
-  playerDetectionZone: Graphics;
+export enum SkeletonStates {
+  Idle,
+  Walk,
+  Death,
+}
+
+type SkeletonAnimations = {
+  idle: AnimatedSprite;
+  walk: AnimatedSprite;
+  death: AnimatedSprite;
 };
 
 type Skeleton = {
-  container: SkeletonContainer;
+  playerDetectionZone: Graphics;
+  animations: SkeletonAnimations;
+  state: SkeletonStates;
   life: number;
   name: string;
   damage: number;
@@ -27,55 +35,96 @@ type Skeleton = {
 export let skeletons: Skeleton[] = [];
 
 export function createSkeleton(x: number, y: number, name: string) {
-  const sprite = new AnimatedSprite(atlasLoader.skeleton.animations.idle);
-  sprite.scale.set(mapScaling);
-  sprite.animationSpeed = 0.13;
-  sprite.play();
-  sprite.x = x;
-  sprite.y = y;
-  camera.addChild(sprite);
+  const state = SkeletonStates.Idle;
+
+  const idle = new AnimatedSprite(atlasLoader.skeletonIdle.animations.default);
+  idle.anchor.x = 0.5;
+  idle.scale.set(mapScaling);
+  idle.animationSpeed = 0.13;
+  idle.play();
+  idle.x = x;
+  idle.y = y;
+  camera.addChild(idle);
+
+  const walk = new AnimatedSprite(atlasLoader.skeletonWalk.animations.default);
+  walk.anchor.x = 0.5;
+  walk.scale.set(mapScaling);
+  walk.animationSpeed = 0.13;
+  walk.play();
+  walk.x = x;
+  walk.y = y;
+  walk.visible = false;
+  camera.addChild(walk);
+
+  const death = new AnimatedSprite(atlasLoader.skeletonDeath.animations.default);
+  death.anchor.x = 0.5;
+  death.scale.set(mapScaling);
+  death.animationSpeed = 0.13;
+  death.stop();
+  death.x = x;
+  death.y = y;
+  death.visible = false;
+  camera.addChild(death);
 
   const playerDetectionZone = new Graphics();
   playerDetectionZone.beginFill('white', 0.5);
   const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
     {
-      x: sprite.x,
-      y: sprite.y,
-      width: sprite.width,
-      height: sprite.height,
+      x: idle.x,
+      y: idle.y,
+      width: idle.width,
+      height: idle.height,
     },
     6.5,
   );
   playerDetectionZone.x = playerDetectionZonePosition.x;
   playerDetectionZone.y = playerDetectionZonePosition.y;
   playerDetectionZone.drawRect(0, 0, playerDetectionZonePosition.width, playerDetectionZonePosition.height);
-  playerDetectionZone.visible = false; // dispaly or hide the player detection zone
+  playerDetectionZone.visible = false; // ! DURING DEV, DISPLAY THE PLAYER DETECTION ZONE
   camera.addChild(playerDetectionZone);
 
   skeletons.push({
-    container: {
-      sprite,
-      playerDetectionZone,
+    animations: {
+      idle,
+      walk,
+      death,
     },
+    state,
+    playerDetectionZone,
     life: 35, // 35
     damage: 1,
     name,
   });
+
+  death.onLoop = () => {
+    camera.removeChild(death);
+  };
 }
 
 export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: number) {
-  skeleton.container.sprite.x += x * delta;
-  skeleton.container.sprite.y += y * delta;
-  skeleton.container.playerDetectionZone.x += x * delta;
-  skeleton.container.playerDetectionZone.y += y * delta;
+  skeleton.animations.idle.x += x * delta;
+  skeleton.animations.idle.y += y * delta;
+  // skeleton.animations.idle.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
+  skeleton.animations.walk.x += x * delta;
+  skeleton.animations.walk.y += y * delta;
+  // skeleton.animations.walk.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
+  skeleton.animations.death.x += x * delta;
+  skeleton.animations.death.y += y * delta;
+  // skeleton.animations.death.scale.x = (x < 0 ? -1 : 1) * mapScaling;
+
+  skeleton.playerDetectionZone.x += x * delta;
+  skeleton.playerDetectionZone.y += y * delta;
 }
 
 function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
+  skeleton.state = SkeletonStates.Walk;
   const playerX = player.hitbox.x;
   const playerY = player.hitbox.y;
 
-  const directionX = playerX - skeleton.container.sprite.x;
-  const directionY = playerY - skeleton.container.sprite.y;
+  const directionX = playerX - skeleton.animations.idle.x;
+  const directionY = playerY - skeleton.animations.idle.y;
 
   const distance = Math.hypot(directionX, directionY);
 
@@ -84,21 +133,62 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
 
   const speed = 1;
   moveSkeleton(skeleton, normalizedDirectionX * speed, normalizedDirectionY * speed, delta);
+
+  skeleton.animations.idle.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+  skeleton.animations.walk.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+  skeleton.animations.death.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+}
+
+function skeletonsStatesLoop(skeleton: Skeleton) {
+  switch (skeleton.state) {
+    case SkeletonStates.Idle:
+      // afficher l'animation idle
+      skeleton.animations.idle.visible = true;
+      // cacher l'animation walk
+      skeleton.animations.walk.visible = false;
+      // cacher l'animation death
+      skeleton.animations.death.visible = false;
+      break;
+    case SkeletonStates.Walk:
+      // cacher l'animation idle
+      skeleton.animations.idle.visible = false;
+      // afficher l'animation walk
+      skeleton.animations.walk.visible = true;
+      // cacher l'animation death
+      skeleton.animations.death.visible = false;
+      break;
+    case SkeletonStates.Death:
+      skeleton.animations.death.play();
+      skeleton.animations.death.visible = true;
+      camera.removeChild(skeleton.animations.idle);
+      camera.removeChild(skeleton.animations.walk);
+      camera.removeChild(skeleton.playerDetectionZone);
+      skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      break;
+    default:
+      break;
+  }
 }
 
 export function skeletonsGameLoop(delta: number) {
   for (const skeleton of skeletons) {
+    skeletonsStatesLoop(skeleton);
+    if (skeleton.life <= 0) continue;
     // if the detection zone is in collision with the player
-    if (!isColliding(player.hitbox, skeleton.container.playerDetectionZone)) continue;
-    moveSkeletonToPlayer(skeleton, delta);
+    if (isColliding(player.hitbox, skeleton.playerDetectionZone)) {
+      moveSkeletonToPlayer(skeleton, delta);
+    } else {
+      skeleton.state = SkeletonStates.Idle;
+      continue;
+    }
+
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
-    if (isColliding(skeleton.container.sprite, fireball)) {
+    if (isColliding(skeleton.animations.idle, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
       // is the skeleton die
       if (skeleton.life > 0) continue;
-      camera.removeChild(skeleton.container.sprite);
-      camera.removeChild(skeleton.container.playerDetectionZone);
-      skeletons = skeletons.filter((itaratedSkeleton) => itaratedSkeleton !== skeleton);
+      console.log('Death');
+      skeleton.state = SkeletonStates.Death;
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
@@ -108,22 +198,26 @@ export function skeletonsGameLoop(delta: number) {
         camera.removeChild(doorRoomRight);
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
+
+      continue;
     }
 
-    if (isColliding(player.hitbox, skeleton.container.sprite) && !isInvulnerable()) {
+    if (isColliding(player.hitbox, skeleton.animations.idle) && !isInvulnerable()) {
       damagePlayer(1);
     }
 
-    skeleton.container.sprite.alpha = isColliding(player.hitbox, skeleton.container.sprite) ? 0.5 : 1;
+    skeleton.animations.idle.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
+    skeleton.animations.walk.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
+    skeleton.animations.death.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
 
     // move skeleton on player collision
-    const skeletonSprite = skeleton.container.sprite;
+    const skeletonSprite = skeleton.animations.idle;
     const dx = skeletonSprite.x - player.hitbox.x / 2;
     const dy = skeletonSprite.y - player.hitbox.y / 2;
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonSprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonSprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
@@ -143,8 +237,10 @@ export function skeletonsGameLoop(delta: number) {
       const skeletonA = skeletons[indexSkeletonA];
       const skeletonB = skeletons[indexSkeletonB];
 
-      const skeletonASprite = skeletonA.container.sprite;
-      const skeletonBSprite = skeletonB.container.sprite;
+      if (skeletonA.life <= 0 || skeletonB.life <= 0) continue;
+
+      const skeletonASprite = skeletonA.animations.idle;
+      const skeletonBSprite = skeletonB.animations.idle;
       const dx = skeletonASprite.x - skeletonBSprite.x / 1.08;
       const dy = skeletonASprite.y - skeletonBSprite.y / 1.08;
       const distanceBetweenSkeletons = Math.hypot(dx, dy);

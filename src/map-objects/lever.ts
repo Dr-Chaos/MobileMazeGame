@@ -68,10 +68,10 @@ export function createLever(x: number, y: number, name: string) {
   levers.push(lever);
 }
 
-export function leversGameLoop(delta: number) {
+export function leversGameLoop() {
   for (const lever of levers) {
     if (isColliding(player.hitbox, lever)) {
-      movePlayer(collisionResponseDirection(player.hitbox, lever), delta);
+      movePlayer(collisionResponseDirection(player.hitbox, lever), 1);
       if (!lever.canBeActivated) return;
       lever.canBeActivated = false;
       lever.animationSpeed = 0.2;

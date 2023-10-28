@@ -1,6 +1,5 @@
 import { Container } from 'pixi.js';
 import app from '../pixi/initialize';
-import { camera } from '../camera';
 
 export type Rectangle = {x: number; y: number; width: number; height: number};
 export function getCoordinates(object: Rectangle) {

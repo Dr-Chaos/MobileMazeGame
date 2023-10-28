@@ -8,9 +8,8 @@ import { fireball as playerFireball } from '../player/fireball';
 import { player } from '../player/player';
 import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
-import { clearStage } from '../utils/utils';
 import { initializeWinScreen } from '../screens/win';
-import { clearScene, removeGameLoops, uninitializeScene } from '../scene';
+import { uninitializeScene } from '../scene';
 
 const scaling = {
   fireball: 3, // 3
@@ -101,27 +100,27 @@ export function activateBossFireballs() {
   }
 }
 
-function moveBossFireballs(delta: number) {
-  let x = bossRadius * Math.cos(bossAngle * delta);
-  let y = bossRadius * Math.sin(bossAngle * delta);
+function moveBossFireballs() {
+  let x = bossRadius * Math.cos(bossAngle);
+  let y = bossRadius * Math.sin(bossAngle);
   fireballOne.position.set(x + 10, y + 20);
   fireballOneDraw.position.set(x + 10, y + 20);
   bossAngle += 0.09 / 2;
 
-  x = bossRadius * Math.cos(bossAngle1 * delta);
-  y = bossRadius * Math.sin(bossAngle1 * delta);
+  x = bossRadius * Math.cos(bossAngle1);
+  y = bossRadius * Math.sin(bossAngle1);
   fireballTwo.position.set(x + 15, y + 15);
   fireballTwoDraw.position.set(x + 15, y + 15);
   bossAngle1 += 0.07 / 2;
 
-  x = bossRadius * Math.cos(bossAngle2 * delta);
-  y = bossRadius * Math.sin(bossAngle2 * delta);
+  x = bossRadius * Math.cos(bossAngle2);
+  y = bossRadius * Math.sin(bossAngle2);
   fireballThree.position.set(x + 25, y + 10);
   fireballThreeDraw.position.set(x + 25, y + 10);
   bossAngle2 += 0.07 / 2;
 }
 
-export function bossGameLoop(delta: number) {
+export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss
   if (!boss.isActive && gameConditions.leverToAttackTheBoss <= 0) {
     boss.isActive = true;
@@ -133,7 +132,7 @@ export function bossGameLoop(delta: number) {
     return;
   }
 
-  moveBossFireballs(delta);
+  moveBossFireballs();
   const fireballs = [fireballOne, fireballTwo, fireballThree];
   for (const fireball of fireballs) {
     const fireballCorrectionWithOffsets = {
