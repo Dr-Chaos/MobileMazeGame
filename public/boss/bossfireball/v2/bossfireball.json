@@ -1,14 +1,14 @@
 {
-  "meta": { "image": "bossfireball.png", "size": { "w": 128, "h": 16 }, "scale": "1" },
+  "meta": { "image": "bossfireball.png", "size": { "w": 144, "h": 18 }, "scale": "1" },
   "frames": {
-    "bossfireball-1.png": { "frame": { "x": 0, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-2.png": { "frame": { "x": 16, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-3.png": { "frame": { "x": 32, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-4.png": { "frame": { "x": 48, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-5.png": { "frame": { "x": 64, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-6.png": { "frame": { "x": 80, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-7.png": { "frame": { "x": 96, "y": 0, "w": 16, "h": 16 } },
-    "bossfireball-8.png": { "frame": { "x": 112, "y": 0, "w": 16, "h": 16 } }
+    "bossfireball-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-4.png": { "frame": { "x": 53, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-5.png": { "frame": { "x": 72, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-6.png": { "frame": { "x": 90, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-7.png": { "frame": { "x": 108, "y": 0, "w": 18, "h": 18 } },
+    "bossfireball-8.png": { "frame": { "x": 126, "y": 0, "w": 18, "h": 18 } }
   },
   "animations": {
     "idle": ["bossfireball-1.png", "bossfireball-2.png", "bossfireball-3.png", "bossfireball-4.png", "bossfireball-5.png", "bossfireball-6.png", "bossfireball-7.png", "bossfireball-8.png"]

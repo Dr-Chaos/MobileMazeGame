@@ -37,13 +37,13 @@ export const boss: Boss = {
   invulnerabilityTimer: 1000,
 };
 
-const fireballOne = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballOne = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 const fireballOneDraw = new Graphics();
 fireballOne.name = 'fireballOne';
-const fireballTwo = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballTwo = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 const fireballTwoDraw = new Graphics();
 fireballTwo.name = 'fireballTwo';
-const fireballThree = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballThree = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 const fireballThreeDraw = new Graphics();
 fireballThree.name = 'fireballThree';
 

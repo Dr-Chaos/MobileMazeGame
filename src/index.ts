@@ -19,6 +19,7 @@ import { initializeWinScreen } from './screens/win';
 // start on the menu
 initializeStartScreen();
 
+// app.ticker.maxFPS = 50;
 // initializeWinScreen();
 
 // ! DURING DEV start directly in the game
