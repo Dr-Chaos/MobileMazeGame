@@ -88,7 +88,7 @@ export function createSkeleton(x: number, y: number, name: string) {
     },
     state,
     playerDetectionZone,
-    life: 1, // 35
+    life: 35, // 35
     damage: 1,
     name,
   });
@@ -162,8 +162,13 @@ export function skeletonsGameLoop(delta: number) {
     skeletonsStatesLoop(skeleton);
     if (skeleton.life <= 0) continue;
     // if the detection zone is in collision with the player
-    if (!isColliding(player.hitbox, skeleton.playerDetectionZone)) continue;
-    moveSkeletonToPlayer(skeleton, delta);
+    if (isColliding(player.hitbox, skeleton.playerDetectionZone)) {
+      moveSkeletonToPlayer(skeleton, delta);
+    } else {
+      skeleton.state = SkeletonStates.Idle;
+      continue;
+    }
+
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.animations.idle, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
@@ -189,6 +194,8 @@ export function skeletonsGameLoop(delta: number) {
     }
 
     skeleton.animations.idle.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
+    skeleton.animations.walk.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
+    skeleton.animations.death.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
 
     // move skeleton on player collision
     const skeletonSprite = skeleton.animations.idle;
