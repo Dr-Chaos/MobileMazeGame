@@ -1,8 +1,5 @@
 import './index.css';
-import {
-  boss,
-  bossGameLoop,
-} from './map-objects/boss';
+import { boss } from './map-objects/boss';
 import { skeletons } from './map-objects/skeleton';
 import { gameConditions } from './map/game-conditions';
 import app from './pixi/initialize';
@@ -10,10 +7,7 @@ import { updateFpsText } from './player/hud';
 import { inventory } from './player/inventory';
 import { damagePlayer } from './player/receive-damage';
 import { playerStats } from './player/stats';
-import { initializeScene } from './scene';
-import { initializeGameOverScreen } from './screens/game-over';
 import { initializeStartScreen } from './screens/start';
-import { initializeWinScreen } from './screens/win';
 
 // start on the menu
 initializeStartScreen();

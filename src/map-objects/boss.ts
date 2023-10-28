@@ -8,9 +8,8 @@ import { fireball as playerFireball } from '../player/fireball';
 import { player } from '../player/player';
 import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
-import { clearStage } from '../utils/utils';
 import { initializeWinScreen } from '../screens/win';
-import { clearScene, removeGameLoops, uninitializeScene } from '../scene';
+import { uninitializeScene } from '../scene';
 
 const scaling = {
   fireball: 3, // 3
@@ -121,7 +120,7 @@ function moveBossFireballs() {
   bossAngle2 += 0.07 / 2;
 }
 
-export function bossGameLoop(delta: number) {
+export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss
   if (!boss.isActive && gameConditions.leverToAttackTheBoss <= 0) {
     boss.isActive = true;
@@ -133,7 +132,7 @@ export function bossGameLoop(delta: number) {
     return;
   }
 
-  moveBossFireballs(delta);
+  moveBossFireballs();
   const fireballs = [fireballOne, fireballTwo, fireballThree];
   for (const fireball of fireballs) {
     const fireballCorrectionWithOffsets = {

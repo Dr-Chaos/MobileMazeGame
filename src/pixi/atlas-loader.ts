@@ -8,7 +8,9 @@ Assets.add({ alias: 'witchDeath', src: '/witch/death/witch-death.json' });
 Assets.add({ alias: 'spike', src: '/spike/spike.json' });
 Assets.add({ alias: 'torch', src: '/torch/torch.json' });
 Assets.add({ alias: 'key', src: '/key/key.json' });
-Assets.add({ alias: 'skeleton', src: '/skeleton/skeleton.json' });
+Assets.add({ alias: 'skeletonIdle', src: '/skeleton/idle/skeleton.json' });
+Assets.add({ alias: 'skeletonWalk', src: '/skeleton/walk/skeletonwalk.json' });
+Assets.add({ alias: 'skeletonDeath', src: '/skeleton/death/skeletondeath.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
 Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // animationSpeed = 0.18
@@ -27,7 +29,9 @@ const aliases = [
   'spike',
   'torch',
   'key',
-  'skeleton',
+  'skeletonIdle',
+  'skeletonWalk',
+  'skeletonDeath',
   'skull',
   'spike',
   'lever',

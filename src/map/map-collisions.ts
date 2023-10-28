@@ -7,7 +7,6 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
-import { camera } from '../camera';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -76,7 +75,7 @@ export function mapCollision() {
 
     // collision with skeletons
     for (const skeletonObject of skeletons) {
-      const skeletonSprite = skeletonObject.container.sprite;
+      const skeletonSprite = skeletonObject.animations.idle;
       if (isColliding(tile, skeletonSprite)) {
         console.log('Collision');
 
