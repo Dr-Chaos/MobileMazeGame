@@ -1,4 +1,4 @@
-import { AnimatedSprite, Container } from 'pixi.js';
+import { AnimatedSprite, Container, Graphics } from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
@@ -8,10 +8,12 @@ import { fireball as playerFireball } from '../player/fireball';
 import { player } from '../player/player';
 import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
+import { initializeWinScreen } from '../screens/win';
+import { uninitializeScene } from '../scene';
 
 const scaling = {
-  fireball: 1, // 3
-  boss: 1, // 5
+  fireball: 3, // 3
+  boss: 5, // 5
 };
 
 type Boss = {
@@ -34,11 +36,14 @@ export const boss: Boss = {
   invulnerabilityTimer: 1000,
 };
 
-const fireballOne = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballOne = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
+const fireballOneDraw = new Graphics();
 fireballOne.name = 'fireballOne';
-const fireballTwo = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballTwo = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
+const fireballTwoDraw = new Graphics();
 fireballTwo.name = 'fireballTwo';
-const fireballThree = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+const fireballThree = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
+const fireballThreeDraw = new Graphics();
 fireballThree.name = 'fireballThree';
 
 let bossRadius = 0;
@@ -47,7 +52,7 @@ let bossAngle1 = 0;
 let bossAngle2 = 0;
 
 export function createBoss(x: number, y: number) {
-  boss.life = 1; // 500
+  boss.life = 300;
   boss.damage = 10;
   boss.isActive = false;
   boss.invulnerabilityTime = 0;
@@ -66,14 +71,20 @@ export function createBoss(x: number, y: number) {
   bossAngle = 0;
   bossAngle1 = 0.5;
   bossAngle2 = Math.PI;
-  for (const iteratedFireball of [fireballOne, fireballTwo, fireballThree]) {
-    iteratedFireball.scale.set(scaling.fireball);
-    iteratedFireball.animationSpeed = 0.17;
-    iteratedFireball.stop();
-    iteratedFireball.visible = false;
-    iteratedFireball.x = x;
-    iteratedFireball.y = y;
-    boss.fireballsContainer.addChild(iteratedFireball);
+  boss.fireballsContainer.sortableChildren = true;
+  for (const fireball of [fireballOne, fireballTwo, fireballThree]) {
+    fireball.scale.set(scaling.fireball);
+    fireball.animationSpeed = 0.17;
+    fireball.stop();
+    fireball.visible = false;
+    boss.fireballsContainer.addChild(fireball);
+  }
+
+  for (const fireballDraw of [fireballOneDraw, fireballTwoDraw, fireballThreeDraw]) {
+    fireballDraw.beginFill('yellow', 0.1);
+    fireballDraw.drawRect(0, 0, fireballOne.width, fireballOne.height);
+    fireballDraw.zIndex = -1;
+    // boss.fireballsContainer.addChild(fireballDraw); // ! DURING DEV, DISPLAY FIREBALL HITBOX
   }
 
   boss.fireballsContainer.x = x;
@@ -84,35 +95,45 @@ export function createBoss(x: number, y: number) {
 export function activateBossFireballs() {
   const fireballs = [fireballOne, fireballTwo, fireballThree];
   for (const iteratedFireball of fireballs) {
+    iteratedFireball.play();
     iteratedFireball.visible = true;
   }
 }
 
-function moveBossFireballs(delta: number) {
+function moveBossFireballs() {
   let x = bossRadius * Math.cos(bossAngle);
   let y = bossRadius * Math.sin(bossAngle);
-  fireballOne.x = x + 10 * delta;
-  fireballOne.y = y + 20 * delta;
-  bossAngle += 0.09;
+  fireballOne.position.set(x + 10, y + 20);
+  fireballOneDraw.position.set(x + 10, y + 20);
+  bossAngle += 0.09 / 2;
 
   x = bossRadius * Math.cos(bossAngle1);
   y = bossRadius * Math.sin(bossAngle1);
-  fireballTwo.position.set(x + 15 * delta, y + 15 * delta);
-  bossAngle1 += 0.07;
+  fireballTwo.position.set(x + 15, y + 15);
+  fireballTwoDraw.position.set(x + 15, y + 15);
+  bossAngle1 += 0.07 / 2;
 
   x = bossRadius * Math.cos(bossAngle2);
   y = bossRadius * Math.sin(bossAngle2);
-  fireballThree.position.set(x + 25 * delta, y + 10 * delta);
-  bossAngle2 += 0.07;
+  fireballThree.position.set(x + 25, y + 10);
+  fireballThreeDraw.position.set(x + 25, y + 10);
+  bossAngle2 += 0.07 / 2;
 }
 
-export function bossGameLoop(delta: number) {
-  console.log(boss.life);
+const bossnoredanimation = new AnimatedSprite(atlasLoader.bossActivated.animations.default);
 
+export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss
   if (!boss.isActive && gameConditions.leverToAttackTheBoss <= 0) {
     boss.isActive = true;
     activateBossFireballs();
+    camera.removeChild(boss.sprite);
+    bossnoredanimation.scale.set(scaling.boss);
+    bossnoredanimation.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
+    bossnoredanimation.animationSpeed = 0.2;
+    bossnoredanimation.zIndex = -1;
+    camera.addChild(bossnoredanimation);
+    bossnoredanimation.play();
   }
 
   // si le boss n'est pas actif, stop l'execution de la fonction
@@ -120,7 +141,7 @@ export function bossGameLoop(delta: number) {
     return;
   }
 
-  moveBossFireballs(delta);
+  moveBossFireballs();
   const fireballs = [fireballOne, fireballTwo, fireballThree];
   for (const fireball of fireballs) {
     const fireballCorrectionWithOffsets = {
@@ -141,6 +162,7 @@ export function bossGameLoop(delta: number) {
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
+    camera.removeChild(bossnoredanimation);
     camera.removeChild(boss.fireballsContainer);
 
     // Jouer l'animation de mort
@@ -150,12 +172,15 @@ export function bossGameLoop(delta: number) {
     bossDeathAnimation.y = boss.sprite.y;
     bossDeathAnimation.scale.set(scaling.boss);
     bossDeathAnimation.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
-    bossDeathAnimation.animationSpeed = 0.5;
+    bossDeathAnimation.animationSpeed = 0.2;
     bossDeathAnimation.loop = false;
     bossDeathAnimation.zIndex = -1;
     bossDeathAnimation.play();
     camera.addChild(bossDeathAnimation);
-
     app.ticker.remove(bossGameLoop);
+    setTimeout(() => {
+      uninitializeScene();
+      initializeWinScreen();
+    }, 3000);
   }
 }
