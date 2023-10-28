@@ -2,8 +2,7 @@ import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from '../pixi/initialize';
-import { initializeScene } from '../scene';
-import { clearStage, play } from '../utils/utils';
+import { play } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
 
 export function initializeStartScreen() {

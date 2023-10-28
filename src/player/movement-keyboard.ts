@@ -1,5 +1,3 @@
-import { Point } from 'pixi.js';
-import '@pixi/math-extras';
 import { directionHistory } from './move-direction';
 
 // push the pressed key in the keyHistory, if not already present
@@ -45,13 +43,3 @@ document.addEventListener('keyup', (event) => {
       break;
   }
 });
-
-export function inputMovementDirection() {
-  const x = directionHistory.x.at(-1) ?? 0;
-  const y = directionHistory.y.at(-1) ?? 0;
-  // if don't move or move in a single direction
-  if (!y || !x) return { x, y };
-  // else if move in two directions, normalize the values
-  const normalizedDirection = new Point(x, y).normalize();
-  return { x: normalizedDirection.x, y: normalizedDirection.y };
-}
