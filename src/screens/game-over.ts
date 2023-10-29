@@ -3,6 +3,7 @@ import {
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
+import { atlasLoader } from '../pixi/atlas-loader';
 
 export function initializeGameOverScreen() {
   const background = new Graphics();
@@ -10,7 +11,7 @@ export function initializeGameOverScreen() {
   background.drawRect(0, 0, app.screen.width, app.screen.height);
   app.stage.addChild(background);
 
-  const backgroundImage = Sprite.from('./screens/v2/game-over.png');
+  const backgroundImage = Sprite.from('./screens/v3/game-over.png');
   // start.width = app.screen.width;
   // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;
@@ -19,32 +20,29 @@ export function initializeGameOverScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
-  const gameOverTitleStyle = new TextStyle({
-    dropShadow: true,
-    dropShadowAlpha: 0.8,
-    dropShadowAngle: -1.5,
-    dropShadowBlur: 3,
-    dropShadowDistance: 12,
+  const textStyle = new TextStyle({
+    fontFamily: atlasLoader.yoster.family,
+    dropShadowColor: '#0a76db',
+    fill: ['#14520C', '#738C74'],
+    fillGradientStops: [0.2],
     fontVariant: 'small-caps',
-    fontWeight: 'bold',
-    letterSpacing: 9,
-    lineJoin: 'bevel',
-    stroke: '#d20419',
-    strokeThickness: 3,
-    fontSize: 16,
-
+    fontWeight: 'bolder',
+    letterSpacing: 5,
+    stroke: '794F6C',
+    strokeThickness: 2,
+    fontSize: 60,
   });
-  const gameOverTitle = new Text('GAME OVER', gameOverTitleStyle);
-  gameOverTitle.anchor.x = 0.45;
+  const gameOverTitle = new Text('GAME OVER', textStyle);
+  gameOverTitle.anchor.x = 0.5;
   gameOverTitle.x = app.screen.width / 2;
-  gameOverTitle.anchor.y = 6.1;
+  gameOverTitle.anchor.y = 2.9;
   gameOverTitle.y = app.screen.height / 2;
   app.stage.addChild(gameOverTitle);
 
-  const playAgainButton = new Text('Play again', gameOverTitleStyle);
-  playAgainButton.anchor.x = 0.43;
+  const playAgainButton = new Text('> Play again', textStyle);
+  playAgainButton.anchor.x = 0.5;
   playAgainButton.x = app.screen.width / 2;
-  playAgainButton.anchor.y = 1.5;
+  playAgainButton.anchor.y = -0.55;
   playAgainButton.y = app.screen.height / 2;
   playAgainButton.eventMode = 'dynamic';
   playAgainButton.on('click', () => {

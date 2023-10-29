@@ -11,7 +11,7 @@ export function initializeStartScreen() {
   background.drawRect(0, 0, app.screen.width, app.screen.height);
   app.stage.addChild(background);
 
-  const backgroundImage = Sprite.from('./screens/v2/start.png');
+  const backgroundImage = Sprite.from('./screens/v3/start.png');
   // start.width = app.screen.width;
   // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;
@@ -22,32 +22,29 @@ export function initializeStartScreen() {
 
   // console.log(atlasLoader.yoster);
 
-  const titleStyle = new TextStyle({
+  const textStyle = new TextStyle({
     fontFamily: atlasLoader.yoster.family,
-    dropShadow: true,
-    dropShadowAlpha: 0.8,
-    dropShadowAngle: -1.5,
-    dropShadowBlur: 3,
-    dropShadowDistance: 12,
+    dropShadowColor: '#0a76db',
+    fill: ['#68386e', '#a94f05', '#8b5a5d'],
+    fillGradientStops: [0.2],
     fontVariant: 'small-caps',
-    fontWeight: 'bold',
-    letterSpacing: 9,
-    lineJoin: 'bevel',
-    stroke: '#d20419',
-    strokeThickness: 3,
-    fontSize: 16,
+    fontWeight: 'bolder',
+    letterSpacing: 5,
+    stroke: '#3e6e38',
+    strokeThickness: 6,
+    fontSize: 60,
   });
-  const title = new Text('Witch+Skeletons', titleStyle);
+  const title = new Text('Witch+Skeletons', textStyle);
   title.anchor.x = 0.45;
   title.x = app.screen.width / 2;
-  title.anchor.y = 6.1;
+  title.anchor.y = 2.4;
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
-  const playButton = new Text('Play', titleStyle);
-  playButton.anchor.x = 0.43;
+  const playButton = new Text('> Play', textStyle);
+  playButton.anchor.x = 0.63;
   playButton.x = app.screen.width / 2;
-  playButton.anchor.y = 1.5;
+  playButton.anchor.y = -1.5;
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {

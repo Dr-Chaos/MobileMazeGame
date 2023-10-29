@@ -3,6 +3,7 @@ import {
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
+import { atlasLoader } from '../pixi/atlas-loader';
 
 export function initializeWinScreen() {
   const background = new Graphics();
@@ -10,7 +11,7 @@ export function initializeWinScreen() {
   background.drawRect(0, 0, app.screen.width, app.screen.height);
   app.stage.addChild(background);
 
-  const backgroundImage = Sprite.from('./screens/v2/win.png');
+  const backgroundImage = Sprite.from('./screens/v3/win.png');
   // start.width = app.screen.width;
   // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;
@@ -19,31 +20,29 @@ export function initializeWinScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
-  const titleStyle = new TextStyle({
-    dropShadow: true,
-    dropShadowAlpha: 0.8,
-    dropShadowAngle: -1.5,
-    dropShadowBlur: 3,
-    dropShadowDistance: 12,
+  const textStyle = new TextStyle({
+    dropShadowColor: '#0a76db',
+    fill: ['#ba7956', '#c97090'],
+    fillGradientStops: [0.2],
+    fontFamily: atlasLoader.yoster.family,
     fontVariant: 'small-caps',
-    fontWeight: 'bold',
-    letterSpacing: 9,
-    lineJoin: 'bevel',
-    stroke: '#d20419',
-    strokeThickness: 3,
-    fontSize: 16,
+    fontWeight: 'bolder',
+    letterSpacing: 5,
+    stroke: '#a4c09f',
+    strokeThickness: 2,
+    fontSize: 60,
   });
-  const title = new Text('CONGRATULATION !', titleStyle);
-  title.anchor.x = 0.45;
+  const title = new Text('CONGRATULATION !', textStyle);
+  title.anchor.x = 0.5;
   title.x = app.screen.width / 2;
-  title.anchor.y = 6.1;
+  title.anchor.y = 2.9;
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
-  const playButton = new Text('Play', titleStyle);
-  playButton.anchor.x = 0.43;
+  const playButton = new Text('> Replay', textStyle);
+  playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
-  playButton.anchor.y = 1.5;
+  playButton.anchor.y = -1.8;
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
