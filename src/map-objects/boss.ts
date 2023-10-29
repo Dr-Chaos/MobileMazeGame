@@ -1,4 +1,5 @@
 import { AnimatedSprite, Container, Graphics } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
@@ -10,6 +11,10 @@ import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
 import { initializeWinScreen } from '../screens/win';
 import { uninitializeScene } from '../scene';
+
+const bossDamageSound = Sound.from(atlasLoader.bossdamagesound);
+const bossLaughSound = Sound.from(atlasLoader.bosslaughing);
+const bossDeathSound = Sound.from(atlasLoader.burn2);
 
 const scaling = {
   fireball: 3, // 3
@@ -134,6 +139,7 @@ export function bossGameLoop() {
     bossnoredanimation.zIndex = -1;
     camera.addChild(bossnoredanimation);
     bossnoredanimation.play();
+    bossLaughSound.play();
   }
 
   // si le boss n'est pas actif, stop l'execution de la fonction
@@ -159,6 +165,7 @@ export function bossGameLoop() {
   if (isColliding(boss.sprite, playerFireball)) {
     boss.life -= 1;
     console.log('Boss takes damage');
+    bossDamageSound.play();
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
@@ -177,6 +184,7 @@ export function bossGameLoop() {
     bossDeathAnimation.zIndex = -1;
     bossDeathAnimation.play();
     camera.addChild(bossDeathAnimation);
+    bossDeathSound.play();
     app.ticker.remove(bossGameLoop);
     setTimeout(() => {
       uninitializeScene();

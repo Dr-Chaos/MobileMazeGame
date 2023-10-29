@@ -1,4 +1,5 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import { isColliding } from '../math/collisions';
 import { player } from '../player/player';
@@ -11,6 +12,9 @@ import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 import { inventory } from '../player/inventory';
+
+const skeletonDamageSound = Sound.from(atlasLoader.skeletonsound);
+const skeletonDeathSound = Sound.from(atlasLoader.burn);
 
 export enum SkeletonStates {
   Idle,
@@ -194,10 +198,12 @@ export function skeletonsGameLoop(delta: number) {
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.animations.idle, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
+      skeletonDamageSound.play();
       // is the skeleton die
       if (skeleton.life > 0) continue;
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
+      skeletonDeathSound.play();
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {

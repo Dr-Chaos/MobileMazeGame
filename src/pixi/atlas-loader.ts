@@ -21,6 +21,20 @@ Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // an
 Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
 Assets.add({ alias: 'hudKey', src: '/hud/hudkey/hudkey.json' });
 Assets.add({ alias: 'yoster', src: '/fonts/yoster.ttf' });
+Assets.add({ alias: 'musicdungeon2', src: '/sons/musiques/musicdungeon2.mp3' });
+Assets.add({ alias: 'keysound', src: '/sons/bruitages/key.wav' });
+Assets.add({ alias: 'skeletonsound', src: '/sons/bruitages/skeleton.mp3' });
+Assets.add({ alias: 'playerdamagesound', src: '/sons/bruitages/playerdamage.ogg' });
+Assets.add({ alias: 'burn', src: '/sons/bruitages/burn.wav' });
+Assets.add({ alias: 'burn2', src: '/sons/bruitages/burn2.wav' });
+Assets.add({ alias: 'spikesound', src: '/sons/bruitages/spike.wav' });
+Assets.add({ alias: 'leversound', src: '/sons/bruitages/levier.wav' });
+Assets.add({ alias: 'doorsound', src: '/sons/bruitages/door.wav' });
+Assets.add({ alias: 'dungeonmusic', src: '/sons/musiques/musicdungeon2.mp3' });
+Assets.add({ alias: 'bossdamagesound', src: '/sons/bruitages/boss_damage.wav' });
+Assets.add({ alias: 'bosslaughing', src: '/sons/bruitages/bosslaugh.wav' });
+Assets.add({ alias: 'burn3', src: '/sons/bruitages/burn3.wav' });
+Assets.add({ alias: 'musicwin', src: '/sons/musiques/musicwin.mp3' });
 
 const aliases = [
   'map',
@@ -45,6 +59,20 @@ const aliases = [
   'heart',
   'hudKey',
   'yoster',
+  'musicdungeon2',
+  'keysound',
+  'skeletonsound',
+  'playerdamagesound',
+  'burn',
+  'burn2',
+  'spikesound',
+  'leversound',
+  'doorsound',
+  'dungeonmusic',
+  'bossdamagesound',
+  'bosslaughing',
+  'burn3',
+  'musicwin',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }> & Record<string, FontFace>;

@@ -1,4 +1,6 @@
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
+import { atlasLoader } from '../pixi/atlas-loader';
 import app from '../pixi/initialize';
 import { AnimationStates, animationState } from './animations/animations';
 import { fireball, moveFireball } from './fireball';
@@ -8,11 +10,15 @@ import { moveGameLoop } from './move';
 import { player } from './player';
 import { playerStats } from './stats';
 
+const playerDamageSound = Sound.from(atlasLoader.playerdamagesound);
+const playerdeathSound = Sound.from(atlasLoader.burn3);
+
 export function damagePlayer(damageNumber: number) {
   startInvulnerabilityTimer();
   playerStats.life -= damageNumber;
   updateLifeHud(playerStats.life);
   animationState.current = AnimationStates.ReceiveDamage;
+  playerDamageSound.play();
 
   if (playerStats.life <= 0) {
     // remove the fireball
@@ -25,5 +31,6 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.y = 0;
     player.hitbox.width = 0;
     player.hitbox.height = 0;
+    playerdeathSound.play();
   }
 }

@@ -71,7 +71,7 @@ playbutton.on('click', () => {
 app.stage.addChild(playbutton);
 
 const backgroundmusic = Sound.from({
-  url: './sons/musiques/musicdungeon2.mp3',
+  url: atlasLoader.dungeonmusic,
   autoPlay: true,
 
 });
