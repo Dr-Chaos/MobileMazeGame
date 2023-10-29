@@ -67,6 +67,11 @@ export function createSkeleton(x: number, y: number, name: string) {
   death.visible = false;
   camera.addChild(death);
 
+  // const d = new Graphics();
+  // d.beginFill('red');
+  // d.drawRect(idle.x - (idle.width / 2), idle.y, idle.width, idle.height);
+  // camera.addChild(d);
+
   const playerDetectionZone = new Graphics();
   playerDetectionZone.beginFill('white', 0.5);
   const playerDetectionZonePosition = centerIfPivotIsUpperLeft(
@@ -105,15 +110,12 @@ export function createSkeleton(x: number, y: number, name: string) {
 export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: number) {
   skeleton.animations.idle.x += x * delta;
   skeleton.animations.idle.y += y * delta;
-  // skeleton.animations.idle.scale.x = (x < 0 ? -1 : 1) * mapScaling;
 
   skeleton.animations.walk.x += x * delta;
   skeleton.animations.walk.y += y * delta;
-  // skeleton.animations.walk.scale.x = (x < 0 ? -1 : 1) * mapScaling;
 
   skeleton.animations.death.x += x * delta;
   skeleton.animations.death.y += y * delta;
-  // skeleton.animations.death.scale.x = (x < 0 ? -1 : 1) * mapScaling;
 
   skeleton.playerDetectionZone.x += x * delta;
   skeleton.playerDetectionZone.y += y * delta;

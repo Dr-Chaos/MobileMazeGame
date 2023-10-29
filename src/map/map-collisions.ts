@@ -72,7 +72,7 @@ export function initializeMapCollision() {
 }
 
 // console.table(tile);
-export function mapCollision() {
+export function mapCollision(delta: number) {
   for (const tile of colliderTiles) {
     // collision with the player
     if (isColliding(tile, player.hitbox)) {
@@ -82,23 +82,22 @@ export function mapCollision() {
     // collision with skeletons
     for (const skeletonObject of skeletons) {
       const skeletonSprite = skeletonObject.animations.idle;
-      if (isColliding(tile, skeletonSprite)) {
+      // recalcule la hitbox du skeleton
+      // simule comme si le pivot était en haut à gauche, alors qu'en réalité il se trouve en centre
+      // permets d'éviter que la moitié du sprite ne rentre dans le mur
+      const spriteHitbox = {
+        x: skeletonSprite.x - (skeletonSprite.width / 2),
+        y: skeletonSprite.y,
+        width: skeletonSprite.width,
+        height: skeletonSprite.height,
+      };
+      if (isColliding(tile, spriteHitbox)) {
         console.log('Collision');
-
-        // Sauvegardez la position précédente.
-        const previousX = skeletonSprite.x;
-        const previousY = skeletonSprite.y;
-
         // Calculez l'ajustement nécessaire pour éviter la collision.
-        const collisionAdjustment = collisionResponseDirection(skeletonSprite, tile);
+        const collisionAdjustment = collisionResponseDirection(spriteHitbox, tile);
 
         // Ajustez la position du squelette en fonction de la collision.
         moveSkeleton(skeletonObject, collisionAdjustment.x, collisionAdjustment.y, 1);
-
-        // Si le squelette est toujours en collision après l'ajustement, réinitialisez à la position précédente.
-        if (isColliding(tile, skeletonSprite)) {
-          moveSkeleton(skeletonObject, previousX, previousY, 1);
-        }
       }
     }
   }
