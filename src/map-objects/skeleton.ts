@@ -129,6 +129,11 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const directionX = playerX - skeleton.animations.idle.x;
   const directionY = playerY - skeleton.animations.idle.y;
 
+  const marginPixels = 5;
+  if (Math.abs(directionX) <= marginPixels && Math.abs(directionY) <= marginPixels) {
+    return; // pour bloquer l'anim, en dessous du 0.0 du player avec quelques pixels en plus autour
+  }
+
   const distance = Math.hypot(directionX, directionY);
 
   const normalizedDirectionX = directionX / distance;
