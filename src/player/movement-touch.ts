@@ -1,27 +1,34 @@
 import { directionHistory } from './move-direction';
 
-let originTouch = {
+let touchStart = {
   x: 0,
   y: 0,
 };
 
 document.addEventListener('touchstart', (event) => {
-  originTouch = {
+  touchStart = {
     x: event.touches[0].clientX,
     y: event.touches[0].clientY,
   };
 });
 
 document.addEventListener('touchmove', (event) => {
-  const userTouch = {
+  const touchMove = {
     x: event.changedTouches[0].clientX,
     y: event.changedTouches[0].clientY,
   };
 
-  const deltaX = userTouch.x - originTouch.x;
-  const deltaY = userTouch.y - originTouch.y;
+  const deltaX = touchMove.x - touchStart.x;
+  const deltaY = touchMove.y - touchStart.y;
   const angle = Math.atan2(deltaY, deltaX);
   const degrees = (angle * 180) / Math.PI;
+
+  if (!touchMove.x && !touchMove.y) {
+    directionHistory.x = [0];
+    directionHistory.y = [0];
+    console.log('no move');
+    return;
+  }
 
   if (degrees > 150 || degrees < -150) {
     directionHistory.x = [-1];
