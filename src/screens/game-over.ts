@@ -30,7 +30,7 @@ export function initializeGameOverScreen() {
     letterSpacing: 5,
     stroke: '794F6C',
     strokeThickness: 2,
-    fontSize: 60,
+    fontSize: app.screen.width / 11,
   });
   const gameOverTitle = new Text('GAME OVER', textStyle);
   gameOverTitle.anchor.x = 0.5;

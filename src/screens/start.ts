@@ -20,8 +20,6 @@ export function initializeStartScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
-  // console.log(atlasLoader.yoster);
-
   const textStyle = new TextStyle({
     fontFamily: atlasLoader.yoster.family,
     dropShadowColor: '#0a76db',
@@ -32,17 +30,17 @@ export function initializeStartScreen() {
     letterSpacing: 5,
     stroke: '#3e6e38',
     strokeThickness: 6,
-    fontSize: 60,
+    fontSize: app.screen.width / 11,
   });
   const title = new Text('Witch+Skeletons', textStyle);
-  title.anchor.x = 0.45;
+  title.anchor.x = 0.5;
   title.x = app.screen.width / 2;
   title.anchor.y = 2.4;
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
   const playButton = new Text('> Play', textStyle);
-  playButton.anchor.x = 0.63;
+  playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
   playButton.anchor.y = -1.5;
   playButton.y = app.screen.height / 2;
