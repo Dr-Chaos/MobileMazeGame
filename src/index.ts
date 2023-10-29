@@ -27,8 +27,8 @@ document.addEventListener('keydown', async (event) => {
   // damagePlayer(1);
 
   // to test the boss
-  // playerStats.life = 1000;
-  // inventory.keys = 3;
+  playerStats.life = 1000;
+  inventory.keys = 3;
   // gameConditions.leverToAttackTheBoss = 0;
   // skeletons.length = 0;
   // boss.life = 1;

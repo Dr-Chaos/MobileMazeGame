@@ -10,6 +10,7 @@ import { centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
+import { inventory } from '../player/inventory';
 
 export enum SkeletonStates {
   Idle,
@@ -75,7 +76,7 @@ export function createSkeleton(x: number, y: number, name: string) {
       width: idle.width,
       height: idle.height,
     },
-    6.5,
+    9,
   );
   playerDetectionZone.x = playerDetectionZonePosition.x;
   playerDetectionZone.y = playerDetectionZonePosition.y;
@@ -173,6 +174,7 @@ function skeletonsStatesLoop(skeleton: Skeleton) {
 export function skeletonsGameLoop(delta: number) {
   for (const skeleton of skeletons) {
     skeletonsStatesLoop(skeleton);
+    if (skeleton.name === 'skeletonBoss' && inventory.keys !== 3) continue;
     if (skeleton.life <= 0) continue;
     // if the detection zone is in collision with the player
     if (isColliding(player.hitbox, skeleton.playerDetectionZone)) {
@@ -209,26 +211,6 @@ export function skeletonsGameLoop(delta: number) {
     skeleton.animations.idle.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
     skeleton.animations.walk.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
     skeleton.animations.death.alpha = isColliding(player.hitbox, skeleton.animations.idle) ? 0.5 : 1;
-
-    // move skeleton on player collision
-    const skeletonSprite = skeleton.animations.idle;
-    const dx = skeletonSprite.x - player.hitbox.x / 2;
-    const dy = skeletonSprite.y - player.hitbox.y / 2;
-    const distanceBetweenSkeletons = Math.hypot(dx, dy);
-
-    // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonSprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
-
-    if (distanceBetweenSkeletons < minDistance) {
-    // Les squelettes sont trop proches, nous devons les repousser
-      const overlap = minDistance - distanceBetweenSkeletons * 1.7;
-      const adjustX = (overlap / distanceBetweenSkeletons) * dx;
-      const adjustY = (overlap / distanceBetweenSkeletons) * dy;
-
-      // Ajuster les positions pour éviter la superposition
-      moveSkeleton(skeleton, adjustX / 2, adjustY / 2, delta);
-    // moveSkeleton(skeletonB, -(adjustX / 2), -(adjustY / 2));
-    }
   }
 
   // Deuxième boucle pour gérer les collisions entre les squelettes
