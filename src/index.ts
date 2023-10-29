@@ -5,6 +5,10 @@ import { initializeStartScreen } from './screens/start';
 // start on the menu
 initializeStartScreen();
 
+// ! DURING DEV test screens
+// initializeWinScreen();
+// initializeGameOverScreen();
+
 // ! DURING DEV start directly in the game
 // clearScene();
 // initializeScene();

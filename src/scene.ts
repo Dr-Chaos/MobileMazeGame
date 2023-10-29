@@ -18,6 +18,7 @@ import { animationsGameLoop, initializePlayerAnimations } from './player/animati
 import { initializeFireball, moveFireball } from './player/fireball';
 import { initializeHud } from './player/hud';
 import { initializeInventory } from './player/inventory';
+import { initializeJoystick, joystickGameLoop } from './player/mobile-joystick';
 import { moveGameLoop } from './player/move';
 import { directionHistory } from './player/move-direction';
 import { initializePlayer } from './player/player';
@@ -40,6 +41,7 @@ gameLoops.push(
   skullGameLoop,
   bossGameLoop,
   mapCollision,
+  joystickGameLoop,
 );
 
 export function initializeGameLoops() {
@@ -91,6 +93,7 @@ export function initializeScene() {
   initializeFireball();
   initializePlayerStats();
   initializeInventory();
+  initializeJoystick();
   // initialize hud
   initializeHud();
   // initialize game loops
