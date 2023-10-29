@@ -1,4 +1,4 @@
-import {
+6import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
 import app from './pixi/initialize';
@@ -20,7 +20,7 @@ screenloser.x = app.screen.width / 2;
 screenloser.anchor.y = 0.5;
 screenloser.y = app.screen.height / 2;
 
-cconst style = new TextStyle({
+const style = new TextStyle({
   dropShadowColor: '#0a76db',
   fill: [
     '#14520C',
@@ -36,7 +36,7 @@ cconst style = new TextStyle({
   letterSpacing: 5,
   stroke: '794F6C',
   strokeThickness: 2,
-  fontSize: 60,
+  fontSize: app.screen.width / 11,
 });
 const title = new Text('Game Over', style);
 

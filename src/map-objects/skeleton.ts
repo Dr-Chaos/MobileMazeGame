@@ -1,4 +1,5 @@
 import { AnimatedSprite, Graphics } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import { isColliding } from '../math/collisions';
 import { player } from '../player/player';
@@ -10,6 +11,10 @@ import { centerIfPivotIsUpperLeft } from '../utils/utils';
 import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
+
+const skeletonsound = Sound.from(atlasLoader.skeletonsound);
+const skeletondeathsound = Sound.from(atlasLoader.burn);
+const doorsound = Sound.from(atlasLoader.doorsound);
 
 export enum SkeletonStates {
   Idle,
@@ -186,9 +191,11 @@ export function skeletonsGameLoop(delta: number) {
     if (isColliding(skeleton.animations.idle, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
       // is the skeleton die
+      skeletonsound.play();
       if (skeleton.life > 0) continue;
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
+      skeletondeathsound.play();
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
@@ -197,6 +204,7 @@ export function skeletonsGameLoop(delta: number) {
         // disable the room2 door
         camera.removeChild(doorRoomRight);
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
+        doorsound.play();
       }
 
       continue;

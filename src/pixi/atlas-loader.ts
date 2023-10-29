@@ -29,7 +29,10 @@ Assets.add({ alias: 'leversound', src: '/sons/bruitages/levier.wav' });
 Assets.add({ alias: 'doorsound', src: '/sons/bruitages/door.wav' });
 Assets.add({ alias: 'yoster', src: '/font/yoster.ttf' });
 Assets.add({ alias: 'dungeonmusic', src: '/sons/musiques/musicdungeon2.mp3' });
-
+Assets.add({ alias: 'bossdamagesound', src: '/sons/bruitages/boss_damage.wav' });
+Assets.add({ alias: 'bosslaughing', src: '/sons/bruitages/bosslaugh.wav' });
+Assets.add({ alias: 'burn3', src: '/sons/bruitages/burn3' });
+Assets.add({ alias: 'musicwin', src: '/sons/musiques/musicwin.mp3' });
 const aliases = [
   'map',
   'witchIdle',
@@ -60,7 +63,10 @@ const aliases = [
   'doorsound',
   'yoster',
   'dungeonmusic',
-
+  'bossdamagesound',
+  'bosslaughing',
+  'burn3',
+  'musicwin',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;

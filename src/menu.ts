@@ -39,11 +39,11 @@ const style = new TextStyle({
   letterSpacing: 5,
   stroke: '#3e6e38',
   strokeThickness: 6,
-  fontSize: 60,
+  fontSize: app.screen.width / 11,
 });
-const title = new Text('Witch+Skeletons \n', style);
+const title = new Text('Witch+Skeletons', style);
 
-title.anchor.x = 0.45;
+title.anchor.x = 0.5;
 title.x = app.screen.width / 2;
 
 title.anchor.y = 2.4;
@@ -58,7 +58,7 @@ const clicksound = Sound.from('./sons/bruitages/key.wav');
 // lorsque l'on clique sur le boutton
 const playbutton = new Text('> Play', style);
 
-playbutton.anchor.x = 0.63;
+playbutton.anchor.x = 0.5;
 playbutton.x = app.screen.width / 2;
 
 playbutton.anchor.y = -1.5;

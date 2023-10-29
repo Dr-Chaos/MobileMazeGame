@@ -1,6 +1,7 @@
 import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import app from './pixi/initialize';
 import { atlasLoader } from './pixi/atlas-loader';
 
@@ -36,7 +37,7 @@ const style = new TextStyle({
   letterSpacing: 5,
   stroke: '#a4c09f',
   strokeThickness: 2,
-  fontSize: 60,
+  fontSize: app.screen.width / 11,
 });
 const title = new Text('You Win !', style);
 
@@ -64,3 +65,10 @@ replaybutton.on('click', () => {
   alert('clicked');
 });
 app.stage.addChild(replaybutton);
+
+const musicwin = Sound.from({
+  url: atlasLoader.musicwin,
+  autoPlay: true,
+
+});
+app.stage.addChild(musicwin);
