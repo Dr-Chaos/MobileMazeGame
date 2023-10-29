@@ -1,6 +1,7 @@
 import {
   Graphics, Sprite, Text, type TextStyle,
 } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -39,6 +40,9 @@ export function initializeWinScreen() {
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
+  const clicksound = Sound.from('/sons/bruitages/key.wav');
+  const winmusic = Sound.from(atlasLoader.musicwin);
+  const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
   const playButtonStyle = { ...textStyle, fontSize: app.screen.width / 11 };
   const playButton = new Text('> Replay', playButtonStyle);
   playButton.anchor.x = 0.5;
@@ -48,9 +52,16 @@ export function initializeWinScreen() {
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
+    clicksound.play();
+    winmusic.play();
+    winmusic.stop();
+    backgroundmusic.play();
   });
   playButton.on('touchstart', () => {
     play();
+    backgroundmusic.stop();
   });
   app.stage.addChild(playButton);
+  winmusic.play();
+  backgroundmusic.stop();
 }

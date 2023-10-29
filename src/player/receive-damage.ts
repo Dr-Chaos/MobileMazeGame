@@ -11,7 +11,8 @@ import { player } from './player';
 import { playerStats } from './stats';
 
 const playerDamageSound = Sound.from(atlasLoader.playerdamagesound);
-const playerdeathSound = Sound.from(atlasLoader.burn3);
+const playerdeathSound = Sound.from(atlasLoader.burn4);
+const playerdeathScream = Sound.from(atlasLoader.deathsound);
 
 export function damagePlayer(damageNumber: number) {
   startInvulnerabilityTimer();
@@ -32,5 +33,6 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.width = 0;
     player.hitbox.height = 0;
     playerdeathSound.play();
+    playerdeathScream.play();
   }
 }

@@ -1,4 +1,6 @@
-import { AnimatedSprite, Container, Graphics } from 'pixi.js';
+import {
+  AnimatedSprite, BackgroundSystem, Container, Graphics,
+} from 'pixi.js';
 import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
@@ -15,6 +17,27 @@ import { uninitializeScene } from '../scene';
 const bossDamageSound = Sound.from(atlasLoader.bossdamagesound);
 const bossLaughSound = Sound.from(atlasLoader.bosslaughing);
 const bossDeathSound = Sound.from(atlasLoader.burn2);
+const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
+
+backgroundmusic.loop = true;
+
+let isMusicPlaying = false;
+function playBackgroundMusicLoop() {
+  if (!isMusicPlaying) {
+    backgroundmusic.play();
+    isMusicPlaying = true;
+  }
+}
+
+playBackgroundMusicLoop();
+
+/* const backgroundmusic = Sound.from({
+  url: '/sons/musiques/musicdungeon2.mp3',
+  autoplay: true,
+  complete() {
+    backgroundmusic.play();
+  },
+}); */
 
 const scaling = {
   fireball: 3, // 3
@@ -185,6 +208,11 @@ export function bossGameLoop() {
     bossDeathAnimation.play();
     camera.addChild(bossDeathAnimation);
     bossDeathSound.play();
+    if (isMusicPlaying) {
+      backgroundmusic.stop();
+      isMusicPlaying = false;
+    }
+
     app.ticker.remove(bossGameLoop);
     setTimeout(() => {
       uninitializeScene();

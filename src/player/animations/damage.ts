@@ -1,12 +1,14 @@
 import {
   AnimatedSprite,
 } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import { atlasLoader } from '../../pixi/atlas-loader';
 import {
   AnimationStates, animationState,
 } from './animations';
 import { playerStats } from '../stats';
 
+const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
 const witchDamageAnimation = new AnimatedSprite(atlasLoader.witchDamage.animations.damage);
 // witchIdleAnimation.scale.set(2);
 // witchIdleAnimation.anchor.x = 0.5;
@@ -19,6 +21,8 @@ witchDamageAnimation.onLoop = () => {
 
   if (playerStats.life <= 0) {
     animationState.current = AnimationStates.Death;
+    backgroundmusic.stop();
+
     return;
   }
 

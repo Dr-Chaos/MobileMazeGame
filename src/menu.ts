@@ -1,9 +1,16 @@
 import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
-import { Sound } from '@pixi/sound';
+// import { Sound } from '@pixi/sound';
 import app from './pixi/initialize';
 import { atlasLoader } from './pixi/atlas-loader';
+
+// const clicksound = Sound.from('/sons/bruitages/key.wav');
+
+// app.stage.addChild(clicksound);
+
+// const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
+// app.stage.addChild(backgroundmusic);
 
 // forme (rectangle)
 const menu = new Graphics();
@@ -41,7 +48,7 @@ const style = new TextStyle({
   strokeThickness: 6,
   fontSize: app.screen.width / 11,
 });
-const title = new Text('Witch+Skeletons', style);
+const title = new Text('Witch+Sktons', style);
 
 title.anchor.x = 0.5;
 title.x = app.screen.width / 2;
@@ -52,8 +59,6 @@ title.y = app.screen.height / 2;
 app.stage.addChild(title);
 
 // image
-
-const clicksound = Sound.from('./sons/bruitages/key.wav');
 
 // lorsque l'on clique sur le boutton
 const playbutton = new Text('> Play', style);
@@ -67,12 +72,7 @@ playbutton.y = app.screen.height / 2;
 playbutton.interactive = true;
 playbutton.on('click', () => {
   alert('clicked');
+  clicksound.play();
 });
+
 app.stage.addChild(playbutton);
-
-const backgroundmusic = Sound.from({
-  url: atlasLoader.dungeonmusic,
-  autoPlay: true,
-
-});
-app.stage.addChild(backgroundmusic);
