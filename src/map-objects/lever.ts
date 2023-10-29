@@ -1,5 +1,4 @@
 import { AnimatedSprite } from 'pixi.js';
-import { Sound } from '@pixi/sound';
 import { camera } from '../camera';
 import { atlasLoader } from '../pixi/atlas-loader';
 import { collisionResponseDirection, isColliding } from '../math/collisions';
@@ -10,11 +9,6 @@ import { spikes } from './spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
-
-const leversound = Sound.from(atlasLoader.leversound);
-const spikesound = Sound.from(atlasLoader.spikesound);
-const doorsound = Sound.from(atlasLoader.doorsound);
-const playerdamagesound = Sound.from(atlasLoader.playerdamagesound);
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
 export const levers: Lever[] = [];
@@ -37,19 +31,15 @@ export function createLever(x: number, y: number, name: string) {
       if (name === 'lever1') {
         const key1 = keys.find((key) => key.name === 'key1')!;
         key1.visible = true;
-        leversound.play();
       }
     }, 135);
 
     // levier 2, 3 et 4
     if (name === 'lever2' || name === 'lever3' || name === 'lever4') {
-      const spikesRoom1 = spikes.filter((spike) => spike.name === 'spikeRoom1');
+      const spikesRoom1 = spikes.filter((spike) => spike.sprite.name === 'spikeRoom1');
       for (const spike of spikesRoom1) {
-        spike.visible = true;
-        leversound.play();
-        spikesound.play();
-        playerdamagesound.play();
-        spike.play();
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
 
@@ -57,25 +47,19 @@ export function createLever(x: number, y: number, name: string) {
     if (name === 'leverDoorBottom') {
       camera.removeChild(doorRoomBottom);
       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
-      leversound.play();
-      doorsound.play();
     }
 
     // lever boss room
     if (name === 'leverBossGood') {
       gameConditions.leverToAttackTheBoss -= 1;
       console.log(gameConditions.leverToAttackTheBoss);
-      leversound.play();
     }
 
     if (name === 'leverBossBad') {
       for (const spike of spikes) {
-        if (spike.name !== 'spikeBossLever') continue;
-        spike.visible = true;
-        leversound.play();
-        spikesound.play();
-        playerdamagesound.play();
-        spike.play();
+        if (spike.sprite.name !== 'spikeBossLever') continue;
+        spike.sprite.visible = true;
+        spike.sprite.play();
       }
     }
   };
@@ -84,10 +68,10 @@ export function createLever(x: number, y: number, name: string) {
   levers.push(lever);
 }
 
-export function leversGameLoop(delta: number) {
+export function leversGameLoop() {
   for (const lever of levers) {
     if (isColliding(player.hitbox, lever)) {
-      movePlayer(collisionResponseDirection(player.hitbox, lever), delta);
+      movePlayer(collisionResponseDirection(player.hitbox, lever), 1);
       if (!lever.canBeActivated) return;
       lever.canBeActivated = false;
       lever.animationSpeed = 0.2;

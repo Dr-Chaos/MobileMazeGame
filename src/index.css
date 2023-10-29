@@ -4,8 +4,3 @@ canvas {
   width: 100vw;
   height: 100vh;
 }
-
-@font-face {
-  font-family: yoster;
-  src: url(/font/yoster.ttf);
-}

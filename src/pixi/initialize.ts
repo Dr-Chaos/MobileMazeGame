@@ -1,4 +1,5 @@
 import '@pixi/tilemap'; // initialize @pixi/tilemap plugins
+import '@pixi/math-extras'; // initialize @pixi/math-extras plugins
 import { Application, BaseTexture, SCALE_MODES } from 'pixi.js';
 
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;

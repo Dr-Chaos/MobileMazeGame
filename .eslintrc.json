@@ -27,7 +27,8 @@
         "no-restricted-syntax": "off",
         "max-len": "off",
         "no-plusplus": "off",
-        "no-continue": "off"
+        "no-continue": "off",
+        "no-param-reassign": "off"
       }
     }
   ],

@@ -1,5 +1,4 @@
 import { Container, Sprite } from 'pixi.js';
-import { Sound } from '@pixi/sound';
 import { atlasLoader } from '../pixi/atlas-loader';
 import app from '../pixi/initialize';
 import { camera } from '../camera';
@@ -10,8 +9,6 @@ import { movePlayer } from '../player/move';
 import { getCoordinates } from '../utils/utils';
 import { gameConditions } from '../map/game-conditions';
 import { inventory } from '../player/inventory';
-
-const doorsound = Sound.from(atlasLoader.doorsound);
 
 // DEMO TO CREATE DOOR IN MULTIPLE PARTS
 export function doorExample() {
@@ -79,14 +76,9 @@ doorRoomTop.name = 'doorRoomTop';
 export { doorRoomTop };
 
 // DOORS CONTAINERS
-const doorsContainers = {
-  list: [
-    doorRoomBottom,
-    doorRoomRight,
-    doorRoomTop,
-  ],
+export const doorsContainers: { list: Container[] } = {
+  list: [],
 };
-export { doorsContainers };
 
 // DOORS COLLISIONS
 export function doorsCollisionsGameLoop(delta: number) {
@@ -111,7 +103,6 @@ export function removeDoorRoomTop() {
   // si clés === 3
   if (inventory.keys !== gameConditions.keysToOpenTopRoom) return;
   console.log('remove');
-  doorsound.play();
 
   camera.removeChild(doorRoomTop);
   doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomTop);
@@ -119,6 +110,11 @@ export function removeDoorRoomTop() {
 }
 
 export function initializeDoorsContainers() {
+  doorsContainers.list = [
+    doorRoomBottom,
+    doorRoomRight,
+    doorRoomTop,
+  ];
   camera.addChild(doorRoomTop);
   camera.addChild(doorRoomRight);
   camera.addChild(doorRoomBottom);

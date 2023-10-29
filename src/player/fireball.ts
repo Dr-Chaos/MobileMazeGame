@@ -6,7 +6,7 @@ import { player } from './player';
 // boss fireball
 // const fireball = new AnimatedSprite(atlasLoader.bossFireball.animations.idle);
 // witch fireball
-const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
+export const fireball = new AnimatedSprite(atlasLoader.fireball.animations.idle);
 let radius = 0;
 let angle = 0;
 
@@ -25,5 +25,3 @@ export function moveFireball(delta: number) {
   fireball.y = player.container.y + radius * Math.sin(angle);
   angle += 0.1 * delta;
 }
-
-export { fireball };
