@@ -126,6 +126,15 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
   const directionX = playerX - skeleton.animations.idle.x;
   const directionY = playerY - skeleton.animations.idle.y;
 
+  console.log('Direction X:', directionX);
+  console.log('Direction Y:', directionY);
+  // consolelog pour debug
+
+  const marginPixels = 5;
+  if (Math.abs(directionX) <= marginPixels && Math.abs(directionY) <= marginPixels) {
+    return; // pour bloquer l'anim, en dessous du 0.0 du player avec quelques pixels en plus autour
+  }
+
   const distance = Math.hypot(directionX, directionY);
 
   const normalizedDirectionX = directionX / distance;
@@ -172,6 +181,9 @@ function skeletonsStatesLoop(skeleton: Skeleton) {
 
 export function skeletonsGameLoop(delta: number) {
   for (const skeleton of skeletons) {
+    // console.log('Skeleton:', skeleton.name);
+    // console.log('Skeleton Position X:', skeleton.animations.idle.x);
+    // console.log('Skeleton Position Y:', skeleton.animations.idle.y);
     skeletonsStatesLoop(skeleton);
     if (skeleton.life <= 0) continue;
     // if the detection zone is in collision with the player
@@ -217,7 +229,7 @@ export function skeletonsGameLoop(delta: number) {
     const distanceBetweenSkeletons = Math.hypot(dx, dy);
 
     // Supposons qu'un certain 'minDistance' représente la distance minimale que les squelettes doivent maintenir entre eux
-    const minDistance = skeletonSprite.width + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
+    const minDistance = skeletonSprite.width / 2 + player.hitbox.width / 2; // ou une autre valeur selon la taille des squelettes
 
     if (distanceBetweenSkeletons < minDistance) {
     // Les squelettes sont trop proches, nous devons les repousser
@@ -250,7 +262,7 @@ export function skeletonsGameLoop(delta: number) {
 
       if (distanceBetweenSkeletons < minDistance) {
         // Les squelettes sont trop proches, nous devons les repousser
-        const overlap = minDistance - distanceBetweenSkeletons;
+        const overlap = minDistance - distanceBetweenSkeletons * 1;
         const adjustX = (overlap / distanceBetweenSkeletons) * dx;
         const adjustY = (overlap / distanceBetweenSkeletons) * dy;
 
