@@ -1,5 +1,6 @@
 import { Graphics } from 'pixi.js';
 import app from '../pixi/initialize';
+import { directionHistory } from './move-direction';
 
 const touchStart = {
   x: 0,
@@ -60,6 +61,73 @@ export function joystickGameLoop() {
   littleCircle.x = litleCircleDirection.x;
   littleCircle.y = litleCircleDirection.y;
   littleCircle.visible = true;
+
+  // commentez ces lignes si vous préférez gérer les directions dans movement-touch.ts
+  const minimumDistance = maximumDistance / 2;
+  if (distanceFromCenter < minimumDistance) {
+    directionHistory.x = [0];
+    directionHistory.y = [0];
+    // console.log("don't move");
+    return;
+  }
+
+  if (!touchMove.x && !touchMove.y) {
+    directionHistory.x = [0];
+    directionHistory.y = [0];
+    // console.log("don't move");
+    return;
+  }
+
+  const angle = Math.atan2(deltaY, deltaX);
+  const degrees = (angle * 180) / Math.PI;
+
+  if (degrees > 150 || degrees < -150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [0];
+    // console.log('left');
+  }
+
+  if (degrees < -105 && degrees > -150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [-1];
+    // console.log('top left');
+  }
+
+  if (degrees < -60 && degrees > -105) {
+    directionHistory.x = [0];
+    directionHistory.y = [-1];
+    // console.log('top ');
+  }
+
+  if (degrees < -30 && degrees > -60) {
+    directionHistory.x = [1];
+    directionHistory.y = [-1];
+    // console.log('right top');
+  }
+
+  if (degrees > -30 && degrees < 30) {
+    directionHistory.x = [1];
+    directionHistory.y = [0];
+    // console.log('right');
+  }
+
+  if (degrees > 30 && degrees < 60) {
+    directionHistory.x = [1];
+    directionHistory.y = [1];
+    // console.log('right bottom');
+  }
+
+  if (degrees > 60 && degrees < 105) {
+    directionHistory.x = [0];
+    directionHistory.y = [1];
+    // console.log('bottom');
+  }
+
+  if (degrees > 105 && degrees < 150) {
+    directionHistory.x = [-1];
+    directionHistory.y = [1];
+    // console.log('bottom left');
+  }
 }
 
 document.addEventListener('touchstart', (event) => {
