@@ -1,5 +1,5 @@
 import {
-  Graphics, Sprite, Text, TextStyle,
+  Graphics, Sprite, Text, type TextStyle,
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
@@ -20,7 +20,7 @@ export function initializeWinScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
-  const textStyle = new TextStyle({
+  const textStyle: TextStyle = {
     dropShadowColor: '#0a76db',
     fill: ['#ba7956', '#c97090'],
     fillGradientStops: [0.2],
@@ -30,8 +30,8 @@ export function initializeWinScreen() {
     letterSpacing: 5,
     stroke: '#a4c09f',
     strokeThickness: 2,
-    fontSize: 60,
-  });
+    fontSize: app.screen.width / 15,
+  };
   const title = new Text('CONGRATULATION !', textStyle);
   title.anchor.x = 0.5;
   title.x = app.screen.width / 2;
@@ -39,7 +39,8 @@ export function initializeWinScreen() {
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
-  const playButton = new Text('> Replay', textStyle);
+  const playButtonStyle = { ...textStyle, fontSize: app.screen.width / 11 };
+  const playButton = new Text('> Replay', playButtonStyle);
   playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
   playButton.anchor.y = -1.8;

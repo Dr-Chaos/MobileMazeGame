@@ -1,6 +1,11 @@
 import './index.css';
+import { skeletons } from './map-objects/skeleton';
+import { inventory } from './player/inventory';
+import { playerStats } from './player/stats';
 import { clearScene, initializeScene } from './scene';
+import { initializeGameOverScreen } from './screens/game-over';
 import { initializeStartScreen } from './screens/start';
+import { initializeWinScreen } from './screens/win';
 
 // start on the menu
 initializeStartScreen();
