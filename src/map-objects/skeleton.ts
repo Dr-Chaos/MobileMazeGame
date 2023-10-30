@@ -15,6 +15,7 @@ import { inventory } from '../player/inventory';
 
 const skeletonDamageSound = Sound.from(atlasLoader.skeletonsound);
 const skeletonDeathSound = Sound.from(atlasLoader.burn);
+const doorsound = Sound.from(atlasLoader.doorsound);
 
 export enum SkeletonStates {
   Idle,
@@ -204,6 +205,7 @@ export function skeletonsGameLoop(delta: number) {
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
       skeletonDeathSound.play();
+      skeletonDeathSound.volume = 0.35;
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
@@ -211,6 +213,8 @@ export function skeletonsGameLoop(delta: number) {
         if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
         // disable the room2 door
         camera.removeChild(doorRoomRight);
+        doorsound.play();
+        doorsound.volume = 2;
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
 

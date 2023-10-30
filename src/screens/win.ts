@@ -36,7 +36,7 @@ export function initializeWinScreen() {
   const title = new Text('CONGRATULATION !', textStyle);
   title.anchor.x = 0.5;
   title.x = app.screen.width / 2;
-  title.anchor.y = 2.9;
+  title.anchor.y = 2.4;
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
@@ -47,12 +47,13 @@ export function initializeWinScreen() {
   const playButton = new Text('> Replay', playButtonStyle);
   playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
-  playButton.anchor.y = -1.8;
+  playButton.anchor.y = -1.2;
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
     clicksound.play();
+    clicksound.volume = 0.4;
     winmusic.play();
     winmusic.stop();
     backgroundmusic.play();

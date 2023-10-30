@@ -1,6 +1,7 @@
 import {
   Graphics, Sprite, Text, TextStyle,
 } from 'pixi.js';
+import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
@@ -35,18 +36,22 @@ export function initializeGameOverScreen() {
   const gameOverTitle = new Text('GAME OVER', textStyle);
   gameOverTitle.anchor.x = 0.5;
   gameOverTitle.x = app.screen.width / 2;
-  gameOverTitle.anchor.y = 2.9;
+  gameOverTitle.anchor.y = 2.4;
   gameOverTitle.y = app.screen.height / 2;
   app.stage.addChild(gameOverTitle);
+
+  const clicksound = Sound.from('/sons/bruitages/key.wav');
 
   const playAgainButton = new Text('> Play again', textStyle);
   playAgainButton.anchor.x = 0.5;
   playAgainButton.x = app.screen.width / 2;
-  playAgainButton.anchor.y = -0.55;
+  playAgainButton.anchor.y = -1.2;
   playAgainButton.y = app.screen.height / 2;
   playAgainButton.eventMode = 'dynamic';
   playAgainButton.on('click', () => {
     play();
+    clicksound.play();
+    clicksound.volume = 0.4;
   });
   playAgainButton.on('touchstart', () => {
     play();

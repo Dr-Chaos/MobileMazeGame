@@ -41,6 +41,7 @@ export function keyGameLoop() {
       console.log('Collision key');
       inventory.keys += 1;
       keySound.play();
+      keySound.volume = 0.4;
       updateKeyHud(inventory.keys);
       camera.removeChild(key);
       // remove the key from keys array

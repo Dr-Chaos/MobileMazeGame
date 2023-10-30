@@ -46,12 +46,13 @@ export function initializeStartScreen() {
   const playButton = new Text('> Play', textStyle);
   playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
-  playButton.anchor.y = -1.5;
+  playButton.anchor.y = -1.2;
   playButton.y = app.screen.height / 2;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
     clicksound.play();
+    clicksound.volume = 0.4;
     backgroundmusic.stop();
   });
   playButton.on('touchstart', () => {

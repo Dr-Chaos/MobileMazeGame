@@ -33,6 +33,7 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.width = 0;
     player.hitbox.height = 0;
     playerdeathSound.play();
+    playerdeathSound.volume = 2;
     playerdeathScream.play();
   }
 }

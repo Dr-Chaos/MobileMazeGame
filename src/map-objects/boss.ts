@@ -20,6 +20,7 @@ const bossDeathSound = Sound.from(atlasLoader.burn2);
 const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
 
 backgroundmusic.loop = true;
+backgroundmusic.volume = 1;
 
 let isMusicPlaying = false;
 function playBackgroundMusicLoop() {
@@ -163,6 +164,7 @@ export function bossGameLoop() {
     camera.addChild(bossnoredanimation);
     bossnoredanimation.play();
     bossLaughSound.play();
+    bossLaughSound.volume = 4;
   }
 
   // si le boss n'est pas actif, stop l'execution de la fonction
@@ -189,6 +191,7 @@ export function bossGameLoop() {
     boss.life -= 1;
     console.log('Boss takes damage');
     bossDamageSound.play();
+    bossDamageSound.volume = 0.75;
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
@@ -208,6 +211,7 @@ export function bossGameLoop() {
     bossDeathAnimation.play();
     camera.addChild(bossDeathAnimation);
     bossDeathSound.play();
+    bossDeathSound.volume = 2;
     if (isMusicPlaying) {
       backgroundmusic.stop();
       isMusicPlaying = false;

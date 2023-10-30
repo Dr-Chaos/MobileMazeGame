@@ -38,6 +38,7 @@ export function createLever(x: number, y: number, name: string) {
         const key1 = keys.find((key) => key.name === 'key1')!;
         key1.visible = true;
         leversound.play();
+        leversound.volume = 5;
       }
     }, 135);
 
@@ -48,8 +49,11 @@ export function createLever(x: number, y: number, name: string) {
         spike.sprite.visible = true;
         spike.sprite.play();
         leversound.play();
+        leversound.volume = 0.1;
         spikesound.play();
+        spikesound.volume = 0.2;
         playerdamagesound.play();
+        playerdamagesound.volume = 0.2;
       }
     }
 
@@ -57,7 +61,10 @@ export function createLever(x: number, y: number, name: string) {
     if (name === 'leverDoorBottom') {
       camera.removeChild(doorRoomBottom);
       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
+      leversound.play();
+      leversound.volume = 1.5;
       doorsound.play();
+      doorsound.volume = 2;
     }
 
     // lever boss room
@@ -65,6 +72,7 @@ export function createLever(x: number, y: number, name: string) {
       gameConditions.leverToAttackTheBoss -= 1;
       console.log(gameConditions.leverToAttackTheBoss);
       leversound.play();
+      leversound.volume = 1.5;
     }
 
     if (name === 'leverBossBad') {
@@ -75,7 +83,9 @@ export function createLever(x: number, y: number, name: string) {
 
         leversound.play();
         spikesound.play();
+        spikesound.volume = 0.5;
         playerdamagesound.play();
+        playerdamagesound.volume = 0.5;
       }
     }
   };
