@@ -7,7 +7,7 @@ import { AnimationStates, Movements, animationState, movement, playerAnimationsC
 import { directionHistory } from './move-direction';
 
 import './movement-keyboard'; // add key support
-import './movement-touch'; // add touch support
+// import './movement-touch'; // add touch support (old version, replaced by mobile.joystick.ts)
 
 export function movePlayer(direction: {x: number; y: number}, delta: number) {
   // move the player container (sprites, hitbox draw, etc)

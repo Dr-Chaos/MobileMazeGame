@@ -5,6 +5,13 @@ import app from '../pixi/initialize';
 import { play } from '../utils/utils';
 import { atlasLoader } from '../pixi/atlas-loader';
 
+// extended type to display game on fullscreen
+// type DocumentExtended = {
+//   msRequestFullscreen: () => Promise<void>;
+//   mozRequestFullscreen: () => Promise<void>;
+//   webkitRequestFullscreen: () => Promise<void>;
+// } & Document;
+
 export function initializeStartScreen() {
   const background = new Graphics();
   background.beginFill('black');

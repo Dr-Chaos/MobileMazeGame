@@ -1,5 +1,5 @@
 import {
-  Graphics, type ITextStyle, Sprite, Text, type TextStyle,
+  Graphics, type ITextStyle, Sprite, Text,
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
