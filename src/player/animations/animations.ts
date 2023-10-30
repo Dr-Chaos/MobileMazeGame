@@ -62,7 +62,12 @@ export function animationsGameLoop() {
     }
 
     if (animationState.current === AnimationStates.Death) {
-      if (animation.state === AnimationStates.Death) animation.animation.play();
+      if (animation.state === AnimationStates.Death && !animation.animation.visible) {
+        animation.animation.gotoAndPlay(0);
+        animation.animation.visible = true;
+        animation.animation.animationSpeed = 0.3;
+      }
+
       animation.animation.visible = animation.state === AnimationStates.Death;
       continue;
     }
