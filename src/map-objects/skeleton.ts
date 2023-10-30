@@ -112,7 +112,7 @@ export function createSkeleton(x: number, y: number, name: string) {
     },
     state,
     playerDetectionZone,
-    life: 15,
+    life: 10,
     damage: 1,
     name,
   });

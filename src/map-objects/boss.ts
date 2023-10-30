@@ -59,7 +59,7 @@ let bossAngle1 = 0;
 let bossAngle2 = 0;
 
 export function createBoss(x: number, y: number) {
-  boss.life = 300;
+  boss.life = 120;
   boss.damage = 10;
   boss.isActive = false;
   boss.invulnerabilityTime = 0;

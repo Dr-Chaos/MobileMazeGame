@@ -40,8 +40,3 @@ document.addEventListener('keydown', async (event) => {
   clearScene();
   initializeScene();
 });
-
-// ! UPDATE FPS HUD DURING DEV
-// app.ticker.add(() => {
-//   updateFpsText(app.ticker.FPS);
-// });

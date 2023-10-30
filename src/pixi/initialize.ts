@@ -17,6 +17,10 @@ const app = new Application<HTMLCanvasElement>({
   hello: true, // display Pixi version on the console
   // antialias: true,
 });
+
+// limit the number of FPS (since damages to Skeletons and Boss are based to FPS and not time (like the player invulnerability))
+app.ticker.maxFPS = 30;
+
 // draw the canvas
 const canvas = app.view;
 document.body.append(canvas);

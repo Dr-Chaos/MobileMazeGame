@@ -16,7 +16,7 @@ import { initializeMap } from './map/map-layers';
 import app from './pixi/initialize';
 import { animationsGameLoop, initializePlayerAnimations } from './player/animations/animations';
 import { initializeFireball, moveFireball } from './player/fireball';
-import { initializeHud } from './player/hud';
+import { initializeHud, updateFpsText } from './player/hud';
 import { initializeInventory } from './player/inventory';
 import { initializeJoystick, joystickGameLoop } from './player/mobile-joystick';
 import { moveGameLoop } from './player/move';
@@ -42,6 +42,7 @@ gameLoops.push(
   bossGameLoop,
   mapCollision,
   joystickGameLoop,
+  updateFpsText,
 );
 
 export function initializeGameLoops() {
