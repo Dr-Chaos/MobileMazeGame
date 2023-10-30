@@ -20,7 +20,6 @@ witchDamageAnimation.onLoop = () => {
 
   if (playerStats.life <= 0) {
     animationState.current = AnimationStates.Death;
-    sounds.background.stop();
 
     return;
   }
