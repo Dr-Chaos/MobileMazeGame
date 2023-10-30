@@ -181,6 +181,7 @@ export function bossGameLoop() {
     boss.nored.stop();
     boss.nored.visible = false;
     boss.hurt.visible = true;
+    boss.hurt.animationSpeed = 1;
     boss.hurt.onLoop = () => {
       boss.hurt.visible = false;
       if (boss.life > 0) {
@@ -191,7 +192,7 @@ export function bossGameLoop() {
 
     boss.hurt.visible = true;
     boss.hurt.play();
-    sounds.bossDamage.play();
+    if (!sounds.bossDamage.isPlaying) sounds.bossDamage.play();
 
     if (boss.life > 0) return;
     console.log('Boss is dead');
