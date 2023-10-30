@@ -48,6 +48,8 @@ const scaling = {
 
 type Boss = {
   sprite: AnimatedSprite;
+  nored: AnimatedSprite;
+  hurt: AnimatedSprite;
   fireballsContainer: Container;
   life: number;
   damage: number;
@@ -58,6 +60,8 @@ type Boss = {
 
 export const boss: Boss = {
   sprite: new AnimatedSprite(atlasLoader.boss.animations.boss),
+  nored: new AnimatedSprite(atlasLoader.bossActivated.animations.default),
+  hurt: new AnimatedSprite(atlasLoader.bossdamageanimation.animations.bossdamage),
   fireballsContainer: new Container(),
   life: 0,
   damage: 0,
@@ -93,9 +97,24 @@ export function createBoss(x: number, y: number) {
   boss.sprite.play();
   boss.sprite.x = x;
   boss.sprite.y = y;
-  boss.sprite.play();
   boss.sprite.zIndex = -1;
   camera.addChild(boss.sprite);
+
+  boss.hurt.x = x;
+  boss.hurt.y = y;
+  boss.hurt.scale.set(scaling.boss);
+  boss.hurt.animationSpeed = 0.08;
+  boss.hurt.zIndex = -1;
+  boss.hurt.visible = false;
+  camera.addChild(boss.hurt);
+
+  boss.nored.scale.set(scaling.boss);
+  boss.nored.position.x = x;
+  boss.nored.position.y = y;
+  boss.nored.animationSpeed = 0.2;
+  boss.nored.zIndex = -1;
+  boss.nored.visible = false;
+  camera.addChild(boss.nored);
 
   bossRadius = 100;
   bossAngle = 0;
@@ -150,20 +169,14 @@ function moveBossFireballs() {
   bossAngle2 += 0.07 / 2;
 }
 
-const bossnoredanimation = new AnimatedSprite(atlasLoader.bossActivated.animations.default);
-
 export function bossGameLoop() {
   // lorsque tous les leviers son activés et que le boss n'est pas encore actif, active le boss
   if (!boss.isActive && gameConditions.leverToAttackTheBoss <= 0) {
     boss.isActive = true;
     activateBossFireballs();
-    camera.removeChild(boss.sprite);
-    bossnoredanimation.scale.set(scaling.boss);
-    bossnoredanimation.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
-    bossnoredanimation.animationSpeed = 0.2;
-    bossnoredanimation.zIndex = -1;
-    camera.addChild(bossnoredanimation);
-    bossnoredanimation.play();
+    boss.sprite.visible = false;
+    boss.nored.visible = true;
+    boss.nored.play();
     bossLaughSound.play();
     bossLaughSound.volume = 4;
   }
@@ -187,37 +200,33 @@ export function bossGameLoop() {
     if (isColliding(player.hitbox, fireballCorrectionWithOffsets) && !isInvulnerable()) damagePlayer(1);
   }
 
-  const bossIsHurt = new AnimatedSprite(atlasLoader.bossdamageanimation.animations.bossdamage);
-
   // si la fireball du joueur entre en collision avec le boss
   if (isColliding(boss.sprite, playerFireball)) {
-    bossnoredanimation.stop();
     boss.life -= 1;
     console.log('Boss takes damage');
-    bossIsHurt.x = boss.sprite.x;
-    bossIsHurt.y = boss.sprite.y;
-    bossIsHurt.scale.set(scaling.boss);
-    bossIsHurt.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
-    bossIsHurt.animationSpeed = 0.1;
-    bossIsHurt.loop = false;
-    bossIsHurt.zIndex = -1;
-    bossIsHurt.onComplete = function () {
-      camera.removeChild(bossIsHurt);
-      bossnoredanimation.play();
-      camera.addChild(bossnoredanimation);
+    if (boss.hurt.visible) return;
+    boss.nored.stop();
+    boss.nored.visible = false;
+    boss.hurt.visible = true;
+    boss.hurt.onLoop = () => {
+      boss.hurt.visible = false;
+      if (boss.life > 0) {
+        boss.nored.play();
+        boss.nored.visible = true;
+      }
     };
 
-    camera.addChild(bossIsHurt);
-    bossIsHurt.play();
+    boss.hurt.visible = true;
+    boss.hurt.play();
     bossDamageSound.play();
     bossDamageSound.volume = 0.75;
 
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
-    camera.removeChild(bossnoredanimation);
+    camera.removeChild(boss.nored);
     camera.removeChild(boss.fireballsContainer);
-    camera.removeChild(bossIsHurt);
+    camera.removeChild(boss.hurt);
 
     // Jouer l'animation de mort
     const bossDeathAnimation = new AnimatedSprite(atlasLoader.bossDeath.animations.bossdeath);
