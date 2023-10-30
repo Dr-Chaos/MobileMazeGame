@@ -6,10 +6,9 @@ import { uninitializeScene } from '../../scene';
 import { initializeGameOverScreen } from '../../screens/game-over';
 
 const witchDeathAnimation = new AnimatedSprite(atlasLoader.witchDeath.animations.default);
-// witchIdleAnimation.scale.set(2);
-// witchIdleAnimation.anchor.x = 0.5;
-witchDeathAnimation.animationSpeed = 0.3;
-witchDeathAnimation.stop();
+witchDeathAnimation.play();
+witchDeathAnimation.visible = false;
+witchDeathAnimation.animationSpeed = 0;
 witchDeathAnimation.onLoop = () => {
   const lastFrameIndex = witchDeathAnimation.totalFrames - 1;
   witchDeathAnimation.gotoAndStop(lastFrameIndex);
@@ -17,6 +16,8 @@ witchDeathAnimation.onLoop = () => {
   setTimeout(() => {
     uninitializeScene();
     initializeGameOverScreen();
+    witchDeathAnimation.visible = false;
+    witchDeathAnimation.animationSpeed = 0;
   }, 700);
 };
 

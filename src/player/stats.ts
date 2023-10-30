@@ -5,7 +5,7 @@ const playerStats = {
 };
 
 export function initializePlayerStats() {
-  playerStats.life = 5;
+  playerStats.life = 10;
   playerStats.speed = 2;
   playerStats.canReceiveDamageFromSpike = true;
 }

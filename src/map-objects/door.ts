@@ -9,6 +9,7 @@ import { movePlayer } from '../player/move';
 import { getCoordinates } from '../utils/utils';
 import { gameConditions } from '../map/game-conditions';
 import { inventory } from '../player/inventory';
+import { sounds } from '../pixi/sounds';
 
 // DEMO TO CREATE DOOR IN MULTIPLE PARTS
 export function doorExample() {
@@ -81,7 +82,7 @@ export const doorsContainers: { list: Container[] } = {
 };
 
 // DOORS COLLISIONS
-export function doorsCollisionsGameLoop(delta: number) {
+export function doorsCollisionsGameLoop() {
   for (const doorContainer of doorsContainers.list) {
     const doorContainerCoordinates = getCoordinates(doorContainer);
     // need this lines to manage perspectives
@@ -90,7 +91,7 @@ export function doorsCollisionsGameLoop(delta: number) {
     }
 
     if (isColliding(player.hitbox, doorContainerCoordinates)) {
-      movePlayer(collisionResponseDirection(player.hitbox, doorContainerCoordinates), delta);
+      movePlayer(collisionResponseDirection(player.hitbox, doorContainerCoordinates), 1);
     }
   }
 }
@@ -103,7 +104,7 @@ export function removeDoorRoomTop() {
   // si clés === 3
   if (inventory.keys !== gameConditions.keysToOpenTopRoom) return;
   console.log('remove');
-
+  sounds.bossDoor.play();
   camera.removeChild(doorRoomTop);
   doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomTop);
   app.ticker.remove(removeDoorRoomTop);

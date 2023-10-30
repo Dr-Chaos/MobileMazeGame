@@ -1,5 +1,6 @@
 import { camera } from '../camera';
 import app from '../pixi/initialize';
+import { sounds } from '../pixi/sounds';
 import { AnimationStates, animationState } from './animations/animations';
 import { fireball, moveFireball } from './fireball';
 import { updateLifeHud } from './hud';
@@ -13,6 +14,7 @@ export function damagePlayer(damageNumber: number) {
   playerStats.life -= damageNumber;
   updateLifeHud(playerStats.life);
   animationState.current = AnimationStates.ReceiveDamage;
+  sounds.playerDamage.play();
 
   if (playerStats.life <= 0) {
     // remove the fireball
@@ -25,5 +27,8 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.y = 0;
     player.hitbox.width = 0;
     player.hitbox.height = 0;
+    // play sounds
+    sounds.playerDeath.play();
+    sounds.playerScream.play();
   }
 }

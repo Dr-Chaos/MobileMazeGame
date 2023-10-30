@@ -9,6 +9,7 @@ import { spikes } from './spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
+import { sounds } from '../pixi/sounds';
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
 export const levers: Lever[] = [];
@@ -26,6 +27,8 @@ export function createLever(x: number, y: number, name: string) {
     const lastFrameIndex = lever.totalFrames - 1;
     lever.gotoAndStop(lastFrameIndex);
 
+    sounds.lever.play();
+
     // levier1
     setTimeout(() => {
       if (name === 'lever1') {
@@ -40,11 +43,13 @@ export function createLever(x: number, y: number, name: string) {
       for (const spike of spikesRoom1) {
         spike.sprite.visible = true;
         spike.sprite.play();
+        sounds.spike.play();
       }
     }
 
     // lever porte du bas
     if (name === 'leverDoorBottom') {
+      sounds.door.play();
       camera.removeChild(doorRoomBottom);
       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
     }
@@ -60,6 +65,7 @@ export function createLever(x: number, y: number, name: string) {
         if (spike.sprite.name !== 'spikeBossLever') continue;
         spike.sprite.visible = true;
         spike.sprite.play();
+        sounds.spike.play();
       }
     }
   };

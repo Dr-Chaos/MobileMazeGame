@@ -7,7 +7,6 @@ import { movePlayer } from '../player/move';
 import { centerFromPivot } from '../utils/utils';
 import { mapScaling } from './map-layers';
 import { moveSkeleton, skeletons } from '../map-objects/skeleton';
-import { camera } from '../camera';
 
 // draw map
 const mapData = map.layers[0].data;
@@ -72,7 +71,7 @@ export function initializeMapCollision() {
 }
 
 // console.table(tile);
-export function mapCollision(delta: number) {
+export function mapCollision() {
   for (const tile of colliderTiles) {
     // collision with the player
     if (isColliding(tile, player.hitbox)) {

@@ -66,6 +66,7 @@ export function updateKeyHud(value: number) {
   keyText.text = value;
 }
 
-export function updateFpsText(value: number) {
-  fpsText.text = Math.trunc(value) === 59 ? 60 : Math.trunc(value);
+// ! UPDATE FPS HUD DURING DEV
+export function updateFpsText() {
+  fpsText.text = Math.trunc(app.ticker.FPS);
 }

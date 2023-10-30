@@ -11,17 +11,20 @@ import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 import { inventory } from '../player/inventory';
+import { sounds } from '../pixi/sounds';
 
 export enum SkeletonStates {
   Idle,
   Walk,
   Death,
+  Damage,
 }
 
 type SkeletonAnimations = {
   idle: AnimatedSprite;
   walk: AnimatedSprite;
   death: AnimatedSprite;
+  damage: AnimatedSprite;
 };
 
 type Skeleton = {
@@ -56,6 +59,17 @@ export function createSkeleton(x: number, y: number, name: string) {
   walk.y = y;
   walk.visible = false;
   camera.addChild(walk);
+
+  const damage = new AnimatedSprite(atlasLoader.skeletonDamage.animations.default);
+  damage.anchor.x = 0.5;
+  damage.scale.set(mapScaling);
+  damage.animationSpeed = 0.13;
+  damage.stop();
+  damage.x = x;
+  damage.y = y;
+  damage.visible = false;
+
+  camera.addChild(damage);
 
   const death = new AnimatedSprite(atlasLoader.skeletonDeath.animations.default);
   death.anchor.x = 0.5;
@@ -94,10 +108,11 @@ export function createSkeleton(x: number, y: number, name: string) {
       idle,
       walk,
       death,
+      damage,
     },
     state,
     playerDetectionZone,
-    life: 35, // 35
+    life: 10,
     damage: 1,
     name,
   });
@@ -113,6 +128,9 @@ export function moveSkeleton(skeleton: Skeleton, x: number, y: number, delta: nu
 
   skeleton.animations.walk.x += x * delta;
   skeleton.animations.walk.y += y * delta;
+
+  skeleton.animations.damage.x += x * delta;
+  skeleton.animations.damage.y += y * delta;
 
   skeleton.animations.death.x += x * delta;
   skeleton.animations.death.y += y * delta;
@@ -144,10 +162,31 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
 
   skeleton.animations.idle.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
   skeleton.animations.walk.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
+  skeleton.animations.damage.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
   skeleton.animations.death.scale.x = (normalizedDirectionX < 0 ? -1 : 1) * mapScaling;
 }
 
+export function damageSkeleton(skeleton: Skeleton) {
+  skeleton.state = SkeletonStates.Damage;
+  skeleton.life -= 1;
+  sounds.skeletonDamage.play();
+  skeleton.animations.damage.play();
+  skeleton.animations.damage.visible = true;
+  skeleton.animations.damage.onLoop = () => {
+    skeleton.animations.damage.stop();
+    skeleton.animations.damage.visible = false;
+
+    if (skeleton.life <= 0) {
+      skeleton.state = SkeletonStates.Death;
+      return;
+    }
+
+    skeleton.state = SkeletonStates.Walk;
+  };
+}
+
 function skeletonsStatesLoop(skeleton: Skeleton) {
+  if (skeleton.animations.damage.visible) return;
   switch (skeleton.state) {
     case SkeletonStates.Idle:
       // afficher l'animation idle
@@ -193,17 +232,19 @@ export function skeletonsGameLoop(delta: number) {
 
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.animations.idle, fireball)) {
-      skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
+      damageSkeleton(skeleton);
       // is the skeleton die
       if (skeleton.life > 0) continue;
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
+      sounds.skeletonDeath.play();
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
         gameConditions.skeletonToKillToOpenDoor2 -= 1;
         if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
         // disable the room2 door
+        sounds.door.play();
         camera.removeChild(doorRoomRight);
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }

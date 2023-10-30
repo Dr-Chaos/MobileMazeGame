@@ -1,11 +1,6 @@
 import './index.css';
-import { skeletons } from './map-objects/skeleton';
-import { inventory } from './player/inventory';
-import { playerStats } from './player/stats';
 import { clearScene, initializeScene } from './scene';
-import { initializeGameOverScreen } from './screens/game-over';
 import { initializeStartScreen } from './screens/start';
-import { initializeWinScreen } from './screens/win';
 
 // start on the menu
 initializeStartScreen();
@@ -27,8 +22,8 @@ document.addEventListener('keydown', async (event) => {
   // damagePlayer(1);
 
   // to test the boss
-  playerStats.life = 1000;
-  inventory.keys = 3;
+  // playerStats.life = 1000;
+  // inventory.keys = 3;
   // gameConditions.leverToAttackTheBoss = 0;
   // skeletons.length = 0;
   // boss.life = 1;
@@ -45,8 +40,3 @@ document.addEventListener('keydown', async (event) => {
   clearScene();
   initializeScene();
 });
-
-// ! UPDATE FPS HUD DURING DEV
-// app.ticker.add(() => {
-//   updateFpsText(app.ticker.FPS);
-// });

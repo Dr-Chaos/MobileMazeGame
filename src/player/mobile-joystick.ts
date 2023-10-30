@@ -62,7 +62,6 @@ export function joystickGameLoop() {
   littleCircle.y = litleCircleDirection.y;
   littleCircle.visible = true;
 
-  // commentez ces lignes si vous préférez gérer les directions dans movement-touch.ts
   const minimumDistance = maximumDistance / 2;
   if (distanceFromCenter < minimumDistance) {
     directionHistory.x = [0];
@@ -145,4 +144,6 @@ document.addEventListener('touchend', () => {
   touchStart.y = 0;
   touchMove.x = 0;
   touchMove.y = 0;
+  directionHistory.x = [0];
+  directionHistory.y = [0];
 });

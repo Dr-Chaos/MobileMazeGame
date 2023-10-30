@@ -10,6 +10,7 @@ Assets.add({ alias: 'torch', src: '/torch/torch.json' });
 Assets.add({ alias: 'key', src: '/key/key.json' });
 Assets.add({ alias: 'skeletonIdle', src: '/skeleton/idle/skeleton.json' });
 Assets.add({ alias: 'skeletonWalk', src: '/skeleton/walk/skeletonwalk.json' });
+Assets.add({ alias: 'skeletonDamage', src: '/skeleton/damage/skeletondamage.json' });
 Assets.add({ alias: 'skeletonDeath', src: '/skeleton/death/skeletondeath.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
@@ -17,10 +18,10 @@ Assets.add({ alias: 'fireball', src: '/witch/fireball/fireball.json' }); // anim
 Assets.add({ alias: 'boss', src: '/boss/boss.json' });
 Assets.add({ alias: 'bossActivated', src: '/boss/boss-activated/boss-activated.json' });
 Assets.add({ alias: 'bossFireball', src: '/boss/bossfireball/v2/bossfireball.json' }); //  animationSpeed = 0.15
+Assets.add({ alias: 'bossDamage', src: '/boss/bossdamage/bossdamage.json' });
 Assets.add({ alias: 'bossDeath', src: '/boss/bossdeath/bossdeath.json' }); // animationSpeed = 1.18
 Assets.add({ alias: 'heart', src: '/hud/heart/heart.json' });
 Assets.add({ alias: 'hudKey', src: '/hud/hudkey/hudkey.json' });
-Assets.add({ alias: 'yoster', src: '/fonts/yoster.ttf' });
 
 const aliases = [
   'map',
@@ -32,6 +33,7 @@ const aliases = [
   'torch',
   'key',
   'skeletonIdle',
+  'skeletonDamage',
   'skeletonWalk',
   'skeletonDeath',
   'skull',
@@ -40,14 +42,12 @@ const aliases = [
   'fireball',
   'boss',
   'bossActivated',
+  'bossDamage',
   'bossDeath',
   'bossFireball',
   'heart',
   'hudKey',
-  'yoster',
 ];
 
-type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }> & Record<string, FontFace>;
-const atlasLoader: AtlasLoader = await Assets.load(aliases);
-
-export { atlasLoader };
+type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }>;
+export const atlasLoader: AtlasLoader = await Assets.load(aliases);

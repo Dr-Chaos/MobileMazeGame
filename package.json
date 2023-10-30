@@ -1,24 +1,30 @@
 {
   "name": "vite-project",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
     "check": "tsc --watch --noEmit",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "serve": "serve ./dist",
     "backup": "rclone sync ./  ../Backup -P --exclude node_modules/**/*",
     "share:ngrok": "npx ngrok http 5173",
     "share:vps": "ssh -R 5173:localhost:5173 user@ip"
   },
   "devDependencies": {
     "@types/eslint": "^8",
+    "@vitejs/plugin-legacy": "^4.1.1",
+    "serve": "^14.2.1",
+    "terser": "^5.23.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vite-plugin-top-level-await": "^1.3.1"
   },
   "dependencies": {
     "@pixi/math-extras": "^7.3.1",
+    "@pixi/sound": "^5.2.2",
     "@pixi/tilemap": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^6.7.5",
     "@typescript-eslint/parser": "^6.7.5",
