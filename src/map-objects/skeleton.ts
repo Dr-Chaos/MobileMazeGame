@@ -11,6 +11,7 @@ import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 import { inventory } from '../player/inventory';
+import { sounds } from '../pixi/sounds';
 
 export enum SkeletonStates {
   Idle,
@@ -168,6 +169,7 @@ function moveSkeletonToPlayer(skeleton: Skeleton, delta: number) {
 export function damageSkeleton(skeleton: Skeleton) {
   skeleton.state = SkeletonStates.Damage;
   skeleton.life -= 1;
+  sounds.skeletonDamage.play();
   skeleton.animations.damage.play();
   skeleton.animations.damage.visible = true;
   skeleton.animations.damage.onLoop = () => {
@@ -235,12 +237,14 @@ export function skeletonsGameLoop(delta: number) {
       if (skeleton.life > 0) continue;
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
+      sounds.skeletonDeath.play();
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
         gameConditions.skeletonToKillToOpenDoor2 -= 1;
         if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
         // disable the room2 door
+        sounds.door.play();
         camera.removeChild(doorRoomRight);
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }

@@ -3,9 +3,20 @@ import {
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { fontsLoader } from '../pixi/fonts';
+import { sounds } from '../pixi/sounds';
+
+function playButtonClick() {
+  play();
+  sounds.win.stop();
+  sounds.key.play();
+  sounds.background.play();
+}
 
 export function initializeWinScreen() {
+  sounds.win.play();
+  sounds.background.stop();
+
   const background = new Graphics();
   background.beginFill('black');
   background.drawRect(0, 0, app.screen.width, app.screen.height);
@@ -22,7 +33,7 @@ export function initializeWinScreen() {
   const fontSizeMaximumValue = 60;
   const fontSizeMaximum = fontSize <= fontSizeMaximumValue ? fontSize : fontSizeMaximumValue;
   const textStyle: Partial<ITextStyle> = {
-    fontFamily: atlasLoader.yoster.family,
+    fontFamily: fontsLoader.yoster.family,
     dropShadowColor: '#0a76db',
     // fill: ['#ba7956', '#c97090'],
     fill: '#e6e6e6',
@@ -50,10 +61,10 @@ export function initializeWinScreen() {
   playButton.y = app.screen.height / 1.6;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
-    play();
+    playButtonClick();
   });
   playButton.on('touchstart', () => {
-    play();
+    playButtonClick();
   });
   app.stage.addChild(playButton);
 }

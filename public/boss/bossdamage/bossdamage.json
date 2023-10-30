@@ -1,0 +1,13 @@
+{
+    "meta": { "image": "bossdamage.png", "size": { "w": 54, "h": 18 }, "scale": "1" },
+    "frames": {
+      "bossdamage-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 18 } },
+      "bossdamage-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 18 } },
+      "bossdamage-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 18 } }
+    
+    },
+    "animations": {
+      "bossdamage": ["bossdamage-1.png", "bossdamage-2.png", "bossdamage-3.png" ]
+    }
+  }
+  

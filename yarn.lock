@@ -1927,6 +1927,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@pixi/sound@npm:^5.2.2":
+  version: 5.2.2
+  resolution: "@pixi/sound@npm:5.2.2"
+  peerDependencies:
+    "@pixi/assets": ^7.0.0
+    "@pixi/core": ^7.0.0
+  checksum: 18f31469935a1834450e88e423182cd44216d5cdd48fda06ccab520064c968c8b40cc40e01978af4475e283ff272afbeecb10b210e8b0d52f10ec084a80a80bf
+  languageName: node
+  linkType: hard
+
 "@pixi/sprite-animated@npm:7.3.1":
   version: 7.3.1
   resolution: "@pixi/sprite-animated@npm:7.3.1"
@@ -5904,6 +5914,7 @@ __metadata:
   resolution: "vite-project@workspace:."
   dependencies:
     "@pixi/math-extras": "npm:^7.3.1"
+    "@pixi/sound": "npm:^5.2.2"
     "@pixi/tilemap": "npm:^4.0.0"
     "@types/eslint": "npm:^8"
     "@typescript-eslint/eslint-plugin": "npm:^6.7.5"

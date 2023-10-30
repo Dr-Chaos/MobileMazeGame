@@ -9,6 +9,7 @@ import { getCoordinates } from '../utils/utils';
 import { updateKeyHud } from '../player/hud';
 import { mapScaling } from '../map/map-layers';
 import { inventory } from '../player/inventory';
+import { sounds } from '../pixi/sounds';
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -34,6 +35,7 @@ export function keyGameLoop() {
       key.visible
       && !key.hasBeenTaken
       && isColliding(getCoordinates(key), player.hitbox)) {
+      sounds.key.play();
       key.hasBeenTaken = true;
       console.log('Collision key');
       inventory.keys += 1;

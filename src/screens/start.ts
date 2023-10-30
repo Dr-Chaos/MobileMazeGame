@@ -3,7 +3,8 @@ import {
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { fontsLoader } from '../pixi/fonts';
+import { sounds } from '../pixi/sounds';
 
 // extended type to display game on fullscreen
 // type DocumentExtended = {
@@ -12,7 +13,14 @@ import { atlasLoader } from '../pixi/atlas-loader';
 //   webkitRequestFullscreen: () => Promise<void>;
 // } & Document;
 
+function playButtonClick() {
+  play();
+  sounds.key.play();
+}
+
 export function initializeStartScreen() {
+  sounds.background.play();
+
   const background = new Graphics();
   background.beginFill('black');
   background.drawRect(0, 0, app.screen.width, app.screen.height);
@@ -29,7 +37,7 @@ export function initializeStartScreen() {
   const fontSizeMaximumValue = 60;
   const fontSizeMaximum = fontSize <= fontSizeMaximumValue ? fontSize : fontSizeMaximumValue;
   const textStyle = new TextStyle({
-    fontFamily: atlasLoader.yoster.family,
+    fontFamily: fontsLoader.yoster.family,
     fill: '#e6e6e6',
     fontWeight: 'bolder',
     letterSpacing: 5,
@@ -53,10 +61,10 @@ export function initializeStartScreen() {
   playButton.y = app.screen.height / 1.6;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
-    play();
+    playButtonClick();
   });
   playButton.on('touchstart', () => {
-    play();
+    playButtonClick();
   });
   app.stage.addChild(playButton);
 }
