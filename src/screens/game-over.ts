@@ -20,36 +20,37 @@ export function initializeGameOverScreen() {
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
+  const fontSize = app.screen.width / 11;
+  const fontSizeMaximumValue = 60;
+  const fontSizeMaximum = fontSize <= fontSizeMaximumValue ? fontSize : fontSizeMaximumValue;
   const textStyle = new TextStyle({
     fontFamily: atlasLoader.yoster.family,
-    dropShadowColor: '#0a76db',
-    fill: ['#14520C', '#738C74'],
-    fillGradientStops: [0.2],
-    fontVariant: 'small-caps',
+    fill: '#e6e6e6',
     fontWeight: 'bolder',
     letterSpacing: 5,
-    stroke: '794F6C',
+    stroke: '#794F6C',
     strokeThickness: 2,
-    fontSize: app.screen.width / 11,
+    fontSize: fontSizeMaximum,
   });
-  const gameOverTitle = new Text('GAME OVER', textStyle);
-  gameOverTitle.anchor.x = 0.5;
-  gameOverTitle.x = app.screen.width / 2;
-  gameOverTitle.anchor.y = 2.9;
-  gameOverTitle.y = app.screen.height / 2;
-  app.stage.addChild(gameOverTitle);
+  const title = new Text('GAME OVER', textStyle);
+  title.anchor.x = 0.5;
+  title.x = app.screen.width / 2;
+  title.y = app.screen.height / 5;
+  const titleWidth = app.screen.width - 40;
+  const titleWidthMax = 700;
+  title.width = titleWidth <= titleWidthMax ? titleWidth : titleWidthMax;
+  app.stage.addChild(title);
 
-  const playAgainButton = new Text('> Play again', textStyle);
-  playAgainButton.anchor.x = 0.5;
-  playAgainButton.x = app.screen.width / 2;
-  playAgainButton.anchor.y = -0.55;
-  playAgainButton.y = app.screen.height / 2;
-  playAgainButton.eventMode = 'dynamic';
-  playAgainButton.on('click', () => {
+  const playButton = new Text('> Play again', textStyle);
+  playButton.anchor.x = 0.5;
+  playButton.x = app.screen.width / 2;
+  playButton.y = app.screen.height / 1.6;
+  playButton.eventMode = 'dynamic';
+  playButton.on('click', () => {
     play();
   });
-  playAgainButton.on('touchstart', () => {
+  playButton.on('touchstart', () => {
     play();
   });
-  app.stage.addChild(playAgainButton);
+  app.stage.addChild(playButton);
 }

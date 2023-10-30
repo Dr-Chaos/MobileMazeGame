@@ -8,10 +8,10 @@ import { initializeStartScreen } from './screens/start';
 import { initializeWinScreen } from './screens/win';
 
 // start on the menu
-initializeStartScreen();
+// initializeStartScreen();
 
 // ! DURING DEV test screens
-// initializeWinScreen();
+initializeWinScreen();
 // initializeGameOverScreen();
 
 // ! DURING DEV start directly in the game

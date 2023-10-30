@@ -1,8 +1,14 @@
 import '@pixi/tilemap'; // initialize @pixi/tilemap plugins
 import '@pixi/math-extras'; // initialize @pixi/math-extras plugins
-import { Application, BaseTexture, SCALE_MODES } from 'pixi.js';
+import {
+  Application, BaseTexture, SCALE_MODES, settings,
+} from 'pixi.js';
 
+// for pixel art
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
+// for text resolution. you can also upscale each text individually with:
+// myText.resolution = 3;
+settings.RESOLUTION = 2;
 
 const app = new Application<HTMLCanvasElement>({
   background: '#25131a',

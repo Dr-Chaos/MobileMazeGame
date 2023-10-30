@@ -1,5 +1,5 @@
 import {
-  Graphics, Sprite, Text, type TextStyle,
+  Graphics, type ITextStyle, Sprite, Text, type TextStyle,
 } from 'pixi.js';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
@@ -12,39 +12,42 @@ export function initializeWinScreen() {
   app.stage.addChild(background);
 
   const backgroundImage = Sprite.from('./screens/v3/win.png');
-  // start.width = app.screen.width;
-  // start.height = app.screen.height;
   backgroundImage.anchor.x = 0.5;
   backgroundImage.x = app.screen.width / 2;
   backgroundImage.anchor.y = 0.5;
   backgroundImage.y = app.screen.height / 2;
   app.stage.addChild(backgroundImage);
 
-  const textStyle: TextStyle = {
-    dropShadowColor: '#0a76db',
-    fill: ['#ba7956', '#c97090'],
-    fillGradientStops: [0.2],
+  const fontSize = app.screen.width / 11;
+  const fontSizeMaximumValue = 60;
+  const fontSizeMaximum = fontSize <= fontSizeMaximumValue ? fontSize : fontSizeMaximumValue;
+  const textStyle: Partial<ITextStyle> = {
     fontFamily: atlasLoader.yoster.family,
+    dropShadowColor: '#0a76db',
+    // fill: ['#ba7956', '#c97090'],
+    fill: '#e6e6e6',
+    fillGradientStops: [0.2],
     fontVariant: 'small-caps',
     fontWeight: 'bolder',
     letterSpacing: 5,
     stroke: '#a4c09f',
     strokeThickness: 2,
-    fontSize: app.screen.width / 15,
+    fontSize: fontSizeMaximum,
   };
   const title = new Text('CONGRATULATION !', textStyle);
   title.anchor.x = 0.5;
   title.x = app.screen.width / 2;
-  title.anchor.y = 2.9;
-  title.y = app.screen.height / 2;
+  title.y = app.screen.height / 5;
+  const titleWidth = app.screen.width - 40;
+  const titleWidthMax = 700;
+  title.width = titleWidth <= titleWidthMax ? titleWidth : titleWidthMax;
   app.stage.addChild(title);
 
-  const playButtonStyle = { ...textStyle, fontSize: app.screen.width / 11 };
+  const playButtonStyle = { ...textStyle, fontSize: fontSizeMaximum };
   const playButton = new Text('> Replay', playButtonStyle);
   playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
-  playButton.anchor.y = -1.8;
-  playButton.y = app.screen.height / 2;
+  playButton.y = app.screen.height / 1.6;
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
