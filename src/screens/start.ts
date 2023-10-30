@@ -4,7 +4,8 @@ import {
 import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { fontLoader } from '../pixi/atlas-loader';
+import { sounds } from '../sounds';
 
 export function initializeStartScreen() {
   const background = new Graphics();
@@ -22,7 +23,7 @@ export function initializeStartScreen() {
   app.stage.addChild(backgroundImage);
 
   const textStyle = new TextStyle({
-    fontFamily: atlasLoader.yoster.family,
+    fontFamily: fontLoader.yoster.family,
     dropShadowColor: '#0a76db',
     fill: ['#68386e', '#a94f05', '#8b5a5d'],
     fillGradientStops: [0.2],
@@ -40,9 +41,6 @@ export function initializeStartScreen() {
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
-  const clicksound = Sound.from('/sons/bruitages/key.wav');
-  const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
-
   const playButton = new Text('> Play', textStyle);
   playButton.anchor.x = 0.5;
   playButton.x = app.screen.width / 2;
@@ -51,13 +49,15 @@ export function initializeStartScreen() {
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
-    clicksound.play();
-    clicksound.volume = 0.4;
-    backgroundmusic.stop();
+    sounds.key.play();
+    sounds.key.volume = 0.4;
   });
   playButton.on('touchstart', () => {
     play();
+    sounds.key.play();
+    sounds.key.volume = 0.4;
   });
   app.stage.addChild(playButton);
-  backgroundmusic.play();
+  sounds.background.play();
+  sounds.background.loop = true;
 }

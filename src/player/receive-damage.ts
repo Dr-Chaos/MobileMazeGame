@@ -9,17 +9,14 @@ import { startInvulnerabilityTimer } from './invulnerability';
 import { moveGameLoop } from './move';
 import { player } from './player';
 import { playerStats } from './stats';
-
-const playerDamageSound = Sound.from(atlasLoader.playerdamagesound);
-const playerdeathSound = Sound.from(atlasLoader.burn4);
-const playerdeathScream = Sound.from(atlasLoader.deathsound);
+import { sounds } from '../sounds';
 
 export function damagePlayer(damageNumber: number) {
   startInvulnerabilityTimer();
   playerStats.life -= damageNumber;
   updateLifeHud(playerStats.life);
   animationState.current = AnimationStates.ReceiveDamage;
-  playerDamageSound.play();
+  sounds.playerDamage.play();
 
   if (playerStats.life <= 0) {
     // remove the fireball
@@ -32,8 +29,8 @@ export function damagePlayer(damageNumber: number) {
     player.hitbox.y = 0;
     player.hitbox.width = 0;
     player.hitbox.height = 0;
-    playerdeathSound.play();
-    playerdeathSound.volume = 2;
-    playerdeathScream.play();
+    sounds.playerDeath.play();
+    sounds.playerDeath.volume = 2;
+    sounds.deathScream.play();
   }
 }

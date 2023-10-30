@@ -1,10 +1,10 @@
 import {
   Graphics, Sprite, Text, type TextStyle,
 } from 'pixi.js';
-import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { fontLoader } from '../pixi/atlas-loader';
+import { sounds } from '../sounds';
 
 export function initializeWinScreen() {
   const background = new Graphics();
@@ -25,7 +25,7 @@ export function initializeWinScreen() {
     dropShadowColor: '#0a76db',
     fill: ['#ba7956', '#c97090'],
     fillGradientStops: [0.2],
-    fontFamily: atlasLoader.yoster.family,
+    fontFamily: fontLoader.yoster.family,
     fontVariant: 'small-caps',
     fontWeight: 'bolder',
     letterSpacing: 5,
@@ -40,9 +40,6 @@ export function initializeWinScreen() {
   title.y = app.screen.height / 2;
   app.stage.addChild(title);
 
-  const clicksound = Sound.from('/sons/bruitages/key.wav');
-  const winmusic = Sound.from(atlasLoader.musicwin);
-  const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
   const playButtonStyle = { ...textStyle, fontSize: app.screen.width / 11 };
   const playButton = new Text('> Replay', playButtonStyle);
   playButton.anchor.x = 0.5;
@@ -52,17 +49,19 @@ export function initializeWinScreen() {
   playButton.eventMode = 'dynamic';
   playButton.on('click', () => {
     play();
-    clicksound.play();
-    clicksound.volume = 0.4;
-    winmusic.play();
-    winmusic.stop();
-    backgroundmusic.play();
+    sounds.key.play();
+    sounds.key.volume = 0.4;
+    sounds.win.stop();
+    sounds.background.play();
   });
   playButton.on('touchstart', () => {
     play();
-    backgroundmusic.stop();
+    sounds.key.play();
+    sounds.key.volume = 0.4;
+    sounds.win.stop();
+    sounds.background.play();
   });
   app.stage.addChild(playButton);
-  winmusic.play();
-  backgroundmusic.stop();
+  sounds.win.play();
+  sounds.background.stop();
 }

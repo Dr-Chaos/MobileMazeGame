@@ -12,10 +12,7 @@ import { fireball } from '../player/fireball';
 import { isInvulnerable } from '../player/invulnerability';
 import { damagePlayer } from '../player/receive-damage';
 import { inventory } from '../player/inventory';
-
-const skeletonDamageSound = Sound.from(atlasLoader.skeletonsound);
-const skeletonDeathSound = Sound.from(atlasLoader.burn);
-const doorsound = Sound.from(atlasLoader.doorsound);
+import { sounds } from '../sounds';
 
 export enum SkeletonStates {
   Idle,
@@ -199,13 +196,13 @@ export function skeletonsGameLoop(delta: number) {
     // if the skeleton sprite is in collision with the player fireball, apply damage to the skeleton
     if (isColliding(skeleton.animations.idle, fireball)) {
       skeleton.life -= 1; // DURING DEV, DISABLE FIREBALL DAMAGE TO SKELETONS
-      skeletonDamageSound.play();
+      sounds.skeletonDamage.play();
       // is the skeleton die
       if (skeleton.life > 0) continue;
       console.log('Death');
       skeleton.state = SkeletonStates.Death;
-      skeletonDeathSound.play();
-      skeletonDeathSound.volume = 0.35;
+      sounds.skeletonDeath.play();
+      sounds.skeletonDeath.volume = 0.35;
       // if it's skeleton of room 2 (you can remove && mapCondition.skeletonToKillToOpenDoor2 > 0, since all skeletonRoomRight bust be killed to open the door)
       // but we can keep it to implement a killed monster counter
       if (skeleton.name === 'skeletonRoomRight' && gameConditions.skeletonToKillToOpenDoor2 > 0) {
@@ -213,8 +210,8 @@ export function skeletonsGameLoop(delta: number) {
         if (gameConditions.skeletonToKillToOpenDoor2 > 0) continue;
         // disable the room2 door
         camera.removeChild(doorRoomRight);
-        doorsound.play();
-        doorsound.volume = 2;
+        sounds.door.play();
+        sounds.door.volume = 2;
         doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomRight);
       }
 

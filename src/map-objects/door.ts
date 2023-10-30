@@ -1,5 +1,4 @@
 import { Container, Sprite } from 'pixi.js';
-import { Sound } from '@pixi/sound';
 import { atlasLoader } from '../pixi/atlas-loader';
 import app from '../pixi/initialize';
 import { camera } from '../camera';
@@ -10,8 +9,7 @@ import { movePlayer } from '../player/move';
 import { getCoordinates } from '../utils/utils';
 import { gameConditions } from '../map/game-conditions';
 import { inventory } from '../player/inventory';
-
-const bossDoorSound = Sound.from(atlasLoader.bossdoorsound);
+import { sounds } from '../sounds';
 
 // DEMO TO CREATE DOOR IN MULTIPLE PARTS
 export function doorExample() {
@@ -106,8 +104,7 @@ export function removeDoorRoomTop() {
   // si clés === 3
   if (inventory.keys !== gameConditions.keysToOpenTopRoom) return;
   console.log('remove');
-  bossDoorSound.play();
-
+  sounds.bossDoor.play();
   camera.removeChild(doorRoomTop);
   doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomTop);
   app.ticker.remove(removeDoorRoomTop);

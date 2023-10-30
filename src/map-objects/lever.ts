@@ -10,11 +10,7 @@ import { spikes } from './spike';
 import { mapScaling } from '../map/map-layers';
 import { doorRoomBottom, doorsContainers } from './door';
 import { gameConditions } from '../map/game-conditions';
-
-const leversound = Sound.from(atlasLoader.leversound);
-const spikesound = Sound.from(atlasLoader.spikesound);
-const doorsound = Sound.from(atlasLoader.doorsound);
-const playerdamagesound = Sound.from(atlasLoader.playerdamagesound);
+import { sounds } from '../sounds';
 
 type Lever = AnimatedSprite & { canBeActivated: boolean};
 export const levers: Lever[] = [];
@@ -37,8 +33,8 @@ export function createLever(x: number, y: number, name: string) {
       if (name === 'lever1') {
         const key1 = keys.find((key) => key.name === 'key1')!;
         key1.visible = true;
-        leversound.play();
-        leversound.volume = 5;
+        sounds.lever.play();
+        sounds.lever.volume = 5;
       }
     }, 135);
 
@@ -48,12 +44,12 @@ export function createLever(x: number, y: number, name: string) {
       for (const spike of spikesRoom1) {
         spike.sprite.visible = true;
         spike.sprite.play();
-        leversound.play();
-        leversound.volume = 0.1;
-        spikesound.play();
-        spikesound.volume = 0.2;
-        playerdamagesound.play();
-        playerdamagesound.volume = 0.2;
+        sounds.lever.play();
+        sounds.lever.volume = 0.1;
+        sounds.spike.play();
+        sounds.spike.volume = 0.2;
+        sounds.playerDamage.play();
+        sounds.playerDamage.volume = 0.2;
       }
     }
 
@@ -61,18 +57,18 @@ export function createLever(x: number, y: number, name: string) {
     if (name === 'leverDoorBottom') {
       camera.removeChild(doorRoomBottom);
       doorsContainers.list = doorsContainers.list.filter((doorContainer) => doorContainer !== doorRoomBottom);
-      leversound.play();
-      leversound.volume = 1.5;
-      doorsound.play();
-      doorsound.volume = 2;
+      sounds.lever.play();
+      sounds.lever.volume = 1.5;
+      sounds.door.play();
+      sounds.door.volume = 2;
     }
 
     // lever boss room
     if (name === 'leverBossGood') {
       gameConditions.leverToAttackTheBoss -= 1;
       console.log(gameConditions.leverToAttackTheBoss);
-      leversound.play();
-      leversound.volume = 1.5;
+      sounds.lever.play();
+      sounds.lever.volume = 1.5;
     }
 
     if (name === 'leverBossBad') {
@@ -81,11 +77,11 @@ export function createLever(x: number, y: number, name: string) {
         spike.sprite.visible = true;
         spike.sprite.play();
 
-        leversound.play();
-        spikesound.play();
-        spikesound.volume = 0.5;
-        playerdamagesound.play();
-        playerdamagesound.volume = 0.5;
+        sounds.lever.play();
+        sounds.spike.play();
+        sounds.spike.volume = 0.5;
+        sounds.playerDamage.play();
+        sounds.playerDamage.volume = 0.5;
       }
     }
   };

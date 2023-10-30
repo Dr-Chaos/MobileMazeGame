@@ -4,7 +4,8 @@ import {
 import { Sound } from '@pixi/sound';
 import app from '../pixi/initialize';
 import { play } from '../utils/utils';
-import { atlasLoader } from '../pixi/atlas-loader';
+import { fontLoader } from '../pixi/atlas-loader';
+import { sounds } from '../sounds';
 
 export function initializeGameOverScreen() {
   const background = new Graphics();
@@ -22,7 +23,7 @@ export function initializeGameOverScreen() {
   app.stage.addChild(backgroundImage);
 
   const textStyle = new TextStyle({
-    fontFamily: atlasLoader.yoster.family,
+    fontFamily: fontLoader.yoster.family,
     dropShadowColor: '#0a76db',
     fill: ['#14520C', '#738C74'],
     fillGradientStops: [0.2],
@@ -40,8 +41,6 @@ export function initializeGameOverScreen() {
   gameOverTitle.y = app.screen.height / 2;
   app.stage.addChild(gameOverTitle);
 
-  const clicksound = Sound.from('/sons/bruitages/key.wav');
-
   const playAgainButton = new Text('> Play again', textStyle);
   playAgainButton.anchor.x = 0.5;
   playAgainButton.x = app.screen.width / 2;
@@ -50,11 +49,13 @@ export function initializeGameOverScreen() {
   playAgainButton.eventMode = 'dynamic';
   playAgainButton.on('click', () => {
     play();
-    clicksound.play();
-    clicksound.volume = 0.4;
+    sounds.key.play();
+    sounds.key.volume = 0.4;
   });
   playAgainButton.on('touchstart', () => {
     play();
+    sounds.key.play();
+    sounds.key.volume = 0.4;
   });
   app.stage.addChild(playAgainButton);
 }

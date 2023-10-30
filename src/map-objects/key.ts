@@ -10,8 +10,7 @@ import { getCoordinates } from '../utils/utils';
 import { updateKeyHud } from '../player/hud';
 import { mapScaling } from '../map/map-layers';
 import { inventory } from '../player/inventory';
-
-const keySound = Sound.from(atlasLoader.keysound);
+import { sounds } from '../sounds';
 
 type Key = AnimatedSprite & {hasBeenTaken: boolean };
 
@@ -40,8 +39,8 @@ export function keyGameLoop() {
       key.hasBeenTaken = true;
       console.log('Collision key');
       inventory.keys += 1;
-      keySound.play();
-      keySound.volume = 0.4;
+      sounds.key.play();
+      sounds.key.volume = 0.4;
       updateKeyHud(inventory.keys);
       camera.removeChild(key);
       // remove the key from keys array

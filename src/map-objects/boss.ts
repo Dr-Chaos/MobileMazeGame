@@ -14,32 +14,7 @@ import { damagePlayer } from '../player/receive-damage';
 import { isInvulnerable } from '../player/invulnerability';
 import { initializeWinScreen } from '../screens/win';
 import { uninitializeScene } from '../scene';
-
-const bossDamageSound = Sound.from(atlasLoader.bossdamagesound);
-const bossLaughSound = Sound.from(atlasLoader.bosslaughing);
-const bossDeathSound = Sound.from(atlasLoader.burn2);
-const backgroundmusic = Sound.from('/sons/musiques/musicdungeon2.mp3');
-
-backgroundmusic.loop = true;
-backgroundmusic.volume = 1;
-
-let isMusicPlaying = false;
-function playBackgroundMusicLoop() {
-  if (!isMusicPlaying) {
-    backgroundmusic.play();
-    isMusicPlaying = true;
-  }
-}
-
-playBackgroundMusicLoop();
-
-/* const backgroundmusic = Sound.from({
-  url: '/sons/musiques/musicdungeon2.mp3',
-  autoplay: true,
-  complete() {
-    backgroundmusic.play();
-  },
-}); */
+import { sounds } from '../sounds';
 
 const scaling = {
   fireball: 3, // 3
@@ -177,8 +152,8 @@ export function bossGameLoop() {
     boss.sprite.visible = false;
     boss.nored.visible = true;
     boss.nored.play();
-    bossLaughSound.play();
-    bossLaughSound.volume = 4;
+    sounds.bossLaugh.play();
+    sounds.bossLaugh.volume = 4;
   }
 
   // si le boss n'est pas actif, stop l'execution de la fonction
@@ -218,8 +193,8 @@ export function bossGameLoop() {
 
     boss.hurt.visible = true;
     boss.hurt.play();
-    bossDamageSound.play();
-    bossDamageSound.volume = 0.75;
+    sounds.bossDamage.play();
+    sounds.bossDamage.volume = 0.75;
 
     if (boss.life > 0) return;
     console.log('Boss is dead');
@@ -240,13 +215,13 @@ export function bossGameLoop() {
     bossDeathAnimation.zIndex = -1;
     bossDeathAnimation.play();
     camera.addChild(bossDeathAnimation);
-    bossDeathSound.play();
-    bossDeathSound.volume = 2;
+    sounds.burn2.play();
+    sounds.burn2.volume = 2;
 
-    if (isMusicPlaying) {
+    /* if (isMusicPlaying) {
       backgroundmusic.stop();
       isMusicPlaying = false;
-    }
+    } */
 
     app.ticker.remove(bossGameLoop);
     setTimeout(() => {
