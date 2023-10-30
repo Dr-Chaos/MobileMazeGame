@@ -38,7 +38,7 @@ Assets.add({ alias: 'musicwin', src: '/sons/musiques/musicwin.mp3' });
 Assets.add({ alias: 'burn4', src: '/sons/bruitages/burn4.wav' });
 Assets.add({ alias: 'deathsound', src: '/sons/bruitages/playerdeath.ogg' });
 Assets.add({ alias: 'bossdoorsound', src: '/sons/bruitages/boss_door.wav' });
-
+Assets.add({ alias: 'bossdamageanimation', src: '/boss/bossdamage/bossdamage.json' });
 const aliases = [
   'map',
   'witchIdle',
@@ -79,6 +79,7 @@ const aliases = [
   'burn4',
   'deathsound',
   'bossdoorsound',
+  'bossdamageanimation',
 ];
 
 type AtlasLoader = Record<string, { animations: Record<string, Texture[]>; textures: Record<string, Texture> }> & Record<string, FontFace>;

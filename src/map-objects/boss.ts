@@ -2,6 +2,7 @@ import {
   AnimatedSprite, BackgroundSystem, Container, Graphics,
 } from 'pixi.js';
 import { Sound } from '@pixi/sound';
+import * as PIXI from 'pixi.js';
 import { camera } from '../camera';
 import app from '../pixi/initialize';
 import { isColliding } from '../math/collisions';
@@ -186,17 +187,37 @@ export function bossGameLoop() {
     if (isColliding(player.hitbox, fireballCorrectionWithOffsets) && !isInvulnerable()) damagePlayer(1);
   }
 
+  const bossIsHurt = new AnimatedSprite(atlasLoader.bossdamageanimation.animations.bossdamage);
+
   // si la fireball du joueur entre en collision avec le boss
   if (isColliding(boss.sprite, playerFireball)) {
+    bossnoredanimation.stop();
     boss.life -= 1;
     console.log('Boss takes damage');
+    bossIsHurt.x = boss.sprite.x;
+    bossIsHurt.y = boss.sprite.y;
+    bossIsHurt.scale.set(scaling.boss);
+    bossIsHurt.position.set(boss.sprite.x, boss.sprite.y); // la position de l'animation doit correspondre à celle du boss
+    bossIsHurt.animationSpeed = 0.1;
+    bossIsHurt.loop = false;
+    bossIsHurt.zIndex = -1;
+    bossIsHurt.onComplete = function () {
+      camera.removeChild(bossIsHurt);
+      bossnoredanimation.play();
+      camera.addChild(bossnoredanimation);
+    };
+
+    camera.addChild(bossIsHurt);
+    bossIsHurt.play();
     bossDamageSound.play();
     bossDamageSound.volume = 0.75;
+
     if (boss.life > 0) return;
     console.log('Boss is dead');
     camera.removeChild(boss.sprite);
     camera.removeChild(bossnoredanimation);
     camera.removeChild(boss.fireballsContainer);
+    camera.removeChild(bossIsHurt);
 
     // Jouer l'animation de mort
     const bossDeathAnimation = new AnimatedSprite(atlasLoader.bossDeath.animations.bossdeath);
@@ -212,6 +233,7 @@ export function bossGameLoop() {
     camera.addChild(bossDeathAnimation);
     bossDeathSound.play();
     bossDeathSound.volume = 2;
+
     if (isMusicPlaying) {
       backgroundmusic.stop();
       isMusicPlaying = false;
