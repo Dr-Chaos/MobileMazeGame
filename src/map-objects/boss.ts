@@ -183,6 +183,7 @@ export function bossGameLoop() {
     boss.nored.stop();
     boss.nored.visible = false;
     boss.hurt.visible = true;
+    boss.hurt.animationSpeed = 1;
     boss.hurt.onLoop = () => {
       boss.hurt.visible = false;
       if (boss.life > 0) {
