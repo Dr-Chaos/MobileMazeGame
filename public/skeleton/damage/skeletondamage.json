@@ -1,0 +1,11 @@
+{
+  "meta": { "image": "skeletondamage.png", "size": { "w": 54, "h": 16 }, "scale": "1" },
+  "frames": {
+    "skeletondamage-1.png": { "frame": { "x": 0, "y": 0, "w": 18, "h": 16 } },
+    "skeletondamage-2.png": { "frame": { "x": 18, "y": 0, "w": 18, "h": 16 } },
+    "skeletondamage-3.png": { "frame": { "x": 36, "y": 0, "w": 18, "h": 16 } }
+  },
+  "animations": {
+    "default": ["skeletondamage-1.png", "skeletondamage-2.png", "skeletondamage-3.png"]
+  }
+}

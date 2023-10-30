@@ -10,6 +10,7 @@ Assets.add({ alias: 'torch', src: '/torch/torch.json' });
 Assets.add({ alias: 'key', src: '/key/key.json' });
 Assets.add({ alias: 'skeletonIdle', src: '/skeleton/idle/skeleton.json' });
 Assets.add({ alias: 'skeletonWalk', src: '/skeleton/walk/skeletonwalk.json' });
+Assets.add({ alias: 'skeletonDamage', src: '/skeleton/damage/skeletondamage.json' });
 Assets.add({ alias: 'skeletonDeath', src: '/skeleton/death/skeletondeath.json' });
 Assets.add({ alias: 'skull', src: '/skull/skull.json' });
 Assets.add({ alias: 'lever', src: '/lever/lever.json' });
@@ -32,6 +33,7 @@ const aliases = [
   'torch',
   'key',
   'skeletonIdle',
+  'skeletonDamage',
   'skeletonWalk',
   'skeletonDeath',
   'skull',
