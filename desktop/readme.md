@@ -20,3 +20,5 @@ You windows folder must be like:
 |        | index.html
 |        | all other dist files
 ```
+
+5. Edit `nw.exe` with `CFF Explorer` to change replace the original nwjs ico with `nwjs.ico`
