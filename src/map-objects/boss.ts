@@ -89,7 +89,7 @@ export function createBoss(x: number, y: number) {
   boss.nored.visible = false;
   camera.addChild(boss.nored);
 
-  bossRadius = 100;
+  bossRadius = 80;
   bossAngle = 0;
   bossAngle1 = 0.5;
   bossAngle2 = Math.PI;
@@ -127,19 +127,19 @@ function moveBossFireballs() {
   let y = bossRadius * Math.sin(bossAngle);
   fireballOne.position.set(x + 10, y + 20);
   fireballOneDraw.position.set(x + 10, y + 20);
-  bossAngle += 0.09 / 2;
+  bossAngle += 0.09;
 
   x = bossRadius * Math.cos(bossAngle1);
   y = bossRadius * Math.sin(bossAngle1);
   fireballTwo.position.set(x + 15, y + 15);
   fireballTwoDraw.position.set(x + 15, y + 15);
-  bossAngle1 += 0.07 / 2;
+  bossAngle1 += 0.07;
 
   x = bossRadius * Math.cos(bossAngle2);
   y = bossRadius * Math.sin(bossAngle2);
   fireballThree.position.set(x + 25, y + 10);
   fireballThreeDraw.position.set(x + 25, y + 10);
-  bossAngle2 += 0.07 / 2;
+  bossAngle2 += 0.07;
 }
 
 export function bossGameLoop() {

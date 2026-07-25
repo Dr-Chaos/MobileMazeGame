@@ -2,3 +2,6 @@ node_modules
 map.tiled-session
 dist
 .yarn
+desktop/windows
+desktop/nwjs-v0.81.0-win-x64.zip
+mobile/android

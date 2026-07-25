@@ -2,6 +2,7 @@ import topLevelAwait from 'vite-plugin-top-level-await';
 import legacy from '@vitejs/plugin-legacy';
 
 export default {
+  base: './',
   plugins: [
     topLevelAwait({
       // The export name of top-level await promise for each chunk module

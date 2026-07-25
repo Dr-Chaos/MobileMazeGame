@@ -1,0 +1,21 @@
+{
+  "name": "mobile",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "add:android": "cap add android",
+    "build:android": "cap sync && cd android && gradlew assembleDebug",
+    "generate:assets:android": "npx @capacitor/assets generate --android --iconBackgroundColor #3d253b --iconBackgroundColorDark #3d253b --splashBackgroundColor #3d253b --splashBackgroundColorDark #3d253b"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^5.5.1",
+    "@capacitor/assets": "^3.0.1",
+    "@capacitor/cli": "^5.5.1",
+    "@capacitor/core": "^5.5.1",
+    "@capacitor/ios": "^5.5.1"
+  }
+}
